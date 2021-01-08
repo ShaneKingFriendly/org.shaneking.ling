@@ -1,0 +1,107 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.shaneking</groupId>
+    <artifactId>org.shaneking</artifactId>
+    <version>0.241.1</version>
+    <relativePath>../org.shaneking</relativePath>
+  </parent>
+
+  <groupId>org.shaneking.ling</groupId>
+  <artifactId>org.shaneking.ling</artifactId>
+  <version>0.241.1.1</version>
+  <packaging>pom</packaging>
+
+  <name>org.shaneking.ling</name>
+  <description>ShaneKing Java Base Library</description>
+  <url>https://github.com/ShaneKingOrg/org.shaneking.ling</url>
+  <inceptionYear>2011-2021</inceptionYear>
+
+  <organization>
+    <name>ShaneKingOrg</name>
+    <url>https://github.com/ShaneKingOrg</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>ShaneKing</id>
+      <name>ShaneKing</name>
+      <email>github@shaneking.org</email>
+      <url>https://github.com/ShaneKing</url>
+      <organization>ShaneKingOrg</organization>
+      <organizationUrl>https://github.com/ShaneKingOrg</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+8</timezone>
+      <properties>
+        <dept>No</dept>
+      </properties>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Azolla</name>
+      <email>github@azolla.org</email>
+      <url>https://github.com/Azolla</url>
+      <organization>AzollaOrg</organization>
+      <organizationUrl>https://github.com/AzollaOrg</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+8</timezone>
+      <properties>
+        <dept>No</dept>
+      </properties>
+    </contributor>
+    <contributor>
+      <name>Maogu</name>
+      <email>github@maogu.org</email>
+      <url>https://github.com/Maogu</url>
+      <organization>MaoguOrg</organization>
+      <organizationUrl>https://github.com/MaoguOrg</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+8</timezone>
+      <properties>
+        <dept>No</dept>
+      </properties>
+    </contributor>
+  </contributors>
+
+  <scm>
+    <connection>scm:git:git@github.com:ShaneKingOrg/org.shaneking.ling.git</connection>
+    <developerConnection>scm:git:git@github.com:ShaneKingOrg/org.shaneking.ling.git</developerConnection>
+    <url>https://github.com/ShaneKingOrg/org.shaneking.ling</url>
+  </scm>
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/ShaneKingOrg/org.shaneking.ling/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Travis-CI</system>
+    <url>https://travis-ci.org/ShaneKingOrg/org.shaneking.ling</url>
+  </ciManagement>
+
+  <properties>
+
+  </properties>
+
+  <!-- mvn -N versions:set -DgenerateBackupPoms=false -DnewVersion=0.241.1.1 -->
+  <!-- Unused : mvn -N versions:update-child-modules -->
+  <modules>
+    <module>org.shaneking.ling.zero</module>
+    <module>org.shaneking.ling.test</module>
+    <module>org.shaneking.ling.guava</module>
+    <module>org.shaneking.ling.jackson</module>
+  </modules>
+
+</project>
