@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.shaneking.ling</groupId>
     <artifactId>org.shaneking.ling</artifactId>
-    <version>0.241.1.1</version>
+    <version>0.241.1</version>
   </parent>
 
   <artifactId>org.shaneking.ling.jackson</artifactId>
-  <version>0.241.1.1</version>
+  <version>0.241.1</version>
   <packaging>jar</packaging>
 
   <name>org.shaneking.ling.jackson</name>
@@ -36,16 +36,15 @@
       <artifactId>jackson-databind</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
+      <groupId>org.shaneking.ling</groupId>
+      <artifactId>org.shaneking.ling.zero</artifactId>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
+      <groupId>org.shaneking.ling</groupId>
+      <artifactId>org.shaneking.ling.test</artifactId>
+      <version>${project.parent.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

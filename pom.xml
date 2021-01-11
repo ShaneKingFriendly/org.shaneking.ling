@@ -11,7 +11,7 @@
 
   <groupId>org.shaneking.ling</groupId>
   <artifactId>org.shaneking.ling</artifactId>
-  <version>0.241.1.1</version>
+  <version>0.241.1</version>
   <packaging>pom</packaging>
 
   <name>org.shaneking.ling</name>
@@ -98,10 +98,12 @@
   <!-- mvn -N versions:set -DgenerateBackupPoms=false -DnewVersion=0.241.1.1 -->
   <!-- Unused : mvn -N versions:update-child-modules -->
   <modules>
-    <module>org.shaneking.ling.zero</module>
-    <module>org.shaneking.ling.test</module>
-    <module>org.shaneking.ling.guava</module>
+    <module>org.shaneking.ling.entity</module>
     <module>org.shaneking.ling.jackson</module>
+    <module>org.shaneking.ling.jsqlparser</module>
+    <module>org.shaneking.ling.rr</module>
+    <module>org.shaneking.ling.test</module>
+    <module>org.shaneking.ling.zero</module>
   </modules>
 
 </project>
