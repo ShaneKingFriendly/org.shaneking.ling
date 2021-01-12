@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.zero.lang.AC0;
 import org.shaneking.ling.zero.lang.String0;
-import org.shaneking.ling.zero.util.FixedSizeArrayList;
+import org.shaneking.ling.zero.util.FixedList;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,7 +37,7 @@ public class Runtime0Callable implements Callable<List<String>> {
 
   @Override
   public List<String> call() throws Exception {
-    List<String> rtnList = new FixedSizeArrayList<String>(maxRecordSize);
+    List<String> rtnList = new FixedList<String>(maxRecordSize);
     rtnList.add(MessageFormat.format("===B:errorStream={0},value4pause={1},pauseFlag={2}===", errorStream, value4pause, pauseFlag));
 
     LineNumberReader lineNumberReader = null;

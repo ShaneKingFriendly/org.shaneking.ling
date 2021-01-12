@@ -33,6 +33,10 @@ public class OM3 {
     return OM;
   }
 
+  /*
+  ThreadLocal is not perfect in spring mvc env.
+   */
+  @Deprecated
   public static ObjectMapper omWithCtx() {
     return appendCtxIgnoredFilter(om());
   }
@@ -42,10 +46,18 @@ public class OM3 {
     return OM;
   }
 
+  /*
+  ThreadLocal is not perfect in spring mvc env.
+   */
+  @Deprecated
   public static ObjectMapper omWithCtx(@NonNull ObjectMapper objectMapper) {
     return appendCtxIgnoredFilter(om(objectMapper));
   }
 
+  /*
+  ThreadLocal is not perfect in spring mvc env.
+   */
+  @Deprecated
   public static ObjectMapper appendCtxIgnoredFilter(@NonNull ObjectMapper objectMapper) {
     FilterProvider filterProvider = objectMapper.getSerializationConfig().getFilterProvider();
     if (filterProvider == null) {

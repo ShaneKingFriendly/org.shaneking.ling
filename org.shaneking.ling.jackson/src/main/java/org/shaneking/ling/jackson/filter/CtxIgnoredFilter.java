@@ -9,6 +9,10 @@ import org.shaneking.ling.jackson.ctx.JacksonCtx;
 import java.io.Serializable;
 import java.util.Arrays;
 
+/*
+ThreadLocal is not perfect in spring mvc env.
+ */
+@Deprecated
 public class CtxIgnoredFilter extends SimpleBeanPropertyFilter implements Serializable {
   public static final String FILTER_NAME = CtxIgnoredFilter.class.getName();
 

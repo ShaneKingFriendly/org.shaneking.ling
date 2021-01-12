@@ -95,7 +95,7 @@
 
   </properties>
 
-  <!-- mvn -N versions:set -DgenerateBackupPoms=false -DnewVersion=0.241.1.1 -->
+  <!-- mvn -N versions:set -DgenerateBackupPoms=false -DnewVersion=0.241.1 -->
   <!-- Unused : mvn -N versions:update-child-modules -->
   <modules>
     <module>org.shaneking.ling.entity</module>

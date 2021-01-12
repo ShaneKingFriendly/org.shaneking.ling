@@ -1,7 +1,7 @@
 package org.shaneking.ling.zero.lang;
 
 import lombok.extern.slf4j.Slf4j;
-import org.shaneking.ling.zero.util.FixedSizeArrayList;
+import org.shaneking.ling.zero.util.FixedList;
 import org.shaneking.ling.zero.util.concurrent.Runtime0Callable;
 
 import java.util.List;
@@ -37,12 +37,12 @@ public class Runtime0 {
   }
 
   public static List<String> exec(String command, long timeout, boolean value4pause, String pauseFlag) {
-    return exec(command, timeout, value4pause, pauseFlag, FixedSizeArrayList.DEFAULT_SIZE);
+    return exec(command, timeout, value4pause, pauseFlag, FixedList.DEFAULT_SIZE);
   }
 
   public static List<String> exec(String command, long timeout, boolean value4pause, String pauseFlag, int maxRecordSize) {
     log.info(command);
-    List<String> rtnList = new FixedSizeArrayList<String>(maxRecordSize);
+    List<String> rtnList = new FixedList<>(maxRecordSize);
 
     if (!String0.isNull2Empty(command)) {
       Process process = null;

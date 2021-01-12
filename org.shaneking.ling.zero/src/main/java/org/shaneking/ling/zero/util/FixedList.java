@@ -3,15 +3,15 @@ package org.shaneking.ling.zero.util;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class FixedSizeArrayList<E> extends ArrayList<E> {
+public class FixedList<E> extends ArrayList<E> {
   public static final int DEFAULT_SIZE = 1300;
-  private int fixedSize = DEFAULT_SIZE;
+  private final int fixedSize;
 
-  public FixedSizeArrayList() {
+  public FixedList() {
     this(DEFAULT_SIZE);
   }
 
-  public FixedSizeArrayList(int fixedSize) {
+  public FixedList(int fixedSize) {
     super();
     this.fixedSize = fixedSize;
   }

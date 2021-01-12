@@ -6,20 +6,21 @@ import org.shaneking.ling.zero.lang.Boolean0;
 import java.time.Duration;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.function.LongSupplier;
 
 import static java.util.concurrent.TimeUnit.*;
 
 public class Stopwatch0 {
-  private final Ticker0 ticker;
+  private final LongSupplier ticker;
   private boolean isRunning;
   private long elapsedNanos;
   private long startTick;
 
   Stopwatch0() {
-    ticker = Ticker0.systemTicker();
+    ticker = System::nanoTime;
   }
 
-  Stopwatch0(@NonNull Ticker0 ticker) {
+  Stopwatch0(@NonNull LongSupplier ticker) {
     this.ticker = ticker;
   }
 
@@ -27,7 +28,7 @@ public class Stopwatch0 {
     return new Stopwatch0();
   }
 
-  public static Stopwatch0 createUnstarted(Ticker0 ticker) {
+  public static Stopwatch0 createUnstarted(LongSupplier ticker) {
     return new Stopwatch0(ticker);
   }
 
@@ -35,7 +36,7 @@ public class Stopwatch0 {
     return new Stopwatch0().start();
   }
 
-  public static Stopwatch0 createStarted(Ticker0 ticker) {
+  public static Stopwatch0 createStarted(LongSupplier ticker) {
     return new Stopwatch0(ticker).start();
   }
 
@@ -89,12 +90,12 @@ public class Stopwatch0 {
   public Stopwatch0 start() {
     Boolean0.checkState(!isRunning, "This stopwatch is already running.");
     isRunning = true;
-    startTick = ticker.read();
+    startTick = ticker.getAsLong();
     return this;
   }
 
   public Stopwatch0 stop() {
-    long tick = ticker.read();
+    long tick = ticker.getAsLong();
     Boolean0.checkState(isRunning, "This stopwatch is already stopped.");
     isRunning = false;
     elapsedNanos += tick - startTick;
@@ -108,7 +109,7 @@ public class Stopwatch0 {
   }
 
   private long elapsedNanos() {
-    return isRunning ? ticker.read() - startTick + elapsedNanos : elapsedNanos;
+    return isRunning ? ticker.getAsLong() - startTick + elapsedNanos : elapsedNanos;
   }
 
   public long elapsed(TimeUnit desiredUnit) {
