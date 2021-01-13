@@ -1,5 +1,6 @@
 package org.shaneking.ling.zero.util;
 
+import lombok.NonNull;
 import org.shaneking.ling.zero.lang.ZeroException;
 
 import java.util.LinkedHashMap;
@@ -22,7 +23,7 @@ public class LruMap<K, V> extends LinkedHashMap<K, V> {
     this(tableSize, 0.75f, true, maxSize);
   }
 
-  public V get(K key, Callable<V> callable) {
+  public V get(K key, @NonNull Callable<V> callable) {
     V v = get(key);
     if (v == null) {
       try {

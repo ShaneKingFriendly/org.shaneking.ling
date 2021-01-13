@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Map0 {
-
   public static <K, V> HashMap<K, V> newHashMap() {
     return new HashMap<K, V>();
   }

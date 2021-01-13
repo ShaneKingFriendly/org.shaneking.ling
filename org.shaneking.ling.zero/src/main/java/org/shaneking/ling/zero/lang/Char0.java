@@ -97,11 +97,11 @@ public class Char0 {
     return String0.ALPHABET.contains(String.valueOf(c));
   }
 
-  public static boolean isDigital(char c) {
-    return String0.DIGITAL.contains(String.valueOf(c));
-  }
-
   public static boolean isAlphabetOrDigital(char c) {
     return isAlphabet(c) || isDigital(c);
+  }
+
+  public static boolean isDigital(char c) {
+    return String0.DIGITAL.contains(String.valueOf(c));
   }
 }

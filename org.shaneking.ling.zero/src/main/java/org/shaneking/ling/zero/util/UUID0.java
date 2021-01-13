@@ -56,11 +56,6 @@ public class UUID0 {
       digits(uuid.getLeastSignificantBits(), 12);
   }
 
-  private static String digits(long val, int digits) {
-    long hi = 1L << (digits * 4);
-    return to62String(hi | (val & (hi - 1)), MAX_RADIX).substring(1);
-  }
-
   protected static String to62String(long i, int radix) {
     int reRadix = radix;
     if (reRadix < MIN_RADIX || reRadix > MAX_RADIX)
@@ -87,5 +82,10 @@ public class UUID0 {
       buf[--charPos] = '-';
     }
     return new String(buf, charPos, (size - charPos));
+  }
+
+  private static String digits(long val, int digits) {
+    long hi = 1L << (digits * 4);
+    return to62String(hi | (val & (hi - 1)), MAX_RADIX).substring(1);
   }
 }

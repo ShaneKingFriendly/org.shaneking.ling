@@ -4,15 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.zero.lang.String0;
-import org.shaneking.ling.zero.lang.ZeroException;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Accessors(chain = true)
-@Slf4j
 @ToString
 public class Date0 {
   public static final String H_MI_S = "HH:mm:ss";
@@ -35,18 +33,14 @@ public class Date0 {
 
   @Getter
   @Setter
-  private Date date = new Date();
+  private Date date;
 
   private Date0(Date date) {
     this.date = date;
   }
 
-  public static Date now() {
-    return new Date();
-  }
-
   public static Date0 on() {
-    return Date0.on(Date0.now());
+    return Date0.on(new Date());
   }
 
   public static Date0 on(Date date) {
@@ -85,17 +79,12 @@ public class Date0 {
     return new SimpleDateFormat(pattern).format(this.getDate());
   }
 
-  public Date0 parse(String s) {
+  public Date0 parse(String s) throws ParseException {
     return parse(Y_M_D, s);
   }
 
-  public Date0 parse(String pattern, String s) {
-    try {
-      return this.setDate(new SimpleDateFormat(pattern).parse(s));
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      throw new ZeroException(e);
-    }
+  public Date0 parse(String pattern, String s) throws ParseException {
+    return this.setDate(new SimpleDateFormat(pattern).parse(s));
   }
 
   public String time() {

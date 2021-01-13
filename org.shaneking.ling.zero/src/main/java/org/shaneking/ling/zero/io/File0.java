@@ -5,9 +5,8 @@ import org.shaneking.ling.zero.lang.String0;
 import java.io.File;
 
 public class File0 {
-  public static final String ILLEGAL_FILENAME_REGEX = "[{/\\\\:*?\"<>|}]";
   public static final int DEFAULT_BUFFER_SIZE = 256 * 1024;
-
+  public static final String ILLEGAL_FILENAME_REGEX = "[{/\\\\:*?\"<>|}]";
   //Text
   public static final String TYPE_ASP = "asp";
   public static final String TYPE_CLASSPATH = "classpath";
@@ -87,7 +86,6 @@ public class File0 {
   //Others
   public static final String TYPE_ASF = "asf";
   public static final String TYPE_TMP = "tmp";
-
 
   public static File join(File parent, String... strings) {
     return join(File.separator, parent, strings);

@@ -1,5 +1,7 @@
 package org.shaneking.ling.zero.util;
 
+import lombok.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -34,7 +36,7 @@ public class FixedList<E> extends ArrayList<E> {
     super.add(Math.min(index, this.size()), element);
   }
 
-  public boolean addAll(Collection<? extends E> c) {
+  public boolean addAll(@NonNull Collection<? extends E> c) {
     int needRemoveSize = this.size() + c.size() - fixedSize;
     if (needRemoveSize > 0) {
       this.subList(0, Math.min(this.size(), needRemoveSize)).clear();
@@ -42,7 +44,7 @@ public class FixedList<E> extends ArrayList<E> {
     return super.addAll(c);
   }
 
-  public boolean addAll(int index, Collection<? extends E> c) {
+  public boolean addAll(int index, @NonNull Collection<? extends E> c) {
     int needRemoveSize = this.size() + c.size() - fixedSize;
     if (needRemoveSize > 0) {
       if (c.size() > fixedSize) {

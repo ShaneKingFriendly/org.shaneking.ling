@@ -4,11 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.zero.util.FixedList;
 import org.shaneking.ling.zero.util.concurrent.Runtime0Callable;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 @Slf4j
 public class Runtime0 {
@@ -56,7 +54,7 @@ public class Runtime0 {
         rtnList.addAll(iFuture.get(timeout, TimeUnit.MINUTES));
         rtnList.addAll(eFuture.get(timeout, TimeUnit.MINUTES));
         rtnList.add("process.waitFor()=" + process.waitFor());
-      } catch (Exception e) {
+      } catch (IOException | InterruptedException | ExecutionException | TimeoutException e) {
         log.error(e.getMessage(), e);
         rtnList.add(e.toString());
       } finally {

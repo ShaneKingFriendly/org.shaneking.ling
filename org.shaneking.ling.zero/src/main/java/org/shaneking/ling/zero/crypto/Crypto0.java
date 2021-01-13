@@ -1,16 +1,18 @@
 package org.shaneking.ling.zero.crypto;
 
+import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.lang.ZeroException;
 import org.shaneking.ling.zero.security.Key0;
 import org.shaneking.ling.zero.util.Hex0;
 import org.shaneking.ling.zero.util.LruMap;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.text.MessageFormat;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -20,18 +22,19 @@ import java.util.UUID;
 public class Crypto0 {
   //ILoveYou
   public static final String DEFAULT_SALT = "494c6f7665596f75";
+
   private static final LruMap<String, Cipher> SALT_DECRYPT_MAP = new LruMap<>(13);
   private static final LruMap<String, Cipher> SALT_ENCRYPT_MAP = new LruMap<>(13);
 
-  public static String aesDecrypt(String encrypted) throws Exception {
+  public static String aesDecrypt(String encrypted) throws BadPaddingException, IllegalBlockSizeException {
     return aesDecrypt(encrypted, DEFAULT_SALT);
   }
 
-  public static String aesDecrypt(String encrypted, String salt) throws Exception {
+  public static String aesDecrypt(String encrypted, String salt) throws BadPaddingException, IllegalBlockSizeException {
     return aesDecrypt(encrypted, salt, StandardCharsets.UTF_8);
   }
 
-  public static String aesDecrypt(String encrypted, String salt, Charset charset) throws Exception {
+  public static String aesDecrypt(String encrypted, String salt, Charset charset) throws BadPaddingException, IllegalBlockSizeException {
     return new String(SALT_DECRYPT_MAP.get(salt, () -> {
 //      KeyGenerator.getInstance(Key0.AES).init(128);
       Cipher cipher = Cipher.getInstance(Cipher0.AES_ECB_PKCS5Padding);
@@ -40,15 +43,15 @@ public class Crypto0 {
     }).doFinal(Base64.getDecoder().decode(encrypted)));
   }
 
-  public static String aesEncrypt(String content) throws Exception {
+  public static String aesEncrypt(String content) throws BadPaddingException, IllegalBlockSizeException {
     return aesEncrypt(content, DEFAULT_SALT);
   }
 
-  public static String aesEncrypt(String content, String salt) throws Exception {
+  public static String aesEncrypt(String content, String salt) throws BadPaddingException, IllegalBlockSizeException {
     return aesEncrypt(content, salt, StandardCharsets.UTF_8);
   }
 
-  public static String aesEncrypt(String content, String salt, Charset charset) throws Exception {
+  public static String aesEncrypt(@NonNull String content, String salt, Charset charset) throws BadPaddingException, IllegalBlockSizeException {
     return Base64.getEncoder().encodeToString(SALT_ENCRYPT_MAP.get(salt, () -> {
 //      KeyGenerator.getInstance(Key0.AES).init(128);
       Cipher cipher = Cipher.getInstance(Cipher0.AES_ECB_PKCS5Padding);
@@ -63,7 +66,7 @@ public class Crypto0 {
 
   public static String genKey(String eightLengthString) {
     if (String0.isNull2Empty(eightLengthString) || eightLengthString.length() != 8) {
-      throw new ZeroException(MessageFormat.format("Must 8 length string : {0}", String.valueOf(eightLengthString)));
+      throw new ZeroException("Must 8 length string : " + eightLengthString);
     }
     return Hex0.encodeHexString(eightLengthString.getBytes());
   }

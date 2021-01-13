@@ -2,30 +2,22 @@ package org.shaneking.ling.zero.time;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
 import org.shaneking.ling.zero.util.Date0;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Accessors(chain = true)
-@ToString
 public class ZonedDateTime0 {
   @Getter
   @Setter
-  private ZonedDateTime zonedDateTime = ZonedDateTime.now();
+  private ZonedDateTime zonedDateTime;
 
   private ZonedDateTime0(ZonedDateTime zonedDateTime) {
     this.zonedDateTime = zonedDateTime;
   }
 
-  public static ZonedDateTime now() {
-    return ZonedDateTime.now();
-  }
-
   public static ZonedDateTime0 on() {
-    return ZonedDateTime0.on(ZonedDateTime0.now());
+    return ZonedDateTime0.on(ZonedDateTime.now());
   }
 
   public static ZonedDateTime0 on(ZonedDateTime zonedDateTime) {

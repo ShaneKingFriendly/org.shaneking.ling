@@ -5,16 +5,16 @@ public class Hex0 {
 
   private static final char[] DIGITS_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-  public static String encodeHexString(final byte[] data) {
-    return new String(encodeHex(data));
-  }
-
   public static char[] encodeHex(final byte[] data) {
     return encodeHex(data, true);
   }
 
   public static char[] encodeHex(final byte[] data, final boolean toLowerCase) {
     return encodeHex(data, toLowerCase ? DIGITS_LOWER : DIGITS_UPPER);
+  }
+
+  public static String encodeHexString(final byte[] data) {
+    return new String(encodeHex(data));
   }
 
   protected static char[] encodeHex(final byte[] data, final char[] toDigits) {

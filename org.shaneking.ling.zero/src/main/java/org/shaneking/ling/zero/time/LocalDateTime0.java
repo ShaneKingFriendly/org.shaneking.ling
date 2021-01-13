@@ -14,18 +14,14 @@ import java.time.format.DateTimeFormatter;
 public class LocalDateTime0 {
   @Getter
   @Setter
-  private LocalDateTime localDateTime = LocalDateTime.now();
+  private LocalDateTime localDateTime;
 
   private LocalDateTime0(LocalDateTime localDateTime) {
     this.localDateTime = localDateTime;
   }
 
-  public static LocalDateTime now() {
-    return LocalDateTime.now();
-  }
-
   public static LocalDateTime0 on() {
-    return LocalDateTime0.on(LocalDateTime0.now());
+    return LocalDateTime0.on(LocalDateTime.now());
   }
 
   public static LocalDateTime0 on(LocalDateTime localDateTime) {

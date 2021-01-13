@@ -5,23 +5,36 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AC0 {
   public static boolean close(AutoCloseable autoCloseable) {
+    return close(autoCloseable, true);
+  }
+
+  public static boolean close(AutoCloseable autoCloseable, boolean quietly) {
     boolean rtn = true;
     if (autoCloseable != null) {
       try {
         autoCloseable.close();
       } catch (Exception e) {
-        log.error(e.getMessage(), e);
-        rtn = false;
+        if (quietly) {
+          log.error(e.getMessage(), e);
+          rtn = false;
+        } else {
+          throw new ZeroException(e);
+        }
       }
     }
     return rtn;
   }
 
   public static boolean close(AutoCloseable autoCloseable, int times) {
-    boolean rtn = close(autoCloseable);
-    if (!rtn && times > 0) {
-      rtn = close(autoCloseable, --times);
+    return close(autoCloseable, true, times);
+  }
+
+  public static boolean close(AutoCloseable autoCloseable, boolean lastQuietly, int times) {
+    boolean closed = false;
+    while (!closed && times > 0) {
+      closed = close(autoCloseable, true);
+      times--;
     }
-    return rtn;
+    return closed ? closed : close(autoCloseable, lastQuietly);
   }
 }

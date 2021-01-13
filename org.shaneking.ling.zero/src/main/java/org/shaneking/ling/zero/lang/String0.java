@@ -4,6 +4,7 @@ import lombok.NonNull;
 import org.shaneking.ling.zero.util.List0;
 
 import java.util.Arrays;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -110,32 +111,32 @@ public class String0 {
 
   //first_name -&gt; firstName
   public static String dbColumn2Field(String string) {
-    return dbColumn2Field(string, String0.UNDERLINE);
+    return dbColumn2Field(string, UNDERLINE);
   }
 
   public static String dbColumn2Field(String string, String with) {
-    return String0.lowerFirst(dbColumn2SetField(string, with));
+    return lowerFirst(dbColumn2SetField(string, with));
   }
 
   //first_name -&gt; FirstName
   public static String dbColumn2SetField(String string) {
-    return dbColumn2SetField(string, String0.UNDERLINE);
+    return dbColumn2SetField(string, UNDERLINE);
   }
 
   public static String dbColumn2SetField(@NonNull String string, String with) {
-    return String.join(String0.EMPTY, List0.newArrayList(string.split(with)).stream().map(word -> word.substring(0, 1).toUpperCase() + word.substring(1)).collect(Collectors.toList()));
+    return String.join(EMPTY, List0.newArrayList(string.split(with)).stream().map(word -> word.substring(0, 1).toUpperCase() + word.substring(1)).collect(Collectors.toList()));
   }
 
   //firstName -&gt; first_name
   public static String field2DbColumn(String string) {
-    return field2DbColumn(string, String0.UNDERLINE);
+    return field2DbColumn(string, UNDERLINE);
   }
 
   public static String field2DbColumn(@NonNull String string, String with) {
-    return String.join(String0.EMPTY, List0.newArrayList(string.split(String0.EMPTY)).stream().map(alphabet -> alphabet.equals(alphabet.toUpperCase()) ? with + alphabet.toLowerCase() : alphabet).collect(Collectors.toList()));
+    return String.join(EMPTY, List0.newArrayList(string.split(EMPTY)).stream().map(alphabet -> alphabet.equals(alphabet.toUpperCase()) ? with + alphabet.toLowerCase() : alphabet).collect(Collectors.toList()));
   }
 
-  public static String format(@NonNull String pattern, Object... args) {
+  public static String format(@NonNull String pattern, @NonNull Object... args) {
     String rePattern = pattern;
     Matcher m = Pattern.compile("\\{(\\d)\\}").matcher(rePattern);
     while (m.find()) {
@@ -156,30 +157,46 @@ public class String0 {
     return s.substring(0, 1).toLowerCase() + s.substring(1);
   }
 
-  public static String notNull2EmptyTo(String s, @NonNull String d) {
+  public static String notNull2EmptyTo(String s, String d) {
     return isNull2Empty(s) ? s : d;
   }
 
-  public static String notNullOrEmptyTo(String s, @NonNull String d) {
-    return String0.isNullOrEmpty(s) ? s : d;
+  public static String notNull2EmptyTo(String s, @NonNull Supplier<String> ss) {
+    return isNull2Empty(s) ? s : ss.get();
   }
 
-  public static String null2EmptyTo(String s, @NonNull String d) {
+  public static String notNullOrEmptyTo(String s, String d) {
+    return isNullOrEmpty(s) ? s : d;
+  }
+
+  public static String notNullOrEmptyTo(String s, @NonNull Supplier<String> ss) {
+    return isNullOrEmpty(s) ? s : ss.get();
+  }
+
+  public static String null2EmptyTo(String s, String d) {
     return isNull2Empty(s) ? d : s;
   }
 
-  public static String nullOrEmptyTo(String s, @NonNull String d) {
-    return String0.isNullOrEmpty(s) ? d : s;
+  public static String null2EmptyTo(String s, @NonNull Supplier<String> ss) {
+    return isNull2Empty(s) ? ss.get() : s;
+  }
+
+  public static String nullOrEmptyTo(String s, String d) {
+    return isNullOrEmpty(s) ? d : s;
+  }
+
+  public static String nullOrEmptyTo(String s, @NonNull Supplier<String> ss) {
+    return isNullOrEmpty(s) ? ss.get() : s;
   }
 
   public static String nullToEmpty(String s) {
-    return nullOrEmptyTo(s, String0.EMPTY);
+    return nullOrEmptyTo(s, EMPTY);
   }
 
   public static String repeat(String string, int count) {
     String[] array = new String[count];
     Arrays.fill(array, string);
-    return String.join(String0.EMPTY, array);
+    return String.join(EMPTY, array);
   }
 
   public static int sameTotal(@NonNull String s1, @NonNull String s2) {
@@ -194,6 +211,6 @@ public class String0 {
   }
 
   public static String valueOf(Object o) {
-    return o == null ? String0.EMPTY : o.toString();
+    return o == null ? EMPTY : o.toString();
   }
 }

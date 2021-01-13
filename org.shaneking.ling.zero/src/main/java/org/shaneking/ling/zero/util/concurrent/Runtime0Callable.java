@@ -6,6 +6,7 @@ import org.shaneking.ling.zero.lang.AC0;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.FixedList;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -17,14 +18,14 @@ import java.util.concurrent.Callable;
 @Slf4j
 public class Runtime0Callable implements Callable<List<String>> {
   @Getter
-  private final InputStream inputStream;
-  @Getter
   private final boolean errorStream;
   @Getter
-  private final boolean value4pause;//if meet pause, return true or false?
+  private final InputStream inputStream;
+  private final int maxRecordSize;
   @Getter
   private final String pauseFlag;
-  private final int maxRecordSize;
+  @Getter
+  private final boolean value4pause;//if meet pause, return true or false?
 
   public Runtime0Callable(InputStream inputStream, boolean errorStream, boolean value4pause, String pauseFlag, int maxRecordSize) {
     super();
@@ -71,7 +72,7 @@ public class Runtime0Callable implements Callable<List<String>> {
           }
         }
       }
-    } catch (Exception e) {
+    } catch (IOException e) {
       log.error(e.getMessage(), e);
       rtnList.add(e.toString());
     } finally {

@@ -9,7 +9,7 @@ public class List0 {
     return new ArrayList<E>();
   }
 
-  public static <E> ArrayList<E> newArrayList(@NonNull E... elements) {
+  public static <E> ArrayList<E> newArrayList(E... elements) {
     return new ArrayList<E>(Arrays.asList(elements));
   }
 
@@ -25,7 +25,7 @@ public class List0 {
     return rtn;
   }
 
-  public static <E> List<E> reverse(@NonNull List<E> list) {
+  public static <E> List<E> reverse(List<E> list) {
     Collections.reverse(list);
     return list;
   }
