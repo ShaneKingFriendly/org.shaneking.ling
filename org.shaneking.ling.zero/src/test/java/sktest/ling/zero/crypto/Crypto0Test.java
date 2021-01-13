@@ -23,15 +23,12 @@ class Crypto0Test {
       () -> assertThrows(NullPointerException.class, () -> Crypto0.aesEncrypt(null)),
       () -> assertDoesNotThrow(() -> Crypto0.aesEncrypt(String0.EMPTY))
     );
-
-  }
-
-  @Test()
-  void aesEncrypt4Null() throws BadPaddingException, IllegalBlockSizeException {
   }
 
   @Test
   void genKey() {
     assertEquals("494c6f7665596f75", Crypto0.genKey("ILoveYou"));
+    assertNotNull(Crypto0.genKey());
+    assertThrows(IllegalArgumentException.class, () -> Crypto0.genKey("LengthNotEight"));
   }
 }

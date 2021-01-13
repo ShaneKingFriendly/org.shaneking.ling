@@ -2,7 +2,6 @@ package org.shaneking.ling.zero.crypto;
 
 import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
-import org.shaneking.ling.zero.lang.ZeroException;
 import org.shaneking.ling.zero.security.Key0;
 import org.shaneking.ling.zero.util.Hex0;
 import org.shaneking.ling.zero.util.LruMap;
@@ -66,7 +65,7 @@ public class Crypto0 {
 
   public static String genKey(String eightLengthString) {
     if (String0.isNull2Empty(eightLengthString) || eightLengthString.length() != 8) {
-      throw new ZeroException("Must 8 length string : " + eightLengthString);
+      throw new IllegalArgumentException("Must 8 length string : " + eightLengthString);
     }
     return Hex0.encodeHexString(eightLengthString.getBytes());
   }
