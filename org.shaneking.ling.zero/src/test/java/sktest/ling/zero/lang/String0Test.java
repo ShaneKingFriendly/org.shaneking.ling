@@ -67,10 +67,10 @@ class String0Test {
 
   @Test
   void notNullOrEmptyTo() {
-    assertEquals(String0.Y, String0.notNull2EmptyTo(String0.N, String0.Y));
-    assertEquals(String0.Y, String0.notNull2EmptyTo(String0.N, () -> String0.Y));
-    assertEquals(String0.EMPTY, String0.notNull2EmptyTo(String0.EMPTY, String0.Y));
-    assertEquals(String0.EMPTY, String0.notNull2EmptyTo(String0.EMPTY, () -> String0.Y));
+    assertEquals(String0.Y, String0.notNullOrEmptyTo(String0.N, String0.Y));
+    assertEquals(String0.Y, String0.notNullOrEmptyTo(String0.N, () -> String0.Y));
+    assertEquals(String0.EMPTY, String0.notNullOrEmptyTo(String0.EMPTY, String0.Y));
+    assertEquals(String0.EMPTY, String0.notNullOrEmptyTo(String0.EMPTY, () -> String0.Y));
   }
 
   @Test
