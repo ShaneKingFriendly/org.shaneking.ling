@@ -10,12 +10,12 @@ import java.util.concurrent.*;
 
 @Slf4j
 public class Runtime0 {
-  public static final long DEFAULT_TIMEOUT_MINUTES = 33;
+  public static final long DEFAULT_TIMEOUT_SECONDS = 33;
   public static final String PAUSE_FLAG_CMD = ">pause";
   public static final String PAUSE_FLAG_SHELL = ">read -n 1 -p";
 
   public static List<String> exec(String command) {
-    return exec(command, DEFAULT_TIMEOUT_MINUTES);
+    return exec(command, DEFAULT_TIMEOUT_SECONDS);
   }
 
   public static List<String> exec(String command, long timeout) {
@@ -27,11 +27,11 @@ public class Runtime0 {
   }
 
   public static List<String> exec(String command, boolean value4pause, String pauseFlag) {
-    return exec(command, DEFAULT_TIMEOUT_MINUTES, value4pause, pauseFlag);
+    return exec(command, DEFAULT_TIMEOUT_SECONDS, value4pause, pauseFlag);
   }
 
   public static List<String> exec(String command, boolean value4pause, String pauseFlag, int maxRecordSize) {
-    return exec(command, DEFAULT_TIMEOUT_MINUTES, value4pause, pauseFlag, maxRecordSize);
+    return exec(command, DEFAULT_TIMEOUT_SECONDS, value4pause, pauseFlag, maxRecordSize);
   }
 
   public static List<String> exec(String command, long timeout, boolean value4pause, String pauseFlag) {
@@ -51,8 +51,8 @@ public class Runtime0 {
         ExecutorService es = Executors.newFixedThreadPool(2);
         iFuture = es.submit(new Runtime0Callable(process.getInputStream(), false, value4pause, pauseFlag, maxRecordSize));
         eFuture = es.submit(new Runtime0Callable(process.getErrorStream(), true, value4pause, pauseFlag, maxRecordSize));
-        rtnList.addAll(iFuture.get(timeout, TimeUnit.MINUTES));
-        rtnList.addAll(eFuture.get(timeout, TimeUnit.MINUTES));
+        rtnList.addAll(iFuture.get(timeout, TimeUnit.SECONDS));
+        rtnList.addAll(eFuture.get(timeout, TimeUnit.SECONDS));
         rtnList.add("process.waitFor()=" + process.waitFor());
       } catch (IOException | InterruptedException | ExecutionException | TimeoutException e) {
         log.error(e.getMessage(), e);

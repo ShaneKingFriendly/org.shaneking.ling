@@ -210,6 +210,10 @@ public class String0 {
     return rtn;
   }
 
+  public static String upperFirst(@NonNull String s) {
+    return s.substring(0, 1).toUpperCase() + s.substring(1);
+  }
+
   public static String valueOf(Object o) {
     return o == null ? EMPTY : o.toString();
   }

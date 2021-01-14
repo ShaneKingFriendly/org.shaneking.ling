@@ -31,7 +31,8 @@ public class AC0 {
 
   public static boolean close(AutoCloseable autoCloseable, boolean lastQuietly, int times) {
     boolean closed = false;
-    while (!closed && times > 0) {
+//    while (!closed && times > 0) {
+    while (!closed && times > 1) {//last close will with real quietly
       closed = close(autoCloseable, true);
       times--;
     }
