@@ -2,11 +2,13 @@ package org.shaneking.ling.zero.time;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.shaneking.ling.zero.util.Date0;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Accessors(chain = true)
 public class ZonedDateTime0 {
   @Getter
   @Setter
@@ -55,13 +57,14 @@ public class ZonedDateTime0 {
   public String format(String pattern) {
     return this.getZonedDateTime().format(DateTimeFormatter.ofPattern(pattern));
   }
-//  public ZonedDateTime0 parse(String s) {
-//    return parse(Date0.DATE_TIME_SSS, s);
-//  }
-//
-//  public ZonedDateTime0 parse(String pattern, String s) {
-//    return this.setZonedDateTime(ZonedDateTime.parse(s, DateTimeFormatter.ofPattern(pattern)));
-//  }
+
+  public ZonedDateTime0 parse(String s) {
+    return parse(Date0.DATE_TIME_ZONE, s);
+  }
+
+  public ZonedDateTime0 parse(String pattern, String s) {
+    return this.setZonedDateTime(ZonedDateTime.parse(s, DateTimeFormatter.ofPattern(pattern)));
+  }
 
   public String time() {
     return format(Date0.H_MI_S);

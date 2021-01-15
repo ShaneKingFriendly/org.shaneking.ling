@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.concurrent.EvictingQueue;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EvictingQueueTest {
 
@@ -15,7 +17,7 @@ class EvictingQueueTest {
   void offer4WithoutCapacity() {
     EvictingQueue<Integer> evictingQueue = new EvictingQueue<>();
     for (int i = 0; i < 8; i++) {
-      evictingQueue.offer(i);
+      evictingQueue.add(i);
     }
     assertEquals("[0, 1, 2, 3, 4, 5, 6, 7]", String.valueOf(evictingQueue));
   }
@@ -33,10 +35,15 @@ class EvictingQueueTest {
   void addAll() {
     EvictingQueue<Integer> evictingQueue = new EvictingQueue<>(3);
     for (int i = 0; i < 8; i++) {
-      evictingQueue.offer(i);
+      evictingQueue.put(i);
     }
     evictingQueue.addAll(List0.newArrayList(10, 11, 12, 13));
     assertEquals("[11, 12, 13]", String.valueOf(evictingQueue));
+  }
+
+  @Test
+  void offer() {
+    assertTrue(new EvictingQueue<Integer>(3).offer(1, 1000, TimeUnit.MILLISECONDS));
   }
 
   @Test

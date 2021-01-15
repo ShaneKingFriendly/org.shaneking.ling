@@ -2,7 +2,6 @@ package org.shaneking.ling.zero.util;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.shaneking.ling.zero.lang.String0;
 
@@ -11,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Accessors(chain = true)
-@ToString
 public class Date0 {
   public static final String H_MI_S = "HH:mm:ss";
   public static final String HMIS = "HHmmss";

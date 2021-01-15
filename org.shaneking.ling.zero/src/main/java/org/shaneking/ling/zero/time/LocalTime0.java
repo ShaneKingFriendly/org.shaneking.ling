@@ -2,7 +2,6 @@ package org.shaneking.ling.zero.time;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.shaneking.ling.zero.util.Date0;
 
@@ -10,7 +9,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Accessors(chain = true)
-@ToString
 public class LocalTime0 {
   @Getter
   @Setter

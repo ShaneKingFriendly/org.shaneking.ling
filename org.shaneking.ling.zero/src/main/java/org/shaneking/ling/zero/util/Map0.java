@@ -10,6 +10,12 @@ public class Map0 {
     return new HashMap<K, V>();
   }
 
+  public static <K, V> HashMap<K, V> newHashMap(K k, V v) {
+    HashMap<K, V> rtnMap = Map0.newHashMap();
+    rtnMap.put(k, v);
+    return rtnMap;
+  }
+
   public static <K, V> HashMap<K, V> newHashMap(@NonNull List<K> keys, @NonNull List<V> values) {
     HashMap<K, V> rtn = Map0.newHashMap();
     if (keys.size() > values.size()) {

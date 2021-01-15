@@ -3,8 +3,19 @@ package org.shaneking.ling.zero.util;
 import lombok.NonNull;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 public class List0 {
+
+  //like java.util.Collections.nCopies
+  public static <E> ArrayList<E> nCopies(int n, Supplier<E> s) {
+    ArrayList<E> rtnList = List0.newArrayList();
+    for (int i = 0; i < n; i++) {
+      rtnList.add(s.get());
+    }
+    return rtnList;
+  }
+
   public static <E> ArrayList<E> newArrayList() {
     return new ArrayList<E>();
   }
