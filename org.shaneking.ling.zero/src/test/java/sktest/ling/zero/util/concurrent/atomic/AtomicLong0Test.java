@@ -60,7 +60,7 @@ class AtomicLong0Test {
    * Coverage[l = al.longValue();]
    */
   @Test
-  public void tryDecreaseIncreaseFailed() throws Exception {
+  public void tryIncreaseDecreaseFailed() throws Exception {
     final AtomicLong al = new AtomicLong(Runtime.getRuntime().availableProcessors() + 1);
     ExecutorService executorService = Executors.newFixedThreadPool(6 * Runtime.getRuntime().availableProcessors() + 1);
     List<Future<Boolean>> futureList = executorService.invokeAll(List0.nCopies(8 * Runtime.getRuntime().availableProcessors() + 1, () -> SR0.nextInt(10) % 2 == 0 ? new Decrease(al) : new Increase(al)));
@@ -86,7 +86,7 @@ class AtomicLong0Test {
 
     @Override
     public Boolean call() throws Exception {
-      return AtomicLong0.tryDecreaseFailed(al, 0, 1);
+      return AtomicLong0.tryDecreaseFailed(al);
     }
   }
 
@@ -99,7 +99,7 @@ class AtomicLong0Test {
 
     @Override
     public Boolean call() throws Exception {
-      return AtomicLong0.tryIncreaseFailed(al, 2 * Runtime.getRuntime().availableProcessors() + 1, 1);
+      return AtomicLong0.tryIncreaseFailed(al, 2 * Runtime.getRuntime().availableProcessors() + 1);
     }
   }
 }

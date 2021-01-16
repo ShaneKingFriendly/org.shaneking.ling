@@ -39,7 +39,7 @@ public class Runtime0Callable implements Callable<List<String>> {
   @Override
   public List<String> call() throws Exception {
     List<String> rtnList = new FixedList<String>(maxRecordSize);
-    rtnList.add(MessageFormat.format("===B:errorStream={0},value4pause={1},pauseFlag={2}===", errorStream, value4pause, pauseFlag));
+    rtnList.add(MessageFormat.format("===B:errorStream={0},value4pause={1},pauseFlag={2}===", this.isErrorStream(), this.isValue4pause(), this.getPauseFlag()));
 
     LineNumberReader lineNumberReader = null;
     InputStreamReader inputStreamReader = null;
@@ -79,7 +79,7 @@ public class Runtime0Callable implements Callable<List<String>> {
       AC0.close(lineNumberReader);
       AC0.close(inputStreamReader);
     }
-    rtnList.add(MessageFormat.format("===E:errorStream={0},value4pause={1},pauseFlag={2}===", errorStream, value4pause, pauseFlag));
+    rtnList.add(MessageFormat.format("===E:errorStream={0},value4pause={1},pauseFlag={2}===", this.isErrorStream(), this.isValue4pause(), this.getPauseFlag()));
     return rtnList;
   }
 }

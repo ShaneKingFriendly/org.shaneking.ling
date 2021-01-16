@@ -35,7 +35,7 @@ class AC0Test {
   }
 
   @Test
-  void close4Exception() {
+  void close4exception() {
     assertAll(
       () -> assertFalse(AC0.close(new TestCloseable(2))),
       () -> assertThrows(ZeroException.class, () -> AC0.close(new TestCloseable(2), false)),

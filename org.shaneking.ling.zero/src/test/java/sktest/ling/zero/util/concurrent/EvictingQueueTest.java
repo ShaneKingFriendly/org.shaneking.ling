@@ -9,27 +9,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EvictingQueueTest {
-
-  @Test
-  void offer4WithoutCapacity() {
-    EvictingQueue<Integer> evictingQueue = new EvictingQueue<>();
-    for (int i = 0; i < 8; i++) {
-      evictingQueue.add(i);
-    }
-    assertEquals("[0, 1, 2, 3, 4, 5, 6, 7]", String.valueOf(evictingQueue));
-  }
-
-  @Test
-  void offer4WithCapacity() {
-    EvictingQueue<Integer> evictingQueue = new EvictingQueue<>(3);
-    for (int i = 0; i < 8; i++) {
-      evictingQueue.offer(i);
-    }
-    assertEquals("[5, 6, 7]", String.valueOf(evictingQueue));
-  }
 
   @Test
   void addAll() {
@@ -42,12 +23,7 @@ class EvictingQueueTest {
   }
 
   @Test
-  void offer() {
-    assertTrue(new EvictingQueue<Integer>(3).offer(1, 1000, TimeUnit.MILLISECONDS));
-  }
-
-  @Test
-  void addAll4Bitwise() {
+  void addAll4bitwise() {
     AtomicLong atomicLong = new AtomicLong(0);
     Supplier<Boolean> supplier = () -> {
       atomicLong.incrementAndGet();
@@ -58,5 +34,32 @@ class EvictingQueueTest {
     assertEquals(1, atomicLong.get());//executed
     assertEquals(false, b && supplier.get());
     assertEquals(1, atomicLong.get());//unExecuted
+  }
+
+  @Test
+  void offer4timeout() {
+    EvictingQueue<Integer> evictingQueue = new EvictingQueue<>(3);
+    for (int i = 0; i < 8; i++) {
+      evictingQueue.offer(i, 1000, TimeUnit.MILLISECONDS);
+    }
+    assertEquals("[5, 6, 7]", String.valueOf(evictingQueue));
+  }
+
+  @Test
+  void offer4withCapacity() {
+    EvictingQueue<Integer> evictingQueue = new EvictingQueue<>(3);
+    for (int i = 0; i < 8; i++) {
+      evictingQueue.offer(i);
+    }
+    assertEquals("[5, 6, 7]", String.valueOf(evictingQueue));
+  }
+
+  @Test
+  void offer4withoutCapacity() {
+    EvictingQueue<Integer> evictingQueue = new EvictingQueue<>();
+    for (int i = 0; i < 8; i++) {
+      evictingQueue.add(i);
+    }
+    assertEquals("[0, 1, 2, 3, 4, 5, 6, 7]", String.valueOf(evictingQueue));
   }
 }

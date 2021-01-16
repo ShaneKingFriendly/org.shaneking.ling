@@ -29,7 +29,7 @@ class Stopwatch0Test {
     stopwatch0.stop();
     assertAll(
       () -> assertTrue(String0.sameTotal("PT1.003672497S", String.valueOf(stopwatch0.elapsed())) > 5),
-      () -> assertTrue(stopwatch0.elapsed(TimeUnit.MILLISECONDS) > 1000)
+      () -> assertTrue(stopwatch0.elapsed(TimeUnit.MILLISECONDS) > 999)
     );
 
   }

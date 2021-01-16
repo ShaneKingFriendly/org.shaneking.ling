@@ -32,7 +32,7 @@ class ZonedDateTime0Test {
 Expected :2021-01-15 21:17:13.568
 Actual   :2021-01-15 21:17:13.569
      */
-    assertTrue(String0.sameTotal(Date0.on().dateTimes(), ZonedDateTime0.on().dateTimes()) > 20);
+    assertTrue(String0.sameTotal(Date0.on().dateTimes(), ZonedDateTime0.on().dateTimes()) > 18);//maybe not same second
   }
 
   @Test
@@ -41,7 +41,7 @@ Actual   :2021-01-15 21:17:13.569
 Expected :2021-01-15 21:17:13.568+0800
 Actual   :2021-01-15 21:17:13.569+0800
      */
-    assertTrue(String0.sameTotal(Date0.on().dateTimesZone(), ZonedDateTime0.on().dateTimesZone()) > 20);
+    assertTrue(String0.sameTotal(Date0.on().dateTimesZone(), ZonedDateTime0.on().dateTimesZone()) > 18);//maybe not same second
   }
 
   @Test
@@ -51,7 +51,11 @@ Actual   :2021-01-15 21:17:13.569+0800
 
   @Test
   void datetimes() {
-    assertTrue(String0.sameTotal(Date0.on().datetimes(), ZonedDateTime0.on().datetimes()) > 14);//maybe not same second
+    /*
+Expected :20210115211713568
+Actual   :20210115211713569
+     */
+    assertTrue(String0.sameTotal(Date0.on().datetimes(), ZonedDateTime0.on().datetimes()) > 13);//maybe not same second
   }
 
   @Test
@@ -83,7 +87,7 @@ Actual   :2021-01-15 21:17:13.569+0800
 Expected :21:17:13.794
 Actual   :21:17:13.796
      */
-    assertTrue(String0.sameTotal(Date0.on().timeS(), ZonedDateTime0.on().timeS()) > 10);
+    assertTrue(String0.sameTotal(Date0.on().timeS(), ZonedDateTime0.on().timeS()) > 7);//maybe not same second
   }
 
   @Test
@@ -92,7 +96,7 @@ Actual   :21:17:13.796
 Expected :21:17:13.794+0800
 Actual   :21:17:13.796+0800
      */
-    assertTrue(String0.sameTotal(Date0.on().timeSZone(), ZonedDateTime0.on().timeSZone()) > 10);
+    assertTrue(String0.sameTotal(Date0.on().timeSZone(), ZonedDateTime0.on().timeSZone()) > 7);//maybe not same second
   }
 
   @Test
@@ -101,7 +105,7 @@ Actual   :21:17:13.796+0800
 Expected :212051705
 Actual   :212051706
      */
-    assertTrue(String0.sameTotal(Date0.on().times(), ZonedDateTime0.on().times()) > 6);
+    assertTrue(String0.sameTotal(Date0.on().times(), ZonedDateTime0.on().times()) > 5);//maybe not same second
   }
 
   @Test

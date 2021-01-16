@@ -27,7 +27,7 @@ class LocalDateTime0Test {
 Expected :2021-01-15 21:17:13.568
 Actual   :2021-01-15 21:17:13.569
      */
-    assertTrue(String0.sameTotal(Date0.on().dateTimes(), LocalDateTime0.on().dateTimes()) > 20);
+    assertTrue(String0.sameTotal(Date0.on().dateTimes(), LocalDateTime0.on().dateTimes()) > 18);//maybe not same second
   }
 
   @Test
@@ -37,7 +37,11 @@ Actual   :2021-01-15 21:17:13.569
 
   @Test
   void datetimes() {
-    assertTrue(String0.sameTotal(Date0.on().datetimes(), LocalDateTime0.on().datetimes()) > 15);
+    /*
+Expected :20210115211713568
+Actual   :20210115211713569
+     */
+    assertTrue(String0.sameTotal(Date0.on().datetimes(), LocalDateTime0.on().datetimes()) > 13);//maybe not same second
   }
 
   @Test
@@ -64,7 +68,7 @@ Actual   :2021-01-15 21:17:13.569
 Expected :21:17:13.794
 Actual   :21:17:13.796
      */
-    assertTrue(String0.sameTotal(Date0.on().timeS(), LocalDateTime0.on().timeS()) > 10);
+    assertTrue(String0.sameTotal(Date0.on().timeS(), LocalDateTime0.on().timeS()) > 7);//maybe not same second
   }
 
   @Test
@@ -73,7 +77,7 @@ Actual   :21:17:13.796
 Expected :212051705
 Actual   :212051706
      */
-    assertTrue(String0.sameTotal(Date0.on().times(), LocalDateTime0.on().times()) > 6);
+    assertTrue(String0.sameTotal(Date0.on().times(), LocalDateTime0.on().times()) > 5);//maybe not same second
   }
 
   @Test

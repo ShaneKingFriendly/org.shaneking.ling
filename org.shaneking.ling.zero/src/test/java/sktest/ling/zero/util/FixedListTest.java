@@ -29,7 +29,11 @@ class FixedListTest {
       if (i % 2 == 0) {
         fixedList.addAll(List0.nCopies(1000, () -> fi));
       } else {
-        fixedList.addAll(1, List0.nCopies(1000, () -> fi));
+        if (((i + 1) / 2) % 2 == 0) {
+          fixedList.addAll(1, List0.nCopies(2000, () -> fi));
+        } else {
+          fixedList.addAll(1, List0.nCopies(1000, () -> fi));
+        }
       }
     }
     assertEquals(FixedList.DEFAULT_SIZE, fixedList.size());
