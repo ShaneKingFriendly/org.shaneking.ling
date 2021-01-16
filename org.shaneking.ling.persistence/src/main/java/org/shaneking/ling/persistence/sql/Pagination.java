@@ -1,4 +1,4 @@
-package org.shaneking.ling.entity.sql;
+package org.shaneking.ling.persistence.sql;
 
 import lombok.Getter;
 import lombok.Setter;

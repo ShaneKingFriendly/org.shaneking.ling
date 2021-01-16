@@ -1,4 +1,4 @@
-package org.shaneking.ling.entity.sql;
+package org.shaneking.ling.persistence.sql;
 
 import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
@@ -18,6 +18,7 @@ public class Keyword {
   public static final String FROM = "from";
   public static final String GROUP_BY = "group by";
   public static final String GROUP__CONCAT_ID_ = "group_concat(id)";
+  public static final String GROUP__CONCAT_BIZ_ID_ = "group_concat(biz_id)";
   public static final String GROUP__CONCAT_SK_ID_ = "group_concat(sk_id)";
   public static final String HAVING = "having";
   public static final String IN = "in";

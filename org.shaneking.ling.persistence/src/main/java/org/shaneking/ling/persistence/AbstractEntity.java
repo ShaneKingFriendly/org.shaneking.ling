@@ -1,4 +1,4 @@
-package org.shaneking.ling.entity;
+package org.shaneking.ling.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -7,9 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.shaneking.ling.entity.sql.Condition;
-import org.shaneking.ling.entity.sql.Keyword;
-import org.shaneking.ling.entity.sql.Pagination;
+import org.shaneking.ling.persistence.sql.Condition;
+import org.shaneking.ling.persistence.sql.Keyword;
+import org.shaneking.ling.persistence.sql.Pagination;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.persistence.Tuple;
 import org.shaneking.ling.zero.util.List0;
@@ -162,23 +162,7 @@ public abstract class AbstractEntity<J> {
   }
 
   //create table
-  public String createTableIfNotExistSql() {
-    String idxSql = createTableIndexSql();
-    idxSql = String0.isNull2Empty(idxSql) ? String0.EMPTY : (idxSql + String0.BR_LINUX + String0.BR_LINUX);
-    return "drop procedure if exists p_" + this.getDbTableName() + "_create;" + String0.BR_LINUX +
-      "delimiter $$" + String0.BR_LINUX +
-      "create procedure p_" + this.getDbTableName() + "_create() begin" + String0.BR_LINUX +
-      "if not exists (select * from information_schema.tables where table_schema = '" + this.getJavaTable().schema() + "' and table_name = '" + this.getDbTableName() + "')" + String0.BR_LINUX +
-      "then" + String0.BR_LINUX + String0.BR_LINUX +
-      createTableSql() + String0.BR_LINUX + String0.BR_LINUX +
-      idxSql +
-      "end if;" + String0.BR_LINUX +
-      "end;" + String0.BR_LINUX +
-      "$$" + String0.BR_LINUX +
-      "delimiter ;" + String0.BR_LINUX +
-      "call p_" + this.getDbTableName() + "_create();" + String0.BR_LINUX +
-      "drop procedure if exists p_" + this.getDbTableName() + "_create;" + String0.BR_LINUX;
-  }
+  public abstract String createTableIfNotExistSql();
 
   public String createTableSql() {
     List<String> sqlList = List0.newArrayList();
@@ -349,6 +333,16 @@ public abstract class AbstractEntity<J> {
 
   public Tuple.Pair<String, List<Object>> selectIdsSql() {
     Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.GROUP__CONCAT_ID_), List0.newArrayList());
+    return Tuple.of(String.join(String0.BLANK, Tuple.getFirst(pair)), Tuple.getSecond(pair));
+  }
+
+  public Tuple.Pair<String, List<Object>> selectBizIdsSql() {
+    Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.GROUP__CONCAT_BIZ_ID_), List0.newArrayList());
+    return Tuple.of(String.join(String0.BLANK, Tuple.getFirst(pair)), Tuple.getSecond(pair));
+  }
+
+  public Tuple.Pair<String, List<Object>> selectSkIdsSql() {
+    Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.GROUP__CONCAT_SK_ID_), List0.newArrayList());
     return Tuple.of(String.join(String0.BLANK, Tuple.getFirst(pair)), Tuple.getSecond(pair));
   }
 

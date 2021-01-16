@@ -1,4 +1,4 @@
-package org.shaneking.ling.entity.sql.mysql;
+package org.shaneking.ling.persistence.sql.entity;
 
 import lombok.Getter;
 import lombok.NonNull;

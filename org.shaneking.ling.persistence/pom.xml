@@ -8,12 +8,12 @@
     <version>0.241.1</version>
   </parent>
 
-  <artifactId>org.shaneking.ling.entity</artifactId>
+  <artifactId>org.shaneking.ling.persistence</artifactId>
   <version>0.241.1</version>
   <packaging>jar</packaging>
 
-  <name>org.shaneking.ling.entity</name>
-  <description>ShaneKing for Entity</description>
+  <name>org.shaneking.ling.persistence</name>
+  <description>Persistence for ShaneKing</description>
   <url>https://github.com/ShaneKingOrg/org.shaneking.ling</url>
   <licenses>
     <license>

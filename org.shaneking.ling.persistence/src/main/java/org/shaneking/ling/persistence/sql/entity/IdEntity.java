@@ -1,10 +1,11 @@
-package org.shaneking.ling.entity.sql.mysql;
+package org.shaneking.ling.persistence.sql.entity;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.shaneking.ling.persistence.AbstractEntity;
 import org.shaneking.ling.zero.lang.String0;
 
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.persistence.Transient;
 
 @Accessors(chain = true)
 @ToString
-public abstract class IdEntity<J> extends AbstractMysqlEntity<J> {
+public abstract class IdEntity<J> extends AbstractEntity<J> {
   @Transient
   public static final String COLUMN__SK_ID = "sk_id";
 
