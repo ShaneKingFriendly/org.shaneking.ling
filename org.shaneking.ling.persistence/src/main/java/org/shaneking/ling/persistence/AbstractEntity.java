@@ -289,7 +289,7 @@ public abstract class AbstractEntity<J> {
     whereStatement(whereList, rtnObjectList);
     if (whereList.size() > 0) {
       sqlList.add(Keyword.WHERE);
-      sqlList.add(String.join(Keyword.AND_WITH_BLACK_PREFIX_WITH_BLACK_SUFFIX, whereList));
+      sqlList.add(String.join(Keyword.wrapBlack(Keyword.AND), whereList));
     }
     return Tuple.of(String.join(String0.BLANK, sqlList), rtnObjectList);
   }
@@ -388,7 +388,7 @@ public abstract class AbstractEntity<J> {
     sqlList.add(String.join(String0.COMMA, fromList));
     if (whereList != null && whereList.size() > 0) {
       sqlList.add(Keyword.WHERE);
-      sqlList.add(String.join(Keyword.AND_WITH_BLACK_PREFIX_WITH_BLACK_SUFFIX, whereList));
+      sqlList.add(String.join(Keyword.wrapBlack(Keyword.AND), whereList));
     }
     if (groupByList != null && groupByList.size() > 0) {
       sqlList.add(Keyword.GROUP_BY);
@@ -396,7 +396,7 @@ public abstract class AbstractEntity<J> {
     }
     if (havingList != null && havingList.size() > 0) {
       sqlList.add(Keyword.HAVING);
-      sqlList.add(String.join(Keyword.AND_WITH_BLACK_PREFIX_WITH_BLACK_SUFFIX, havingList));
+      sqlList.add(String.join(Keyword.wrapBlack(Keyword.AND), havingList));
     }
     if (orderByList != null && orderByList.size() > 0) {
       sqlList.add(Keyword.ORDER_BY);
@@ -435,7 +435,7 @@ public abstract class AbstractEntity<J> {
     sqlList.add(String.join(String0.COMMA, updateList));
     if (whereList.size() > 0) {
       sqlList.add(Keyword.WHERE);
-      sqlList.add(String.join(Keyword.AND_WITH_BLACK_PREFIX_WITH_BLACK_SUFFIX, whereList));
+      sqlList.add(String.join(Keyword.wrapBlack(Keyword.AND), whereList));
     }
     return Tuple.of(String.join(String0.BLANK, sqlList), rtnObjectList);
   }

@@ -8,7 +8,6 @@ public class Keyword {
 
   public static final String ALTER_TABLE = "alter table";
   public static final String AND = "and";
-  public static final String AND_WITH_BLACK_PREFIX_WITH_BLACK_SUFFIX = String0.BLANK + AND + String0.BLANK;
   public static final String ADD_UNIQUE_INDEX = "add unique index";
   public static final String BETWEEN = "between";
   public static final String COMMENT = "comment";
