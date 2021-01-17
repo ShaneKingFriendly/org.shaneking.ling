@@ -76,10 +76,10 @@ public class OM3 {
     return objectMapper.createObjectNode();
   }
 
-  //last result, parameters
+  //result, parameters
   public static String lp(Object object, Object... objects) {
     Map<String, Object> rtnMap = Map0.newHashMap();
-    rtnMap.put("l", object);
+    rtnMap.put("r", object);
     rtnMap.put("p", List0.newArrayList(objects));
     return writeValueAsString(rtnMap);
   }
