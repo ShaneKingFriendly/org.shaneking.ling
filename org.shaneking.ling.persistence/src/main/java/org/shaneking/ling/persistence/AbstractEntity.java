@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.persistence.sql.Condition;
@@ -30,8 +29,7 @@ import java.util.stream.Collectors;
  */
 @Accessors(chain = true)
 @Slf4j
-@ToString
-public abstract class AbstractEntity<J> {
+public abstract class AbstractEntity<J> implements Sqler {
   @Transient
   private static final String EMPTY_COMMENT_WITH_BLACK_PREFIX = " ''";
   @Transient
@@ -162,8 +160,6 @@ public abstract class AbstractEntity<J> {
   }
 
   //create table
-  public abstract String createTableIfNotExistSql();
-
   public String createTableSql() {
     List<String> sqlList = List0.newArrayList();
     String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MessageFormat.format("`{0}`.", this.getJavaTable().schema()));
@@ -228,8 +224,6 @@ public abstract class AbstractEntity<J> {
 
   @NonNull
   public abstract List<Condition> findWhereConditions(@NonNull String fieldName);
-
-  public abstract void limitStatement(@NonNull List<String> limitList, @NonNull List<Object> objectList);
 
   //prepares
   public void fillOc(@NonNull List<String> list, @NonNull List<Object> objectList, Condition cond, String leftExpr) {
@@ -333,16 +327,6 @@ public abstract class AbstractEntity<J> {
 
   public Tuple.Pair<String, List<Object>> selectIdsSql() {
     Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.GROUP__CONCAT_ID_), List0.newArrayList());
-    return Tuple.of(String.join(String0.BLANK, Tuple.getFirst(pair)), Tuple.getSecond(pair));
-  }
-
-  public Tuple.Pair<String, List<Object>> selectBizIdsSql() {
-    Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.GROUP__CONCAT_BIZ_ID_), List0.newArrayList());
-    return Tuple.of(String.join(String0.BLANK, Tuple.getFirst(pair)), Tuple.getSecond(pair));
-  }
-
-  public Tuple.Pair<String, List<Object>> selectSkIdsSql() {
-    Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.GROUP__CONCAT_SK_ID_), List0.newArrayList());
     return Tuple.of(String.join(String0.BLANK, Tuple.getFirst(pair)), Tuple.getSecond(pair));
   }
 

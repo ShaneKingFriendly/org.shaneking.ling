@@ -1,7 +1,6 @@
 package org.shaneking.ling.persistence.sql.entity;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -12,7 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Transient;
 
 @Accessors(chain = true)
-@ToString
+@ToString(callSuper = true)
 public abstract class IdAdtEntity<J> extends IdEntity<J> {
   @Transient
   public static final String COLUMN__INVALID = "invalid";
@@ -50,12 +49,12 @@ public abstract class IdAdtEntity<J> extends IdEntity<J> {
     return this.setInvalid(String0.null2EmptyTo(this.getInvalid(), String0.N));
   }
 
-  public IdAdtEntity<J> initWithUserId(@NonNull String userId) {
+  public IdAdtEntity<J> initWithUserId(String userId) {
     return this.initInvalid().setLastModifyDateTime(String0.null2EmptyTo(this.getLastModifyDateTime(), Date0.on().dateTime())).setLastModifyUserId(String0.null2EmptyTo(this.getLastModifyUserId(), userId));
   }
 
-  public IdAdtEntity<J> initWithUserIdAndSkId(@NonNull String userId, @NonNull String skId) {
-    this.initSkId(skId);
+  public IdAdtEntity<J> initWithUserIdAndId(String userId, String id) {
+    this.initId(id);
     return this.initWithUserId(userId);
   }
 }

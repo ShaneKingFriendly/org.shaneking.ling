@@ -1,7 +1,6 @@
 package org.shaneking.ling.persistence.sql.entity;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -12,7 +11,7 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @Accessors(chain = true)
-@ToString
+@ToString(callSuper = true)
 public abstract class IdAdtVerEntity<J> extends IdAdtEntity<J> {
   @Transient
   public static final String COLUMN__VERSION = "version";
@@ -31,14 +30,14 @@ public abstract class IdAdtVerEntity<J> extends IdAdtEntity<J> {
   }
 
   @Override
-  public IdAdtVerEntity<J> initWithUserId(@NonNull String userId) {
+  public IdAdtVerEntity<J> initWithUserId(String userId) {
     super.initWithUserId(userId);
     return this.initVersion();
   }
 
   @Override
-  public IdAdtVerEntity<J> initWithUserIdAndSkId(@NonNull String userId, @NonNull String skId) {
-    this.initSkId(skId);
-    return this.initWithUserId(userId);
+  public IdAdtVerEntity<J> initWithUserIdAndId(String userId, String id) {
+    super.initWithUserIdAndId(userId, id);
+    return this.initVersion();
   }
 }
