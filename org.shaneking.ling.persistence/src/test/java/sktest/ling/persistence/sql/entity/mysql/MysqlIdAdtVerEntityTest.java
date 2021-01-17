@@ -12,7 +12,6 @@ import org.shaneking.ling.persistence.sql.Condition;
 import org.shaneking.ling.persistence.sql.entity.IdAdtVerEntity;
 import org.shaneking.ling.persistence.sql.entity.mysql.MySqler;
 import org.shaneking.ling.test.SKUnit;
-import org.shaneking.ling.zero.io.File0;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Date0;
 import org.shaneking.ling.zero.util.Map0;
@@ -50,8 +49,8 @@ public class MysqlIdAdtVerEntityTest extends SKUnit {
 
   @Test
   void createTableIfNotExistSql() throws IOException {
-//    Files.write(tstOFiles(File0.TYPE_SQL).toPath(), mysqlIdAdtVerEntity.createTableIfNotExistSql().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles(File0.TYPE_SQL).toPath())), mysqlIdAdtVerEntity.createTableIfNotExistSql().trim());
+//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.createTableIfNotExistSql().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.createTableIfNotExistSql().trim());
   }
 
   @Test

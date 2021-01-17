@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
+import org.shaneking.ling.zero.io.File0;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.time.Stopwatch0;
 import org.shaneking.ling.zero.util.Regex0;
@@ -44,8 +45,16 @@ public class SKUnit {
     return new File(tstFolder(), tstInfo.getTestClass().get().getSimpleName() + String0.UNDERLINE + tstInfo.getTestMethod().get().getName() + String0.UNDERLINE + this.getTstSeq() + String0.UNDERLINE + io + String0.DOT + fileType);
   }
 
+  public File tstIFiles() {
+    return tstFiles(getTstI(), File0.TYPE_TXT);
+  }
+
   public File tstIFiles(String fileType) {
     return tstFiles(getTstI(), fileType);
+  }
+
+  public File tstOFiles() {
+    return tstFiles(getTstO(), File0.TYPE_TXT);
   }
 
   public File tstOFiles(String fileType) {
