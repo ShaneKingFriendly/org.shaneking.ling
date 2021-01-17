@@ -13,9 +13,9 @@ class Object0Test {
 
   @Test
   void gs() {
-    TestObject3 to3 = new TestObject3();
+    Test4Object3 to3 = new Test4Object3();
     assertEquals(String0.T, String.valueOf(Object0.gs(to3, "to2.to1.str")));
-    assertTrue(Object0.gs(to3, "to2.to1.str", String0.F) instanceof TestObject3);
+    assertTrue(Object0.gs(to3, "to2.to1.str", String0.F) instanceof Test4Object3);
     assertEquals(String0.F, String.valueOf(Object0.gs(to3, "to2.to1.str")));
 
     assertEquals(Object0.EXCEPTION, Object0.gs(to3, "to2.to1.abc"));
@@ -23,21 +23,21 @@ class Object0Test {
   }
 
   //must be public classes
-  public class TestObject1 {
+  public class Test4Object1 {
     @Getter
     @Setter
     private String str = String0.T;
   }
 
-  public class TestObject2 {
+  public class Test4Object2 {
     @Getter
     @Setter
-    private TestObject1 to1 = new TestObject1();
+    private Test4Object1 to1 = new Test4Object1();
   }
 
-  public class TestObject3 {
+  public class Test4Object3 {
     @Getter
     @Setter
-    private TestObject2 to2 = new TestObject2();
+    private Test4Object2 to2 = new Test4Object2();
   }
 }
