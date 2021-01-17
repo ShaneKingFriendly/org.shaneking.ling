@@ -4,8 +4,14 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.shaneking.ling.persistence.sql.Keyword;
 import org.shaneking.ling.persistence.sql.Pagination;
+import org.shaneking.ling.persistence.sql.entity.IdAdtVerEntity;
+import org.shaneking.ling.persistence.sql.entity.IdEntity;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
@@ -14,15 +20,19 @@ import sktest.ling.persistence.sql.entity.mysql.MysqlIdAdtVerEntityTest;
 import javax.persistence.Table;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 class AbstractEntityTest extends SKUnit {
   String id = "1610866165373_KbTy6GDVwpB5rAYJjJb";
   String userId = "1610866165373_eXabaDd3OiEyivRv1GI";
   String dateTime = "2021-01-16 14:49:25";
-
   MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity mysqlIdAdtVerEntity = new MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity();
+  @Mock
+  private ResultSet resultSet;
 
   @BeforeEach
   void beforeEach() {
@@ -77,7 +87,15 @@ class AbstractEntityTest extends SKUnit {
   }
 
   @Test
-  void mapRow() {
+  void mapRow() throws SQLException {
+    Test4AbstractEntity abstractEntity = new Test4AbstractEntity();
+
+    Mockito.when(resultSet.getString(IdEntity.FIELD__ID)).thenReturn(id);
+    Mockito.when(resultSet.getInt(IdAdtVerEntity.FIELD__VERSION)).thenReturn(1);
+    abstractEntity.setSelectList(List0.newArrayList(IdEntity.FIELD__ID, IdAdtVerEntity.FIELD__VERSION, String0.ALPHABET));
+    abstractEntity.mapRow(resultSet);
+
+    assertEquals("AbstractEntityTest.Test4AbstractEntity(super=MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test

@@ -7,7 +7,6 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.persistence.sql.Condition;
 import org.shaneking.ling.persistence.sql.entity.IdAdtVerEntity;
 import org.shaneking.ling.persistence.sql.entity.mysql.MySqler;
@@ -28,7 +27,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MysqlIdAdtVerEntityTest extends SKUnit {
@@ -55,10 +53,8 @@ public class MysqlIdAdtVerEntityTest extends SKUnit {
 
   @Test
   void testToString() {
-    assertAll(
-      () -> assertEquals("MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=" + id + "), invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + "), version=0), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText)", mysqlIdAdtVerEntity.toString()),
-      () -> assertEquals("{\"id\":\"" + id + "\",\"invalid\":\"N\",\"lastModifyDateTime\":\"" + dateTime + "\",\"lastModifyUserId\":\"" + userId + "\",\"version\":0,\"hasLength\":\"hasLength\",\"notNullCol\":\"notNullCol\",\"uniqueCol\":\"uniqueCol\",\"withoutAnnotation\":\"withoutAnnotation\",\"reName\":\"reName\",\"longText\":\"longText\"}", OM3.writeValueAsString(mysqlIdAdtVerEntity))
-    );
+//    assertEquals("{\"id\":\"" + id + "\",\"invalid\":\"N\",\"lastModifyDateTime\":\"" + dateTime + "\",\"lastModifyUserId\":\"" + userId + "\",\"version\":0,\"hasLength\":\"hasLength\",\"notNullCol\":\"notNullCol\",\"uniqueCol\":\"uniqueCol\",\"withoutAnnotation\":\"withoutAnnotation\",\"reName\":\"reName\",\"longText\":\"longText\"}", OM3.writeValueAsString(mysqlIdAdtVerEntity));
+    assertEquals("MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=" + id + "), invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + "), version=0), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText)", mysqlIdAdtVerEntity.toString());
   }
 
   @Accessors(chain = true)
