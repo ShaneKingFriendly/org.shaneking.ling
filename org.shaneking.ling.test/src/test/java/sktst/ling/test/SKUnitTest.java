@@ -10,6 +10,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@Disabled("explanation")
 @Slf4j
 public class SKUnitTest extends SKUnit {
   @BeforeEach
