@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.persistence.sql.Condition;
 import org.shaneking.ling.persistence.sql.entity.IdAdtVerEntity;
-import org.shaneking.ling.persistence.sql.entity.mysql.MySqler;
+import org.shaneking.ling.persistence.sql.entity.mysql.MysqlDialectSqlEntities;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Date0;
@@ -60,7 +60,7 @@ public class MysqlIdAdtVerEntityTest extends SKUnit {
   @Accessors(chain = true)
   @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
   @ToString(callSuper = true)
-  public static class Test4MysqlIdAdtVerEntity extends IdAdtVerEntity<Map<String, Condition>> implements MySqler {
+  public static class Test4MysqlIdAdtVerEntity extends IdAdtVerEntity<Map<String, Condition>> implements MysqlDialectSqlEntities {
     @Column(length = 10)
     @Getter
     @Setter

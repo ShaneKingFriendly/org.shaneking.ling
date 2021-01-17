@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.shaneking.ling.persistence.AbstractEntity;
+import org.shaneking.ling.persistence.sql.AbstractSqlEntity;
 import org.shaneking.ling.zero.lang.String0;
 
 import javax.persistence.Column;
@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 
 @Accessors(chain = true)
 @ToString
-public abstract class IdEntity<J> extends AbstractEntity<J> {
+public abstract class IdEntity<J> extends AbstractSqlEntity<J> {
   @Transient
   public static final String COLUMN__ID = "id";
 
