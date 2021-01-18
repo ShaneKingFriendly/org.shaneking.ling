@@ -12,12 +12,14 @@ import org.shaneking.ling.persistence.sql.Keyword;
 import org.shaneking.ling.persistence.sql.Pagination;
 import org.shaneking.ling.persistence.sql.entity.IdAdtVerEntity;
 import org.shaneking.ling.persistence.sql.entity.IdEntity;
+import org.shaneking.ling.persistence.sql.entity.sqllite.SqlliteDialectSqlEntities;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
 import sktest.ling.persistence.sql.entity.mysql.MysqlIdAdtVerEntityTest;
 
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.ResultSet;
@@ -30,7 +32,7 @@ class AbstractEntityTest extends SKUnit {
   String id = "1610866165373_KbTy6GDVwpB5rAYJjJb";
   String userId = "1610866165373_eXabaDd3OiEyivRv1GI";
   String dateTime = "2021-01-16 14:49:25";
-  MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity mysqlIdAdtVerEntity = new MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity();
+  MysqlIdAdtVerEntityTest.MysqlIdAdtVerEntity mysqlIdAdtVerEntity = new MysqlIdAdtVerEntityTest.MysqlIdAdtVerEntity();
   @Mock
   private ResultSet resultSet;
 
@@ -45,8 +47,8 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void initTableInfo() {
-    Test4AbstractEntity abstractEntity = new Test4AbstractEntity();
-    assertEquals("AbstractEntityTest.Test4AbstractEntity(super=MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=null), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    Test4WithoutTableNameEntity abstractEntity = new Test4WithoutTableNameEntity();
+    assertEquals("AbstractEntityTest.Test4WithoutTableNameEntity(super=MysqlIdAdtVerEntityTest.AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=null), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test
@@ -54,11 +56,9 @@ class AbstractEntityTest extends SKUnit {
   }
 
   @Test
-  void createTableSql() {
-  }
-
-  @Test
-  void createTableIndexSql() {
+  void createTableIfNotExistSql() throws IOException {
+//    Files.write(tstOFiles().toPath(), new SqlliteIdAdtVerEntity().createTableIfNotExistSql().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), new SqlliteIdAdtVerEntity().createTableIfNotExistSql().trim());
   }
 
   @Test
@@ -88,14 +88,14 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void mapRow() throws SQLException {
-    Test4AbstractEntity abstractEntity = new Test4AbstractEntity();
+    Test4WithoutTableNameEntity abstractEntity = new Test4WithoutTableNameEntity();
 
     Mockito.when(resultSet.getString(IdEntity.FIELD__ID)).thenReturn(id);
     Mockito.when(resultSet.getInt(IdAdtVerEntity.FIELD__VERSION)).thenReturn(1);
     abstractEntity.setSelectList(List0.newArrayList(IdEntity.FIELD__ID, IdAdtVerEntity.FIELD__VERSION, String0.ALPHABET));
     abstractEntity.mapRow(resultSet);
 
-    assertEquals("AbstractEntityTest.Test4AbstractEntity(super=MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("AbstractEntityTest.Test4WithoutTableNameEntity(super=MysqlIdAdtVerEntityTest.AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test
@@ -188,6 +188,12 @@ class AbstractEntityTest extends SKUnit {
   @Accessors(chain = true)
   @Table
   @ToString(callSuper = true)
-  public class Test4AbstractEntity extends MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity {
+  public class Test4WithoutTableNameEntity extends MysqlIdAdtVerEntityTest.AbstractIdAdtVerEntity implements SqlliteDialectSqlEntities {
+  }
+
+  @Accessors(chain = true)
+  @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
+  @ToString(callSuper = true)
+  public class SqlliteIdAdtVerEntity extends MysqlIdAdtVerEntityTest.AbstractIdAdtVerEntity implements SqlliteDialectSqlEntities {
   }
 }

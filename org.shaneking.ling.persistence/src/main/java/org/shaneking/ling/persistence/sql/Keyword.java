@@ -13,11 +13,14 @@ public class Keyword {
   public static final String COMMENT = "comment";
   public static final String COUNT_1_ = "count(1)";
   public static final String CREATE_TABLE = "create table";
+  public static final String CREATE_UNIQUE_INDEX = "create unique index";
   public static final String DELETE_FROM = "delete from";
   public static final String FROM = "from";
   public static final String GROUP_BY = "group by";
   public static final String GROUP__CONCAT_ID_ = "group_concat(id)";
   public static final String HAVING = "having";
+  public static final String IF_NOT_EXISTS = "if not exists";
+  public static final String IF_EXISTS = "if exists";
   public static final String IN = "in";
   public static final String INSERT_INFO = "insert into";
   public static final String LIKE = "like";
@@ -33,8 +36,10 @@ public class Keyword {
   public static final String VALUES = "values";
   public static final String WHERE = "where";
 
+  public static final String TYPE_CHAR = "char";
   public static final String TYPE_INT = "int";
   public static final String TYPE_LONGTEXT = "longtext";
+  public static final String TYPE_TEXT = "text";
   public static final String TYPE_VARCHAR = "varchar";
 
   public static String wrapBlack(@NonNull String keyword) {

@@ -1,13 +1,7 @@
-drop procedure if exists p_sktest1_table_create;
-delimiter $$
-create procedure p_sktest1_table_create() begin
-if not exists (select * from information_schema.tables where table_schema = 'sktest1_schema' and table_name = 'sktest1_table')
-then
-
-create table `sktest1_schema`.`sktest1_table` (
-  `version` int not null comment 'Version for optimistic locking',
-  `id` varchar(40) not null comment 'Uniquely identifies',
-  `invalid` varchar(1) comment 'The invalid status of record {Y:invalid,N:valid(default)}',
+create table if not exists `sktest1_schema`.`sktest1_table` (
+  `version` int not null default 0 comment 'Version for optimistic locking',
+  `id` char(40) not null comment 'Uniquely identifies',
+  `invalid` varchar(1) default 'N' comment 'The invalid status of record {Y:invalid,N:valid(default)}',
   `last_modify_date_time` varchar(20) comment 'The last modification date time of record',
   `last_modify_user_id` varchar(40) comment 'The last modified user of record',
   `has_length` varchar(10) comment '',
@@ -19,12 +13,19 @@ create table `sktest1_schema`.`sktest1_table` (
   primary key (`id`)
 );
 
+drop procedure if exists p_sktest1_table_idx_create;
+delimiter $$
+create procedure p_sktest1_table_idx_create() begin
+if not exists (select * from information_schema.table_constraints where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and constraint_name = 'u_idx_has_length_not_null_col')
+then
 alter table `sktest1_schema`.`sktest1_table` add unique index `u_idx_has_length_not_null_col` (`has_length` asc, `not_null_col` asc);
+end if;
+if not exists (select * from information_schema.table_constraints where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and constraint_name = 'u_idx_unique_col')
+then
 alter table `sktest1_schema`.`sktest1_table` add unique index `u_idx_unique_col` (`unique_col` asc);
-
 end if;
 end;
 $$
 delimiter ;
-call p_sktest1_table_create();
-drop procedure if exists p_sktest1_table_create;
+call p_sktest1_table_idx_create();
+drop procedure if exists p_sktest1_table_idx_create;

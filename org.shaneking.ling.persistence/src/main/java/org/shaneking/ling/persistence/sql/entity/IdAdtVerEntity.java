@@ -19,7 +19,7 @@ public abstract class IdAdtVerEntity<J> extends IdAdtEntity<J> {
   @Transient
   public static final String FIELD__VERSION = "version";
 
-  @Column(nullable = false, columnDefinition = "COMMENT 'Version for optimistic locking'")
+  @Column(nullable = false, columnDefinition = "default 0 COMMENT 'Version for optimistic locking'")
   @Getter
   @Setter
   @Version

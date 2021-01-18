@@ -35,7 +35,7 @@ public class MysqlIdAdtVerEntityTest extends SKUnit {
   String userId = UUID0.cUl33();
   String dateTime = Date0.on().dateTime();
 
-  Test4MysqlIdAdtVerEntity mysqlIdAdtVerEntity = new Test4MysqlIdAdtVerEntity();
+  MysqlIdAdtVerEntity mysqlIdAdtVerEntity = new MysqlIdAdtVerEntity();
 
   @BeforeEach
   void beforeEach() {
@@ -54,13 +54,19 @@ public class MysqlIdAdtVerEntityTest extends SKUnit {
   @Test
   void testToString() {
 //    assertEquals("{\"id\":\"" + id + "\",\"invalid\":\"N\",\"lastModifyDateTime\":\"" + dateTime + "\",\"lastModifyUserId\":\"" + userId + "\",\"version\":0,\"hasLength\":\"hasLength\",\"notNullCol\":\"notNullCol\",\"uniqueCol\":\"uniqueCol\",\"withoutAnnotation\":\"withoutAnnotation\",\"reName\":\"reName\",\"longText\":\"longText\"}", OM3.writeValueAsString(mysqlIdAdtVerEntity));
-    assertEquals("MysqlIdAdtVerEntityTest.Test4MysqlIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=" + id + "), invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + "), version=0), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText)", mysqlIdAdtVerEntity.toString());
+    assertEquals("MysqlIdAdtVerEntityTest.MysqlIdAdtVerEntity(super=MysqlIdAdtVerEntityTest.AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=" + id + "), invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + "), version=0), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", mysqlIdAdtVerEntity.toString());
   }
 
   @Accessors(chain = true)
   @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
   @ToString(callSuper = true)
-  public static class Test4MysqlIdAdtVerEntity extends IdAdtVerEntity<Map<String, Condition>> implements MysqlDialectSqlEntities {
+  public static class MysqlIdAdtVerEntity extends AbstractIdAdtVerEntity implements MysqlDialectSqlEntities {
+  }
+
+
+  @Accessors(chain = true)
+  @ToString(callSuper = true)
+  public static abstract class AbstractIdAdtVerEntity extends IdAdtVerEntity<Map<String, Condition>> {
     @Column(length = 10)
     @Getter
     @Setter

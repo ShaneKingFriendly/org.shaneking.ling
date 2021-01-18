@@ -27,7 +27,7 @@ public abstract class IdAdtEntity<J> extends IdEntity<J> {
   @Transient
   public static final String FIELD__LAST_MODIFY_USER_ID = "lastModifyUserId";
 
-  @Column(length = 1, columnDefinition = "COMMENT 'The invalid status of record {Y:invalid,N:valid(default)}'")
+  @Column(length = 1, columnDefinition = "default 'N' COMMENT 'The invalid status of record {Y:invalid,N:valid(default)}'")
   @Getter
   @Setter
   private String invalid;

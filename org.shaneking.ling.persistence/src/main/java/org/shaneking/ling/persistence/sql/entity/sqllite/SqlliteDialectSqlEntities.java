@@ -1,7 +1,62 @@
 package org.shaneking.ling.persistence.sql.entity.sqllite;
 
+import org.shaneking.ling.persistence.sql.Keyword;
 import org.shaneking.ling.persistence.sql.entity.DialectSqlEntities;
+import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.util.List0;
+import org.shaneking.ling.zero.util.Map0;
+
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import java.lang.reflect.Field;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Map;
 
 public interface SqlliteDialectSqlEntities extends DialectSqlEntities {
+  default String createColumnStatement(String columnName, boolean idOrVersion) {
+    String rtn, columnDbTypeString;
+    Field columnField = this.getFieldMap().get(columnName);
+    String partNotNull = (idOrVersion || !this.getColumnMap().get(columnName).nullable()) ? Keyword.NOT_NULL_WITH_BLACK_PREFIX : String0.EMPTY;
+    if (columnField.getAnnotation(Lob.class) != null) {
+      columnDbTypeString = Keyword.TYPE_TEXT;
+    } else if (Integer.class.getCanonicalName().equals(columnField.getType().getCanonicalName())) {
+      columnDbTypeString = Keyword.TYPE_INT;
+    } else if (columnField.getAnnotation(Id.class) != null && String.class.getCanonicalName().equals(columnField.getType().getCanonicalName())) {
+      columnDbTypeString = Keyword.TYPE_CHAR;//fixed length is good for primary key id.
+    } else {
+      columnDbTypeString = Keyword.TYPE_VARCHAR;
+    }
+    String[] comments = String0.nullToEmpty(this.getColumnMap().get(columnName).columnDefinition()).split(Keyword.COMMENT4ANNOTATION);
+    String commentBefore = String0.nullToEmpty(comments[0]).trim();
+    commentBefore = String0.isNullOrEmpty(commentBefore) ? commentBefore : (String0.BLANK + commentBefore);
+    if (Keyword.TYPE_TEXT.equals(columnDbTypeString) || Keyword.TYPE_INT.equals(columnDbTypeString)) {
+      rtn = MessageFormat.format("  `{0}` {1}{2} {3},", this.getDbColumnMap().get(columnName), columnDbTypeString, partNotNull, commentBefore);
+    } else {
+      rtn = MessageFormat.format("  `{0}` {1}({2}){3}{4},", this.getDbColumnMap().get(columnName), columnDbTypeString, String.valueOf(this.getColumnMap().get(columnName).length()), partNotNull, commentBefore);
+    }
+    return rtn;
+  }
 
+  default String createTableIfNotExistSql() {
+    String idxSqls = createTableIndexSql();
+    idxSqls = String0.isNull2Empty(idxSqls) ? String0.EMPTY : (idxSqls + String0.BR_LINUX);
+    return createTableSql() + String0.BR_LINUX + String0.BR_LINUX + idxSqls;
+  }
+
+  default String createTableIndexSql() {
+    Map<String, List<String>> idxPartNameColumnsMap = Map0.newHashMap();
+    List<String> createIndexStatementList = createTableIndexSql(idxPartNameColumnsMap);
+    idxPartNameColumnsMap.forEach((idxPartName, columnList) -> {
+      String indexColumns = "`" + (columnList.size() > 1 ? String.join("`,`", columnList) : columnList.get(0)) + "`";
+      createIndexStatementList.add(MessageFormat.format("{0} {1} {2} on {3}({4});", Keyword.CREATE_UNIQUE_INDEX, Keyword.IF_NOT_EXISTS, UNIQUE_INDEX_NAME_PREFIX + idxPartName, this.getDbTableName(), indexColumns));
+    });
+    return String.join(String0.BR_LINUX, createIndexStatementList);
+  }
+
+  default String createTableSql() {
+    List<String> sqlList = List0.newArrayList();
+    sqlList.add(MessageFormat.format("{0} {1} `{2}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, this.getDbTableName()));
+    return createTableSql(sqlList);
+  }
 }
