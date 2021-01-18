@@ -19,7 +19,7 @@ public class SqlliteIdAdtVerEntityTest extends SKUnit {
 
   @Test
   void createTableIfNotExistSql() throws IOException {
-    Files.write(tstOFiles().toPath(), new SqlliteIdAdtVerEntity().createTableIfNotExistSql().getBytes());
+//    Files.write(tstOFiles().toPath(), new SqlliteIdAdtVerEntity().createTableIfNotExistSql().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), new SqlliteIdAdtVerEntity().createTableIfNotExistSql().trim());
   }
 
