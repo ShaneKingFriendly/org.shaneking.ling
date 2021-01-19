@@ -19,13 +19,7 @@ public class SKUnit {
 
   @Getter
   @Setter
-  private TestInfo tstInfo;
-  @Getter
-  @Setter
   private Stopwatch0 stopwatch;
-  @Getter
-  @Setter
-  private String tstSeq = null;
   @Getter
   @Setter
   private String tstFiles = "tstFiles";
@@ -34,15 +28,31 @@ public class SKUnit {
   private String tstI = String0.I.toLowerCase();
   @Getter
   @Setter
+  private TestInfo tstInfo;
+  @Getter
+  @Setter
   private String tstO = String0.O.toLowerCase();
+  @Getter
+  @Setter
+  private String tstSeq = null;
 
-  //CFG BEGIN:files
-  public File tstFolder() {
-    return new File(MAVEN_TEST_ROOT_FOLDER, tstInfo.getTestClass().get().getName().replaceAll(tstInfo.getTestClass().get().getSimpleName(), getTstFiles()).replaceAll(Regex0.DOT, String0.SLASH));
+  @AfterEach
+  public void tstAfter() {
+    log.info(tstInfo.getTestMethod().get().getName() + String0.EQUAL + this.getStopwatch().stop());
+  }
+
+  @BeforeEach
+  public void tstBefore(TestInfo testInfo) {
+    setTstInfo(testInfo);
+    setStopwatch(Stopwatch0.createStarted());
   }
 
   public File tstFiles(String io, String fileType) {
     return new File(tstFolder(), tstInfo.getTestClass().get().getSimpleName() + String0.UNDERLINE + tstInfo.getTestMethod().get().getName() + String0.UNDERLINE + this.getTstSeq() + String0.UNDERLINE + io + String0.DOT + fileType);
+  }
+
+  public File tstFolder() {
+    return new File(MAVEN_TEST_ROOT_FOLDER, tstInfo.getTestClass().get().getName().replaceAll(tstInfo.getTestClass().get().getSimpleName(), getTstFiles()).replaceAll(Regex0.DOT, String0.SLASH));
   }
 
   public File tstIFiles() {
@@ -60,20 +70,6 @@ public class SKUnit {
   public File tstOFiles(String fileType) {
     return tstFiles(getTstO(), fileType);
   }
-  //CFG END:files
-
-  //CFG BEGIN:watch
-  @BeforeEach
-  public void tstBefore(TestInfo testInfo) {
-    setTstInfo(testInfo);
-    setStopwatch(Stopwatch0.createStarted());
-  }
-
-  @AfterEach
-  public void tstAfter() {
-    log.info(tstInfo.getTestMethod().get().getName() + String0.EQUAL + this.getStopwatch().stop());
-  }
-  //CFG END:watch
 
   public void tstPrint(Object o) {
     log.info(tstInfo.getTestMethod().get().getName() + String0.EQUAL + o);

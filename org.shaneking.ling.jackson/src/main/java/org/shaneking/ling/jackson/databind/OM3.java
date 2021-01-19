@@ -24,36 +24,6 @@ public class OM3 {
   public static final String OBJECT_ERROR_STRING = "{}";
   private static ObjectMapper OM = null;
 
-  public static ObjectMapper om() {
-    if (OM == null) {
-      OM = new ObjectMapper();
-      OM.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-      OM.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    }
-    return OM;
-  }
-
-  /*
-  ThreadLocal is not perfect in spring mvc env.
-   */
-  @Deprecated
-  public static ObjectMapper omWithCtx() {
-    return appendCtxIgnoredFilter(om());
-  }
-
-  public static ObjectMapper om(@NonNull ObjectMapper objectMapper) {
-    OM = objectMapper;
-    return OM;
-  }
-
-  /*
-  ThreadLocal is not perfect in spring mvc env.
-   */
-  @Deprecated
-  public static ObjectMapper omWithCtx(@NonNull ObjectMapper objectMapper) {
-    return appendCtxIgnoredFilter(om(objectMapper));
-  }
-
   /*
   ThreadLocal is not perfect in spring mvc env.
    */
@@ -76,12 +46,42 @@ public class OM3 {
     return objectMapper.createObjectNode();
   }
 
-  //result, parameters
+  //last status or result, parameters
   public static String lp(Object object, Object... objects) {
     Map<String, Object> rtnMap = Map0.newHashMap();
-    rtnMap.put("r", object);
+    rtnMap.put("l", object);
     rtnMap.put("p", List0.newArrayList(objects));
     return writeValueAsString(rtnMap);
+  }
+
+  public static ObjectMapper om() {
+    if (OM == null) {
+      OM = new ObjectMapper();
+      OM.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+      OM.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
+    return OM;
+  }
+
+  public static ObjectMapper om(@NonNull ObjectMapper objectMapper) {
+    OM = objectMapper;
+    return OM;
+  }
+
+  /*
+  ThreadLocal is not perfect in spring mvc env.
+   */
+  @Deprecated
+  public static ObjectMapper omWithCtx() {
+    return appendCtxIgnoredFilter(om());
+  }
+
+  /*
+  ThreadLocal is not perfect in spring mvc env.
+   */
+  @Deprecated
+  public static ObjectMapper omWithCtx(@NonNull ObjectMapper objectMapper) {
+    return appendCtxIgnoredFilter(om(objectMapper));
   }
 
   //parameters

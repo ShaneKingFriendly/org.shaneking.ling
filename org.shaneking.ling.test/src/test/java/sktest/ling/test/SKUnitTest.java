@@ -1,4 +1,4 @@
-package sktst.ling.test;
+package sktest.ling.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,18 +14,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Slf4j
 public class SKUnitTest extends SKUnit {
   @BeforeEach
-  public void testBefore1() {
+  public void beforeEach1() {
     log.info("testBefore1");
   }
 
   @BeforeEach
-  public void testBefore2() {
+  public void beforeEach2() {
     log.info("testBefore2");
   }
 
   @Test
   public void testIFiles() {
-    assertEquals(new File("src/test/java/sktst/ling/test/tstFiles/SKUnitTest_testIFiles_null_i.json"), tstIFiles(File0.TYPE_JSON));
+    assertEquals(new File("src/test/java/sktest/ling/test/tstFiles/SKUnitTest_testIFiles_null_i.json"), tstIFiles(File0.TYPE_JSON));
   }
 
   @Test
