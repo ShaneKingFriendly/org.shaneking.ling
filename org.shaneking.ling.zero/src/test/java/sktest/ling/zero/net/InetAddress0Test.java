@@ -12,19 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class InetAddress0Test {
 
   @Test
-  void loadLocalHosts() {
-    assertTrue(InetAddress0.loadLocalHosts());
-  }
-
-  @Test
-  void reloadLocalHosts() {
-    assertTrue(InetAddress0.reloadLocalHosts());
-  }
-
-  @Test
   void existInLocalHosts() {
     assertFalse(InetAddress0.existInLocalHosts("shaneking.org"));
     assertFalse(InetAddress0.existInLocalHosts("inet.address.test"));
+  }
+
+  @Test
+  void loadLocalHosts() {
+    assertTrue(InetAddress0.loadLocalHosts());
   }
 
   @Test
@@ -34,6 +29,11 @@ class InetAddress0Test {
     assertEquals("44.44.44.44", InetAddress0.virtualAddress("inet.address.test"));
     assertNull(InetAddress0.virtualAddress("inet.address.test2"));
     assertEquals("44.44.44.44", InetAddress.getByName("inet.address.test").getHostAddress());
+  }
+
+  @Test
+  void reloadLocalHosts() {
+    assertTrue(InetAddress0.reloadLocalHosts());
   }
 
   @Test

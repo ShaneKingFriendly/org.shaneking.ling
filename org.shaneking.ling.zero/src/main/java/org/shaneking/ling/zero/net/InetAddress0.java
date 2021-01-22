@@ -12,7 +12,6 @@ import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Regex0;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.net.InetAddress;
@@ -26,59 +25,6 @@ public class InetAddress0 {
   public static final long YEAR = 1000L * 60 * 60 * 24 * 365;
   public static final long EXPIRATION = YEAR * 100;
   public static final List<CacheEntry0> LOCAL_ADDRESS_LIST = List0.newArrayList();
-
-  public static boolean loadLocalHosts() {
-    boolean rtn = false;
-    if (LOCAL_ADDRESS_LIST.isEmpty()) {
-      try {
-        Files.lines(new File(System.getProperty("os.name").startsWith("Windows") ? "c:/windows/System32/drivers/etc/hosts" : "/etc/hosts").toPath()).forEachOrdered(line -> {
-          if (!String0.isNullOrEmpty(line) && !line.startsWith(String0.POUND)) {
-            String[] parts = line.split(Regex0.BLACKS);
-            if (parts.length > 1) {
-              for (int i = 1; i < parts.length; i++) {
-                LOCAL_ADDRESS_LIST.add(new CacheEntry0(parts[i], parts[0]));
-              }
-            }
-          }
-        });
-        rtn = true;
-      } catch (IOException e) {
-        log.error(String0.nullOrEmptyTo(e.getMessage(), e.toString()), e);
-      }
-    }
-    return rtn;
-  }
-
-  public static boolean reloadLocalHosts() {
-    LOCAL_ADDRESS_LIST.clear();
-    return loadLocalHosts();
-  }
-
-  public static boolean existInLocalHosts(String hostName) {
-    return LOCAL_ADDRESS_LIST.parallelStream().filter(cacheEntry0 -> cacheEntry0.hostName.equalsIgnoreCase(hostName)).count() > 0;
-  }
-
-  public static boolean putCustomHost(String hostName, String hostAddress) {
-    return putCustomHost(hostName, new String[]{hostAddress});
-  }
-
-  public static boolean putCustomHost(String hostName, String[] hostAddresses) {
-    boolean rtn = false;
-    if (!existInLocalHosts(hostName)) {
-      getAddressCacheMap().put(hostName, createCacheEntry(hostName, hostAddresses));
-      rtn = true;
-    }
-    return rtn;
-  }
-
-  public static boolean rmvCustomHost(String hostName) {
-    return getAddressCacheMap().remove(hostName) != null;
-  }
-
-  public static boolean isCustomHost(CacheEntry0 cacheEntry) {
-    // JVM default expiration is 30s, if grate then one year is custom hosts, because we set 100 years
-    return (cacheEntry.expiration - System.currentTimeMillis()) > YEAR;
-  }
 
   public static Object createCacheEntry(String hostName, String[] hostAddresses) {
     try {
@@ -96,6 +42,19 @@ public class InetAddress0 {
     }
   }
 
+  public static String customAddress(String hostName) {
+    List<String> customAddresses = customAddresses(hostName);
+    return customAddresses.size() > 0 ? customAddresses.get(SR0.nextInt(customAddresses.size())) : null;
+  }
+
+  public static List<String> customAddresses(String hostName) {
+    return virtualHosts(getAddressCacheMap().get(hostName)).stream().filter(InetAddress0::isCustomHost).map(CacheEntry0::getHostAddress).collect(Collectors.toList());
+  }
+
+  public static boolean existInLocalHosts(String hostName) {
+    return LOCAL_ADDRESS_LIST.parallelStream().filter(cacheEntry0 -> cacheEntry0.hostName.equalsIgnoreCase(hostName)).count() > 0;
+  }
+
   public static Map<String, Object> getAddressCacheMap() {
     try {
       final Field cacheField = InetAddress.class.getDeclaredField("addressCache");
@@ -111,18 +70,58 @@ public class InetAddress0 {
     }
   }
 
-  public static String customAddress(String hostName) {
-    List<String> customAddresses = customAddresses(hostName);
-    return customAddresses.size() > 0 ? customAddresses.get(SR0.nextInt(customAddresses.size())) : null;
+  public static boolean isCustomHost(CacheEntry0 cacheEntry) {
+    // JVM default expiration is 30s, if grate then one year is custom hosts, because we set 100 years
+    return (cacheEntry.expiration - System.currentTimeMillis()) > YEAR;
+  }
+
+  public static boolean loadLocalHosts() {
+    boolean rtn = false;
+    if (LOCAL_ADDRESS_LIST.isEmpty()) {
+      try {
+        Files.lines(new File(System.getProperty("os.name").startsWith("Windows") ? "c:/windows/System32/drivers/etc/hosts" : "/etc/hosts").toPath()).forEachOrdered(line -> {
+          if (!String0.isNullOrEmpty(line) && !line.startsWith(String0.POUND)) {
+            String[] parts = line.split(Regex0.BLACKS);
+            if (parts.length > 1) {
+              for (int i = 1; i < parts.length; i++) {
+                LOCAL_ADDRESS_LIST.add(new CacheEntry0(parts[i], parts[0]));
+              }
+            }
+          }
+        });
+        rtn = true;
+      } catch (Exception e) {
+        log.error(String0.nullOrEmptyTo(e.getMessage(), e.toString()), e);
+      }
+    }
+    return rtn;
+  }
+
+  public static boolean putCustomHost(String hostName, String hostAddress) {
+    return putCustomHost(hostName, new String[]{hostAddress});
+  }
+
+  public static boolean putCustomHost(String hostName, String[] hostAddresses) {
+    boolean rtn = false;
+    if (!existInLocalHosts(hostName)) {
+      getAddressCacheMap().put(hostName, createCacheEntry(hostName, hostAddresses));
+      rtn = true;
+    }
+    return rtn;
+  }
+
+  public static boolean reloadLocalHosts() {
+    LOCAL_ADDRESS_LIST.clear();
+    return loadLocalHosts();
+  }
+
+  public static boolean rmvCustomHost(String hostName) {
+    return getAddressCacheMap().remove(hostName) != null;
   }
 
   public static String virtualAddress(String hostName) {
     List<String> virtualAddresses = virtualAddresses(hostName);
     return virtualAddresses.size() > 0 ? virtualAddresses.get(SR0.nextInt(virtualAddresses.size())) : null;
-  }
-
-  public static List<String> customAddresses(String hostName) {
-    return virtualHosts(getAddressCacheMap().get(hostName)).stream().filter(InetAddress0::isCustomHost).map(CacheEntry0::getHostAddress).collect(Collectors.toList());
   }
 
   public static List<String> virtualAddresses(String hostName) {

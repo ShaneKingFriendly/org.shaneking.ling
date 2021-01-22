@@ -6,7 +6,6 @@ import org.shaneking.ling.zero.lang.AC0;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.FixedList;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -72,7 +71,7 @@ public class Runtime0Callable implements Callable<List<String>> {
           }
         }
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
       log.error(e.getMessage(), e);
       rtnList.add(e.toString());
     } finally {

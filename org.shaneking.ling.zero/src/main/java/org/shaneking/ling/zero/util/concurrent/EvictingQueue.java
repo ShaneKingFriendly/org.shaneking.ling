@@ -70,7 +70,7 @@ difference: if queue is empty
         super.poll();
         return super.offer(t, timeout, unit);
       }
-    } catch (InterruptedException e) {
+    } catch (Exception e) {
       if (quietly) {
         log.error(String.valueOf(t), e);
         return false;

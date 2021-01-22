@@ -4,7 +4,6 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.zero.util.Regex0;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 @Slf4j
@@ -31,7 +30,7 @@ public class Object0 {
       try {
         penultimate.getClass().getMethod("set" + String0.upperFirst(last), t.getClass()).invoke(penultimate, t);
         rtn = o;
-      } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+      } catch (Exception e) {
         log.error(e.getMessage(), e);
         rtn = EXCEPTION;
       }
@@ -48,7 +47,7 @@ public class Object0 {
     if (fields.length > index) {
       try {
         rtn = Object0.gs(o.getClass().getMethod("get" + String0.upperFirst(fields[index])).invoke(o), fields, ++index);
-      } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+      } catch (Exception e) {
         log.error(e.getMessage(), e);
         rtn = EXCEPTION;
       }
