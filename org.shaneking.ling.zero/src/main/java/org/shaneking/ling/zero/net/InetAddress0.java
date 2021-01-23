@@ -103,7 +103,7 @@ public class InetAddress0 {
 
   public static boolean putCustomHost(String hostName, String[] hostAddresses) {
     boolean rtn = false;
-    if (!existInLocalHosts(hostName)) {
+    if (!String0.isNullOrEmpty(hostName) && hostAddresses != null && hostAddresses.length > 0 && !existInLocalHosts(hostName)) {
       getAddressCacheMap().put(hostName, createCacheEntry(hostName, hostAddresses));
       rtn = true;
     }
