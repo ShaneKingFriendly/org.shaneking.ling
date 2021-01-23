@@ -2,11 +2,12 @@ package sktest.ling.jsqlparser.util.deparser;
 
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jsqlparser.util.deparser.ExpressionDeParser3;
+import org.shaneking.ling.test.SKUnit;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ExpressionDeParser3Test {
+class ExpressionDeParser3Test extends SKUnit {
 
   @Test
   void addSchemaAliasPrefix() {

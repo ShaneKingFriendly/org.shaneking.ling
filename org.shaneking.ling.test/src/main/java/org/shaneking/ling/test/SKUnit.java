@@ -2,6 +2,7 @@ package org.shaneking.ling.test;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import org.shaneking.ling.zero.util.Regex0;
 import java.io.File;
 
 @Slf4j
+@Accessors(chain = true)
 public class SKUnit {
   public static final File MAVEN_TEST_ROOT_FOLDER = new File("src/test/java");
 
@@ -56,7 +58,7 @@ public class SKUnit {
   }
 
   public File tstIFiles() {
-    return tstFiles(getTstI(), File0.TYPE_TXT);
+    return tstIFiles(File0.TYPE_TXT);
   }
 
   public File tstIFiles(String fileType) {
@@ -64,7 +66,7 @@ public class SKUnit {
   }
 
   public File tstOFiles() {
-    return tstFiles(getTstO(), File0.TYPE_TXT);
+    return tstOFiles(File0.TYPE_TXT);
   }
 
   public File tstOFiles(String fileType) {

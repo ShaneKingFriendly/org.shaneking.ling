@@ -7,18 +7,21 @@ import lombok.experimental.Accessors;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.rr.Req;
+import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.UUID0;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ReqTest {
+class ReqTest extends SKUnit {
 
   @Test
   void build() {
     String cul33 = UUID0.cUl33();
     assertAll(
+      () -> assertEquals("Req(ctx=null, enc=null, pri=null, pub=null)", Test4Req.build().toString()),
+
       () -> assertEquals("{}", OM3.writeValueAsString(Test4Req.build())),
 
       () -> assertEquals("{\"pri\":{}}", OM3.writeValueAsString(Test4Req.build(PriTest.Test4Pri.build()))),

@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.rr.Resp;
 import org.shaneking.ling.rr.RespException;
+import org.shaneking.ling.test.SKUnit;
+import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.lang.ZeroException;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RespTest {
+class RespTest extends SKUnit {
 
   @Test
   void build() {
@@ -46,6 +48,13 @@ class RespTest {
           throw new ZeroException();
         } catch (ZeroException e) {
           assertEquals("{\"code\":\"org.shaneking.ling.zero.lang.ZeroException\",\"mesg\":\"org.shaneking.ling.zero.lang.ZeroException\"}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+        }
+      },
+      () -> {
+        try {
+          throw new RespException(Resp.failed(String0.ALPHABET), new ZeroException());
+        } catch (RespException e) {
+          assertEquals("{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"mesg\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       }
     );

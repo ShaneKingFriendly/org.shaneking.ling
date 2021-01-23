@@ -9,6 +9,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jackson.databind.OM3;
+import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.Object0;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OM3Test {
+class OM3Test extends SKUnit {
 
   @Test
   void createObjectNode() {

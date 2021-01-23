@@ -2,10 +2,11 @@ package sktest.ling.persistence.sql;
 
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.persistence.sql.Pagination;
+import org.shaneking.ling.test.SKUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PaginationTest {
+class PaginationTest extends SKUnit {
 
   @Test
   void testToString() {

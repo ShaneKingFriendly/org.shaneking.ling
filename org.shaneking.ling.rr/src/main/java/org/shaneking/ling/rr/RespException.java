@@ -20,12 +20,12 @@ public class RespException extends ZeroException {
 
   public RespException(Resp resp, String message) {
     super(String0.null2EmptyTo(message, String0.null2EmptyTo(resp.getMesg(), resp.getCode())));
-    this.resp = resp;
+    this.setResp(resp);
   }
 
   public RespException(Resp resp, String message, Throwable cause) {
     super(String0.null2EmptyTo(message, String0.null2EmptyTo(resp.getMesg(), resp.getCode())), cause);
-    this.resp = resp;
+    this.setResp(resp);
   }
 
   public RespException(Resp resp, Throwable cause) {

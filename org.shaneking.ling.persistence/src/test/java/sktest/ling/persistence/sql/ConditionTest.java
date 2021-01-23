@@ -2,11 +2,12 @@ package sktest.ling.persistence.sql;
 
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.persistence.sql.Condition;
+import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.util.List0;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ConditionTest {
+class ConditionTest extends SKUnit {
 
   @Test
   void appendId() {

@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.test.SKUnit;
-import org.shaneking.ling.zero.io.File0;
+import org.shaneking.ling.zero.lang.String0;
 
 import java.io.File;
 
@@ -25,11 +25,16 @@ public class SKUnitTest extends SKUnit {
 
   @Test
   public void testIFiles() {
-    assertEquals(new File("src/test/java/sktest/ling/test/tstFiles/SKUnitTest_testIFiles_null_i.json"), tstIFiles(File0.TYPE_JSON));
+    assertEquals(new File("src/test/java/sktest/ling/test/tstFiles/SKUnitTest_testIFiles_null_i.txt"), tstIFiles());
   }
 
   @Test
   public void testOFiles() {
-    tstPrint(tstOFiles(File0.TYPE_JSON));
+    tstPrint(tstOFiles());
+  }
+
+  @Test
+  void testToString() {
+    assertEquals("testToString", this.setTstFiles(String0.ALPHABET).setTstI(String0.ALPHABET).setTstO(String0.ALPHABET).setTstSeq(String0.ALPHABET).getTstInfo().getTestMethod().get().getName());
   }
 }
