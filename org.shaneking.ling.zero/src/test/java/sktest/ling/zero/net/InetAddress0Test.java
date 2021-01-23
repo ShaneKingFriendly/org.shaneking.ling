@@ -2,6 +2,7 @@ package sktest.ling.zero.net;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.net.InetAddress0;
 
 import java.net.InetAddress;
@@ -23,12 +24,18 @@ class InetAddress0Test {
   }
 
   @Test
-  void putVirtualHost() throws UnknownHostException {
+  void putCustomHost() throws UnknownHostException {
     assertTrue(InetAddress0.putCustomHost("inet.address.test", "44.44.44.44"));
     assertEquals("44.44.44.44", InetAddress0.customAddress("inet.address.test"));
     assertEquals("44.44.44.44", InetAddress0.virtualAddress("inet.address.test"));
     assertNull(InetAddress0.virtualAddress("inet.address.test2"));
     assertEquals("44.44.44.44", InetAddress.getByName("inet.address.test").getHostAddress());
+
+    assertEquals(1, String0.ALPHABET.split(String0.COMMA).length);
+    assertEquals(String0.ALPHABET, String.join(String0.COMMA, String0.ALPHABET.split(String0.COMMA)));
+
+    assertEquals(1, String0.EMPTY.split(String0.COMMA).length);
+    assertEquals(String0.EMPTY, String.join(String0.COMMA, String0.EMPTY.split(String0.COMMA)));
   }
 
   @Test

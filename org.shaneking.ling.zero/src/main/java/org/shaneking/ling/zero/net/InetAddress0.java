@@ -1,6 +1,7 @@
 package org.shaneking.ling.zero.net;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -97,8 +98,8 @@ public class InetAddress0 {
     return rtn;
   }
 
-  public static boolean putCustomHost(String hostName, String hostAddress) {
-    return putCustomHost(hostName, new String[]{hostAddress});
+  public static boolean putCustomHost(String hostName, @NonNull String hostAddress) {
+    return putCustomHost(hostName, hostAddress.split(String0.COMMA));
   }
 
   public static boolean putCustomHost(String hostName, String[] hostAddresses) {
