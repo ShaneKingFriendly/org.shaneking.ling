@@ -20,7 +20,7 @@ class Crypto0Test {
   void aesEncrypt() throws BadPaddingException, IllegalBlockSizeException {
     assertEquals("TcC53mabDUr4WU5NjQZLTw==", Crypto0.aesEncrypt("ILoveYou"));
     assertAll(
-      () -> assertThrows(NullPointerException.class, () -> Crypto0.aesEncrypt(null)),
+      () -> assertThrows(NullPointerException.class, () -> Crypto0.aesEncrypt(null, false)),
       () -> assertDoesNotThrow(() -> Crypto0.aesEncrypt(String0.EMPTY))
     );
   }
