@@ -4,11 +4,11 @@ import javax.persistence.Transient;
 
 public interface Identified {
   @Transient
-  String COLUMN__TID = "tid";
+  String COLUMN__BID = "bid";
   @Transient
-  String FIELD__TID = "tid";
+  String FIELD__BID = "bid";
 
-  String getTid();
+  String getBid();
 
-  <T extends Identified> T setTid(String tid);
+  <T extends Identified> T setBid(String bid);
 }
