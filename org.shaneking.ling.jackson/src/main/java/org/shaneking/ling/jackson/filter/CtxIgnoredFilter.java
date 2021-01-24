@@ -14,7 +14,7 @@ ThreadLocal is not perfect in spring mvc env.
  */
 @Deprecated
 public class CtxIgnoredFilter extends SimpleBeanPropertyFilter implements Serializable {
-  public static final String FILTER_NAME = CtxIgnoredFilter.class.getName();
+  public static final String FILTER_NAME = "org.shaneking.ling.jackson.filter.CtxIgnoredFilter";//CtxIgnoredFilter.class.getName();
 
   @Override
   protected boolean include(BeanPropertyWriter writer) {
