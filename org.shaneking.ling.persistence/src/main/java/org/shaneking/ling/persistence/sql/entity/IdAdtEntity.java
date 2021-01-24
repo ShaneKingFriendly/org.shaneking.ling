@@ -35,12 +35,12 @@ public abstract class IdAdtEntity<J> extends IdEntity<J> {
   /**
    * @see org.shaneking.ling.zero.util.Date0#DATE_TIME
    */
-  @Column(length = 20, columnDefinition = "COMMENT 'The last modification date time of record'")
+  @Column(length = 20, columnDefinition = "default '' COMMENT 'The last modification date time of record'")
   @Getter
   @Setter
   private String lastModifyDateTime;
 
-  @Column(length = 40, columnDefinition = "COMMENT 'The last modified user of record'")
+  @Column(length = 40, columnDefinition = "default '' COMMENT 'The last modified user of record'")
   @Getter
   @Setter
   private String lastModifyUserId;

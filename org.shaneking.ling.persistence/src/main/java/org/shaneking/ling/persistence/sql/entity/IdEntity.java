@@ -25,7 +25,7 @@ public abstract class IdEntity<J> extends AbstractSqlEntity<J> {
   //Date0.on().datetimes()_UUID0.l19()=17+1+19=37=UUID0.dUl37()
   //Date0.on().datetimes()_SK.l22()=17+1+22=40=SK.cUl40()
   //Date0.on().datetimes()_UUID.randomUUID()=17+1+36=54
-  @Column(length = 40, updatable = false, columnDefinition = "COMMENT 'Uniquely identifies'")
+  @Column(nullable = false, length = 40, updatable = false, columnDefinition = "COMMENT 'Uniquely identifies'")
   @Getter
   @Id
   @Setter

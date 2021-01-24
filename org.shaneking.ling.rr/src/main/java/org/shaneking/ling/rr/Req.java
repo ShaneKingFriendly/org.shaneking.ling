@@ -27,7 +27,7 @@ public class Req<C, E, O, R, P> {
 
   @Getter
   @Setter
-  private P pub;//system properties;tenantId,appName,sysName,priEncode(if Y, parse enc to pri),priPath('res')
+  private P pub;//system properties;channelName,tenantName,encoded(if Y, parse enc to pri),priPath('res')
 
   public static <C, E, O, R, P> Req<C, E, O, R, P> build() {
     return new Req<C, E, O, R, P>();
