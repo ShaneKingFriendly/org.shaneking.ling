@@ -26,7 +26,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     whereStatement(whereList, rtnObjectList);
     if (whereList.size() > 0) {
       sqlList.add(Keyword.WHERE);
-      sqlList.add(String.join(Keyword.wrapBlack(Keyword.AND), whereList));
+      sqlList.add(String.join(String0.wrapBlack(Keyword.AND), whereList));
     }
     return Tuple.of(String.join(String0.BLANK, sqlList), rtnObjectList);
   }
@@ -115,7 +115,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     sqlList.add(String.join(String0.COMMA, fromList));
     if (whereList != null && whereList.size() > 0) {
       sqlList.add(Keyword.WHERE);
-      sqlList.add(String.join(Keyword.wrapBlack(Keyword.AND), whereList));
+      sqlList.add(String.join(String0.wrapBlack(Keyword.AND), whereList));
     }
     if (groupByList != null && groupByList.size() > 0) {
       sqlList.add(Keyword.GROUP_BY);
@@ -123,7 +123,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     }
     if (havingList != null && havingList.size() > 0) {
       sqlList.add(Keyword.HAVING);
-      sqlList.add(String.join(Keyword.wrapBlack(Keyword.AND), havingList));
+      sqlList.add(String.join(String0.wrapBlack(Keyword.AND), havingList));
     }
     if (orderByList != null && orderByList.size() > 0) {
       sqlList.add(Keyword.ORDER_BY);
@@ -162,7 +162,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     sqlList.add(String.join(String0.COMMA, updateList));
     if (whereList.size() > 0) {
       sqlList.add(Keyword.WHERE);
-      sqlList.add(String.join(Keyword.wrapBlack(Keyword.AND), whereList));
+      sqlList.add(String.join(String0.wrapBlack(Keyword.AND), whereList));
     }
     return Tuple.of(String.join(String0.BLANK, sqlList), rtnObjectList);
   }

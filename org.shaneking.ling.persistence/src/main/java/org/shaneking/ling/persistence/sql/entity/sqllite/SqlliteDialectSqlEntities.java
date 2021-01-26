@@ -13,6 +13,7 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
+//some junit test without remote db server
 public interface SqlliteDialectSqlEntities extends DialectSqlEntities {
   default String createColumnStatement(String columnName, boolean idOrVersion) {
     String rtn, columnDbTypeString;

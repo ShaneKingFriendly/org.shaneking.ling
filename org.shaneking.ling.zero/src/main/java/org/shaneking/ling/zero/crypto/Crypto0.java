@@ -20,7 +20,8 @@ import java.util.UUID;
  */
 @Slf4j
 public class Crypto0 {
-  public static final String ENCRYPTED_PREFIX = "[C3]";
+  public static final String ALGORITHM_NAME__AES = "C3";
+  public static final String ENCRYPTED_PREFIX = String0.wrapBracket(ALGORITHM_NAME__AES);
   //ILoveYou
   public static final String DEFAULT_SALT = "494c6f7665596f75";
 

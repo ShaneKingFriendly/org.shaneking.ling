@@ -1,6 +1,5 @@
 package org.shaneking.ling.persistence.sql;
 
-import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
 
 public class Keyword {
@@ -41,8 +40,4 @@ public class Keyword {
   public static final String TYPE_LONGTEXT = "longtext";
   public static final String TYPE_TEXT = "text";
   public static final String TYPE_VARCHAR = "varchar";
-
-  public static String wrapBlack(@NonNull String keyword) {
-    return String0.BLANK + keyword + String0.BLANK;
-  }
 }

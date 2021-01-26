@@ -217,4 +217,28 @@ public class String0 {
   public static String valueOf(Object o) {
     return o == null ? EMPTY : o.toString();
   }
+
+  public static String wrapBlack(String s) {
+    return wrap(s, BLANK);
+  }
+
+  public static String wrapBrace(String s) {
+    return wrap(s, OPEN_BRACE, CLOSE_BRACE);
+  }
+
+  public static String wrapBracket(String s) {
+    return wrap(s, OPEN_BRACKET, CLOSE_BRACKET);
+  }
+
+  public static String wrapParenthesis(String s) {
+    return wrap(s, OPEN_PARENTHESIS, CLOSE_PARENTHESIS);
+  }
+
+  public static String wrap(String s, String around) {
+    return wrap(s, around, around);
+  }
+
+  public static String wrap(String s, String open, String close) {
+    return open + s + close;
+  }
 }

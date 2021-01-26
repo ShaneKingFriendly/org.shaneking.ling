@@ -40,7 +40,7 @@ public class SKUnit {
 
   @AfterEach
   public void tstAfter() {
-    log.info(tstInfo.getTestMethod().get().getName() + String0.EQUAL + this.getStopwatch().stop());
+    log.info(getTstInfo().getTestMethod().get().getName() + String0.EQUAL + this.getStopwatch().stop());
   }
 
   @BeforeEach
@@ -50,11 +50,11 @@ public class SKUnit {
   }
 
   public File tstFiles(String io, String fileType) {
-    return new File(tstFolder(), tstInfo.getTestClass().get().getSimpleName() + String0.UNDERLINE + tstInfo.getTestMethod().get().getName() + String0.UNDERLINE + this.getTstSeq() + String0.UNDERLINE + io + String0.DOT + fileType);
+    return new File(tstFolder(), getTstInfo().getTestClass().get().getSimpleName() + String0.UNDERLINE + getTstInfo().getTestMethod().get().getName() + String0.UNDERLINE + this.getTstSeq() + String0.UNDERLINE + io + String0.DOT + fileType);
   }
 
   public File tstFolder() {
-    return new File(MAVEN_TEST_ROOT_FOLDER, tstInfo.getTestClass().get().getName().replaceAll(tstInfo.getTestClass().get().getSimpleName(), getTstFiles()).replaceAll(Regex0.DOT, String0.SLASH));
+    return new File(MAVEN_TEST_ROOT_FOLDER, getTstInfo().getTestClass().get().getName().replaceAll(getTstInfo().getTestClass().get().getSimpleName(), getTstFiles()).replaceAll(Regex0.DOT, String0.SLASH));
   }
 
   public File tstIFiles() {
@@ -74,6 +74,6 @@ public class SKUnit {
   }
 
   public void tstPrint(Object o) {
-    log.info(tstInfo.getTestMethod().get().getName() + String0.EQUAL + o);
+    log.info(getTstInfo().getTestMethod().get().getName() + String0.EQUAL + o);
   }
 }
