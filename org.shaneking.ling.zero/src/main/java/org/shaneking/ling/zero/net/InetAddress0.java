@@ -16,7 +16,9 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.nio.file.Files;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -145,6 +147,34 @@ public class InetAddress0 {
         throw new ZeroException(e);
       }
     }
+  }
+
+  //https://cloud.tencent.com/developer/article/1610919
+  public static InetAddress localHostExactAddress() {
+    try {
+      InetAddress candidateAddress = null;
+
+      Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+      while (networkInterfaces.hasMoreElements()) {
+        NetworkInterface iface = networkInterfaces.nextElement();
+        for (Enumeration<InetAddress> inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements(); ) {
+          InetAddress inetAddr = inetAddrs.nextElement();
+          if (!inetAddr.isLoopbackAddress()) {
+            if (inetAddr.isSiteLocalAddress()) {
+              return inetAddr;
+            }
+            if (candidateAddress == null) {
+              candidateAddress = inetAddr;
+            }
+
+          }
+        }
+      }
+      return candidateAddress == null ? InetAddress.getLocalHost() : candidateAddress;
+    } catch (Exception e) {
+      log.error(String.valueOf(e), e);
+    }
+    return null;
   }
 
   @Accessors(chain = true)
