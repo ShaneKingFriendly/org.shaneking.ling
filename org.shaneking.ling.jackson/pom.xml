@@ -24,16 +24,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
     </dependency>
@@ -49,6 +39,17 @@
       <groupId>org.shaneking.ling</groupId>
       <artifactId>org.shaneking.ling.zero</artifactId>
       <version>${project.parent.version}</version>
+    </dependency>
+    <!-- test -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.shaneking.ling</groupId>

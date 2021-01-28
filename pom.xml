@@ -98,6 +98,7 @@
   <!-- mvn -N versions:set -DgenerateBackupPoms=false -DnewVersion=0.241.1 -->
   <!-- Unused : mvn -N versions:update-child-modules -->
   <modules>
+    <module>org.shaneking.ling.cache</module>
     <module>org.shaneking.ling.jackson</module>
     <module>org.shaneking.ling.jsqlparser</module>
     <module>org.shaneking.ling.persistence</module>
