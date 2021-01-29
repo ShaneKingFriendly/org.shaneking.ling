@@ -116,4 +116,24 @@ class String0Test {
     Object o = null;
     assertEquals(Object0.NULL, String.valueOf(o));
   }
+
+  @Test
+  void wrapBlack() {
+    assertEquals(String0.BLANK + String0.BLANK + String0.BLANK, String0.wrapBlack(String0.BLANK));
+  }
+
+  @Test
+  void wrapBrace() {
+    assertEquals(String0.OPEN_BRACE + String0.BLANK + String0.CLOSE_BRACE, String0.wrapBrace(String0.BLANK));
+  }
+
+  @Test
+  void wrapBracket() {
+    assertEquals(String0.OPEN_BRACKET + String0.BLANK + String0.CLOSE_BRACKET, String0.wrapBracket(String0.BLANK));
+  }
+
+  @Test
+  void wrapParenthesis() {
+    assertEquals(String0.OPEN_PARENTHESIS + String0.BLANK + String0.CLOSE_PARENTHESIS, String0.wrapParenthesis(String0.BLANK));
+  }
 }

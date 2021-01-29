@@ -18,18 +18,16 @@ class File0Test {
       () -> assertEquals(userDir + "/target/test-classes/sktest/ling/zero/io/", File0Test.class.getResource(String0.EMPTY).getFile()),
       () -> assertEquals(userDir + "/target/test-classes/", File0Test.class.getResource(String0.SLASH).getFile()),
       () -> assertEquals(userDir + "/target/test-classes/", File0Test.class.getClassLoader().getResource(String0.EMPTY).getFile()),
-      () -> assertNull(File0Test.class.getClassLoader().getResource(String0.SLASH))
-    );
-    assertAll(
+      () -> assertNull(File0Test.class.getClassLoader().getResource(String0.SLASH)),
+
       () -> assertEquals("sktest.ling.zero.io.File0Test", File0Test.class.getCanonicalName()),
       () -> assertEquals("sktest.ling.zero.io.File0Test", File0Test.class.getName()),
       () -> assertEquals("package sktest.ling.zero.io", File0Test.class.getPackage().toString()),
       () -> assertEquals("File0Test", File0Test.class.getSimpleName()),
       () -> assertEquals("sktest.ling.zero.io.File0Test", File0Test.class.getTypeName()),
       () -> assertEquals("class sktest.ling.zero.io.File0Test", File0Test.class.toGenericString()),
-      () -> assertEquals("class sktest.ling.zero.io.File0Test", File0Test.class.toString())
-    );
-    assertAll(
+      () -> assertEquals("class sktest.ling.zero.io.File0Test", File0Test.class.toString()),
+
       () -> assertEquals(String.join(File.separator, userDir, "target", "classes", "sktest"), File0.join(new File("target"), "classes", "sktest").getAbsolutePath()),
       () -> assertEquals(String.join(File.separator, userDir, "target", "classes", "sktest"), File0.join(File.separator, "target", "classes", "sktest").getAbsolutePath()),
       () -> assertEquals(String.join(File.separator, userDir, "target", "classes", "sktest"), File0.join(File.separator, new File("target"), "classes", "sktest").getAbsolutePath())

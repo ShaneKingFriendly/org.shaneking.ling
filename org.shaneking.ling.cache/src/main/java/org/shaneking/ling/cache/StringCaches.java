@@ -52,10 +52,8 @@ public interface StringCaches {
     if (map != null) {
       for (String field : fields) {
         String value = map.get(field);
-        {
-          if (value != null) {
-            rtn.add(value);
-          }
+        if (value != null) {
+          rtn.add(value);
         }
       }
     }

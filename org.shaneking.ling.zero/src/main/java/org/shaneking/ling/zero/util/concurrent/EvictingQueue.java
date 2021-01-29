@@ -59,10 +59,10 @@ difference: if queue is empty
 
   @Override
   public boolean offer(T t, long timeout, TimeUnit unit) {
-    return offer(t, true, timeout, unit);
+    return offer(t, timeout, unit, true);
   }
 
-  public boolean offer(T t, boolean quietly, long timeout, TimeUnit unit) {
+  public boolean offer(T t, long timeout, TimeUnit unit, boolean quietly) {
     try {
       if (super.offer(t, timeout, unit)) {
         return true;

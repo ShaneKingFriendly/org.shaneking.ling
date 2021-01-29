@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EvictingQueueTest {
@@ -42,6 +43,17 @@ class EvictingQueueTest {
     for (int i = 0; i < 8; i++) {
       evictingQueue.offer(i, 1000, TimeUnit.MILLISECONDS);
     }
+    assertEquals("[5, 6, 7]", String.valueOf(evictingQueue));
+  }
+
+  @Test
+  void offer4timeout4exception() {
+    EvictingQueue<Integer> evictingQueue = new EvictingQueue<>(3);
+    for (int i = 0; i < 8; i++) {
+      final int fi = i;
+      assertDoesNotThrow(() -> evictingQueue.offer(fi, 1, TimeUnit.NANOSECONDS));
+    }
+//    assertThrows(ZeroException.class, () -> evictingQueue.offer(9, 1, TimeUnit.NANOSECONDS, false));
     assertEquals("[5, 6, 7]", String.valueOf(evictingQueue));
   }
 

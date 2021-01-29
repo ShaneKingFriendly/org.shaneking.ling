@@ -24,6 +24,7 @@ class FixedListTest {
   @Test
   void addAll() {
     FixedList<Integer> fixedList = new FixedList<>();
+    fixedList.addAll(List0.nCopies(3, () -> 1));
     for (int i = 0; i < 10; i++) {
       final int fi = i;
       if (i % 2 == 0) {

@@ -13,7 +13,7 @@ ThreadLocal is not perfect in spring mvc env.
 @Deprecated
 @JacksonAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.FIELD})
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.ANNOTATION_TYPE})
 public @interface CtxIgnored {
   String[] value() default {};
 }

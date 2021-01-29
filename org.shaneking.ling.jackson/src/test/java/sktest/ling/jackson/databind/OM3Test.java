@@ -3,6 +3,7 @@ package sktest.ling.jackson.databind;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.Object0;
+import org.shaneking.ling.zero.lang.ZeroException;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
 
@@ -20,6 +22,14 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OM3Test extends SKUnit {
+
+  @Test
+  void appendCtxIgnoredFilter() {
+    assertAll(
+      () -> assertNotNull(OM3.appendCtxIgnoredFilter(new ObjectMapper())),
+      () -> assertNotNull(OM3.appendCtxIgnoredFilter(new ObjectMapper().setFilterProvider(new SimpleFilterProvider())))
+    );
+  }
 
   @Test
   void createObjectNode() {
@@ -38,6 +48,11 @@ class OM3Test extends SKUnit {
   }
 
   @Test
+  void omWithCtx() {
+    assertNotNull(OM3.omWithCtx());
+  }
+
+  @Test
   void p() {
     assertEquals("{\"p\":[\"a\",\"1\",2]}", OM3.p("a", "1", 2));
   }
@@ -52,7 +67,23 @@ class OM3Test extends SKUnit {
       () -> assertLinesMatch(List0.newArrayList("a", "1", "2"), OM3.readValue(OM3.p("a", "1", "2"), new TypeReference<Map<String, List<String>>>() {
       }).get("p")),
       () -> assertLinesMatch(List0.newArrayList("a", "1", "2"), OM3.readValue(OM3.om(), OM3.p("a", "1", "2"), new TypeReference<Map<String, List<String>>>() {
-      }).get("p"))
+      }).get("p")),
+
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class)).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class)).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", Test4ReadValue.class).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", Test4ReadValue.class).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", new TypeReference<Map<String, List<String>>>() {
+      }).get("p")),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", Test4ReadValue.class).toString()),
+
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class), true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class), true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", Test4ReadValue.class, true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", Test4ReadValue.class, true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", new TypeReference<Map<String, List<String>>>() {
+      }, true).get("p")),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", Test4ReadValue.class, true).toString())
     );
   }
 

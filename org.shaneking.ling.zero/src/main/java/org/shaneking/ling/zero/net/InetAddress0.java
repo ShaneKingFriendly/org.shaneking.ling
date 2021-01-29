@@ -100,6 +100,34 @@ public class InetAddress0 {
     return rtn;
   }
 
+  //https://cloud.tencent.com/developer/article/1610919
+  public static InetAddress localHostExactAddress() {
+    try {
+      InetAddress candidateAddress = null;
+
+      Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+      while (networkInterfaces.hasMoreElements()) {
+        NetworkInterface iface = networkInterfaces.nextElement();
+        for (Enumeration<InetAddress> inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements(); ) {
+          InetAddress inetAddr = inetAddrs.nextElement();
+          if (!inetAddr.isLoopbackAddress()) {
+            if (inetAddr.isSiteLocalAddress()) {
+              return inetAddr;
+            }
+            if (candidateAddress == null) {
+              candidateAddress = inetAddr;
+            }
+
+          }
+        }
+      }
+      return candidateAddress == null ? InetAddress.getLocalHost() : candidateAddress;
+    } catch (Exception e) {
+      log.error(String.valueOf(e), e);
+    }
+    return null;
+  }
+
   public static boolean putCustomHost(String hostName, @NonNull String hostAddress) {
     return putCustomHost(hostName, hostAddress.split(String0.COMMA));
   }
@@ -147,34 +175,6 @@ public class InetAddress0 {
         throw new ZeroException(e);
       }
     }
-  }
-
-  //https://cloud.tencent.com/developer/article/1610919
-  public static InetAddress localHostExactAddress() {
-    try {
-      InetAddress candidateAddress = null;
-
-      Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
-      while (networkInterfaces.hasMoreElements()) {
-        NetworkInterface iface = networkInterfaces.nextElement();
-        for (Enumeration<InetAddress> inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements(); ) {
-          InetAddress inetAddr = inetAddrs.nextElement();
-          if (!inetAddr.isLoopbackAddress()) {
-            if (inetAddr.isSiteLocalAddress()) {
-              return inetAddr;
-            }
-            if (candidateAddress == null) {
-              candidateAddress = inetAddr;
-            }
-
-          }
-        }
-      }
-      return candidateAddress == null ? InetAddress.getLocalHost() : candidateAddress;
-    } catch (Exception e) {
-      log.error(String.valueOf(e), e);
-    }
-    return null;
   }
 
   @Accessors(chain = true)
