@@ -2,6 +2,7 @@ package org.shaneking.ling.persistence;
 
 import javax.persistence.Transient;
 
+//uni id in someone tenant
 public interface Identified {
   @Transient
   String COLUMN__BID = "bid";

@@ -2,6 +2,7 @@ package org.shaneking.ling.persistence;
 
 import javax.persistence.Transient;
 
+//uni id in all tenant
 public interface Uniquely {
   @Transient
   String COLUMN__UID = "uid";
