@@ -124,7 +124,7 @@ public class String0 {
   }
 
   public static String dbColumn2SetField(@NonNull String string, String with) {
-    return String.join(EMPTY, List0.newArrayList(string.split(with)).stream().map(word -> word.substring(0, 1).toUpperCase() + word.substring(1)).collect(Collectors.toList()));
+    return String.join(EMPTY, List0.newArrayList(string.split(with)).stream().map(String0::upperFirst).collect(Collectors.toList()));
   }
 
   //firstName -&gt; first_name

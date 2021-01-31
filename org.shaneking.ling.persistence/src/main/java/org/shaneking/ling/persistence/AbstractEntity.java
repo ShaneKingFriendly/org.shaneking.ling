@@ -198,7 +198,7 @@ public abstract class AbstractEntity<J> implements Entities {
           o = rs.getString(this.getDbColumnMap().get(fieldName));
         }
         if (o != null) {
-          this.getClass().getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), o.getClass()).invoke(this, o);
+          this.getClass().getMethod("set" + String0.upperFirst(fieldName), o.getClass()).invoke(this, o);
         }
       } catch (Exception e) {
         log.error(e.getMessage(), e);

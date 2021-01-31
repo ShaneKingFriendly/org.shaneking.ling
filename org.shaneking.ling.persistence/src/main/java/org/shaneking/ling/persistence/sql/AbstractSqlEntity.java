@@ -51,7 +51,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     Object o;
     for (String fieldName : this.getFieldNameList()) {
       try {
-        o = this.getClass().getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)).invoke(this);
+        o = this.getClass().getMethod("get" + String0.upperFirst(fieldName)).invoke(this);
       } catch (Exception e) {
         o = null;
         log.error(e.toString());
@@ -171,7 +171,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     Object o = null;
     for (String fieldName : this.getFieldNameList().stream().filter(fieldName -> !this.getIdFieldNameList().contains(fieldName) && this.getColumnMap().get(fieldName).updatable()).collect(Collectors.toList())) {
       try {
-        o = this.getClass().getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)).invoke(this);
+        o = this.getClass().getMethod("get" + String0.upperFirst(fieldName)).invoke(this);
       } catch (Exception e) {
         o = null;
         log.error(e.toString());
@@ -224,7 +224,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     Object o = null;
     for (String fieldName : fieldNameList) {
       try {
-        o = this.getClass().getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)).invoke(this);
+        o = this.getClass().getMethod("get" + String0.upperFirst(fieldName)).invoke(this);
       } catch (Exception e) {
         o = null;
         log.error(e.toString());
