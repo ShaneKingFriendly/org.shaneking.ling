@@ -11,6 +11,7 @@ class Map0Test {
   @Test
   void newHashMap() {
     assertAll(
+      () -> assertLinesMatch(List0.newArrayList(Map0.<String, String>newConcurrentHashMap().keySet()), List0.newArrayList(Map0.<String, String>newConcurrentHashMap().values())),
       () -> assertLinesMatch(List0.newArrayList(Map0.<String, String>newHashMap().keySet()), List0.newArrayList(Map0.<String, String>newHashMap().values())),
       () -> assertLinesMatch(List0.newArrayList(Map0.newHashMap("a", "a").keySet()), List0.newArrayList(Map0.newHashMap("a", "a").values())),
       () -> assertLinesMatch(List0.newArrayList(Map0.newHashMap(List0.newArrayList("a", "b"), List0.newArrayList("a", "b")).keySet())

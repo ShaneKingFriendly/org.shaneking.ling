@@ -4,8 +4,13 @@ import lombok.NonNull;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Map0 {
+  public static <K, V> ConcurrentHashMap<K, V> newConcurrentHashMap() {
+    return new ConcurrentHashMap<K, V>();
+  }
+
   public static <K, V> HashMap<K, V> newHashMap() {
     return new HashMap<K, V>();
   }

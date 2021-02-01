@@ -17,22 +17,22 @@ class PriTest extends SKUnit {
   @Test
   void build() {
     assertAll(
-      () -> assertEquals("Pri(ext=null, obj=null, rtn=null)", Test4Pri.build().toString()),
-      () -> assertEquals("{}", OM3.writeValueAsString(Test4Pri.build())),
-      () -> assertEquals("{\"rtn\":\"rtn\"}", OM3.writeValueAsString(Test4Pri.build("rtn"))),
-      () -> assertEquals("{\"obj\":\"obj\",\"rtn\":\"rtn\"}", OM3.writeValueAsString(Test4Pri.build("rtn", "obj"))),
-      () -> assertEquals("{\"ext\":{\"userId\":\"userId\"},\"obj\":\"obj\",\"rtn\":\"rtn\"}", OM3.writeValueAsString(Test4Pri.build("rtn", "obj", new Test4PriExt().setUserId("userId"))))
+      () -> assertEquals("Pri(ext=null, obj=null, rtn=null)", HelloPri.build().toString()),
+      () -> assertEquals("{}", OM3.writeValueAsString(HelloPri.build())),
+      () -> assertEquals("{\"rtn\":\"rtn\"}", OM3.writeValueAsString(HelloPri.build("rtn"))),
+      () -> assertEquals("{\"obj\":\"obj\",\"rtn\":\"rtn\"}", OM3.writeValueAsString(HelloPri.build("rtn", "obj"))),
+      () -> assertEquals("{\"ext\":{\"userId\":\"userId\"},\"obj\":\"obj\",\"rtn\":\"rtn\"}", OM3.writeValueAsString(HelloPri.build("rtn", "obj", new HelloPriExt().setUserId("userId"))))
     );
   }
 
   @Accessors(chain = true)
   @ToString(callSuper = true)
-  public static class Test4Pri<O, R> extends Pri<Test4PriExt, O, R> {
+  public static class HelloPri<O, R> extends Pri<HelloPriExt, O, R> {
   }
 
   @Accessors(chain = true)
   @ToString
-  public static class Test4PriExt {
+  public static class HelloPriExt {
     @Getter
     @Setter
     private String userId;

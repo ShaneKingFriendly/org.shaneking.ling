@@ -7,11 +7,13 @@ public class Keyword {
 
   public static final String ALTER_TABLE = "alter table";
   public static final String AND = "and";
+  public static final String ADD_INDEX = "add index";
   public static final String ADD_UNIQUE_INDEX = "add unique index";
   public static final String BETWEEN = "between";
   public static final String COMMENT = "comment";
   public static final String COUNT_1_ = "count(1)";
   public static final String CREATE_TABLE = "create table";
+  public static final String CREATE_INDEX = "create index";
   public static final String CREATE_UNIQUE_INDEX = "create unique index";
   public static final String DELETE_FROM = "delete from";
   public static final String FROM = "from";

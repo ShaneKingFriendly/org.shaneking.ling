@@ -12,7 +12,7 @@ class StringCachesTest extends SKUnit {
 
   @Test
   void test() {
-    StringCaches stringCaches = new Test4StringCaches();
+    StringCaches stringCaches = new HelloStringCaches();
     stringCaches.hmset("1", Map0.newHashMap("2", "3"));
     assertAll(
       () -> assertTrue(stringCaches.del("A")),

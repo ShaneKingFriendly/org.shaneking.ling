@@ -4,7 +4,6 @@ import org.shaneking.ling.persistence.sql.Keyword;
 import org.shaneking.ling.persistence.sql.entity.DialectSqlEntities;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
-import org.shaneking.ling.zero.util.Map0;
 
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -46,13 +45,20 @@ public interface SqlliteDialectSqlEntities extends DialectSqlEntities {
   }
 
   default String createTableIndexSql() {
-    Map<String, List<String>> idxPartNameColumnsMap = Map0.newHashMap();
-    List<String> createIndexStatementList = createTableIndexSql(idxPartNameColumnsMap);
-    idxPartNameColumnsMap.forEach((idxPartName, columnList) -> {
+    List<String> indexStatementList = List0.newArrayList();
+
+    Map<String, List<String>> uniIdxMap = genTableUniIdxMap();
+    uniIdxMap.forEach((idxPartName, columnList) -> {
       String indexColumns = "`" + (columnList.size() > 1 ? String.join("`,`", columnList) : columnList.get(0)) + "`";
-      createIndexStatementList.add(MessageFormat.format("{0} {1} {2} on {3}({4});", Keyword.CREATE_UNIQUE_INDEX, Keyword.IF_NOT_EXISTS, UNIQUE_INDEX_NAME_PREFIX + idxPartName, this.getDbTableName(), indexColumns));
+      indexStatementList.add(MessageFormat.format("{0} {1} {2} on {3}({4});", Keyword.CREATE_UNIQUE_INDEX, Keyword.IF_NOT_EXISTS, UNIQUE_INDEX_NAME__PREFIX + idxPartName, this.getDbTableName(), indexColumns));
     });
-    return String.join(String0.BR_LINUX, createIndexStatementList);
+
+    Map<String, String> idxMap = genTableIdxMap();
+    idxMap.forEach((idxName, columnString) -> {
+      indexStatementList.add(MessageFormat.format("{0} {1} {2} on {3}({4});", Keyword.CREATE_INDEX, Keyword.IF_NOT_EXISTS, idxName, this.getDbTableName(), columnString));
+    });
+
+    return String.join(String0.BR_LINUX, indexStatementList);
   }
 
   default String createTableSql() {

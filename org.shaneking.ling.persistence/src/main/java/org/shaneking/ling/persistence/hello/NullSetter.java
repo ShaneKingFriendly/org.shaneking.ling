@@ -1,4 +1,4 @@
-package org.shaneking.ling.persistence.test;
+package org.shaneking.ling.persistence.hello;
 
 import org.shaneking.ling.persistence.AbstractEntity;
 

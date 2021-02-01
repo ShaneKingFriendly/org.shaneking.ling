@@ -4,7 +4,6 @@ import org.shaneking.ling.persistence.sql.Keyword;
 import org.shaneking.ling.persistence.sql.entity.DialectSqlEntities;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
-import org.shaneking.ling.zero.util.Map0;
 
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -28,7 +27,7 @@ public interface MysqlDialectSqlEntities extends DialectSqlEntities {
       columnDbTypeString = Keyword.TYPE_VARCHAR;
     }
     String[] comments = String0.nullToEmpty(this.getColumnMap().get(columnName).columnDefinition()).split(Keyword.COMMENT4ANNOTATION);
-    String commentWithBlackPrefix = comments.length > 1 ? comments[1] : EMPTY_COMMENT_WITH_BLACK_PREFIX;
+    String commentWithBlackPrefix = comments.length > 1 ? comments[1] : EMPTY_COMMENT_WITH_BLACK__PREFIX;
     String commentBefore = String0.nullToEmpty(comments[0]);
     if (Keyword.TYPE_LONGTEXT.equals(columnDbTypeString) || Keyword.TYPE_INT.equals(columnDbTypeString)) {
       rtn = MessageFormat.format("  `{0}` {1}{2} {3}{4}{5},", this.getDbColumnMap().get(columnName), columnDbTypeString, partNotNull, commentBefore, Keyword.COMMENT, commentWithBlackPrefix);
@@ -54,18 +53,25 @@ public interface MysqlDialectSqlEntities extends DialectSqlEntities {
   }
 
   default String createTableIndexSql() {
-    Map<String, List<String>> idxPartNameColumnsMap = Map0.newHashMap();
-    List<String> createIndexStatementList = createTableIndexSql(idxPartNameColumnsMap);
+    List<String> indexStatementList = List0.newArrayList();
+
+    Map<String, List<String>> uniIdxMap = genTableUniIdxMap();
     String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MessageFormat.format("`{0}`.", this.getJavaTable().schema()));
-    idxPartNameColumnsMap.forEach((idxPartName, columnList) -> {
+    uniIdxMap.forEach((idxPartName, columnList) -> {
       String indexColumns = "`" + (columnList.size() > 1 ? String.join("` asc, `", columnList) : columnList.get(0)) + "` asc";
-      createIndexStatementList.add(createTableIndexSql(MessageFormat.format("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_UNIQUE_INDEX, UNIQUE_INDEX_NAME_PREFIX + idxPartName, indexColumns), UNIQUE_INDEX_NAME_PREFIX + idxPartName));
+      indexStatementList.add(createTableIndexSql(MessageFormat.format("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_UNIQUE_INDEX, UNIQUE_INDEX_NAME__PREFIX + idxPartName, indexColumns), UNIQUE_INDEX_NAME__PREFIX + idxPartName));
     });
-    return String.join(String0.BR_LINUX, createIndexStatementList);
+
+    Map<String, String> idxMap = genTableIdxMap();
+    idxMap.forEach((idxName, columnString) -> {
+      indexStatementList.add(createTableIndexSql(MessageFormat.format("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_INDEX, idxName, columnString), idxName));
+    });
+
+    return String.join(String0.BR_LINUX, indexStatementList);
   }
 
   default String createTableIndexSql(String idxSql, String idxName) {
-    return "if not exists (select * from information_schema.table_constraints where table_schema = '" + this.getJavaTable().schema() + "' and table_name = '" + this.getDbTableName() + "' and constraint_name = '" + idxName + "')" + String0.BR_LINUX +
+    return "if not exists (select * from information_schema.statistics where table_schema = '" + this.getJavaTable().schema() + "' and table_name = '" + this.getDbTableName() + "' and index_name = '" + idxName + "')" + String0.BR_LINUX +
       "then" + String0.BR_LINUX +
       idxSql + String0.BR_LINUX +
       "end if;";

@@ -7,6 +7,7 @@ import org.shaneking.ling.persistence.sql.SqlEntities;
 import org.shaneking.ling.zero.lang.Integer0;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
+import org.shaneking.ling.zero.util.Map0;
 
 import javax.persistence.Transient;
 import java.text.MessageFormat;
@@ -16,9 +17,11 @@ import java.util.stream.Collectors;
 
 public interface DialectSqlEntities extends SqlEntities {
   @Transient
-  String EMPTY_COMMENT_WITH_BLACK_PREFIX = " ''";
+  String EMPTY_COMMENT_WITH_BLACK__PREFIX = " ''";
   @Transient
-  String UNIQUE_INDEX_NAME_PREFIX = "u_idx_";
+  String INDEX_NAME__PREFIX = "idx_";
+  @Transient
+  String UNIQUE_INDEX_NAME__PREFIX = "u_" + INDEX_NAME__PREFIX;
 
   String createColumnStatement(String columnName, boolean idOrVersion);
 
@@ -26,14 +29,23 @@ public interface DialectSqlEntities extends SqlEntities {
 
   String createTableIndexSql();
 
-  default List<String> createTableIndexSql(Map<String, List<String>> idxPartNameColumnsMap) {
+  default Map<String, String> genTableIdxMap() {
+    Map<String, String> rtn = Map0.newHashMap();
+    List0.newArrayList(this.getJavaTable().indexes()).stream().forEach(idx -> {
+      rtn.put(idx.name(), idx.columnList());
+    });
+    return rtn;
+  }
+
+  default Map<String, List<String>> genTableUniIdxMap() {
+    Map<String, List<String>> rtn = Map0.newHashMap();
     List0.newArrayList(this.getJavaTable().uniqueConstraints()).stream().filter(uniqueConstraint -> uniqueConstraint.columnNames().length > 0).forEach(uniqueConstraint -> {
-      idxPartNameColumnsMap.put(String.join(String0.UNDERLINE, uniqueConstraint.columnNames()), List0.newArrayList(uniqueConstraint.columnNames()));
+      rtn.put(String.join(String0.UNDERLINE, uniqueConstraint.columnNames()), List0.newArrayList(uniqueConstraint.columnNames()));
     });
     this.getFieldNameList().stream().filter(fieldName -> this.getColumnMap().get(fieldName).unique()).forEach(fieldName -> {
-      idxPartNameColumnsMap.put(this.getDbColumnMap().get(fieldName), List0.newArrayList(this.getDbColumnMap().get(fieldName)));
+      rtn.put(this.getDbColumnMap().get(fieldName), List0.newArrayList(this.getDbColumnMap().get(fieldName)));
     });
-    return List0.newArrayList();
+    return rtn;
   }
 
   String createTableSql();

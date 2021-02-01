@@ -60,30 +60,30 @@ class OM3Test extends SKUnit {
   @Test
   void readValue() {
     assertAll(
-      () -> assertEquals(new Test4ReadValue().setStr("str").toString(), OM3.readValue("{\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class)).toString()),
-      () -> assertEquals(new Test4ReadValue().setStr("str").toString(), OM3.readValue(OM3.om(), "{\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class)).toString()),
-      () -> assertEquals(new Test4ReadValue().setStr("str").toString(), OM3.readValue("{\"str\":\"str\"}", Test4ReadValue.class).toString()),
-      () -> assertEquals(new Test4ReadValue().setStr("str").toString(), OM3.readValue(OM3.om(), "{\"str\":\"str\"}", Test4ReadValue.class).toString()),
+      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.readValue("{\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class)).toString()),
+      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.readValue(OM3.om(), "{\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class)).toString()),
+      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.readValue("{\"str\":\"str\"}", HelloReadValue.class).toString()),
+      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.readValue(OM3.om(), "{\"str\":\"str\"}", HelloReadValue.class).toString()),
       () -> assertLinesMatch(List0.newArrayList("a", "1", "2"), OM3.readValue(OM3.p("a", "1", "2"), new TypeReference<Map<String, List<String>>>() {
       }).get("p")),
       () -> assertLinesMatch(List0.newArrayList("a", "1", "2"), OM3.readValue(OM3.om(), OM3.p("a", "1", "2"), new TypeReference<Map<String, List<String>>>() {
       }).get("p")),
 
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class)).toString()),
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class)).toString()),
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", Test4ReadValue.class).toString()),
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", Test4ReadValue.class).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class)).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class)).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", HelloReadValue.class).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", HelloReadValue.class).toString()),
       () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", new TypeReference<Map<String, List<String>>>() {
       }).get("p")),
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", Test4ReadValue.class).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", HelloReadValue.class).toString()),
 
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class), true).toString()),
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(Test4ReadValue.class), true).toString()),
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", Test4ReadValue.class, true).toString()),
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", Test4ReadValue.class, true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class), true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class), true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", HelloReadValue.class, true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", HelloReadValue.class, true).toString()),
       () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", new TypeReference<Map<String, List<String>>>() {
       }, true).get("p")),
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", Test4ReadValue.class, true).toString())
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", HelloReadValue.class, true).toString())
     );
   }
 
@@ -91,12 +91,12 @@ class OM3Test extends SKUnit {
   void treeToValue() {
     ObjectNode objectNode = OM3.om().createObjectNode();
     objectNode.put("str", "str");
-    assertEquals(new Test4ReadValue().setStr("str").toString(), OM3.treeToValue(objectNode, Test4ReadValue.class).toString());
+    assertEquals(new HelloReadValue().setStr("str").toString(), OM3.treeToValue(objectNode, HelloReadValue.class).toString());
   }
 
   @Test
   void valueToTree() {
-    assertEquals(OM3.writeValueAsString(new Test4ReadValue().setStr("str")), OM3.writeValueAsString(OM3.valueToTree(new Test4ReadValue().setStr("str"))));
+    assertEquals(OM3.writeValueAsString(new HelloReadValue().setStr("str")), OM3.writeValueAsString(OM3.valueToTree(new HelloReadValue().setStr("str"))));
   }
 
   @Test
@@ -111,7 +111,7 @@ class OM3Test extends SKUnit {
   //must static for jackson
   @Accessors(chain = true)
   @ToString
-  public static class Test4ReadValue {
+  public static class HelloReadValue {
     @Getter
     @Setter
     private String str;

@@ -47,8 +47,8 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void initTableInfo() {
-    Test4WithoutTableNameEntity abstractEntity = new Test4WithoutTableNameEntity();
-    assertEquals("AbstractEntityTest.Test4WithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=null), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    HelloWithoutTableNameEntity abstractEntity = new HelloWithoutTableNameEntity();
+    assertEquals("AbstractEntityTest.HelloWithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=null), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test
@@ -82,14 +82,14 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void mapRow() throws SQLException {
-    Test4WithoutTableNameEntity abstractEntity = new Test4WithoutTableNameEntity();
+    HelloWithoutTableNameEntity abstractEntity = new HelloWithoutTableNameEntity();
 
     Mockito.when(resultSet.getString(IdEntity.FIELD__ID)).thenReturn(id);
     Mockito.when(resultSet.getInt(IdAdtVerEntity.FIELD__VERSION)).thenReturn(1);
     abstractEntity.setSelectList(List0.newArrayList(IdEntity.FIELD__ID, IdAdtVerEntity.FIELD__VERSION, String0.ALPHABET));
     abstractEntity.mapRow(resultSet);
 
-    assertEquals("AbstractEntityTest.Test4WithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("AbstractEntityTest.HelloWithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test
@@ -182,6 +182,6 @@ class AbstractEntityTest extends SKUnit {
   @Accessors(chain = true)
   @Table
   @ToString(callSuper = true)
-  public class Test4WithoutTableNameEntity extends AbstractIdAdtVerEntity implements SqlliteDialectSqlEntities {
+  public class HelloWithoutTableNameEntity extends AbstractIdAdtVerEntity implements SqlliteDialectSqlEntities {
   }
 }

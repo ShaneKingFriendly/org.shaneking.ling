@@ -23,7 +23,7 @@ class AtomicLong0Test {
   void tryDecreaseFailed() throws InterruptedException {
     final AtomicLong al = new AtomicLong(Runtime.getRuntime().availableProcessors() + 1);
     ExecutorService executorService = Executors.newFixedThreadPool(6 * Runtime.getRuntime().availableProcessors() + 1);
-    List<Future<Boolean>> futureList = executorService.invokeAll(List0.nCopies(8 * Runtime.getRuntime().availableProcessors() + 1, () -> new Test4AtomicLong2Decrease(al)));
+    List<Future<Boolean>> futureList = executorService.invokeAll(List0.nCopies(8 * Runtime.getRuntime().availableProcessors() + 1, () -> new HelloAtomicLong(al)));
     long l = futureList.parallelStream().map(future -> {
       try {
         return future.get();
@@ -41,7 +41,7 @@ class AtomicLong0Test {
   void tryIncreaseFailed() throws InterruptedException {
     final AtomicLong al = new AtomicLong(Runtime.getRuntime().availableProcessors() + 1);
     ExecutorService executorService = Executors.newFixedThreadPool(6 * Runtime.getRuntime().availableProcessors() + 1);
-    List<Future<Boolean>> futureList = executorService.invokeAll(List0.nCopies(8 * Runtime.getRuntime().availableProcessors() + 1, () -> new Test4AtomicLong2Increase(al)));
+    List<Future<Boolean>> futureList = executorService.invokeAll(List0.nCopies(8 * Runtime.getRuntime().availableProcessors() + 1, () -> new WorldAtomicLong(al)));
     long l = futureList.parallelStream().map(future -> {
       try {
         return future.get();
@@ -63,7 +63,7 @@ class AtomicLong0Test {
   public void tryIncreaseDecreaseFailed() throws Exception {
     final AtomicLong al = new AtomicLong(Runtime.getRuntime().availableProcessors() + 1);
     ExecutorService executorService = Executors.newFixedThreadPool(6 * Runtime.getRuntime().availableProcessors() + 1);
-    List<Future<Boolean>> futureList = executorService.invokeAll(List0.nCopies(8 * Runtime.getRuntime().availableProcessors() + 1, () -> SR0.nextInt(10) % 2 == 0 ? new Test4AtomicLong2Decrease(al) : new Test4AtomicLong2Increase(al)));
+    List<Future<Boolean>> futureList = executorService.invokeAll(List0.nCopies(8 * Runtime.getRuntime().availableProcessors() + 1, () -> SR0.nextInt(10) % 2 == 0 ? new HelloAtomicLong(al) : new WorldAtomicLong(al)));
     long l = futureList.parallelStream().map(future -> {
       try {
         return future.get();
@@ -77,10 +77,10 @@ class AtomicLong0Test {
     assertTrue(l != 99);
   }
 
-  public class Test4AtomicLong2Decrease implements Callable<Boolean> {
+  public class HelloAtomicLong implements Callable<Boolean> {
     private final AtomicLong al;
 
-    public Test4AtomicLong2Decrease(AtomicLong al) {
+    public HelloAtomicLong(AtomicLong al) {
       this.al = al;
     }
 
@@ -90,10 +90,10 @@ class AtomicLong0Test {
     }
   }
 
-  public class Test4AtomicLong2Increase implements Callable<Boolean> {
+  public class WorldAtomicLong implements Callable<Boolean> {
     private final AtomicLong al;
 
-    public Test4AtomicLong2Increase(AtomicLong al) {
+    public WorldAtomicLong(AtomicLong al) {
       this.al = al;
     }
 

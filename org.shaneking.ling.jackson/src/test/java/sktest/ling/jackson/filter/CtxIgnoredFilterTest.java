@@ -19,10 +19,10 @@ class CtxIgnoredFilterTest extends SKUnit {
         SimpleFilterProvider simpleFilterProvider = new SimpleFilterProvider();
         simpleFilterProvider.addFilter(CtxIgnoredFilter.FILTER_NAME, new CtxIgnoredFilter());
         OM3.om().setFilterProvider(simpleFilterProvider);
-        Test4CtxIgnoredFilter test4CtxIgnoredFilter = new Test4CtxIgnoredFilter().setI1(1).setS1("s1").setS2("s2");
-        assertEquals("{\"s1\":\"s1\",\"i1\":1,\"s2\":\"s2\",\"o1\":null}", OM3.writeValueAsString(test4CtxIgnoredFilter));
+        HelloCtxIgnoredFilter helloCtxIgnoredFilter = new HelloCtxIgnoredFilter().setI1(1).setS1("s1").setS2("s2");
+        assertEquals("{\"s1\":\"s1\",\"i1\":1,\"s2\":\"s2\",\"o1\":null}", OM3.writeValueAsString(helloCtxIgnoredFilter));
         JacksonCtx.scenario.set("scenario2");
-        assertEquals("{\"s1\":\"s1\",\"i1\":1,\"o1\":null}", OM3.writeValueAsString(test4CtxIgnoredFilter));
+        assertEquals("{\"s1\":\"s1\",\"i1\":1,\"o1\":null}", OM3.writeValueAsString(helloCtxIgnoredFilter));
       }
     );
 

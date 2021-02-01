@@ -13,31 +13,31 @@ class Object0Test {
 
   @Test
   void gs() {
-    Test4Object3 to3 = new Test4Object3();
-    assertEquals(String0.T, String.valueOf(Object0.gs(to3, "to2.to1.str")));
-    assertTrue(Object0.gs(to3, "to2.to1.str", String0.F) instanceof Test4Object3);
-    assertEquals(String0.F, String.valueOf(Object0.gs(to3, "to2.to1.str")));
+    ZzzObject zzz = new ZzzObject();
+    assertEquals(String0.T, String.valueOf(Object0.gs(zzz, "world.hello.str")));
+    assertTrue(Object0.gs(zzz, "world.hello.str", String0.F) instanceof ZzzObject);
+    assertEquals(String0.F, String.valueOf(Object0.gs(zzz, "world.hello.str")));
 
-    assertEquals(Object0.EXCEPTION, Object0.gs(to3, "to2.to1.abc"));
-    assertEquals(Object0.EXCEPTION, Object0.gs(to3, "to2.to1.abc", String0.F));
+    assertEquals(Object0.EXCEPTION, Object0.gs(zzz, "world.hello.abc"));
+    assertEquals(Object0.EXCEPTION, Object0.gs(zzz, "world.hello.abc", String0.F));
   }
 
   //must be public classes
-  public class Test4Object1 {
+  public class HelloObject {
     @Getter
     @Setter
     private String str = String0.T;
   }
 
-  public class Test4Object2 {
+  public class WorldObject {
     @Getter
     @Setter
-    private Test4Object1 to1 = new Test4Object1();
+    private HelloObject hello = new HelloObject();
   }
 
-  public class Test4Object3 {
+  public class ZzzObject {
     @Getter
     @Setter
-    private Test4Object2 to2 = new Test4Object2();
+    private WorldObject world = new WorldObject();
   }
 }

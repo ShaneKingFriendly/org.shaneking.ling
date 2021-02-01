@@ -12,7 +12,7 @@ import org.shaneking.ling.jackson.filter.CtxIgnoredFilter;
 @CtxIgnored("scenario3")
 @JsonFilter(CtxIgnoredFilter.FILTER_NAME)
 @ToString
-public class Test4CtxIgnoredFilter {
+public class HelloCtxIgnoredFilter {
   @CtxIgnored("scenario1")
   @Getter
   @Setter
@@ -28,13 +28,13 @@ public class Test4CtxIgnoredFilter {
   @CtxIgnored
   @Getter
   @Setter
-  private Test4CtxIgnoredFilter2 o1;
+  private HelloCtxIgnoredFilter2 o1;
 
   @Accessors(chain = true)
   @CtxIgnored("scenario3")
   @JsonFilter(CtxIgnoredFilter.FILTER_NAME)
   @ToString
-  public static class Test4CtxIgnoredFilter2 {
+  public static class HelloCtxIgnoredFilter2 {
     @CtxIgnored("scenario1")
     @Getter
     @Setter

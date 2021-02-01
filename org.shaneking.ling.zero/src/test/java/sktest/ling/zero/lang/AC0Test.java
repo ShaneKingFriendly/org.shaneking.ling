@@ -37,17 +37,17 @@ class AC0Test {
   @Test
   void close4exception() {
     assertAll(
-      () -> assertFalse(AC0.close(new Test4Closeable(2))),
-      () -> assertThrows(ZeroException.class, () -> AC0.close(new Test4Closeable(2), false)),
-      () -> assertFalse(AC0.close(new Test4Closeable(5), 3)),
-      () -> assertThrows(ZeroException.class, () -> AC0.close(new Test4Closeable(5), false, 3))
+      () -> assertFalse(AC0.close(new HelloCloseable(2))),
+      () -> assertThrows(ZeroException.class, () -> AC0.close(new HelloCloseable(2), false)),
+      () -> assertFalse(AC0.close(new HelloCloseable(5), 3)),
+      () -> assertThrows(ZeroException.class, () -> AC0.close(new HelloCloseable(5), false, 3))
     );
   }
 
-  class Test4Closeable implements Closeable {
+  class HelloCloseable implements Closeable {
     private int closeTimesWillSuccessfully = 1;
 
-    public Test4Closeable(int closeTimesWillSuccessfully) {
+    public HelloCloseable(int closeTimesWillSuccessfully) {
       this.closeTimesWillSuccessfully = closeTimesWillSuccessfully;
     }
 
