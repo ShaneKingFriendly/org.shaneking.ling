@@ -15,6 +15,9 @@ class UUID0Test {
   @Test
   void cUl33() {
     assertEquals(33, UUID0.cUl33().length());
+    for (int i = 0; i < 10; i++) {
+      System.out.println(UUID0.cUl33());
+    }
   }
 
   @Test
