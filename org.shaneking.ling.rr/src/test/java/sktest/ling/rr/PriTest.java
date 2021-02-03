@@ -21,7 +21,7 @@ class PriTest extends SKUnit {
       () -> assertEquals("{}", OM3.writeValueAsString(HelloPri.build())),
       () -> assertEquals("{\"rtn\":\"rtn\"}", OM3.writeValueAsString(HelloPri.build("rtn"))),
       () -> assertEquals("{\"obj\":\"obj\",\"rtn\":\"rtn\"}", OM3.writeValueAsString(HelloPri.build("rtn", "obj"))),
-      () -> assertEquals("{\"ext\":{\"userId\":\"userId\"},\"obj\":\"obj\",\"rtn\":\"rtn\"}", OM3.writeValueAsString(HelloPri.build("rtn", "obj", new HelloPriExt().setUserId("userId"))))
+      () -> assertEquals("{\"ext\":{\"userNo\":\"userNo\"},\"obj\":\"obj\",\"rtn\":\"rtn\"}", OM3.writeValueAsString(HelloPri.build("rtn", "obj", new HelloPriExt().setUserNo("userNo"))))
     );
   }
 
@@ -35,7 +35,7 @@ class PriTest extends SKUnit {
   public static class HelloPriExt {
     @Getter
     @Setter
-    private String userId;
+    private String userNo;
     //maybe some pagination here
   }
 }

@@ -33,40 +33,40 @@ public class Condition {
   @Setter
   private String ew;//endWith
 
-  public Condition appendId(@NonNull String id) {
-    return appendIds(List0.newArrayList(id));
+  public Condition appendVal(@NonNull String val) {
+    return appendVal(List0.newArrayList(val));
   }
 
-  public Condition appendIds(@NonNull List<String> ids) {
+  public Condition appendVal(@NonNull List<String> valList) {
     this.setOp(Keyword.IN);
-    List<String> idList = this.getCl();
-    if (idList == null) {
-      idList = List0.newArrayList();
-      this.setCl(idList);
+    List<String> clValList = this.getCl();
+    if (clValList == null) {
+      clValList = List0.newArrayList();
+      this.setCl(clValList);
     }
-    for (String id : ids) {
-      if (!this.getCl().contains(id)) {
-        this.getCl().add(id);
+    for (String val : valList) {
+      if (!this.getCl().contains(val)) {
+        this.getCl().add(val);
       }
     }
     return this;
   }
 
-  public Condition resetId(@NonNull String id) {
-    return this.setOp(String0.EQUAL).setCs(id);
+  public Condition resetVal(@NonNull String val) {
+    return this.setOp(String0.EQUAL).setCs(val);
   }
 
-  public Condition resetIds(@NonNull List<String> ids) {
-    return this.setOp(Keyword.IN).setCl(ids);
+  public Condition resetVal(@NonNull List<String> valList) {
+    return this.setOp(Keyword.IN).setCl(valList);
   }
 
-  public Condition retainIds(@NonNull List<String> ids) {
+  public Condition retainVal(@NonNull List<String> valList) {
     this.setOp(Keyword.IN);
-    List<String> idList = this.getCl();
-    if (idList == null || idList.size() < 1) {
-      this.setCl(ids);
+    List<String> clValList = this.getCl();
+    if (clValList == null || clValList.size() < 1) {
+      this.setCl(valList);
     } else {
-      idList.retainAll(ids);
+      clValList.retainAll(valList);
     }
     return this;
   }
