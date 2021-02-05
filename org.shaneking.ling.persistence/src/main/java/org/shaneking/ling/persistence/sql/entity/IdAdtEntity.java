@@ -1,5 +1,6 @@
 package org.shaneking.ling.persistence.sql.entity;
 
+import com.github.liaochong.myexcel.core.annotation.ExcelColumn;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,6 +29,7 @@ public abstract class IdAdtEntity<J> extends IdEntity<J> {
   public static final String FIELD__LAST_MODIFY_USER_ID = "lastModifyUserId";
 
   @Column(length = 1, columnDefinition = "default 'N' COMMENT 'The invalid status of record {Y:invalid,N:valid(default)}'")
+  @ExcelColumn
   @Getter
   @Setter
   private String invalid;
@@ -36,11 +38,13 @@ public abstract class IdAdtEntity<J> extends IdEntity<J> {
    * @see org.shaneking.ling.zero.util.Date0#DATE_TIME
    */
   @Column(length = 20, columnDefinition = "default '' COMMENT 'The last modification date time of record'")
+  @ExcelColumn
   @Getter
   @Setter
   private String lastModifyDateTime;
 
   @Column(length = 40, columnDefinition = "default '' COMMENT 'The last modified user of record'")
+  @ExcelColumn
   @Getter
   @Setter
   private String lastModifyUserId;

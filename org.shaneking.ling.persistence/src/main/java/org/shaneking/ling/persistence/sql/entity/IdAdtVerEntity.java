@@ -1,5 +1,6 @@
 package org.shaneking.ling.persistence.sql.entity;
 
+import com.github.liaochong.myexcel.core.annotation.ExcelColumn;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,6 +21,7 @@ public abstract class IdAdtVerEntity<J> extends IdAdtEntity<J> {
   public static final String FIELD__VERSION = "version";
 
   @Column(nullable = false, columnDefinition = "default 0 COMMENT 'Version for optimistic locking'")
+  @ExcelColumn
   @Getter
   @Setter
   @Version

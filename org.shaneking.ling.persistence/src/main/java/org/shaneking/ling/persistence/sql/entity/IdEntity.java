@@ -1,5 +1,6 @@
 package org.shaneking.ling.persistence.sql.entity;
 
+import com.github.liaochong.myexcel.core.annotation.ExcelColumn;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,6 +27,7 @@ public abstract class IdEntity<J> extends AbstractSqlEntity<J> {
   //Date0.on().datetimes()_SK.l22()=17+1+22=40=SK.cUl40()
   //Date0.on().datetimes()_UUID.randomUUID()=17+1+36=54
   @Column(nullable = false, length = 40, updatable = false, columnDefinition = "COMMENT 'identifies'")
+  @ExcelColumn
   @Getter
   @Id
   @Setter
