@@ -157,6 +157,10 @@ public class String0 {
     return s.substring(0, 1).toLowerCase() + s.substring(1);
   }
 
+  public static String maxLenStr(@NonNull String s, int max) {
+    return s.length() < max ? s : s.substring(0, max);
+  }
+
   public static String notNull2EmptyTo(String s, String d) {
     return isNull2Empty(s) ? s : d;
   }
