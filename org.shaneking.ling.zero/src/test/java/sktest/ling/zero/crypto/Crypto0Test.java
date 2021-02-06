@@ -37,9 +37,9 @@ class Crypto0Test {
   @Test
   void genKey() {
     assertAll(
-      () -> assertEquals("494c6f7665596f75", Crypto0.genKey("ILoveYou")),
-      () -> assertNotNull(Crypto0.genKey()),
-      () -> assertThrows(IllegalArgumentException.class, () -> Crypto0.genKey("LengthNotEight"))
+      () -> assertEquals("494c6f7665596f75", Crypto0.salt("ILoveYou")),
+      () -> assertNotNull(Crypto0.salt()),
+      () -> assertThrows(IllegalArgumentException.class, () -> Crypto0.salt("LengthNotEight"))
     );
   }
 }

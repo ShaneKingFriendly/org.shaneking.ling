@@ -96,11 +96,11 @@ public class Crypto0 {
     }
   }
 
-  public static String genKey() {
-    return genKey(UUID.randomUUID().toString().split(String0.MINUS)[0]);
+  public static String salt() {
+    return salt(UUID.randomUUID().toString().split(String0.MINUS)[0]);
   }
 
-  public static String genKey(String eightLengthString) {
+  public static String salt(String eightLengthString) {
     if (String0.isNull2Empty(eightLengthString) || eightLengthString.length() != 8) {
       throw new IllegalArgumentException("Must 8 length string : " + eightLengthString);
     }
