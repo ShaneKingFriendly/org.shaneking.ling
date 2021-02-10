@@ -31,7 +31,7 @@ public interface SqlliteDialectSqlEntities extends DialectSqlEntities {
     String commentBefore = String0.nullToEmpty(comments[0]).trim();
     commentBefore = String0.isNullOrEmpty(commentBefore) ? commentBefore : (String0.BLANK + commentBefore);
     if (Keyword.TYPE_TEXT.equals(columnDbTypeString) || Keyword.TYPE_INT.equals(columnDbTypeString)) {
-      rtn = MessageFormat.format("  `{0}` {1}{2} {3},", this.getDbColumnMap().get(columnName), columnDbTypeString, partNotNull, commentBefore);
+      rtn = MessageFormat.format("  `{0}` {1}{2}{3},", this.getDbColumnMap().get(columnName), columnDbTypeString, partNotNull, commentBefore);
     } else {
       rtn = MessageFormat.format("  `{0}` {1}({2}){3}{4},", this.getDbColumnMap().get(columnName), columnDbTypeString, String.valueOf(this.getColumnMap().get(columnName).length()), partNotNull, commentBefore);
     }

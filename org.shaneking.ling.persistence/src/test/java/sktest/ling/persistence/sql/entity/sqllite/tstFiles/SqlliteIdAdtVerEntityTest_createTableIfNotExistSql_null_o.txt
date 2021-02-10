@@ -1,5 +1,5 @@
 create table if not exists `sktest1_table` (
-  `version` int not null  default 0,
+  `version` int not null default 0,
   `id` char(40) not null,
   `invalid` varchar(1) default 'N',
   `last_modify_date_time` varchar(20) default '',
@@ -9,7 +9,7 @@ create table if not exists `sktest1_table` (
   `not_null_col` varchar(255) not null,
   `unique_col` varchar(255),
   `re_name_col` varchar(255),
-  `long_text` text ,
+  `long_text` text,
   primary key (`id`)
 );
 
