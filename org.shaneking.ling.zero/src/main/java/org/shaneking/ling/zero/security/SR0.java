@@ -6,6 +6,6 @@ public class SR0 {
   private static final SecureRandom SR = new SecureRandom();
 
   public static int nextInt(int max) {
-    return Math.abs(SR.nextInt()) % max;
+    return SR.nextInt() % max;
   }
 }
