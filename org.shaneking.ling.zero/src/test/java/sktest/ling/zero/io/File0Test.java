@@ -12,7 +12,7 @@ class File0Test {
 
   @Test
   void join() {
-    ///Users/ShaneKing/me/space/web/com/github/ShaneKingOrg/org.shaneking.ling/org.shaneking.ling.zero
+    ///Users/ShaneKing/me/space/web/com/github/ShaneKingOpen/org.shaneking.ling/org.shaneking.ling.zero
     String userDir = System.getProperty("user.dir");
     assertAll(
       () -> assertEquals(userDir + "/target/test-classes/sktest/ling/zero/io/", File0Test.class.getResource(String0.EMPTY).getFile()),

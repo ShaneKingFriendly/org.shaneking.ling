@@ -16,7 +16,7 @@
 
   <name>org.shaneking.ling</name>
   <description>ShaneKing Java Base Library</description>
-  <url>https://github.com/ShaneKingOrg/org.shaneking.ling</url>
+  <url>https://github.com/ShaneKingOpen/org.shaneking.ling</url>
   <inceptionYear>2011-2021</inceptionYear>
 
   <organization>
@@ -80,22 +80,22 @@
   <scm>
     <connection>scm:git:git@github.com:ShaneKingOrg/org.shaneking.ling.git</connection>
     <developerConnection>scm:git:git@github.com:ShaneKingOrg/org.shaneking.ling.git</developerConnection>
-    <url>https://github.com/ShaneKingOrg/org.shaneking.ling</url>
+    <url>https://github.com/ShaneKingOpen/org.shaneking.ling</url>
   </scm>
   <issueManagement>
     <system>Github</system>
-    <url>https://github.com/ShaneKingOrg/org.shaneking.ling/issues</url>
+    <url>https://github.com/ShaneKingOpen/org.shaneking.ling/issues</url>
   </issueManagement>
   <ciManagement>
     <system>Travis-CI</system>
-    <url>https://travis-ci.org/ShaneKingOrg/org.shaneking.ling</url>
+    <url>https://travis-ci.org/ShaneKingOpen/org.shaneking.ling</url>
   </ciManagement>
 
   <properties>
 
   </properties>
 
-  <!-- mvn -N versions:set -DgenerateBackupPoms=false -DnewVersion=0.241.1 -->
+  <!-- mvn -N versions:set -DgenerateBackupPoms=false -DnewVersion=0.241.1.1 -->
   <!-- Unused : mvn -N versions:update-child-modules -->
   <modules>
     <module>org.shaneking.ling.cache</module>
