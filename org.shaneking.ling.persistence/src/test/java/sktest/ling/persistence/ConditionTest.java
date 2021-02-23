@@ -1,7 +1,7 @@
-package sktest.ling.persistence.sql;
+package sktest.ling.persistence;
 
 import org.junit.jupiter.api.Test;
-import org.shaneking.ling.persistence.sql.Condition;
+import org.shaneking.ling.persistence.Condition;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.util.List0;
 

@@ -1,25 +1,21 @@
 package sktest.ling.persistence;
 
-import lombok.ToString;
-import lombok.experimental.Accessors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.shaneking.ling.persistence.sql.Keyword;
-import org.shaneking.ling.persistence.sql.Pagination;
-import org.shaneking.ling.persistence.sql.entity.IdAdtVerEntity;
-import org.shaneking.ling.persistence.sql.entity.IdEntity;
-import org.shaneking.ling.persistence.sql.entity.sqllite.SqlliteDialectSqlEntities;
+import org.shaneking.ling.persistence.Keyword;
+import org.shaneking.ling.persistence.Pagination;
+import org.shaneking.ling.persistence.entity.Identified;
+import org.shaneking.ling.persistence.entity.Versioned;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
-import sktest.ling.persistence.sql.entity.AbstractIdAdtVerEntity;
-import sktest.ling.persistence.sql.entity.mysql.MysqlIdAdtVerEntityTest;
+import sktest.ling.persistence.entity.HelloWithoutTableNameEntity;
+import sktest.ling.persistence.entity.sql.mysql.MysqlIdAdtVerEntityTest;
 
-import javax.persistence.Table;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.ResultSet;
@@ -48,7 +44,7 @@ class AbstractEntityTest extends SKUnit {
   @Test
   void initTableInfo() {
     HelloWithoutTableNameEntity abstractEntity = new HelloWithoutTableNameEntity();
-    assertEquals("AbstractEntityTest.HelloWithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=null), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("HelloWithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerSqlEntitiesTemplate(id=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test
@@ -84,12 +80,12 @@ class AbstractEntityTest extends SKUnit {
   void mapRow() throws SQLException {
     HelloWithoutTableNameEntity abstractEntity = new HelloWithoutTableNameEntity();
 
-    Mockito.when(resultSet.getString(IdEntity.FIELD__ID)).thenReturn(id);
-    Mockito.when(resultSet.getInt(IdAdtVerEntity.FIELD__VERSION)).thenReturn(1);
-    abstractEntity.setSelectList(List0.newArrayList(IdEntity.FIELD__ID, IdAdtVerEntity.FIELD__VERSION, String0.ALPHABET));
+    Mockito.when(resultSet.getString(Identified.FIELD__ID)).thenReturn(id);
+    Mockito.when(resultSet.getInt(Versioned.FIELD__VERSION)).thenReturn(1);
+    abstractEntity.setSelectList(List0.newArrayList(Identified.FIELD__ID, Versioned.FIELD__VERSION, String0.ALPHABET));
     abstractEntity.mapRow(resultSet);
 
-    assertEquals("AbstractEntityTest.HelloWithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb), invalid=null, lastModifyDateTime=null, lastModifyUserId=null), version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("HelloWithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerSqlEntitiesTemplate(id=1610866165373_KbTy6GDVwpB5rAYJjJb, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test
@@ -179,9 +175,4 @@ class AbstractEntityTest extends SKUnit {
   void whereStatement() {
   }
 
-  @Accessors(chain = true)
-  @Table
-  @ToString(callSuper = true)
-  public class HelloWithoutTableNameEntity extends AbstractIdAdtVerEntity implements SqlliteDialectSqlEntities {
-  }
 }

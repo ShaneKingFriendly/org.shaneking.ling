@@ -1,15 +1,15 @@
-package sktest.ling.persistence.sql.entity.mysql;
+package sktest.ling.persistence.entity.sql.mysql;
 
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.shaneking.ling.persistence.sql.entity.mysql.MysqlDialectSqlEntities;
+import org.shaneking.ling.persistence.entity.sql.mysql.MysqlEntities;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Date0;
 import org.shaneking.ling.zero.util.UUID0;
-import sktest.ling.persistence.sql.entity.AbstractIdAdtVerEntity;
+import sktest.ling.persistence.entity.AbstractIdAdtVerEntity;
 
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -43,12 +43,12 @@ public class MysqlIdAdtVerEntityTest extends SKUnit {
   @Test
   void testToString() {
 //    assertEquals("{\"id\":\"" + id + "\",\"invalid\":\"N\",\"lastModifyDateTime\":\"" + dateTime + "\",\"lastModifyUserId\":\"" + userId + "\",\"version\":0,\"hasLength\":\"hasLength\",\"notNullCol\":\"notNullCol\",\"uniqueCol\":\"uniqueCol\",\"withoutAnnotation\":\"withoutAnnotation\",\"reName\":\"reName\",\"longText\":\"longText\"}", OM3.writeValueAsString(mysqlIdAdtVerEntity));
-    assertEquals("MysqlIdAdtVerEntityTest.MysqlIdAdtVerEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerEntity(super=IdAdtEntity(super=IdEntity(id=" + id + "), invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + "), version=0), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", mysqlIdAdtVerEntity.toString());
+    assertEquals("MysqlIdAdtVerEntityTest.MysqlIdAdtVerEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerSqlEntitiesTemplate(id=" + id + ", invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + ", version=0), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", mysqlIdAdtVerEntity.toString());
   }
 
   @Accessors(chain = true)
   @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
   @ToString(callSuper = true)
-  public static class MysqlIdAdtVerEntity extends AbstractIdAdtVerEntity implements MysqlDialectSqlEntities {
+  public static class MysqlIdAdtVerEntity extends AbstractIdAdtVerEntity implements MysqlEntities {
   }
 }

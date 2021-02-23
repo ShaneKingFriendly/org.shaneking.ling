@@ -1,7 +1,7 @@
-package sktest.ling.persistence.sql;
+package sktest.ling.persistence;
 
 import org.junit.jupiter.api.Test;
-import org.shaneking.ling.persistence.sql.Pagination;
+import org.shaneking.ling.persistence.Pagination;
 import org.shaneking.ling.test.SKUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

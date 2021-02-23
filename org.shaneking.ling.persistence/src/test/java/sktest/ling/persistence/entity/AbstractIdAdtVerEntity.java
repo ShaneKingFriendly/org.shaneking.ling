@@ -1,12 +1,12 @@
-package sktest.ling.persistence.sql.entity;
+package sktest.ling.persistence.entity;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.shaneking.ling.persistence.sql.Condition;
-import org.shaneking.ling.persistence.sql.entity.IdAdtVerEntity;
+import org.shaneking.ling.persistence.Condition;
+import org.shaneking.ling.persistence.entity.sql.IdAdtVerSqlEntitiesTemplate;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Map0;
 
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public abstract class AbstractIdAdtVerEntity extends IdAdtVerEntity<Map<String, Condition>> {
+public abstract class AbstractIdAdtVerEntity extends IdAdtVerSqlEntitiesTemplate<Map<String, Condition>> {
   @Column(length = 10)
   @Getter
   @Setter

@@ -6,9 +6,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.shaneking.ling.persistence.sql.Condition;
-import org.shaneking.ling.persistence.sql.Keyword;
-import org.shaneking.ling.persistence.sql.Pagination;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
@@ -153,13 +150,6 @@ public abstract class AbstractEntity<J> implements Entities {
     }
   }
 
-  //abstracts
-  @NonNull
-  public abstract List<Condition> findHavingConditions(@NonNull String fieldName);
-
-  @NonNull
-  public abstract List<Condition> findWhereConditions(@NonNull String fieldName);
-
   //prepares
   public void fillOc(@NonNull List<String> list, @NonNull List<Object> objectList, Condition cond, String leftExpr) {
     if (Keyword.BETWEEN.equalsIgnoreCase(cond.getOp())) {
@@ -204,5 +194,9 @@ public abstract class AbstractEntity<J> implements Entities {
         log.error(e.getMessage(), e);
       }
     }
+  }
+
+  public void srvSelectList(List<String> selectList) {
+    setSelectList(selectList);
   }
 }

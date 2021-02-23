@@ -1,4 +1,4 @@
-package org.shaneking.ling.persistence.sql;
+package org.shaneking.ling.persistence;
 
 import org.shaneking.ling.zero.lang.String0;
 

@@ -193,6 +193,10 @@ public class String0 {
     return isNullOrEmpty(s) ? ss.get() : s;
   }
 
+  public static String nullTo(String s, String d) {
+    return s == null ? d : s;
+  }
+
   public static String nullToEmpty(String s) {
     return nullOrEmptyTo(s, EMPTY);
   }

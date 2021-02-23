@@ -1,7 +1,7 @@
-package org.shaneking.ling.persistence.sql.entity.mysql;
+package org.shaneking.ling.persistence.entity.sql.mysql;
 
-import org.shaneking.ling.persistence.sql.Keyword;
-import org.shaneking.ling.persistence.sql.entity.DialectSqlEntities;
+import org.shaneking.ling.persistence.Keyword;
+import org.shaneking.ling.persistence.entity.SqlEntities;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
 
@@ -12,7 +12,7 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
-public interface MysqlDialectSqlEntities extends DialectSqlEntities {
+public interface MysqlEntities extends SqlEntities {
   default String createColumnStatement(String columnName, boolean idOrVersion) {
     String rtn, columnDbTypeString;
     Field columnField = this.getFieldMap().get(columnName);

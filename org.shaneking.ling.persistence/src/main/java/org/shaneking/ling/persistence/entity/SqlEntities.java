@@ -1,11 +1,12 @@
-package org.shaneking.ling.persistence.sql.entity;
+package org.shaneking.ling.persistence.entity;
 
 import lombok.NonNull;
-import org.shaneking.ling.persistence.sql.Keyword;
-import org.shaneking.ling.persistence.sql.Pagination;
-import org.shaneking.ling.persistence.sql.SqlEntities;
+import org.shaneking.ling.persistence.Entities;
+import org.shaneking.ling.persistence.Keyword;
+import org.shaneking.ling.persistence.Pagination;
 import org.shaneking.ling.zero.lang.Integer0;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.persistence.Tuple;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
 
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public interface DialectSqlEntities extends SqlEntities {
+public interface SqlEntities extends Entities {
   @Transient
   String EMPTY_COMMENT_WITH_BLACK__PREFIX = " ''";
   @Transient
@@ -73,4 +74,17 @@ public interface DialectSqlEntities extends SqlEntities {
     limitList.add(MessageFormat.format("{0} {1}", Keyword.LIMIT, String.valueOf(limit)));//add String.valueOf to fix 1000+ to 1,000+
     limitList.add(MessageFormat.format("{0} {1}", Keyword.OFFSET, String.valueOf(Integer0.lt2d((Integer0.null2Zero(pagination.getPage()) - 1) * limit, 0))));
   }
+
+  ///
+  Tuple.Pair<String, List<Object>> deleteSql();
+
+  Tuple.Pair<String, List<Object>> insertSql();
+
+  Tuple.Pair<String, List<Object>> selectCountSql();
+
+  Tuple.Pair<String, List<Object>> selectIdsSql();
+
+  Tuple.Pair<String, List<Object>> selectSql();
+
+  Tuple.Pair<String, List<Object>> updateSql();
 }

@@ -1,9 +1,11 @@
-package org.shaneking.ling.persistence.sql;
+package org.shaneking.ling.persistence.entity;
 
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.persistence.AbstractEntity;
+import org.shaneking.ling.persistence.Condition;
+import org.shaneking.ling.persistence.Keyword;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.persistence.Tuple;
 import org.shaneking.ling.zero.util.List0;

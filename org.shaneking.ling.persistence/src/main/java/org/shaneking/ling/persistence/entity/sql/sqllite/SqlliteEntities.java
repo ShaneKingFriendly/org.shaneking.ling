@@ -1,7 +1,7 @@
-package org.shaneking.ling.persistence.sql.entity.sqllite;
+package org.shaneking.ling.persistence.entity.sql.sqllite;
 
-import org.shaneking.ling.persistence.sql.Keyword;
-import org.shaneking.ling.persistence.sql.entity.DialectSqlEntities;
+import org.shaneking.ling.persistence.Keyword;
+import org.shaneking.ling.persistence.entity.SqlEntities;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 //some junit test without remote db server
-public interface SqlliteDialectSqlEntities extends DialectSqlEntities {
+public interface SqlliteEntities extends SqlEntities {
   default String createColumnStatement(String columnName, boolean idOrVersion) {
     String rtn, columnDbTypeString;
     Field columnField = this.getFieldMap().get(columnName);
