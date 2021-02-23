@@ -12,7 +12,7 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
-public interface MysqlEntities extends SqlEntities {
+public interface MysqlSqlEntities extends SqlEntities {
   default String createColumnStatement(String columnName, boolean idOrVersion) {
     String rtn, columnDbTypeString;
     Field columnField = this.getFieldMap().get(columnName);

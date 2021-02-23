@@ -14,7 +14,7 @@ import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
 import sktest.ling.persistence.entity.HelloWithoutTableNameEntity;
-import sktest.ling.persistence.entity.sql.mysql.MysqlIdAdtVerEntityTest;
+import sktest.ling.persistence.entity.sql.mysql.MysqlSqlEntityTest;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,7 +28,7 @@ class AbstractEntityTest extends SKUnit {
   String id = "1610866165373_KbTy6GDVwpB5rAYJjJb";
   String userId = "1610866165373_eXabaDd3OiEyivRv1GI";
   String dateTime = "2021-01-16 14:49:25";
-  MysqlIdAdtVerEntityTest.MysqlIdAdtVerEntity mysqlIdAdtVerEntity = new MysqlIdAdtVerEntityTest.MysqlIdAdtVerEntity();
+  MysqlSqlEntityTest.HelloMysqlSqlEntity mysqlIdAdtVerEntity = new MysqlSqlEntityTest.HelloMysqlSqlEntity();
   @Mock
   private ResultSet resultSet;
 
@@ -44,7 +44,7 @@ class AbstractEntityTest extends SKUnit {
   @Test
   void initTableInfo() {
     HelloWithoutTableNameEntity abstractEntity = new HelloWithoutTableNameEntity();
-    assertEquals("HelloWithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerSqlEntitiesTemplate(id=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("HelloWithoutTableNameEntity(super=HelloIdAdtVerSqlEntity(super=AbstractIdAdtVerSqlEntity(id=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test
@@ -85,7 +85,7 @@ class AbstractEntityTest extends SKUnit {
     abstractEntity.setSelectList(List0.newArrayList(Identified.FIELD__ID, Versioned.FIELD__VERSION, String0.ALPHABET));
     abstractEntity.mapRow(resultSet);
 
-    assertEquals("HelloWithoutTableNameEntity(super=AbstractIdAdtVerEntity(super=IdAdtVerSqlEntitiesTemplate(id=1610866165373_KbTy6GDVwpB5rAYJjJb, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("HelloWithoutTableNameEntity(super=HelloIdAdtVerSqlEntity(super=AbstractIdAdtVerSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test

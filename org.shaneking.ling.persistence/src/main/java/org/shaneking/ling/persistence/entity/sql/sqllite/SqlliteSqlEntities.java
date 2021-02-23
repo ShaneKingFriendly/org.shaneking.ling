@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 //some junit test without remote db server
-public interface SqlliteEntities extends SqlEntities {
+public interface SqlliteSqlEntities extends SqlEntities {
   default String createColumnStatement(String columnName, boolean idOrVersion) {
     String rtn, columnDbTypeString;
     Field columnField = this.getFieldMap().get(columnName);
