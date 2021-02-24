@@ -1,7 +1,6 @@
 package org.shaneking.ling.persistence.entity;
 
 import org.shaneking.ling.zero.lang.String0;
-import org.shaneking.ling.zero.util.Date0;
 
 import javax.persistence.Transient;
 
@@ -35,18 +34,5 @@ public interface Audited {
   //set if nullOrEmptyTo
   default <T extends Audited> T sinInvalid(String invalid) {
     return setInvalid(String0.nullOrEmptyTo(getInvalid(), invalid));
-  }
-
-  //set if nullOrEmptyTo
-  default <T extends Audited> T sinLastModifyDateTime(String lastModifyDateTime) {
-    return setLastModifyDateTime(String0.nullOrEmptyTo(getLastModifyDateTime(), lastModifyDateTime));
-  }
-
-  default <T extends Audited> T initInvalid() {
-    return sinInvalid(String0.N);
-  }
-
-  default <T extends Audited> T initLastModifyDateTime() {
-    return sinLastModifyDateTime(Date0.on().dateTime());
   }
 }
