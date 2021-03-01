@@ -4,6 +4,9 @@ import javax.persistence.Transient;
 
 public interface Numbered {
   @Transient
+  String ERR_CODE__NOT_FOUND_BY_NUMBER = "NUMBERED__NOT_FOUND_BY_NUMBER";
+
+  @Transient
   String COLUMN__NO = "no";
 
   @Transient
