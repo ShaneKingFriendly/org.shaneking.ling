@@ -63,7 +63,7 @@ class AtomicLong0Test {
   public void tryIncreaseDecreaseFailed() throws Exception {
     final AtomicLong al = new AtomicLong(Runtime.getRuntime().availableProcessors() + 1);
     ExecutorService executorService = Executors.newFixedThreadPool(6 * Runtime.getRuntime().availableProcessors() + 1);
-    List<Future<Boolean>> futureList = executorService.invokeAll(List0.nCopies(8 * Runtime.getRuntime().availableProcessors() + 1, () -> SR0.nextInt(10) % 2 == 0 ? new HelloAtomicLong(al) : new WorldAtomicLong(al)));
+    List<Future<Boolean>> futureList = executorService.invokeAll(List0.nCopies(8 * Runtime.getRuntime().availableProcessors() + 1, () -> SR0.absInt(10) % 2 == 0 ? new HelloAtomicLong(al) : new WorldAtomicLong(al)));
     long l = futureList.parallelStream().map(future -> {
       try {
         return future.get();

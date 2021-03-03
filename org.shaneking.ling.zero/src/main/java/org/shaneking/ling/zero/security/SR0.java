@@ -8,4 +8,8 @@ public class SR0 {
   public static int nextInt(int max) {
     return SR.nextInt() % max;
   }
+
+  public static int absInt(int max) {
+    return Math.abs(nextInt(max));
+  }
 }

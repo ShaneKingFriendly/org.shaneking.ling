@@ -47,7 +47,7 @@ public class InetAddress0 {
 
   public static String customAddress(String hostName) {
     List<String> customAddresses = customAddresses(hostName);
-    return customAddresses.size() > 0 ? customAddresses.get(SR0.nextInt(customAddresses.size())) : null;
+    return customAddresses.size() > 0 ? customAddresses.get(SR0.absInt(customAddresses.size())) : null;
   }
 
   public static List<String> customAddresses(String hostName) {
@@ -152,7 +152,7 @@ public class InetAddress0 {
 
   public static String virtualAddress(String hostName) {
     List<String> virtualAddresses = virtualAddresses(hostName);
-    return virtualAddresses.size() > 0 ? virtualAddresses.get(SR0.nextInt(virtualAddresses.size())) : null;
+    return virtualAddresses.size() > 0 ? virtualAddresses.get(SR0.absInt(virtualAddresses.size())) : null;
   }
 
   public static List<String> virtualAddresses(String hostName) {
