@@ -16,35 +16,35 @@ import java.util.Base64;
 import java.util.UUID;
 
 /**
- * https://github.com/ShaneKing/sk-js/blob/master/src/Crypto0.js
+ * https://github.com/ShaneKingOpen/sk-js/blob/master/src/SKC1.js
  */
 @Slf4j
-public class Crypto0 {
-  public static final String ALGORITHM_NAME__AES = "C3";
-  public static final String ENCRYPTED_PREFIX = String0.wrapBracket(ALGORITHM_NAME__AES);
+public class SKC1 {
+  public static final String SK__CRYPTO__ALGORITHM_NAME = "SKC1";
+  public static final String ENCRYPTED_PREFIX = String0.wrapBracket(SK__CRYPTO__ALGORITHM_NAME);
   //ILoveYou
   public static final String DEFAULT_SALT = "494c6f7665596f75";
 
   private static final LruMap<String, Cipher> SALT_DECRYPT_MAP = new LruMap<>(13);
   private static final LruMap<String, Cipher> SALT_ENCRYPT_MAP = new LruMap<>(13);
 
-  public static String aesDecrypt(String encrypted) {
-    return aesDecrypt(encrypted, true);
+  public static String decrypt(String encrypted) {
+    return decrypt(encrypted, true);
   }
 
-  public static String aesDecrypt(String encrypted, boolean quietly) {
-    return aesDecrypt(encrypted, DEFAULT_SALT, quietly);
+  public static String decrypt(String encrypted, boolean quietly) {
+    return decrypt(encrypted, DEFAULT_SALT, quietly);
   }
 
-  public static String aesDecrypt(String encrypted, String salt) {
-    return aesDecrypt(encrypted, salt, true);
+  public static String decrypt(String encrypted, String salt) {
+    return decrypt(encrypted, salt, true);
   }
 
-  public static String aesDecrypt(String encrypted, String salt, boolean quietly) {
-    return aesDecrypt(encrypted, salt, StandardCharsets.UTF_8, quietly);
+  public static String decrypt(String encrypted, String salt, boolean quietly) {
+    return decrypt(encrypted, salt, StandardCharsets.UTF_8, quietly);
   }
 
-  public static String aesDecrypt(String encrypted, String salt, Charset charset, boolean quietly) {
+  public static String decrypt(String encrypted, String salt, Charset charset, boolean quietly) {
     try {
       return new String(SALT_DECRYPT_MAP.get(salt, () -> {
         //      KeyGenerator.getInstance(Key0.AES).init(128);
@@ -62,23 +62,23 @@ public class Crypto0 {
     }
   }
 
-  public static String aesEncrypt(String content) {
-    return aesEncrypt(content, true);
+  public static String encrypt(String content) {
+    return encrypt(content, true);
   }
 
-  public static String aesEncrypt(String content, boolean quietly) {
-    return aesEncrypt(content, DEFAULT_SALT);
+  public static String encrypt(String content, boolean quietly) {
+    return encrypt(content, DEFAULT_SALT);
   }
 
-  public static String aesEncrypt(String content, String salt) {
-    return aesEncrypt(content, salt, true);
+  public static String encrypt(String content, String salt) {
+    return encrypt(content, salt, true);
   }
 
-  public static String aesEncrypt(String content, String salt, boolean quietly) {
-    return aesEncrypt(content, salt, StandardCharsets.UTF_8, quietly);
+  public static String encrypt(String content, String salt, boolean quietly) {
+    return encrypt(content, salt, StandardCharsets.UTF_8, quietly);
   }
 
-  public static String aesEncrypt(@NonNull String content, String salt, Charset charset, boolean quietly) {
+  public static String encrypt(@NonNull String content, String salt, Charset charset, boolean quietly) {
     try {
       return Base64.getEncoder().encodeToString(SALT_ENCRYPT_MAP.get(salt, () -> {
         //      KeyGenerator.getInstance(Key0.AES).init(128);
