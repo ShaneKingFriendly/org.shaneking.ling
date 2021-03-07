@@ -51,7 +51,7 @@ public class SKC1 {
         Cipher cipher = Cipher.getInstance(Cipher0.AES_ECB_PKCS5Padding);
         cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(salt.getBytes(charset), Key0.AES));
         return cipher;
-      }).doFinal(Base64.getDecoder().decode(encrypted)));
+      }).doFinal(Base64.getDecoder().decode(encrypted.getBytes(charset))), charset);
     } catch (Exception e) {
       log.error(String.join(String0.COMMA, encrypted, salt, charset.toString()), e);
       if (quietly) {
