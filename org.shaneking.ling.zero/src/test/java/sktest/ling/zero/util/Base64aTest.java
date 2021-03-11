@@ -28,7 +28,7 @@ class Base64aTest {
   void encode(String s) {
     if (!String0.isNullOrEmpty(s)) {
       assertAll(
-        () -> assertNotEquals(Base64.getEncoder().encodeToString(s.getBytes()), Base64a.encode(s.getBytes()))
+        () -> assertNotEquals(new String(Base64.getEncoder().encode(s.getBytes())), Base64a.encode(s.getBytes()))
       );
     }
   }
@@ -42,7 +42,7 @@ class Base64aTest {
   void decode(String s) {
     if (!String0.isNullOrEmpty(s)) {
       assertAll(
-        () -> assertNotEquals(new String(Base64.getDecoder().decode(Base64.getEncoder().encodeToString(s.getBytes())))
+        () -> assertNotEquals(new String(Base64.getDecoder().decode(Base64.getEncoder().encode(s.getBytes())))
           , new String(Base64a.decode(Base64a.encode(s.getBytes()))))
       );
     }
