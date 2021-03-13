@@ -60,7 +60,7 @@ public class InetAddress0 {
 
   public static Map<String, Object> getAddressCacheMap() {
     try {
-      final Field cacheField = InetAddress.class.getDeclaredField("addressCache");
+      final Field cacheField = InetAddress.class.getDeclaredField("addressCache");///FIXME(@JDK11) java.lang.NoSuchFieldException: addressCache
       cacheField.setAccessible(true);
       final Object addressCache = cacheField.get(InetAddress.class);
 
