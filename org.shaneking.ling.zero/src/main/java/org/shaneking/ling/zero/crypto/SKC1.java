@@ -16,7 +16,7 @@ import java.util.Base64;
 import java.util.UUID;
 
 /**
- * https://github.com/ShaneKingOpen/sk-js/blob/master/src/SKC1.js
+ * https://github.com/ShaneKingFriendly/sk-js/blob/master/src/SKC1.js
  */
 @Slf4j
 public class SKC1 {

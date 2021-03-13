@@ -14,7 +14,7 @@
 
   <name>org.shaneking.ling.logback</name>
   <description>Logback for ShaneKing</description>
-  <url>https://github.com/ShaneKingOpen/org.shaneking.ling</url>
+  <url>https://github.com/ShaneKingFriendly/org.shaneking.ling</url>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
