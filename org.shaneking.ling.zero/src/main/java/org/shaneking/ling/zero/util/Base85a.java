@@ -174,6 +174,7 @@ public class Base85a {
       return _encode(data, offset, length, out, out_offset);
     }
 
+    ///https://tools.ietf.org/html/rfc1924
     /**
      * Encode the data as one block in reverse output order.
      * This is the strict algorithm specified by RFC 1924 for IP address encoding,
@@ -183,7 +184,6 @@ public class Base85a {
      *
      * @param data Byte data to encode
      * @return Encoded data in ascii encoding
-     * @see https://tools.ietf.org/html/rfc1924
      */
     public byte[] encodeBlockReverse(byte[] data) {
       int size = Math.max(0, (int) Math.ceil(data.length * 1.25));
@@ -192,6 +192,7 @@ public class Base85a {
       return result;
     }
 
+    ///https://tools.ietf.org/html/rfc1924
     /**
      * Encode part of data as one block in reverse output order into output array.
      * This is the strict algorithm specified by RFC 1924 for IP address encoding,
@@ -205,7 +206,6 @@ public class Base85a {
      * @param out        array to write encoded data to
      * @param out_offset byte offset to start writing encoded data to
      * @return number of encoded bytes
-     * @see https://tools.ietf.org/html/rfc1924
      */
     public int encodeBlockReverse(byte[] data, int offset, int length, byte[] out, int out_offset) {
       int size = (int) Math.ceil(length * 1.25);
@@ -270,6 +270,7 @@ public class Base85a {
     }
   }
 
+  ///https://tools.ietf.org/html/rfc1924
   /**
    * This class encodes data in the Base85 encoding scheme using the character set described by IETF RFC 1924,
    * but in the efficient algorithm of Ascii85 and Z85.
@@ -277,7 +278,6 @@ public class Base85a {
    * <p>
    * Encoder instances can be safely shared by multiple threads.
    *
-   * @see https://tools.ietf.org/html/rfc1924
    */
   public static class Rfc1924Encoder extends Encoder {
     private static final byte[] ENCODE_MAP = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~".getBytes(StandardCharsets.US_ASCII);
@@ -288,13 +288,13 @@ public class Base85a {
     }
   }
 
+  ///https://rfc.zeromq.org/spec:32/Z85/
   /**
    * This class encodes data in the Base85 encoding scheme Z85 as described by ZeroMQ.
    * This scheme does not use quotes or comma, and can usually be used in sql, json, csv etc. without escaping.
    * <p>
    * Encoder instances can be safely shared by multiple threads.
    *
-   * @see https://rfc.zeromq.org/spec:32/Z85/
    */
   public static class Z85Encoder extends Encoder {
     private static final byte[] ENCODE_MAP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&<>()[]{}@%$#".getBytes(StandardCharsets.US_ASCII);
@@ -305,6 +305,7 @@ public class Base85a {
     }
   }
 
+  ///https://en.wikipedia.org/wiki/Ascii85
   /**
    * This class encodes data in the Ascii85 encoding (Adobe variant without &lt;~ and ~&gt;).
    * Supports "z" and "y" compression, which can be disabled individually.
@@ -312,7 +313,6 @@ public class Base85a {
    * <p>
    * Encoder instances can be safely shared by multiple threads.
    *
-   * @see https://en.wikipedia.org/wiki/Ascii85
    */
   public static class Ascii85Encoder extends Encoder {
     private static final byte[] ENCODE_MAP = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstu".getBytes(StandardCharsets.US_ASCII);
@@ -423,7 +423,7 @@ public class Base85a {
   /**
    * This is a skeleton class for decoding data in the Base85 encoding scheme.
    * in the same style as Base64 decoder.
-   * Just override {@link #getEncodeMap()} and {@link #getName()} to create a fully functional decoder.
+   * Just override {@link #getDecodeMap()} and {@link #getName()} to create a fully functional decoder.
    * Decoder instances can be safely shared by multiple threads.
    */
   public static abstract class Decoder {
@@ -535,6 +535,8 @@ public class Base85a {
       return size;
     }
 
+    ///https://tools.ietf.org/html/rfc1924
+
     /**
      * Decode the data as one block in reverse input order.
      * This is the strict algorithm specified by RFC 1924 for IP address decoding,
@@ -542,7 +544,6 @@ public class Base85a {
      *
      * @param data Byte data to encode
      * @return Encoded data in ascii encoding
-     * @see https://tools.ietf.org/html/rfc1924
      */
     public byte[] decodeBlockReverse(byte[] data) {
       int size = Math.max(0, (int) Math.ceil(data.length * 0.8));
@@ -550,6 +551,8 @@ public class Base85a {
       decodeBlockReverse(data, 0, data.length, result, 0);
       return result;
     }
+
+    ///https://tools.ietf.org/html/rfc1924
 
     /**
      * Decode part of data as one block in reverse input order into output array.
@@ -562,7 +565,6 @@ public class Base85a {
      * @param out        array to write decoded data to
      * @param out_offset byte offset to start writing decoded data to
      * @return number of decoded bytes
-     * @see https://tools.ietf.org/html/rfc1924
      */
     public int decodeBlockReverse(byte[] data, int offset, int length, byte[] out, int out_offset) {
       int size = (int) Math.ceil(length * 0.8);
@@ -601,9 +603,9 @@ public class Base85a {
     /**
      * Test that part of given data can be decoded correctly.
      *
-     * @param data   Encoded data in ascii charset
-     * @param offset byte offset that data starts
-     * @param length number of data bytes
+     * @param encoded_data Encoded data in ascii charset
+     * @param offset       byte offset that data starts
+     * @param length       number of data bytes
      * @return true if data is of correct length and composed of correct characters
      */
     public boolean test(byte[] encoded_data, int offset, int length) {
@@ -673,13 +675,14 @@ public class Base85a {
     protected abstract String getName();
   }
 
+  ///https://tools.ietf.org/html/rfc1924
+
   /**
    * This class decodes data in the Base85 encoding using the character set described by IETF RFC 1924,
    * in the efficient algorithm of Ascii85 and Z85.
    * Malformed data may or may not throws IllegalArgumentException on decode; call test(byte[]) to check data if necessary.
    * Decoder instances can be safely shared by multiple threads.
    *
-   * @see https://tools.ietf.org/html/rfc1924
    */
   public static class Rfc1924Decoder extends Decoder {
     private static final byte[] DECODE_MAP = new byte[127];
@@ -699,12 +702,13 @@ public class Base85a {
     }
   }
 
+  ///https://rfc.zeromq.org/spec:32/Z85/
+
   /**
    * This class decodes data in the Base85 encoding scheme Z85 as described by ZeroMQ.
    * Malformed data may or may not throws IllegalArgumentException on decode; call test(byte[]) to check data if necessary.
    * Decoder instances can be safely shared by multiple threads.
    *
-   * @see https://rfc.zeromq.org/spec:32/Z85/
    */
   public static class Z85Decoder extends Decoder {
     private static final byte[] DECODE_MAP = new byte[127];
@@ -724,13 +728,13 @@ public class Base85a {
     }
   }
 
+  ///https://en.wikipedia.org/wiki/Ascii85
   /**
    * This class decodes Ascii85 encoded data (Adobe variant without &lt;~ and ~&gt;).
    * 'y' and 'z' are always processed.  This keep the decoder simple.
    * Malformed data may or may not throws IllegalArgumentException on decode; call test(byte[]) to check data if necessary.
    * Decoder instances can be safely shared by multiple threads.
    *
-   * @see https://en.wikipedia.org/wiki/Ascii85
    */
   private static class Ascii85Decoder extends Decoder {
     private static final byte[] zeros = new byte[]{0, 0, 0, 0};
