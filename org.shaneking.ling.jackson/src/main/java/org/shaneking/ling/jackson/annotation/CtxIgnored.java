@@ -7,9 +7,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/*
-ThreadLocal is not perfect in spring mvc env.
- */
 @Deprecated
 @JacksonAnnotation
 @Retention(RetentionPolicy.RUNTIME)

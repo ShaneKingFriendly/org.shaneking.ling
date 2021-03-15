@@ -1,5 +1,6 @@
 package org.shaneking.ling.persistence;
 
+import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
 
 public class Keyword {
@@ -11,14 +12,12 @@ public class Keyword {
   public static final String ADD_UNIQUE_INDEX = "add unique index";
   public static final String BETWEEN = "between";
   public static final String COMMENT = "comment";
-  public static final String COUNT_1_ = "count(1)";
   public static final String CREATE_TABLE = "create table";
   public static final String CREATE_INDEX = "create index";
   public static final String CREATE_UNIQUE_INDEX = "create unique index";
   public static final String DELETE_FROM = "delete from";
   public static final String FROM = "from";
   public static final String GROUP_BY = "group by";
-  public static final String GROUP__CONCAT_ID_ = "group_concat(id)";
   public static final String HAVING = "having";
   public static final String IF_NOT_EXISTS = "if not exists";
   public static final String IF_EXISTS = "if exists";
@@ -42,4 +41,15 @@ public class Keyword {
   public static final String TYPE_LONGTEXT = "longtext";
   public static final String TYPE_TEXT = "text";
   public static final String TYPE_VARCHAR = "varchar";
+
+  public static final String FN__COUNT = "count";
+  public static final String FN__GROUP_CONCAT = "group_concat";
+
+  public static final String parenthesis(@NonNull String name, @NonNull String value) {
+    return name + String0.OPEN_PARENTHESIS + value + String0.CLOSE_PARENTHESIS;
+  }
+
+  public static final String parenthesis(@NonNull String name, @NonNull Integer value) {
+    return name + String0.OPEN_PARENTHESIS + value + String0.CLOSE_PARENTHESIS;
+  }
 }

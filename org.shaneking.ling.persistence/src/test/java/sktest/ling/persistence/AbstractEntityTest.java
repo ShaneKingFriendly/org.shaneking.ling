@@ -44,6 +44,7 @@ class AbstractEntityTest extends SKUnit {
   @Test
   void initTableInfo() {
     HelloWithoutTableNameEntity abstractEntity = new HelloWithoutTableNameEntity();
+    abstractEntity.nullSetter();
     assertEquals("HelloWithoutTableNameEntity(super=HelloIdAdtVerSqlEntity(super=AbstractIdAdtVerSqlEntity(id=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 

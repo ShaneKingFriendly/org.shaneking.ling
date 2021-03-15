@@ -2,15 +2,29 @@ package sktest.ling.persistence;
 
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.persistence.Keyword;
+import org.shaneking.ling.persistence.entity.Identified;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class KeywordTest extends SKUnit {
 
   @Test
-  void wrapBlack() {
-    assertEquals(" and ", String0.wrapBlack(Keyword.AND));
+  void parenthesis() {
+    assertAll(
+      () -> assertEquals("count(1)", Keyword.parenthesis(Keyword.FN__COUNT, 1)),
+      () -> assertEquals("group_concat(id)", Keyword.parenthesis(Keyword.FN__GROUP_CONCAT, Identified.FIELD__ID))
+    );
+    Integer i = null;
+    String s = null;
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(null, 1)),
+      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(String0.EMPTY, i)),
+      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(null, i)),
+      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(null, String0.EMPTY)),
+      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(String0.EMPTY, s)),
+      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(null, s))
+    );
   }
 }

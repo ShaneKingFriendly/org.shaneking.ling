@@ -66,12 +66,12 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
   }
 
   public Tuple.Pair<String, List<Object>> selectCountSql() {
-    Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.COUNT_1_), List0.newArrayList());
+    Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.parenthesis(Keyword.FN__COUNT, 1)), List0.newArrayList());
     return Tuple.of(String.join(String0.BLANK, Tuple.getFirst(pair)), Tuple.getSecond(pair));
   }
 
   public Tuple.Pair<String, List<Object>> selectIdsSql() {
-    Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.GROUP__CONCAT_ID_), List0.newArrayList());
+    Tuple.Pair<List<String>, List<Object>> pair = this.selectSql(List0.newArrayList(Keyword.parenthesis(Keyword.FN__GROUP_CONCAT, Identified.FIELD__ID)), List0.newArrayList());
     return Tuple.of(String.join(String0.BLANK, Tuple.getFirst(pair)), Tuple.getSecond(pair));
   }
 
