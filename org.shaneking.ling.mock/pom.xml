@@ -25,7 +25,7 @@
   <dependencies>
     <dependency>
       <groupId>org.shaneking.ling</groupId>
-      <artifactId>org.shaneking.ling.zero</artifactId>
+      <artifactId>org.shaneking.ling.jackson</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
     <!-- test -->
