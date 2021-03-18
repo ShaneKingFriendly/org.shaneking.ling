@@ -32,6 +32,7 @@ public class String0 {
   public static final String DIVIDE = String.valueOf(Char0.DIVIDE);
   public static final String DOT = String.valueOf(Char0.DOT);
   public static final String DOUBLE_QUOTATION = String.valueOf(Char0.DOUBLE_QUOTATION);
+  public static final String EMAIL = String.valueOf(Char0.EMAIL);
   public static final String EQUAL = String.valueOf(Char0.EQUAL);
   public static final String EQUAL_APPROXIMATELY = String.valueOf(Char0.EQUAL_APPROXIMATELY);
   public static final String EQUIVALENT = String.valueOf(Char0.EQUIVALENT);
@@ -84,6 +85,8 @@ public class String0 {
 
   public static final String MALE = String.valueOf(Char0.MALE);
   public static final String FEMALE = String.valueOf(Char0.FEMALE);
+
+  public static final String C_DOT = String.valueOf(Char0.C_DOT);
 
   public static final String Y = String.valueOf(Char0.Y);//Yes
   public static final String N = String.valueOf(Char0.N);//No

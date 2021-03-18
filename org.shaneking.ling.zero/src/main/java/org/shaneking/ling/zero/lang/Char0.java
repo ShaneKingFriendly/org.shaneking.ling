@@ -23,6 +23,7 @@ public class Char0 {
   public static final char DIVIDE = '÷';
   public static final char DOT = '.';
   public static final char DOUBLE_QUOTATION = '\"';
+  public static final char EMAIL = '@';
   public static final char EQUAL = '=';
   public static final char EQUAL_APPROXIMATELY = '≌';
   public static final char EQUIVALENT = '≡';
@@ -75,6 +76,8 @@ public class Char0 {
 
   public static final char MALE = '♂';
   public static final char FEMALE = '♀';
+
+  public static final char C_DOT = '。';
 
   public static final char Y = 'Y';//Yes
   public static final char N = 'N';//No
