@@ -104,7 +104,8 @@ class OM3Test extends SKUnit {
     assertAll(
       () -> assertEquals(Object0.NULL, OM3.writeValueAsString(null)),
       () -> assertEquals(OM3.OBJECT_ERROR_STRING, OM3.writeValueAsString(Map0.newHashMap())),
-      () -> assertEquals("[]", OM3.writeValueAsString(List0.newArrayList()))
+      () -> assertEquals("[]", OM3.writeValueAsString(List0.newArrayList())),
+      () -> assertEquals("java.lang.Object", OM3.writeValueAsString(Object.class))
     );
   }
 

@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
@@ -177,8 +178,8 @@ public abstract class AbstractEntity<J> implements Entities {
   }
 
   public void mapRow(ResultSet rs) {
-    String columnFieldTypeString;
-    Object o;
+    String columnFieldTypeString = null;
+    Object o = null;
     for (String fieldName : this.lstSelectFiled()) {
       try {
         columnFieldTypeString = this.getFieldMap().get(fieldName).getType().getCanonicalName();
@@ -191,7 +192,8 @@ public abstract class AbstractEntity<J> implements Entities {
           this.getClass().getMethod("set" + String0.upperFirst(fieldName), o.getClass()).invoke(this, o);
         }
       } catch (Exception e) {
-        log.error(e.getMessage(), e);
+        ///ignore exception : config error, can't stop business, developer can be see and fixed by log
+        log.error(OM3.lp(o, columnFieldTypeString), e);
       }
     }
   }

@@ -94,6 +94,7 @@ public class InetAddress0 {
         });
         rtn = true;
       } catch (Exception e) {
+        ///ignore exception : load local hosts error maybe not important
         log.error(String0.nullOrEmptyTo(e.getMessage(), e.toString()), e);
       }
     }
@@ -123,6 +124,7 @@ public class InetAddress0 {
       }
       return candidateAddress == null ? InetAddress.getLocalHost() : candidateAddress;
     } catch (Exception e) {
+      ///ignore exception : load local hosts info maybe not important
       log.error(String.valueOf(e), e);
     }
     return null;

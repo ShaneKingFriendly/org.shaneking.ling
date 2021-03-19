@@ -57,6 +57,7 @@ public class Runtime0 {
         rtnList.addAll(eFuture.get(timeout, TimeUnit.SECONDS));
         rtnList.add("process.waitFor()=" + process.waitFor());
       } catch (Exception e) {
+        ///ignore exception : most exec is output
         log.error(e.getMessage(), e);
         rtnList.add(e.toString());
       } finally {

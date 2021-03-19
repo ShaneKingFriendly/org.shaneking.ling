@@ -18,7 +18,7 @@ public interface NullSetter {
       try {
         m.invoke(this, new Object[]{null});
       } catch (Exception e) {
-        //ignore
+        ///ignore exception : most scenario use in test case
       }
     });
   }

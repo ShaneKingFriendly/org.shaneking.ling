@@ -3,6 +3,7 @@ package org.shaneking.ling.persistence.entity;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.persistence.AbstractEntity;
 import org.shaneking.ling.persistence.Condition;
 import org.shaneking.ling.persistence.Keyword;
@@ -56,7 +57,8 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
         o = this.getClass().getMethod("get" + String0.upperFirst(fieldName)).invoke(this);
       } catch (Exception e) {
         o = null;
-        log.error(e.toString());
+        ///ignore exception : config error, can't stop business, developer can be see and fixed by log
+        log.error(OM3.lp(o, fieldName, insertList, objectList), e);
       }
       if (!String0.isNullOrEmpty(String.valueOf(o))) {
         insertList.add(this.getDbColumnMap().get(fieldName));
@@ -170,13 +172,14 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
   }
 
   public void updateStatement(@NonNull List<String> updateList, @NonNull List<Object> objectList) {
-    Object o = null;
+    Object o;
     for (String fieldName : this.getFieldNameList().stream().filter(fieldName -> !this.getIdFieldNameList().contains(fieldName) && this.getColumnMap().get(fieldName).updatable()).collect(Collectors.toList())) {
       try {
         o = this.getClass().getMethod("get" + String0.upperFirst(fieldName)).invoke(this);
       } catch (Exception e) {
         o = null;
-        log.error(e.toString());
+        ///ignore exception : config error, can't stop business, developer can be see and fixed by log
+        log.error(OM3.lp(o, fieldName, fieldName, objectList), e);
       }
       if (o != null) {//can update to null
         updateList.add(this.getDbColumnMap().get(fieldName) + String0.EQUAL + String0.QUESTION);
@@ -223,13 +226,14 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
   }
 
   public void whereEntityStatement(@NonNull List<String> whereList, @NonNull List<Object> objectList, @NonNull List<String> fieldNameList) {
-    Object o = null;
+    Object o;
     for (String fieldName : fieldNameList) {
       try {
         o = this.getClass().getMethod("get" + String0.upperFirst(fieldName)).invoke(this);
       } catch (Exception e) {
         o = null;
-        log.error(e.toString());
+        ///ignore exception : config error, can't stop business, developer can be see and fixed by log
+        log.error(OM3.lp(o, fieldName, fieldName, objectList), e);
       }
       if (this.getColumnMap().get(fieldName) != null) {
         if (o != null) {//whereConditions support empty

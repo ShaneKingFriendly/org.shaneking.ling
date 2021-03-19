@@ -24,7 +24,7 @@ public class Runtime0Callable implements Callable<List<String>> {
   @Getter
   private final String pauseFlag;
   @Getter
-  private final boolean value4pause;//if meet pause, return true or false?
+  private final boolean value4pause;///if meet pause, return true or false?
 
   public Runtime0Callable(InputStream inputStream, boolean errorStream, boolean value4pause, String pauseFlag, int maxRecordSize) {
     super();
@@ -72,6 +72,7 @@ public class Runtime0Callable implements Callable<List<String>> {
         }
       }
     } catch (Exception e) {
+      ///ignore exception : most exec is output
       log.error(e.getMessage(), e);
       rtnList.add(e.toString());
     } finally {

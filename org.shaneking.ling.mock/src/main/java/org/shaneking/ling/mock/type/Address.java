@@ -32,6 +32,7 @@ public class Address {
       DICT.putAll(OM3.readValue(String.join(String0.EMPTY, Files.readAllLines(Paths.get(url.toURI()))), new TypeReference<Map<String, String>>() {
       }));
     } catch (Exception e) {
+      ///ignore exception : most scenario use in test case
       log.error(e.toString());
     }
     CODE.addAll(DICT.keySet());
