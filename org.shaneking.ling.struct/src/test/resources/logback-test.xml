@@ -1,0 +1,28 @@
+<configuration>
+  <property name="sklog.path" value="./logs"/>
+  <property name="sklog.prefix" value="org.shaneking.ling.struct"/>
+  <property name="sklog.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %thread %logger:%line - %msg%n"/>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${sklog.pattern}</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <encoder>
+      <pattern>${sklog.pattern}</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+    <file>${sklog.path}/${sklog.prefix}.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${sklog.path}/${sklog.prefix}.%d{yyyy-MM-dd}.%i.log</fileNamePattern><!-- Rolling Policy: By Date By Size -->
+      <maxFileSize>100MB</maxFileSize>
+      <maxHistory>32</maxHistory><!-- Day -->
+      <totalSizeCap>5GB</totalSizeCap>
+    </rollingPolicy>
+  </appender>
+  <root level="debug"><!-- >debug -->
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+  </root>
+</configuration>

@@ -97,6 +97,14 @@ public class String0 {
   public static final String I = String.valueOf(Char0.I);//Input
   public static final String O = String.valueOf(Char0.O);//Output
 
+  public static final String C7 = String.valueOf(Char0.C7);
+  public static final String C9 = String.valueOf(Char0.C9);
+  public static final String C10 = String.valueOf(Char0.C10);
+  public static final String C12 = String.valueOf(Char0.C12);
+  public static final String C13 = String.valueOf(Char0.C13);
+  public static final String C27 = String.valueOf(Char0.C27);
+  public static final String C127 = String.valueOf(Char0.C127);
+
   public static final String BR_LINUX = "\n";
   public static final String BR_MACOS = "\r";
   public static final String BR_WINOS = "\r\n";

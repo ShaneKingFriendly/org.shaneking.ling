@@ -11,6 +11,9 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
+/*
+ * ToString not callSuper
+ */
 @Accessors(chain = true)
 @ToString
 public abstract class AbstractIdAdtVerSqlEntity<J> extends AbstractSqlEntity<J> implements IdAdtVerSqlEntities {

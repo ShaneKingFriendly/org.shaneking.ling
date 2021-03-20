@@ -103,6 +103,7 @@
     <module>org.shaneking.ling.mock</module>
     <module>org.shaneking.ling.persistence</module>
     <module>org.shaneking.ling.rr</module>
+    <module>org.shaneking.ling.struct</module>
     <module>org.shaneking.ling.test</module>
     <module>org.shaneking.ling.zero</module>
   </modules>

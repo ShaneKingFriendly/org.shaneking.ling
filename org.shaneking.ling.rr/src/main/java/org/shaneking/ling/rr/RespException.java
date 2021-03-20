@@ -8,7 +8,7 @@ import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.lang.ZeroException;
 
 @Accessors(chain = true)
-@ToString
+@ToString(callSuper = true)
 public class RespException extends ZeroException {
   @Getter
   @Setter
