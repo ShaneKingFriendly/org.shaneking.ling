@@ -3,12 +3,24 @@ package sktest.ling.zero.io;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.zero.io.File0;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.lang.ZeroException;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class File0Test {
+
+  @Test
+  void content() {
+    assertAll(
+      () -> assertEquals(File0.content(Paths.get(System.getProperty("user.dir"), "pom.xml")), File0.content(Paths.get(System.getProperty("user.dir"), "pom.xml"))),
+      () -> assertNull(File0.content(Paths.get(System.getProperty("user.dir"), "abc.xml"))),
+      () -> assertThrows(ZeroException.class, () -> File0.content(Paths.get(System.getProperty("user.dir"), "abc.xml"), String0.BR_LINUX, StandardCharsets.UTF_8, false))
+    );
+  }
 
   @Test
   void join() {

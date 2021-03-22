@@ -24,6 +24,16 @@ public class SKUnitTest extends SKUnit {
   }
 
   @Test
+  void testIContent() {
+    assertEquals(tstIContent(), tstIContent());
+  }
+
+  @Test
+  void testOContent() {
+    assertEquals(tstOContent(), tstOContent());
+  }
+
+  @Test
   public void testIFiles() {
     assertEquals(new File("src/test/java/sktest/ling/test/tstFiles/SKUnitTest_testIFiles_null_i.txt"), tstIFiles());
   }

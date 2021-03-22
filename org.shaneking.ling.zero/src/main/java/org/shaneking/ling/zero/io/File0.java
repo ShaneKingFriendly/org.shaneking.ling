@@ -1,9 +1,17 @@
 package org.shaneking.ling.zero.io;
 
+import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.lang.ZeroException;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+@Slf4j
 public class File0 {
   public static final int DEFAULT_BUFFER_SIZE = 256 * 1024;
   public static final String ILLEGAL_FILENAME_REGEX = "[{/\\\\:*?\"<>|}]";
@@ -87,16 +95,41 @@ public class File0 {
   public static final String TYPE_ASF = "asf";
   public static final String TYPE_TMP = "tmp";
 
+  public static String content(Path path) {
+    return content(path, String0.BR_LINUX);
+  }
+
+  public static String content(Path path, String delimiter) {
+    return content(path, delimiter, StandardCharsets.UTF_8);
+  }
+
+  public static String content(Path path, String delimiter, Charset charset) {
+    return content(path, delimiter, charset, true);
+  }
+
+  public static String content(Path path, String delimiter, Charset charset, boolean quietly) {
+    try {
+      return String.join(delimiter, Files.readAllLines(path, charset));
+    } catch (IOException e) {
+      log.error("{path:{},delimiter:{},charset:{},quietly:{},e:{}}", path, delimiter, charset, quietly, e);
+      if (quietly) {
+        return null;
+      } else {
+        throw new ZeroException(e);
+      }
+    }
+  }
+
   public static File join(File parent, String... strings) {
     return join(File.separator, parent, strings);
   }
 
-  public static File join(String separator, String... strings) {
-    return new File(String.join(separator, strings));
+  public static File join(String delimiter, String... strings) {
+    return new File(String.join(delimiter, strings));
   }
 
-  public static File join(String separator, File parent, String... strings) {
-    return new File(parent, String.join(separator, strings));
+  public static File join(String delimiter, File parent, String... strings) {
+    return new File(parent, String.join(delimiter, strings));
   }
 
   public static String suffix(String fileTypeName) {

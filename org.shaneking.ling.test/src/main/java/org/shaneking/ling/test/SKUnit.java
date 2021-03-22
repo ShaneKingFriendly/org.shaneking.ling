@@ -57,12 +57,28 @@ public class SKUnit {
     return new File(MAVEN_TEST_ROOT_FOLDER, getTstInfo().getTestClass().get().getName().replaceAll(getTstInfo().getTestClass().get().getSimpleName(), getTstFiles()).replaceAll(Regex0.DOT, String0.SLASH));
   }
 
+  public String tstIContent() {
+    return tstIContent(File0.TYPE_TXT);
+  }
+
+  public String tstIContent(String fileType) {
+    return File0.content(tstIFiles(fileType).toPath());
+  }
+
   public File tstIFiles() {
     return tstIFiles(File0.TYPE_TXT);
   }
 
   public File tstIFiles(String fileType) {
     return tstFiles(getTstI(), fileType);
+  }
+
+  public String tstOContent() {
+    return tstOContent(File0.TYPE_TXT);
+  }
+
+  public String tstOContent(String fileType) {
+    return File0.content(tstOFiles(fileType).toPath());
   }
 
   public File tstOFiles() {
