@@ -164,6 +164,14 @@ public class String0 {
     return s == null || s.isEmpty();
   }
 
+  public static boolean isNumeric(String s) {
+    boolean rtn = !isNullOrEmpty(s);
+    for (int i = 0; rtn && i < s.length(); i++) {
+      rtn = Char0.isDigital(s.charAt(i));
+    }
+    return rtn;
+  }
+
   public static String lowerFirst(@NonNull String s) {
     return s.substring(0, 1).toLowerCase() + s.substring(1);
   }

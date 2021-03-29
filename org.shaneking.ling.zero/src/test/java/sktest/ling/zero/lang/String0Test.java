@@ -53,6 +53,22 @@ class String0Test {
   }
 
   @Test
+  void isNumeric() {
+    assertAll(
+      () -> assertFalse(String0.isNumeric(null)),
+      () -> assertFalse(String0.isNumeric(String0.EMPTY)),
+      () -> assertFalse(String0.isNumeric(String0.BLANK)),
+      () -> assertFalse(String0.isNumeric(Object0.NULL)),
+      () -> assertFalse(String0.isNumeric(String0.NULL)),
+      () -> assertTrue(String0.isNumeric(String0.ARY_BIN)),
+      () -> assertTrue(String0.isNumeric(String0.ARY_OCT)),
+      () -> assertTrue(String0.isNumeric(String0.ARY_DEC)),
+      () -> assertTrue(String0.isNumeric(String0.DIGITAL)),
+      () -> assertFalse(String0.isNumeric(String0.ARY_HEX))
+    );
+  }
+
+  @Test
   void lowerFirst() {
     assertEquals("lowerFirst", String0.lowerFirst("LowerFirst"));
   }
