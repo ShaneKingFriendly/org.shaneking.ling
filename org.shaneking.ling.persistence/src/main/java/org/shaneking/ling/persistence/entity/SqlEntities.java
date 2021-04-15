@@ -86,5 +86,7 @@ public interface SqlEntities extends Entities {
 
   Tuple.Pair<String, List<Object>> selectSql();
 
+  Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<String> selectList, @NonNull List<Object> selectObjectList);
+
   Tuple.Pair<String, List<Object>> updateSql();
 }
