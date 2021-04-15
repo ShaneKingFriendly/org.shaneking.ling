@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public class EvictingQueue<T> extends LinkedBlockingQueue<T> {
-  public static final int DEFAULT_CAPACITY = 1300;
+  public static final int DEFAULT_CAPACITY = 1023;
 
   public EvictingQueue() {
     this(DEFAULT_CAPACITY);

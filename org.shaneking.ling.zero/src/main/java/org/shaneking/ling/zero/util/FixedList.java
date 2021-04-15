@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class FixedList<E> extends ArrayList<E> {
-  public static final int DEFAULT_SIZE = 1300;
+  public static final int DEFAULT_SIZE = 1023;
   private final int fixedSize;
 
   public FixedList() {
