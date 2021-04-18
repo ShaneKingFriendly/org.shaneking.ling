@@ -50,7 +50,9 @@ public class SKUnit {
   }
 
   public File tstFiles(String io, String fileType) {
-    return new File(tstFolder(), getTstInfo().getTestClass().get().getSimpleName() + String0.UNDERLINE + getTstInfo().getTestMethod().get().getName() + String0.UNDERLINE + this.getTstSeq() + String0.UNDERLINE + io + String0.DOT + fileType);
+    File rtn = new File(tstFolder(), getTstInfo().getTestClass().get().getSimpleName() + String0.UNDERLINE + getTstInfo().getTestMethod().get().getName() + String0.UNDERLINE + this.getTstSeq() + String0.UNDERLINE + io + String0.DOT + fileType);
+    rtn.getParentFile().mkdirs();
+    return rtn;
   }
 
   public File tstFolder() {
