@@ -38,18 +38,21 @@ public interface MysqlSqlEntities extends SqlEntities {
   }
 
   default String createTableIfNotExistSql() {
+    String rtn = createTableSql() + String0.BR_LINUX;
     String idxSqls = createTableIndexSql();
-    idxSqls = String0.isNull2Empty(idxSqls) ? String0.EMPTY : (idxSqls + String0.BR_LINUX);
-    return createTableSql() + String0.BR_LINUX + String0.BR_LINUX +
-      "drop procedure if exists p_" + this.getDbTableName() + "_idx_create;" + String0.BR_LINUX +
-      "delimiter $$" + String0.BR_LINUX +
-      "create procedure p_" + this.getDbTableName() + "_idx_create() begin" + String0.BR_LINUX +
-      idxSqls +
-      "end;" + String0.BR_LINUX +
-      "$$" + String0.BR_LINUX +
-      "delimiter ;" + String0.BR_LINUX +
-      "call p_" + this.getDbTableName() + "_idx_create();" + String0.BR_LINUX +
-      "drop procedure if exists p_" + this.getDbTableName() + "_idx_create;" + String0.BR_LINUX;
+    if (!String0.isNull2Empty(idxSqls)) {
+      rtn = rtn + String0.BR_LINUX +
+        "drop procedure if exists p_" + this.getDbTableName() + "_idx_create;" + String0.BR_LINUX +
+        "delimiter $$" + String0.BR_LINUX +
+        "create procedure p_" + this.getDbTableName() + "_idx_create() begin" + String0.BR_LINUX +
+        idxSqls + String0.BR_LINUX +
+        "end;" + String0.BR_LINUX +
+        "$$" + String0.BR_LINUX +
+        "delimiter ;" + String0.BR_LINUX +
+        "call p_" + this.getDbTableName() + "_idx_create();" + String0.BR_LINUX +
+        "drop procedure if exists p_" + this.getDbTableName() + "_idx_create;" + String0.BR_LINUX;
+    }
+    return rtn;
   }
 
   default String createTableIndexSql() {
