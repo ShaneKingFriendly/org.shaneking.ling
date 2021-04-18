@@ -14,6 +14,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class SKC1Test {
 
   @Test
+  void test() {
+    assertAll(
+      () -> assertEquals("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"rtn\":1}", SKC1.decrypt("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8dcfoFMyiXjBil7DH5l61v0Lo/SwEEK5xTVyuMTFudTeQdUUmAVUiuVk4vrOn8NgMZKPuUFmf6zENVMCmznwiKo")),
+      () -> assertEquals("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8cuDbGx3iltSrCg3pUiEt/onwQC1L9bcIgn36b6P7anotLu7HEVhz6w7ibxrGL9x678BH4Bmj76KKSYXNCogdvM", SKC1.encrypt("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\"},\"rtn\":1}")),
+
+      () -> assertEquals("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"whereConditions\":{\"tenantId\":{\"op\":\"=\",\"cs\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"}},\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"tenantId\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"},\"rtn\":1}", SKC1.decrypt("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8ekWhVfldssP4loE+0WhISX/hCnovJeStZRr7LhJxoHu+L4wdNQykpa/D3O/LQiGcVJvIHeAhMGNMBXvOO5LHIZTdIvZABx5C1FjwAgvhHreTKBMqbMuiI3u20F/VM5t/M9XFLbPfahzu3vnRKQt12bd5uGEzJO+bvCckGBcBq9Ztiz+efV4rI8hY437LEBtxg0fY5T0mkOWzfnUXTd0PuYE//w33/xDiz2+Uyc0HQKdr3Z7tJMS2CHu520m7K3Ksk=")),
+      () -> assertEquals("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8ekWhVfldssP4loE+0WhISX/hCnovJeStZRr7LhJxoHu+L4wdNQykpa/D3O/LQiGcVJvIHeAhMGNMBXvOO5LHIZTdIvZABx5C1FjwAgvhHreTKBMqbMuiI3u20F/VM5t/M9XFLbPfahzu3vnRKQt12bd5uGEzJO+bvCckGBcBq9Ztiz+efV4rI8hY437LEBtxg0fY5T0mkOWzfnUXTd0PuYE//w33/xDiz2+Uyc0HQKdr3Z7tJMS2CHu520m7K3Ksk=", SKC1.encrypt("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"whereConditions\":{\"tenantId\":{\"op\":\"=\",\"cs\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"}},\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"tenantId\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"},\"rtn\":1}"))
+    );
+  }
+
+  @Test
   void decrypt() {
     try {
       System.out.println("有梦才有精彩！");//有梦才有精彩！

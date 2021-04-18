@@ -11,6 +11,9 @@ import javax.persistence.Transient;
 //Date0.on().datetimes()_UUID.randomUUID()=17+1+36=54
 public interface Identified {
   @Transient
+  String ERR_CODE__REQUIRED = "IDENTIFIED__REQUIRED";
+
+  @Transient
   String COLUMN__ID = "id";
 
   @Transient
