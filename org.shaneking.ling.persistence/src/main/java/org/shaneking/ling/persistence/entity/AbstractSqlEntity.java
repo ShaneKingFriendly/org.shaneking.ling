@@ -88,6 +88,10 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
   }
 
   public Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<String> selectList, @NonNull List<Object> selectObjectList) {
+    return selectSql(selectList, selectObjectList, false);
+  }
+
+  public Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<String> selectList, @NonNull List<Object> selectObjectList, boolean withoutLimit) {
     List<Object> rtnObjectList = List0.newArrayList();
     rtnObjectList.addAll(selectObjectList);
 
@@ -106,10 +110,11 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     List<String> orderByList = List0.newArrayList();
     orderByStatement(orderByList, rtnObjectList);
 
-    return selectSql(rtnObjectList, selectList, fromList, whereList, groupByList, havingList, orderByList);
+    return selectSql(rtnObjectList, selectList, fromList, whereList, groupByList, havingList, orderByList, withoutLimit);
   }
 
-  public Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<Object> objectList, @NonNull List<String> selectList, @NonNull List<String> fromList, List<String> whereList, List<String> groupByList, List<String> havingList, List<String> orderByList) {
+  public Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<Object> objectList, @NonNull List<String> selectList, @NonNull List<String> fromList
+    , List<String> whereList, List<String> groupByList, List<String> havingList, List<String> orderByList, boolean withoutLimit) {
     List<Object> rtnObjectList = List0.newArrayList();
 
     List<String> sqlList = List0.newArrayList();
@@ -135,10 +140,12 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     }
     rtnObjectList.addAll(objectList);
 
-    List<String> limitList = List0.newArrayList();
-    limitStatement(limitList, rtnObjectList);
-    if (limitList.size() > 0) {
-      sqlList.add(String.join(String0.BLANK, limitList));
+    if (!withoutLimit) {
+      List<String> limitList = List0.newArrayList();
+      limitStatement(limitList, rtnObjectList);
+      if (limitList.size() > 0) {
+        sqlList.add(String.join(String0.BLANK, limitList));
+      }
     }
     return Tuple.of(sqlList, rtnObjectList);
   }
