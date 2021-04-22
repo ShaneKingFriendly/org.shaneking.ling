@@ -160,8 +160,13 @@ public abstract class AbstractEntity<J> implements Entities {
       }
     } else if (Keyword.IN.equalsIgnoreCase(cond.getOp())) {
       if (cond.getCl() != null && cond.getCl().size() > 0) {
-        list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.OPEN_PARENTHESIS + String.join(String0.COMMA, Collections.nCopies(cond.getCl().size(), String0.QUESTION)) + String0.CLOSE_PARENTHESIS);
-        objectList.addAll(cond.getCl());
+        if (cond.getCl().size() == 1) {
+          list.add(leftExpr + String0.BLANK + String0.EQUAL + String0.BLANK + String0.QUESTION);
+          objectList.add(cond.getCl().get(0));
+        } else {
+          list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.OPEN_PARENTHESIS + String.join(String0.COMMA, Collections.nCopies(cond.getCl().size(), String0.QUESTION)) + String0.CLOSE_PARENTHESIS);
+          objectList.addAll(cond.getCl());
+        }
       }
     } else {
       list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.QUESTION);
