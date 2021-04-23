@@ -2,18 +2,22 @@ package org.shaneking.ling.persistence.entity.sql;
 
 import javax.persistence.Transient;
 
-//Open to other tenant visible: Row Level
+/**
+ * Tenant open to other channel/tenant visible: Row/Record Level
+ * <p>
+ * used in business logic
+ */
 public interface TenantVisible {
   @Transient
   String ERR_CODE__PERMISSION_DENIED = "TENANT_VISIBLE__PERMISSION_DENIED";
 
   @Transient
-  String COLUMN__TV = "tv";
+  String COLUMN__OV = "ov";
 
   @Transient
-  String FIELD__TV = "tv";
+  String FIELD__OV = "ov";
 
-  String getTv();
+  String getOv();
 
-  <T extends TenantVisible> T setTv(String tv);
+  <T extends TenantVisible> T setOv(String ov);
 }
