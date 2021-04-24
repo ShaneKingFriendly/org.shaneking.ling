@@ -19,7 +19,7 @@ public class SqlliteSqlEntityTest extends SKUnit {
 
   @Test
   void createTableIfNotExistSql() throws IOException {
-//    Files.write(tstOFiles().toPath(), new HelloSqlliteSqlEntity().createTableIfNotExistSql().getBytes());
+    Files.write(tstOFiles().toPath(), new HelloSqlliteSqlEntity().createTableIfNotExistSql().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), new HelloSqlliteSqlEntity().createTableIfNotExistSql().trim());
   }
 

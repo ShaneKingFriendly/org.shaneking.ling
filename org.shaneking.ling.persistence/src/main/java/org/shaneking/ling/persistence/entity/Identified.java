@@ -15,7 +15,6 @@ public interface Identified {
 
   @Transient
   String COLUMN__ID = "id";
-
   @Transient
   String FIELD__ID = "id";
 

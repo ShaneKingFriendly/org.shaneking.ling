@@ -7,7 +7,6 @@ import javax.persistence.Transient;
 public interface Versioned {
   @Transient
   String COLUMN__VERSION = "version";
-
   @Transient
   String FIELD__VERSION = "version";
 

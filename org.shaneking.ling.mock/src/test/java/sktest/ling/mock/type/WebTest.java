@@ -43,8 +43,8 @@ class WebTest {
   @Test
   void email() {
     assertAll(
-      () -> assertEquals(3, Web.email().split(Regex0.DOT).length),
-      () -> assertEquals(3, Web.email("shaneking.org").split(Regex0.DOT).length)
+      () -> assertTrue(Web.email().split(Regex0.DOT).length > 2),
+      () -> assertTrue(Web.email("shaneking.org").split(Regex0.DOT).length > 2)
     );
   }
 

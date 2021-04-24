@@ -8,14 +8,13 @@ public interface Audited {
   @Transient
   String COLUMN__INVALID = "invalid";
   @Transient
-  String COLUMN__LAST_MODIFY_DATE_TIME = "last_modify_date_time";
-  @Transient
-  String COLUMN__LAST_MODIFY_USER_ID = "last_modify_user_id";
-
-  @Transient
   String FIELD__INVALID = "invalid";
   @Transient
+  String COLUMN__LAST_MODIFY_DATE_TIME = "last_modify_date_time";
+  @Transient
   String FIELD__LAST_MODIFY_DATE_TIME = "lastModifyDateTime";
+  @Transient
+  String COLUMN__LAST_MODIFY_USER_ID = "last_modify_user_id";
   @Transient
   String FIELD__LAST_MODIFY_USER_ID = "lastModifyUserId";
 

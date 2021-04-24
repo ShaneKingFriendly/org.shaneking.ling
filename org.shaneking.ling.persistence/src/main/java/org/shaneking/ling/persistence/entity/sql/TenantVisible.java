@@ -13,7 +13,6 @@ public interface TenantVisible {
 
   @Transient
   String COLUMN__OV = "ov";
-
   @Transient
   String FIELD__OV = "ov";
 

@@ -65,7 +65,7 @@ class AbstractEntityTest extends SKUnit {
     mysqlIdAdtVerEntity.forceWhereCondition("notNullCol").setOp(Keyword.BETWEEN).setCl(List0.newArrayList(String0.Y, String0.N));
     mysqlIdAdtVerEntity.forceWhereCondition("uniqueCol").setOp(Keyword.IN).setCl(List0.newArrayList(String0.Y, String0.N));
     mysqlIdAdtVerEntity.forceWhereCondition("reName").setOp(Keyword.LIKE).setCs(String0.Y);
-//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
+    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectSql().toString());
   }
 
@@ -91,13 +91,13 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void deleteSql() throws IOException {
-//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.deleteSql().toString().getBytes());
+    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.deleteSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.deleteSql().toString());
   }
 
   @Test
   void insertSql() throws IOException {
-//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.insertSql().toString().getBytes());
+    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.insertSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.insertSql().toString());
   }
 
@@ -107,19 +107,19 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void selectCountSql() throws IOException {
-//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectCountSql().toString().getBytes());
+    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectCountSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectCountSql().toString());
   }
 
   @Test
   void selectIdsSql() throws IOException {
-//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectIdsSql().toString().getBytes());
+    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectIdsSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectIdsSql().toString());
   }
 
   @Test
   void selectSql() throws IOException {
-//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
+    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectSql().toString());
   }
 
@@ -129,7 +129,7 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void updateSql() throws IOException {
-//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.updateSql().toString().getBytes());
+    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.updateSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.updateSql().toString());
   }
 
@@ -152,7 +152,7 @@ class AbstractEntityTest extends SKUnit {
     mysqlIdAdtVerEntity.forceHavingCondition("notNullCol").setOp(Keyword.BETWEEN).setCl(List0.newArrayList(String0.Y, String0.N));
     mysqlIdAdtVerEntity.forceHavingCondition("uniqueCol").setOp(Keyword.IN).setCl(List0.newArrayList(String0.Y, String0.N));
     mysqlIdAdtVerEntity.forceHavingCondition("reName").setOp(Keyword.LIKE).setCs(String0.Y);
-//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
+    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectSql().toString());
   }
 
@@ -160,7 +160,7 @@ class AbstractEntityTest extends SKUnit {
   void orderByStatement() throws IOException {
     mysqlIdAdtVerEntity.setOrderByList(List0.newArrayList("notNullCol", "uniqueCol", "reName"));
     mysqlIdAdtVerEntity.setPagination(new Pagination().setCount(100L).setPage(1).setSize(30));
-//    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
+    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectSql().toString());
   }
 

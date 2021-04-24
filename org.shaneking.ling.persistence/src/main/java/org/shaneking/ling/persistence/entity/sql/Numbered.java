@@ -8,7 +8,6 @@ public interface Numbered {
 
   @Transient
   String COLUMN__NO = "no";
-
   @Transient
   String FIELD__NO = "no";
 

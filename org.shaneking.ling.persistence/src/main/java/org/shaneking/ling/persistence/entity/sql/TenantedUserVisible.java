@@ -13,7 +13,6 @@ public interface TenantedUserVisible {
 
   @Transient
   String COLUMN__OVU = "ovu";
-
   @Transient
   String FIELD__OVU = "ovu";
 
