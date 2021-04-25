@@ -1,4 +1,6 @@
-package org.shaneking.ling.persistence.entity.sql;
+package org.shaneking.ling.persistence.entity;
+
+import org.shaneking.ling.zero.lang.String0;
 
 import javax.persistence.Transient;
 
@@ -14,4 +16,9 @@ public interface Numbered {
   String getNo();
 
   <T extends Numbered> T setNo(String no);
+
+  //set if nullOrEmpty
+  default <T extends Numbered> T sinNo(String no) {
+    return setNo(String0.nullOrEmptyTo(getNo(), no));
+  }
 }

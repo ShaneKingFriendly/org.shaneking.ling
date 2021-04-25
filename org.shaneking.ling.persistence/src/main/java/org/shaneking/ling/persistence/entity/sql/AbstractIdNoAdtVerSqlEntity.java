@@ -16,13 +16,19 @@ import javax.persistence.Version;
  */
 @Accessors(chain = true)
 @ToString
-public abstract class AbstractIdAdtVerSqlEntity<J> extends AbstractSqlEntity<J> implements IdAdtVerSqlEntities {
-  @Column(nullable = false, length = 40, updatable = false, columnDefinition = "COMMENT 'identifies'")
-  @ExcelColumn
+public abstract class AbstractIdNoAdtVerSqlEntity<J> extends AbstractSqlEntity<J> implements IdNoAdtVerSqlEntities {
+  @Column(nullable = false, length = 40, updatable = false, columnDefinition = "COMMENT 'Identifies'")
+  @ExcelColumn(style = {"title->background-color:red"})
   @Getter
   @Id
   @Setter
   private String id;
+
+  @Column(length = 40, columnDefinition = "default '' COMMENT 'Serial number'")
+  @ExcelColumn(style = {"title->background-color:red"})
+  @Getter
+  @Setter
+  private String no;
 
   @Column(length = 1, columnDefinition = "default 'N' COMMENT 'The invalid status of record {Y:invalid,N:valid(default)}'")
   @ExcelColumn
