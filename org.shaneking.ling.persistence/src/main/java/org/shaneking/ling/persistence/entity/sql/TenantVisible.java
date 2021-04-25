@@ -7,7 +7,7 @@ import javax.persistence.Transient;
  * <p>
  * used in business logic
  */
-public interface TenantVisible {
+public interface TenantVisible extends Tenanted {
   @Transient
   String ERR_CODE__PERMISSION_DENIED = "TENANT_VISIBLE__PERMISSION_DENIED";
 
