@@ -46,7 +46,15 @@ public interface SqlEntities extends Entities {
     this.getFieldNameList().stream().filter(fieldName -> this.getColumnMap().get(fieldName).unique()).forEach(fieldName -> {
       rtn.put(this.getDbColumnMap().get(fieldName), List0.newArrayList(this.getDbColumnMap().get(fieldName)));
     });
+    Map<String, List<String>> ext = genTableUniIdxMapExt();
+    if (ext != null && ext.size() > 0) {
+      rtn.putAll(ext);
+    }
     return rtn;
+  }
+
+  default Map<String, List<String>> genTableUniIdxMapExt() {
+    return Map0.newHashMap();
   }
 
   String createTableSql();
