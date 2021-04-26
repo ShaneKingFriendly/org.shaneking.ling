@@ -198,9 +198,27 @@ public abstract class AbstractEntity<J> implements Entities {
         }
       } catch (Exception e) {
         ///ignore exception : config error, can't stop business, developer can be see and fixed by log
-        log.error(OM3.lp(o, columnFieldTypeString), e);
+        log.warn(OM3.lp(o, columnFieldTypeString), e);
       }
     }
+  }
+
+  public Map<String, Object> fieldNameValues() {
+    Map<String, Object> rtn = Map0.newHashMap();
+    Object o;
+    for (String fieldName : this.getFieldNameList()) {
+      try {
+        o = this.getClass().getMethod("get" + String0.upperFirst(fieldName)).invoke(this);
+      } catch (Exception e) {
+        o = null;
+        ///ignore exception : config error, can't stop business, developer can be see and fixed by log
+        log.warn(OM3.lp(o, fieldName), e);
+      }
+      if (o != null) {
+        rtn.put(fieldName, o);
+      }
+    }
+    return rtn;
   }
 
   public void srvSelectList(List<String> selectList) {

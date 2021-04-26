@@ -58,7 +58,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
       } catch (Exception e) {
         o = null;
         ///ignore exception : config error, can't stop business, developer can be see and fixed by log
-        log.error(OM3.lp(o, fieldName, insertList, objectList), e);
+        log.warn(OM3.lp(o, fieldName, insertList, objectList), e);
       }
       if (!String0.isNullOrEmpty(String.valueOf(o))) {
         insertList.add(this.getDbColumnMap().get(fieldName));
@@ -186,7 +186,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
       } catch (Exception e) {
         o = null;
         ///ignore exception : config error, can't stop business, developer can be see and fixed by log
-        log.error(OM3.lp(o, fieldName, fieldName, objectList), e);
+        log.warn(OM3.lp(o, fieldName, fieldName, objectList), e);
       }
       if (o != null) {//can update to null
         updateList.add(this.getDbColumnMap().get(fieldName) + String0.EQUAL + String0.QUESTION);
@@ -240,7 +240,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
       } catch (Exception e) {
         o = null;
         ///ignore exception : config error, can't stop business, developer can be see and fixed by log
-        log.error(OM3.lp(o, fieldName, fieldName, objectList), e);
+        log.warn(OM3.lp(o, fieldName, fieldName, objectList), e);
       }
       if (this.getColumnMap().get(fieldName) != null) {
         if (o != null) {//whereConditions support empty

@@ -39,7 +39,7 @@ public class Object0 {
         penultimate.getClass().getMethod("set" + String0.upperFirst(last), t.getClass()).invoke(penultimate, t);
         rtn = o;
       } catch (Exception e) {
-        log.error(e.getMessage(), e);
+        log.warn(e.getMessage(), e);
         if (quietly) {
           rtn = EXCEPTION;
         } else {
@@ -60,7 +60,7 @@ public class Object0 {
       try {
         rtn = Object0.gs(o.getClass().getMethod("get" + String0.upperFirst(fields[index])).invoke(o), fields, ++index, quietly);
       } catch (Exception e) {
-        log.error(e.getMessage(), e);
+        log.warn(e.getMessage(), e);
         if (quietly) {
           rtn = EXCEPTION;
         } else {
