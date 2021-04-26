@@ -25,7 +25,7 @@ public abstract class AbstractIdNoAdtVerSqlEntity<J> extends AbstractSqlEntity<J
   private String id;
 
   @Column(length = 40, columnDefinition = "default '' COMMENT 'Serial number'")
-  @ExcelColumn(style = {"title->background-color:red"})
+  @ExcelColumn(style = {"title->color:red"})
   @Getter
   @Setter
   private String no;
