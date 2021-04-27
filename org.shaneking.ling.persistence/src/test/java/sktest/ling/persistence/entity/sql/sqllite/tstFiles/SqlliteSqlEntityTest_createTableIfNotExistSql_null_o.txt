@@ -1,6 +1,7 @@
 create table if not exists `sktest1_table` (
   `version` int not null default 0,
   `id` char(40) not null,
+  `dd` varchar(40) default 'N',
   `no` varchar(40) default '',
   `invalid` varchar(1) default 'N',
   `last_modify_date_time` varchar(20) default '',

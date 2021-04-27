@@ -178,6 +178,10 @@ public abstract class AbstractEntity<J> implements Entities {
     return String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), this.getJavaTable().schema() + String0.DOT) + this.getDbTableName();
   }
 
+  public String deletedFullTableName() {
+    return fullTableName() + "_d";//the table just have id primary key, no other uni-index. all column contain deleted column
+  }
+
   public List<String> lstSelectFiled() {
     return this.getSelectList() != null && this.getSelectList().size() > 0 ? this.getSelectList() : this.getFieldNameList();
   }

@@ -45,7 +45,7 @@ class AbstractEntityTest extends SKUnit {
   void initTableInfo() {
     HelloWithoutTableNameEntity abstractEntity = new HelloWithoutTableNameEntity();
     abstractEntity.nullSetter();
-    assertEquals("HelloWithoutTableNameEntity(super=HelloIdNoAdtVerSqlEntity(super=AbstractIdNoAdtVerSqlEntity(id=null, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("HelloWithoutTableNameEntity(super=HelloDialectSqlEntity(super=AbstractDialectSqlEntity(id=null, dd=null, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test
@@ -86,7 +86,7 @@ class AbstractEntityTest extends SKUnit {
     abstractEntity.setSelectList(List0.newArrayList(Identified.FIELD__ID, Versioned.FIELD__VERSION, String0.ALPHABET));
     abstractEntity.mapRow(resultSet);
 
-    assertEquals("HelloWithoutTableNameEntity(super=HelloIdNoAdtVerSqlEntity(super=AbstractIdNoAdtVerSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("HelloWithoutTableNameEntity(super=HelloDialectSqlEntity(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, dd=N, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test

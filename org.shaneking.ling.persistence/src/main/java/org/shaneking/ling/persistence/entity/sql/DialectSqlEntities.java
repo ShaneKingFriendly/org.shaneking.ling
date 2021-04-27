@@ -4,17 +4,18 @@ import org.shaneking.ling.persistence.entity.*;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Date0;
 
-public interface IdNoAdtVerSqlEntities extends Identified, Numbered, Audited, Versioned, SqlEntities {
-  default <T extends IdNoAdtVerSqlEntities> T initWithUserId(String userId) {
+public interface DialectSqlEntities extends Identified, Numbered, Deleted, Audited, Versioned, SqlEntities {
+  default <T extends DialectSqlEntities> T initWithUserId(String userId) {
     initVersion();
+    sinDd(String0.N);
     return sinInvalid(String0.N).setLastModifyDateTime(Date0.on().dateTime()).setLastModifyUserId(userId);
   }
 
-  default <T extends IdNoAdtVerSqlEntities> T initWithUserIdAndId(String userId, String id) {
+  default <T extends DialectSqlEntities> T initWithUserIdAndId(String userId, String id) {
     return initWithUserIdNoId(userId, id, id);
   }
 
-  default <T extends IdNoAdtVerSqlEntities> T initWithUserIdNoId(String userId, String no, String id) {
+  default <T extends DialectSqlEntities> T initWithUserIdNoId(String userId, String no, String id) {
     sinId(id);
     sinNo(no);
     return initWithUserId(userId);

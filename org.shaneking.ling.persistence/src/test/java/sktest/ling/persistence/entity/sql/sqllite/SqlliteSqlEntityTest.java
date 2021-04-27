@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.shaneking.ling.persistence.entity.sql.sqllite.SqlliteSqlEntities;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
-import sktest.ling.persistence.entity.HelloIdNoAdtVerSqlEntity;
+import sktest.ling.persistence.entity.HelloDialectSqlEntity;
 
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -26,6 +26,6 @@ public class SqlliteSqlEntityTest extends SKUnit {
   @Accessors(chain = true)
   @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
   @ToString(callSuper = true)
-  public class HelloSqlliteSqlEntity extends HelloIdNoAdtVerSqlEntity implements SqlliteSqlEntities {
+  public class HelloSqlliteSqlEntity extends HelloDialectSqlEntity implements SqlliteSqlEntities {
   }
 }

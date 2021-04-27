@@ -9,7 +9,7 @@ import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Date0;
 import org.shaneking.ling.zero.util.UUID0;
-import sktest.ling.persistence.entity.HelloIdNoAdtVerSqlEntity;
+import sktest.ling.persistence.entity.HelloDialectSqlEntity;
 
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -43,12 +43,12 @@ public class MysqlSqlEntityTest extends SKUnit {
   @Test
   void testToString() {
 //    assertEquals("{\"id\":\"" + id + "\",\"invalid\":\"N\",\"lastModifyDateTime\":\"" + dateTime + "\",\"lastModifyUserId\":\"" + userId + "\",\"version\":0,\"hasLength\":\"hasLength\",\"notNullCol\":\"notNullCol\",\"uniqueCol\":\"uniqueCol\",\"withoutAnnotation\":\"withoutAnnotation\",\"reName\":\"reName\",\"longText\":\"longText\"}", OM3.writeValueAsString(mysqlIdAdtVerEntity));
-    assertEquals("MysqlSqlEntityTest.HelloMysqlSqlEntity(super=HelloIdNoAdtVerSqlEntity(super=AbstractIdNoAdtVerSqlEntity(id=" + id + ", no=" + id + ", invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + ", version=0), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", mysqlIdAdtVerEntity.toString());
+    assertEquals("MysqlSqlEntityTest.HelloMysqlSqlEntity(super=HelloDialectSqlEntity(super=AbstractDialectSqlEntity(id=" + id + ", dd=N, no=" + id + ", invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + ", version=0), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", mysqlIdAdtVerEntity.toString());
   }
 
   @Accessors(chain = true)
   @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
   @ToString(callSuper = true)
-  public static class HelloMysqlSqlEntity extends HelloIdNoAdtVerSqlEntity implements MysqlSqlEntities {
+  public static class HelloMysqlSqlEntity extends HelloDialectSqlEntity implements MysqlSqlEntities {
   }
 }

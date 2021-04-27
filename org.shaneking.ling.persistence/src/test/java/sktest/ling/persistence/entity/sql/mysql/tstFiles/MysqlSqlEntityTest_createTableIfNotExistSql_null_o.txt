@@ -1,6 +1,7 @@
 create table if not exists `sktest1_schema`.`sktest1_table` (
   `version` int not null default 0 comment 'Version for optimistic locking',
   `id` char(40) not null comment 'Identifies',
+  `dd` varchar(40) default 'N' comment 'Deleted',
   `no` varchar(40) default '' comment 'Serial number',
   `invalid` varchar(1) default 'N' comment 'The invalid status of record {Y:invalid,N:valid(default)}',
   `last_modify_date_time` varchar(20) default '' comment 'The last modification date time of record',

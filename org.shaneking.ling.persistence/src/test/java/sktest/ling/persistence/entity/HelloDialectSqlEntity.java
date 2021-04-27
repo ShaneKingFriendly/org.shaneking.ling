@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.shaneking.ling.persistence.Condition;
-import org.shaneking.ling.persistence.entity.sql.AbstractIdNoAdtVerSqlEntity;
+import org.shaneking.ling.persistence.entity.sql.AbstractDialectSqlEntity;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Map0;
 
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public abstract class HelloIdNoAdtVerSqlEntity extends AbstractIdNoAdtVerSqlEntity<Map<String, Condition>> {
+public abstract class HelloDialectSqlEntity extends AbstractDialectSqlEntity<Map<String, Condition>> {
   @Column(length = 10)
   @Getter
   @Setter

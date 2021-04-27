@@ -10,5 +10,5 @@ import javax.persistence.Table;
 @Accessors(chain = true)
 @Table
 @ToString(callSuper = true)
-public class HelloWithoutTableNameEntity extends HelloIdNoAdtVerSqlEntity implements SqlliteSqlEntities, NullSetter {
+public class HelloWithoutTableNameEntity extends HelloDialectSqlEntity implements SqlliteSqlEntities, NullSetter {
 }
