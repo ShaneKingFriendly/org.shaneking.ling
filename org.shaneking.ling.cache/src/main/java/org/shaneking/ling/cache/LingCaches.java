@@ -4,17 +4,20 @@ import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.LruMap;
+import org.shaneking.ling.zero.util.Map0;
 
 import java.util.List;
 import java.util.Map;
 
-public interface StringCaches {
+public interface LingCaches {
   String ERR_CODE__CACHE_HIT_ALL = "STRING_CACHES__CACHE_HIT_ALL";
   String ERR_CODE__CACHE_HIT_MISS = "STRING_CACHES__CACHE_HIT_MISS";
   String ERR_CODE__CACHE_HIT_PART = "STRING_CACHES__CACHE_HIT_PART";
 
   LruMap<String, String> LRU_MAP = new LruMap<>(1023);
   LruMap<String, LruMap<String, String>> LRU_MAP2 = new LruMap<>(1023);
+
+  ThreadLocal<Map<String, List<String>>> NEW_MAP = ThreadLocal.withInitial(Map0::newHashMap);
 
   default Boolean del(@NonNull String key) {
     LRU_MAP.remove(key);
@@ -61,6 +64,7 @@ public interface StringCaches {
   }
 
   default void hmset(@NonNull String key, @NonNull Map<String, String> map) {
+    NEW_MAP.get().getOrDefault(key, List0.newArrayList()).addAll(map.keySet());
     LruMap<String, String> lruMap = LRU_MAP2.get(key);
     if (lruMap == null) {
       lruMap = new LruMap<>(1023);
@@ -70,6 +74,7 @@ public interface StringCaches {
   }
 
   default void hset(@NonNull String key, @NonNull String field, @NonNull String value) {
+    NEW_MAP.get().getOrDefault(key, List0.newArrayList()).add(field);
     LruMap<String, String> lruMap = LRU_MAP2.get(key);
     if (lruMap == null) {
       lruMap = new LruMap<>(1023);
@@ -79,6 +84,7 @@ public interface StringCaches {
   }
 
   default void set(@NonNull String key, @NonNull String value) {
+    NEW_MAP.get().put(key, null);
     LRU_MAP.put(key, value);
   }
 
