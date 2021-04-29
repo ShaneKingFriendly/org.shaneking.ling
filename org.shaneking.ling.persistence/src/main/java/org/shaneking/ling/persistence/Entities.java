@@ -1,6 +1,7 @@
 package org.shaneking.ling.persistence;
 
 import lombok.NonNull;
+import org.shaneking.ling.zero.lang.String0;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -49,5 +50,16 @@ public interface Entities {
     Pagination rtn = getPagination();
     setPagination(pagination);
     return rtn;
+  }
+
+  default Entities nullSetter() {
+    for (String fieldName : this.getFieldNameList()) {
+      try {
+        this.getClass().getMethod("set" + String0.upperFirst(fieldName), this.getFieldMap().get(fieldName).getType()).invoke(this, new Object[]{null});
+      } catch (Exception e) {
+        ///ignore exception : most scenario use in test case
+      }
+    }
+    return this;
   }
 }
