@@ -32,10 +32,19 @@ public interface SqlEntities extends Entities {
 
   default Map<String, String> genTableIdxMap() {
     Map<String, String> rtn = Map0.newHashMap();
-    List0.newArrayList(this.getJavaTable().indexes()).stream().forEach(idx -> {
+    List0.newArrayList(this.getJavaTable().indexes()).forEach(idx -> {
       rtn.put(idx.name(), idx.columnList());
     });
+    Map<String, String> ext = genTableIdxMapExt();
+    if (ext != null && ext.size() > 0) {
+      rtn.putAll(ext);
+    }
+
     return rtn;
+  }
+
+  default Map<String, String> genTableIdxMapExt() {
+    return this instanceof Deleted ? Map0.newHashMap(Deleted.COLUMN__DD, Deleted.COLUMN__DD) : Map0.newHashMap();
   }
 
   default Map<String, List<String>> genTableUniIdxMap() {
