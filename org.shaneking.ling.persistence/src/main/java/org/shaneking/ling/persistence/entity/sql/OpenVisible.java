@@ -5,11 +5,11 @@ import javax.persistence.Transient;
 /**
  * Tenant open to other channel/tenant visible: Row/Record Level
  * <p>
- * used in business logic
+ * scenario1: some resources do not want to be opened to other tenants
  */
-public interface TenantVisible extends Tenanted {
+public interface OpenVisible extends Tenanted {
   @Transient
-  String ERR_CODE__PERMISSION_DENIED = "TENANT_VISIBLE__PERMISSION_DENIED";
+  String ERR_CODE__PERMISSION_DENIED = "OPEN_VISIBLE__PERMISSION_DENIED";
 
   @Transient
   String COLUMN__OV = "ov";
@@ -18,5 +18,5 @@ public interface TenantVisible extends Tenanted {
 
   String getOv();
 
-  <T extends TenantVisible> T setOv(String ov);
+  <T extends OpenVisible> T setOv(String ov);
 }

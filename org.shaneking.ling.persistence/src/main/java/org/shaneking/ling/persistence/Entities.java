@@ -37,6 +37,10 @@ public interface Entities {
 
   List<String> getVerFieldNameList();
 
+  String fullTableName();
+
+  String deletedFullTableName();
+
   void mapRow(ResultSet rs);
 
   Map<String, Object> fieldNameValues();

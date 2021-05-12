@@ -17,3 +17,4 @@ create table if not exists `sktest1_table` (
 
 create unique index if not exists u_idx_has_length_not_null_col on sktest1_table(`has_length`,`not_null_col`);
 create unique index if not exists u_idx_unique_col on sktest1_table(`unique_col`);
+create index if not exists dd on sktest1_table(dd);

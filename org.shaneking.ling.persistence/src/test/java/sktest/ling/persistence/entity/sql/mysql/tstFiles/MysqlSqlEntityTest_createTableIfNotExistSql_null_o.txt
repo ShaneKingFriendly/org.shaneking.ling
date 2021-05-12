@@ -26,6 +26,10 @@ if not exists (select * from information_schema.statistics where table_schema = 
 then
 alter table `sktest1_schema`.`sktest1_table` add unique index `u_idx_unique_col` (`unique_col` asc);
 end if;
+if not exists (select * from information_schema.statistics where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and index_name = 'dd')
+then
+alter table `sktest1_schema`.`sktest1_table` add index `dd` (dd);
+end if;
 end;
 $$
 delimiter ;

@@ -32,6 +32,9 @@ public class Condition {
   @Getter
   @Setter
   private String ew;//endWith
+  @Getter
+  @Setter
+  private String sq;//sub query
 
   public Condition appendVal(@NonNull String val) {
     return appendVal(List0.newArrayList(val));

@@ -188,7 +188,7 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
         ///ignore exception : config error, can't stop business, developer can be see and fixed by log
         log.warn(OM3.lp(o, fieldName, fieldName, objectList), e);
       }
-      if (o != null) {//can update to null
+      if (o != null) {//can't update to null, but can be update to empty
         updateList.add(this.getDbColumnMap().get(fieldName) + String0.EQUAL + String0.QUESTION);
         if (!this.getVerFieldNameList().contains(fieldName)) {
           objectList.add(o);

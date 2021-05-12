@@ -153,24 +153,28 @@ public abstract class AbstractEntity<J> implements Entities {
 
   //prepares
   public void fillOc(@NonNull List<String> list, @NonNull List<Object> objectList, Condition cond, String leftExpr) {
-    if (Keyword.BETWEEN.equalsIgnoreCase(cond.getOp())) {
-      if (cond.getCl() != null && cond.getCl().size() == 2) {
-        list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.QUESTION + String0.BLANK + Keyword.AND + String0.BLANK + String0.QUESTION);
-        objectList.addAll(cond.getCl());
-      }
-    } else if (Keyword.IN.equalsIgnoreCase(cond.getOp())) {
-      if (cond.getCl() != null && cond.getCl().size() > 0) {
-        if (cond.getCl().size() == 1) {
-          list.add(leftExpr + String0.BLANK + String0.EQUAL + String0.BLANK + String0.QUESTION);
-          objectList.add(cond.getCl().get(0));
-        } else {
-          list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.OPEN_PARENTHESIS + String.join(String0.COMMA, Collections.nCopies(cond.getCl().size(), String0.QUESTION)) + String0.CLOSE_PARENTHESIS);
+    if (String0.isNullOrEmpty(cond.getSq())) {
+      if (Keyword.BETWEEN.equalsIgnoreCase(cond.getOp())) {
+        if (cond.getCl() != null && cond.getCl().size() == 2) {
+          list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.QUESTION + String0.BLANK + Keyword.AND + String0.BLANK + String0.QUESTION);
           objectList.addAll(cond.getCl());
         }
+      } else if (Keyword.IN.equalsIgnoreCase(cond.getOp())) {
+        if (cond.getCl() != null && cond.getCl().size() > 0) {
+          if (cond.getCl().size() == 1) {
+            list.add(leftExpr + String0.BLANK + String0.EQUAL + String0.BLANK + String0.QUESTION);
+            objectList.add(cond.getCl().get(0));
+          } else {
+            list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.OPEN_PARENTHESIS + String.join(String0.COMMA, Collections.nCopies(cond.getCl().size(), String0.QUESTION)) + String0.CLOSE_PARENTHESIS);
+            objectList.addAll(cond.getCl());
+          }
+        }
+      } else {
+        list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.QUESTION);
+        objectList.add(String0.nullToEmpty(cond.getBw()) + cond.getCs() + String0.nullToEmpty(cond.getEw()));
       }
     } else {
-      list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.QUESTION);
-      objectList.add(String0.nullToEmpty(cond.getBw()) + cond.getCs() + String0.nullToEmpty(cond.getEw()));
+      list.add(leftExpr + String0.BLANK + cond.getOp() + String0.BLANK + String0.OPEN_PARENTHESIS + cond.getSq() + String0.CLOSE_PARENTHESIS);
     }
   }
 
