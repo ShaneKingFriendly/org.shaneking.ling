@@ -29,4 +29,12 @@ class Map0Test {
     map.keySet().remove(String0.Y);
     assertEquals(1, map.size());
   }
+
+  @Test
+  void computeIfAbsent() {
+    assertAll(
+      () -> assertEquals("v", Map0.newHashMap().computeIfAbsent("k", k -> "v")),
+      () -> assertEquals("v2", Map0.newHashMap("k", "v2").computeIfAbsent("k", k -> "v"))
+    );
+  }
 }

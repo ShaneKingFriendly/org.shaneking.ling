@@ -33,7 +33,7 @@ public class Address {
       }));
     } catch (Exception e) {
       ///ignore exception : most scenario use in test case
-      log.error(e.toString());
+//      log.error(e.toString());//maybe not defined in static block
     }
     CODE.addAll(DICT.keySet());
 //    TCID.putAll(CODE.parallelStream().collect(Collectors.toMap(c -> DICT.get(c), c -> c)));//Duplicate key 610482
@@ -48,13 +48,13 @@ public class Address {
     for (Map.Entry<String, String> entry : DICT.entrySet()) {
       String pid = pidMap.get(entry.getKey());
       if (String0.isNullOrEmpty(pid)) {//current is level 1
-        TREE.putIfAbsent(entry.getKey(), Map0.newHashMap());
+        TREE.computeIfAbsent(entry.getKey(), k -> Map0.newHashMap());
       } else {
         String ppid = pidMap.get(pid);
         if (String0.isNullOrEmpty(ppid)) {//current is level 2
-          TREE.getOrDefault(pid, Map0.newHashMap()).putIfAbsent(entry.getKey(), List0.newArrayList());
+          TREE.computeIfAbsent(pid, k -> Map0.newHashMap()).computeIfAbsent(entry.getKey(), k -> List0.newArrayList());
         } else {//current is level 3
-          TREE.getOrDefault(ppid, Map0.newHashMap()).getOrDefault(pid, List0.newArrayList()).add(entry.getKey());
+          TREE.computeIfAbsent(ppid, k -> Map0.newHashMap()).computeIfAbsent(pid, k -> List0.newArrayList()).add(entry.getKey());
         }
       }
     }
@@ -77,7 +77,7 @@ public class Address {
   // 随机生成一个（中国）市。
   public static String city(Boolean prefix) {
     String province = Basic.list(List0.newArrayList(TREE.keySet()));
-    String city = Basic.list(List0.newArrayList(TREE.getOrDefault(province, Map0.newHashMap()).keySet()));
+    String city = Basic.list(List0.newArrayList(TREE.computeIfAbsent(province, k -> Map0.newHashMap()).keySet()));
     city = String0.isNullOrEmpty(city) ? String0.MINUS : DICT.get(city);
     return prefix ? String.join(String0.BLANK, DICT.get(province), city) : city;
   }
@@ -90,7 +90,7 @@ public class Address {
   public static String county(Boolean prefix) {
     String province = Basic.list(List0.newArrayList(TREE.keySet()));
     String city = Basic.list(List0.newArrayList(TREE.get(province).keySet()));
-    String country = String0.isNullOrEmpty(city) ? null : Basic.list(List0.newArrayList(TREE.getOrDefault(province, Map0.newHashMap()).getOrDefault(city, List0.newArrayList())));
+    String country = String0.isNullOrEmpty(city) ? null : Basic.list(List0.newArrayList(TREE.computeIfAbsent(province, k -> Map0.newHashMap()).computeIfAbsent(city, k -> List0.newArrayList())));
     country = String0.isNullOrEmpty(country) ? String0.MINUS : DICT.get(country);
     city = String0.isNullOrEmpty(city) ? String0.MINUS : DICT.get(city);
     return prefix ? String.join(String0.BLANK, DICT.get(province), city, country) : country;

@@ -64,7 +64,7 @@ public interface LingCaches {
   }
 
   default void hmset(@NonNull String key, @NonNull Map<String, String> map) {
-    NEW_MAP.get().getOrDefault(key, List0.newArrayList()).addAll(map.keySet());
+    NEW_MAP.get().computeIfAbsent(key, k -> List0.newArrayList()).addAll(map.keySet());
     LruMap<String, String> lruMap = LRU_MAP2.get(key);
     if (lruMap == null) {
       lruMap = new LruMap<>(1023);
@@ -74,7 +74,7 @@ public interface LingCaches {
   }
 
   default void hset(@NonNull String key, @NonNull String field, @NonNull String value) {
-    NEW_MAP.get().getOrDefault(key, List0.newArrayList()).add(field);
+    NEW_MAP.get().computeIfAbsent(key, k -> List0.newArrayList()).add(field);
     LruMap<String, String> lruMap = LRU_MAP2.get(key);
     if (lruMap == null) {
       lruMap = new LruMap<>(1023);
