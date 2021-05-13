@@ -182,6 +182,7 @@ public abstract class AbstractEntity<J> implements Entities {
     return String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), this.getJavaTable().schema() + String0.DOT) + this.getDbTableName();
   }
 
+  //no primary index, no union index, maybe has `dd` non-union index
   public String deletedFullTableName() {
     return fullTableName() + "_d";//the table just have id primary key, no other uni-index. all column contain deleted column
   }
