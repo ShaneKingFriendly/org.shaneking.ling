@@ -23,6 +23,7 @@ class String0Test {
 
   @Test
   void field2DbColumn() {
+    assertEquals("id", String0.field2DbColumn("id"));
     assertEquals("ab_cd_ef", String0.field2DbColumn("abCdEf"));
     assertEquals("ab#cd#ef", String0.field2DbColumn("abCdEf", String0.POUND));
   }
