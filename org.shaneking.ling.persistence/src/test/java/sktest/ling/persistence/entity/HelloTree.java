@@ -1,14 +1,14 @@
-package sktest.ling.struct.persistence;
+package sktest.ling.persistence.entity;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.shaneking.ling.struct.persistence.TreeStructure;
+import org.shaneking.ling.persistence.entity.Tree;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public class HelloTree implements TreeStructure {
+public class HelloTree implements Tree {
   @Getter
   @Setter
   private String id;

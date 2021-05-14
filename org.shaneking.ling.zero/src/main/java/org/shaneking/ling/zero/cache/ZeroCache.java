@@ -1,4 +1,4 @@
-package org.shaneking.ling.cache;
+package org.shaneking.ling.zero.cache;
 
 import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
@@ -9,17 +9,22 @@ import org.shaneking.ling.zero.util.Map0;
 import java.util.List;
 import java.util.Map;
 
-public interface LingCaches {
-  String ERR_CODE__CACHE_HIT_ALL = "STRING_CACHES__CACHE_HIT_ALL";
-  String ERR_CODE__CACHE_HIT_MISS = "STRING_CACHES__CACHE_HIT_MISS";
-  String ERR_CODE__CACHE_HIT_PART = "STRING_CACHES__CACHE_HIT_PART";
+public interface ZeroCache {
+  String ERR_CODE__CACHE_HIT_ALL = "ROC_CACHES__CACHE_HIT_ALL";
+  String ERR_CODE__CACHE_HIT_MISS = "ROC_CACHES__CACHE_HIT_MISS";
+  String ERR_CODE__CACHE_HIT_PART = "ROC_CACHES__CACHE_HIT_PART";
 
   LruMap<String, String> LRU_MAP = new LruMap<>(1023);
   LruMap<String, LruMap<String, String>> LRU_MAP2 = new LruMap<>(1023);
 
-  ThreadLocal<Map<String, List<String>>> NEW_MAP = ThreadLocal.withInitial(Map0::newHashMap);
+  ThreadLocal<Map<String, List<String>>> DEL_MAP = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key list
+  ThreadLocal<Map<String, Map<String, List<String>>>> DEL_MAP2 = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key, field list
 
   default Boolean del(@NonNull String key) {
+    return del(false, key);
+  }
+
+  default Boolean del(boolean withoutTransactional, @NonNull String key) {
     LRU_MAP.remove(key);
     return true;
   }
@@ -29,6 +34,10 @@ public interface LingCaches {
   }
 
   default Long hdel(@NonNull String key, @NonNull String... fields) {
+    return hdel(false, key, fields);
+  }
+
+  default Long hdel(boolean withoutTransactional, @NonNull String key, @NonNull String... fields) {
     long rtn = 0L;
     LruMap<String, String> map = LRU_MAP2.get(key);
     if (map != null) {
@@ -64,7 +73,6 @@ public interface LingCaches {
   }
 
   default void hmset(@NonNull String key, @NonNull Map<String, String> map) {
-    NEW_MAP.get().computeIfAbsent(key, k -> List0.newArrayList()).addAll(map.keySet());
     LruMap<String, String> lruMap = LRU_MAP2.get(key);
     if (lruMap == null) {
       lruMap = new LruMap<>(1023);
@@ -74,7 +82,6 @@ public interface LingCaches {
   }
 
   default void hset(@NonNull String key, @NonNull String field, @NonNull String value) {
-    NEW_MAP.get().computeIfAbsent(key, k -> List0.newArrayList()).add(field);
     LruMap<String, String> lruMap = LRU_MAP2.get(key);
     if (lruMap == null) {
       lruMap = new LruMap<>(1023);
@@ -84,9 +91,10 @@ public interface LingCaches {
   }
 
   default void set(@NonNull String key, @NonNull String value) {
-    NEW_MAP.get().put(key, null);
     LRU_MAP.put(key, value);
   }
 
-  void set(@NonNull String key, int seconds, @NonNull String value);
+  default void set(@NonNull String key, int seconds, @NonNull String value) {
+    LRU_MAP.put(key, value);
+  }
 }

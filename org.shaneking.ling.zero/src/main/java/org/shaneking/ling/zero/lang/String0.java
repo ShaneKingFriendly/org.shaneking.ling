@@ -237,6 +237,10 @@ public class String0 {
     return rtn;
   }
 
+  public static String type(@NonNull Object a) {
+    return a.getClass().toString();
+  }
+
   public static String upperFirst(@NonNull String s) {
     return s.substring(0, 1).toUpperCase() + s.substring(1);
   }

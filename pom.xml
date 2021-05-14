@@ -96,14 +96,12 @@
   </properties>
 
   <modules>
-    <module>org.shaneking.ling.cache</module>
     <module>org.shaneking.ling.jackson</module>
     <module>org.shaneking.ling.jsqlparser</module>
     <module>org.shaneking.ling.logback</module>
     <module>org.shaneking.ling.mock</module>
     <module>org.shaneking.ling.persistence</module>
     <module>org.shaneking.ling.rr</module>
-    <module>org.shaneking.ling.struct</module>
     <module>org.shaneking.ling.test</module>
     <module>org.shaneking.ling.zero</module>
   </modules>

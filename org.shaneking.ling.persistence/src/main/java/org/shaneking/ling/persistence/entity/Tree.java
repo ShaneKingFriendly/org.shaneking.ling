@@ -1,9 +1,9 @@
-package org.shaneking.ling.struct.persistence;
+package org.shaneking.ling.persistence.entity;
 
 /**
  * Most hierarchy has right of inheritance
  */
-public interface TreeStructure {
+public interface Tree {
   String NODE_TYPE__ROOT = "R";
   String NODE_TYPE__BRANCH = "B";
   String NODE_TYPE__LEAF = "L";
