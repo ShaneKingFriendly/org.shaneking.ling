@@ -5,6 +5,5 @@ package org.shaneking.ling.persistence.struct;
  */
 public interface Ref {
   String getRefType();
-
   String getRefId();
 }
