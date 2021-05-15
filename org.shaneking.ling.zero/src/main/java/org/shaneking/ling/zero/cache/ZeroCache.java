@@ -97,4 +97,8 @@ public interface ZeroCache {
   default void set(@NonNull String key, int seconds, @NonNull String value) {
     LRU_MAP.put(key, value);
   }
+
+  default boolean getTransactionalEnabled() {
+    return false;
+  }
 }

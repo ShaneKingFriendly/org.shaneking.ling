@@ -1,7 +1,7 @@
-package sktest.ling.persistence.entity;
+package sktest.ling.persistence.struct;
 
 import org.junit.jupiter.api.Test;
-import org.shaneking.ling.persistence.entity.Tree;
+import org.shaneking.ling.persistence.struct.Tree;
 
 import static org.junit.jupiter.api.Assertions.*;
 

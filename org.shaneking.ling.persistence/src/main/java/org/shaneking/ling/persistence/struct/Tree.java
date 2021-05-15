@@ -1,4 +1,4 @@
-package org.shaneking.ling.persistence.entity;
+package org.shaneking.ling.persistence.struct;
 
 /**
  * Most hierarchy has right of inheritance

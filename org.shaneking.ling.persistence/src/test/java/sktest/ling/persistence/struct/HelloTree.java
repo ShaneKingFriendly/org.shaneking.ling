@@ -1,10 +1,10 @@
-package sktest.ling.persistence.entity;
+package sktest.ling.persistence.struct;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.shaneking.ling.persistence.entity.Tree;
+import org.shaneking.ling.persistence.struct.Tree;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)

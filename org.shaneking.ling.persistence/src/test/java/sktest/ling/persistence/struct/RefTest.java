@@ -1,4 +1,4 @@
-package sktest.ling.persistence.entity;
+package sktest.ling.persistence.struct;
 
 import org.junit.jupiter.api.Test;
 
