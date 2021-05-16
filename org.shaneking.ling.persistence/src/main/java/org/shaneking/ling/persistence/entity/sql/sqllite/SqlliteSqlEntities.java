@@ -38,13 +38,7 @@ public interface SqlliteSqlEntities extends SqlEntities {
     return rtn;
   }
 
-  default String createTableIfNotExistSql() {
-    String idxSqls = createTableIndexSql();
-    idxSqls = String0.isNull2Empty(idxSqls) ? String0.EMPTY : (idxSqls + String0.BR_LINUX);
-    return createTableSql() + String0.BR_LINUX + String0.BR_LINUX + idxSqls;
-  }
-
-  default String createTableIndexSql() {
+  default String createIndexSql() {
     List<String> indexStatementList = List0.newArrayList();
 
     Map<String, List<String>> uniIdxMap = genTableUniIdxMap();
@@ -61,9 +55,23 @@ public interface SqlliteSqlEntities extends SqlEntities {
     return String.join(String0.BR_LINUX, indexStatementList);
   }
 
+  default String createIndexIfNotExistSql() {
+    return createIndexSql();
+  }
+
   default String createTableSql() {
     List<String> sqlList = List0.newArrayList();
     sqlList.add(MessageFormat.format("{0} {1} `{2}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, this.getDbTableName()));
     return createTableSql(sqlList);
+  }
+
+  default String createTableIfNotExistSql() {
+    return createTableSql();
+  }
+
+  default String createTableAndIndexIfNotExistSql() {
+    String idxSqls = createIndexIfNotExistSql();
+    idxSqls = String0.isNull2Empty(idxSqls) ? String0.EMPTY : (idxSqls + String0.BR_LINUX);
+    return createTableIfNotExistSql() + String0.BR_LINUX + String0.BR_LINUX + idxSqls;
   }
 }

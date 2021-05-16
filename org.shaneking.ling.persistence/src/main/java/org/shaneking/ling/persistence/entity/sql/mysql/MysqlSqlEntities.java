@@ -37,12 +37,14 @@ public interface MysqlSqlEntities extends SqlEntities {
     return rtn;
   }
 
-  default String createTableIfNotExistSql() {
-    String rtn = createTableSql() + String0.BR_LINUX;
-    String idxSqls = createTableIndexSql();
-    if (!String0.isNull2Empty(idxSqls)) {
-      rtn = rtn + String0.BR_LINUX +
-        "drop procedure if exists p_" + this.getDbTableName() + "_idx_create;" + String0.BR_LINUX +
+  default String createIndexSql() {
+    return createIndexSql(false);
+  }
+
+  default String createIndexIfNotExistSql() {
+    String idxSqls = createIndexSql(true);
+    if (!String0.isNullOrEmpty(idxSqls)) {
+      idxSqls = "drop procedure if exists p_" + this.getDbTableName() + "_idx_create;" + String0.BR_LINUX +
         "delimiter $$" + String0.BR_LINUX +
         "create procedure p_" + this.getDbTableName() + "_idx_create() begin" + String0.BR_LINUX +
         idxSqls + String0.BR_LINUX +
@@ -52,32 +54,7 @@ public interface MysqlSqlEntities extends SqlEntities {
         "call p_" + this.getDbTableName() + "_idx_create();" + String0.BR_LINUX +
         "drop procedure if exists p_" + this.getDbTableName() + "_idx_create;" + String0.BR_LINUX;
     }
-    return rtn;
-  }
-
-  default String createTableIndexSql() {
-    List<String> indexStatementList = List0.newArrayList();
-
-    Map<String, List<String>> uniIdxMap = genTableUniIdxMap();
-    String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MessageFormat.format("`{0}`.", this.getJavaTable().schema()));
-    uniIdxMap.forEach((idxPartName, columnList) -> {
-      String indexColumns = "`" + (columnList.size() > 1 ? String.join("` asc, `", columnList) : columnList.get(0)) + "` asc";
-      indexStatementList.add(createTableIndexSql(MessageFormat.format("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_UNIQUE_INDEX, UNIQUE_INDEX_NAME__PREFIX + idxPartName, indexColumns), UNIQUE_INDEX_NAME__PREFIX + idxPartName));
-    });
-
-    Map<String, String> idxMap = genTableIdxMap();
-    idxMap.forEach((idxName, columnString) -> {
-      indexStatementList.add(createTableIndexSql(MessageFormat.format("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_INDEX, idxName, columnString), idxName));
-    });
-
-    return String.join(String0.BR_LINUX, indexStatementList);
-  }
-
-  default String createTableIndexSql(String idxSql, String idxName) {
-    return "if not exists (select * from information_schema.statistics where table_schema = '" + this.getJavaTable().schema() + "' and table_name = '" + this.getDbTableName() + "' and index_name = '" + idxName + "')" + String0.BR_LINUX +
-      "then" + String0.BR_LINUX +
-      idxSql + String0.BR_LINUX +
-      "end if;";
+    return idxSqls;
   }
 
   default String createTableSql() {
@@ -85,5 +62,47 @@ public interface MysqlSqlEntities extends SqlEntities {
     String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MessageFormat.format("`{0}`.", this.getJavaTable().schema()));
     sqlList.add(MessageFormat.format("{0} {1} {2}`{3}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, idxSchemaPart, this.getDbTableName()));
     return createTableSql(sqlList);
+  }
+
+  default String createTableIfNotExistSql() {
+    return createTableSql();
+  }
+
+  default String createTableAndIndexIfNotExistSql() {
+    String rtn = createTableIfNotExistSql() + String0.BR_LINUX;
+    String idxSqls = createIndexIfNotExistSql();
+    if (!String0.isNull2Empty(idxSqls)) {
+      rtn = rtn + String0.BR_LINUX + idxSqls;
+    }
+    return rtn;
+  }
+
+  default String createIndexSql(boolean ifNotExists) {
+    List<String> indexStatementList = List0.newArrayList();
+
+    Map<String, List<String>> uniIdxMap = genTableUniIdxMap();
+    String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MessageFormat.format("`{0}`.", this.getJavaTable().schema()));
+    uniIdxMap.forEach((idxPartName, columnList) -> {
+      String indexColumns = "`" + (columnList.size() > 1 ? String.join("` asc, `", columnList) : columnList.get(0)) + "` asc";
+      indexStatementList.add(createTableIndexSql(ifNotExists, MessageFormat.format("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_UNIQUE_INDEX, UNIQUE_INDEX_NAME__PREFIX + idxPartName, indexColumns), UNIQUE_INDEX_NAME__PREFIX + idxPartName));
+    });
+
+    Map<String, String> idxMap = genTableIdxMap();
+    idxMap.forEach((idxName, columnString) -> {
+      indexStatementList.add(createTableIndexSql(ifNotExists, MessageFormat.format("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_INDEX, idxName, columnString), idxName));
+    });
+
+    return String.join(String0.BR_LINUX, indexStatementList);
+  }
+
+  default String createTableIndexSql(boolean ifNotExists, String idxSql, String idxName) {
+    if (ifNotExists) {
+      return "if not exists (select * from information_schema.statistics where table_schema = '" + this.getJavaTable().schema() + "' and table_name = '" + this.getDbTableName() + "' and index_name = '" + idxName + "')" + String0.BR_LINUX +
+        "then" + String0.BR_LINUX +
+        idxSql + String0.BR_LINUX +
+        "end if;";
+    } else {
+      return idxSql;
+    }
   }
 }

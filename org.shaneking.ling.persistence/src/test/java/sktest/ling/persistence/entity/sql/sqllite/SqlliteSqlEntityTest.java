@@ -22,9 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 public class SqlliteSqlEntityTest extends SKUnit {
 
   @Test
-  void createTableIfNotExistSql() throws IOException {
-    Files.write(tstOFiles().toPath(), new HelloSqlliteSqlEntity().createTableIfNotExistSql().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), new HelloSqlliteSqlEntity().createTableIfNotExistSql().trim());
+  void createTableAndIndexIfNotExistSql() throws IOException {
+    Files.write(tstOFiles().toPath(), new HelloSqlliteSqlEntity().createTableAndIndexIfNotExistSql().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), new HelloSqlliteSqlEntity().createTableAndIndexIfNotExistSql().trim());
   }
 
   @Accessors(chain = true)

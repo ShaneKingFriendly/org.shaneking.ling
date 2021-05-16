@@ -26,9 +26,15 @@ public interface SqlEntities extends Entities {
 
   String createColumnStatement(String columnName, boolean idOrVersion);
 
+  String createIndexSql();
+
+  String createIndexIfNotExistSql();
+
+  String createTableSql();
+
   String createTableIfNotExistSql();
 
-  String createTableIndexSql();
+  String createTableAndIndexIfNotExistSql();
 
   default Map<String, String> genTableIdxMap() {
     Map<String, String> rtn = Map0.newHashMap();
@@ -65,8 +71,6 @@ public interface SqlEntities extends Entities {
   default Map<String, List<String>> genTableUniIdxMapExt() {
     return Map0.newHashMap();
   }
-
-  String createTableSql();
 
   default String createTableSql(List<String> sqlList) {
     for (String versionColumn : this.getVerFieldNameList()) {
