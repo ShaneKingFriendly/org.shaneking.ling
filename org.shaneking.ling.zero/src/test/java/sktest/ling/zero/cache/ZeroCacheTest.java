@@ -12,7 +12,7 @@ class ZeroCacheTest {
 
   @Test
   void test() {
-    ZeroCache cache = new HelloZeroCache();
+    ZeroCache cache = new ZeroCachePrepare();
     cache.hmset("K1", Map0.newHashMap(List0.newArrayList("k11", "k12", "k13"), List0.newArrayList("v11", "v12", "v13")));
     cache.hset("K1", "k14", "v14");
     cache.set("K10", "V10");

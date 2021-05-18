@@ -8,7 +8,7 @@ import org.shaneking.ling.persistence.struct.Ref;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public class HelloRef implements Ref {
+public class RefPrepare implements Ref {
   @Getter
   @Setter
   private String id;

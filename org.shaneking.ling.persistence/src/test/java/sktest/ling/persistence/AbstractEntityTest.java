@@ -13,7 +13,7 @@ import org.shaneking.ling.persistence.entity.Versioned;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
-import sktest.ling.persistence.entity.HelloWithoutTableNameEntity;
+import sktest.ling.persistence.entity.DialectSqlEntityPrepareWithoutTableName;
 import sktest.ling.persistence.entity.sql.mysql.MysqlSqlEntityTest;
 
 import java.io.IOException;
@@ -28,24 +28,24 @@ class AbstractEntityTest extends SKUnit {
   String id = "1610866165373_KbTy6GDVwpB5rAYJjJb";
   String userId = "1610866165373_eXabaDd3OiEyivRv1GI";
   String dateTime = "2021-01-16 14:49:25";
-  MysqlSqlEntityTest.HelloMysqlSqlEntity mysqlIdAdtVerEntity = new MysqlSqlEntityTest.HelloMysqlSqlEntity();
+  MysqlSqlEntityTest.DialectSqlEntityPrepareMysql dialectSqlEntityPrepareMysql = new MysqlSqlEntityTest.DialectSqlEntityPrepareMysql();
   @Mock
   private ResultSet resultSet;
 
   @BeforeEach
   void beforeEach() {
-    mysqlIdAdtVerEntity.setHasLength("hasLength").setNoGetMethod("noGetMethod").setNotNullCol("notNullCol").setUniqueCol("uniqueCol").setWithoutAnnotation("withoutAnnotation").setReName("reName").setLongText("longText");
+    dialectSqlEntityPrepareMysql.setHasLength("hasLength").setNoGetMethod("noGetMethod").setNotNullCol("notNullCol").setUniqueCol("uniqueCol").setWithoutAnnotation("withoutAnnotation").setReName("reName").setLongText("longText");
 //    mysqlIdAdtVerEntity.setVersion(1).setLastModifyDateTime(Date0.on().dateTime()).setLastModifyUserId(userId).setInvalid(String0.N).setId(id);
-    mysqlIdAdtVerEntity.initWithUserIdAndId(userId, id);
-    mysqlIdAdtVerEntity.setLastModifyDateTime(dateTime);
+    dialectSqlEntityPrepareMysql.initWithUserIdAndId(userId, id);
+    dialectSqlEntityPrepareMysql.setLastModifyDateTime(dateTime);
   }
 
 
   @Test
   void initTableInfo() {
-    HelloWithoutTableNameEntity abstractEntity = new HelloWithoutTableNameEntity();
+    DialectSqlEntityPrepareWithoutTableName abstractEntity = new DialectSqlEntityPrepareWithoutTableName();
     abstractEntity.nullSetter();
-    assertEquals("HelloWithoutTableNameEntity(super=HelloDialectSqlEntity(super=AbstractDialectSqlEntity(id=null, dd=null, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=null, dd=null, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
   }
 
   @Test
@@ -62,11 +62,11 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void fillOc() throws IOException {
-    mysqlIdAdtVerEntity.forceWhereCondition("notNullCol").setOp(Keyword.BETWEEN).setCl(List0.newArrayList(String0.Y, String0.N));
-    mysqlIdAdtVerEntity.forceWhereCondition("uniqueCol").setOp(Keyword.IN).setCl(List0.newArrayList(String0.Y, String0.N));
-    mysqlIdAdtVerEntity.forceWhereCondition("reName").setOp(Keyword.LIKE).setCs(String0.Y);
-    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectSql().toString());
+    dialectSqlEntityPrepareMysql.forceWhereCondition("notNullCol").setOp(Keyword.BETWEEN).setCl(List0.newArrayList(String0.Y, String0.N));
+    dialectSqlEntityPrepareMysql.forceWhereCondition("uniqueCol").setOp(Keyword.IN).setCl(List0.newArrayList(String0.Y, String0.N));
+    dialectSqlEntityPrepareMysql.forceWhereCondition("reName").setOp(Keyword.LIKE).setCs(String0.Y);
+    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.selectSql().toString().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.selectSql().toString());
   }
 
   @Test
@@ -79,26 +79,26 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void mapRow() throws SQLException {
-    HelloWithoutTableNameEntity abstractEntity = new HelloWithoutTableNameEntity();
+    DialectSqlEntityPrepareWithoutTableName dialectSqlEntityPrepareWithoutTableName = new DialectSqlEntityPrepareWithoutTableName();
 
     Mockito.when(resultSet.getString(Identified.FIELD__ID)).thenReturn(id);
     Mockito.when(resultSet.getInt(Versioned.FIELD__VERSION)).thenReturn(1);
-    abstractEntity.setSelectList(List0.newArrayList(Identified.FIELD__ID, Versioned.FIELD__VERSION, String0.ALPHABET));
-    abstractEntity.mapRow(resultSet);
+    dialectSqlEntityPrepareWithoutTableName.setSelectList(List0.newArrayList(Identified.FIELD__ID, Versioned.FIELD__VERSION, String0.ALPHABET));
+    dialectSqlEntityPrepareWithoutTableName.mapRow(resultSet);
 
-    assertEquals("HelloWithoutTableNameEntity(super=HelloDialectSqlEntity(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, dd=N, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, dd=N, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", dialectSqlEntityPrepareWithoutTableName.toString());
   }
 
   @Test
   void deleteSql() throws IOException {
-    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.deleteSql().toString().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.deleteSql().toString());
+    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.deleteSql().toString().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.deleteSql().toString());
   }
 
   @Test
   void insertSql() throws IOException {
-    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.insertSql().toString().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.insertSql().toString());
+    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.insertSql().toString().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.insertSql().toString());
   }
 
   @Test
@@ -107,20 +107,20 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void selectCountSql() throws IOException {
-    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectCountSql().toString().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectCountSql().toString());
+    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.selectCountSql().toString().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.selectCountSql().toString());
   }
 
   @Test
   void selectIdsSql() throws IOException {
-    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectIdsSql().toString().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectIdsSql().toString());
+    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.selectIdsSql().toString().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.selectIdsSql().toString());
   }
 
   @Test
   void selectSql() throws IOException {
-    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectSql().toString());
+    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.selectSql().toString().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.selectSql().toString());
   }
 
   @Test
@@ -129,8 +129,8 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void updateSql() throws IOException {
-    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.updateSql().toString().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.updateSql().toString());
+    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.updateSql().toString().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.updateSql().toString());
   }
 
   @Test
@@ -147,21 +147,21 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void havingStatement() throws IOException {
-    mysqlIdAdtVerEntity.setSelectList(List0.newArrayList("notNullCol", "uniqueCol", "reName"));
-    mysqlIdAdtVerEntity.setGroupByList(List0.newArrayList("notNullCol", "uniqueCol", "reName"));
-    mysqlIdAdtVerEntity.forceHavingCondition("notNullCol").setOp(Keyword.BETWEEN).setCl(List0.newArrayList(String0.Y, String0.N));
-    mysqlIdAdtVerEntity.forceHavingCondition("uniqueCol").setOp(Keyword.IN).setCl(List0.newArrayList(String0.Y, String0.N));
-    mysqlIdAdtVerEntity.forceHavingCondition("reName").setOp(Keyword.LIKE).setCs(String0.Y);
-    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectSql().toString());
+    dialectSqlEntityPrepareMysql.setSelectList(List0.newArrayList("notNullCol", "uniqueCol", "reName"));
+    dialectSqlEntityPrepareMysql.setGroupByList(List0.newArrayList("notNullCol", "uniqueCol", "reName"));
+    dialectSqlEntityPrepareMysql.forceHavingCondition("notNullCol").setOp(Keyword.BETWEEN).setCl(List0.newArrayList(String0.Y, String0.N));
+    dialectSqlEntityPrepareMysql.forceHavingCondition("uniqueCol").setOp(Keyword.IN).setCl(List0.newArrayList(String0.Y, String0.N));
+    dialectSqlEntityPrepareMysql.forceHavingCondition("reName").setOp(Keyword.LIKE).setCs(String0.Y);
+    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.selectSql().toString().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.selectSql().toString());
   }
 
   @Test
   void orderByStatement() throws IOException {
-    mysqlIdAdtVerEntity.setOrderByList(List0.newArrayList("notNullCol", "uniqueCol", "reName"));
-    mysqlIdAdtVerEntity.setPagination(new Pagination().setCount(100L).setPage(1).setSize(30));
-    Files.write(tstOFiles().toPath(), mysqlIdAdtVerEntity.selectSql().toString().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlIdAdtVerEntity.selectSql().toString());
+    dialectSqlEntityPrepareMysql.setOrderByList(List0.newArrayList("notNullCol", "uniqueCol", "reName"));
+    dialectSqlEntityPrepareMysql.setPagination(new Pagination().setCount(100L).setPage(1).setSize(30));
+    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.selectSql().toString().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.selectSql().toString());
   }
 
   @Test

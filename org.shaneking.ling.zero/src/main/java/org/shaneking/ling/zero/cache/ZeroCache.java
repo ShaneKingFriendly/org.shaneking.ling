@@ -73,21 +73,11 @@ public interface ZeroCache {
   }
 
   default void hmset(@NonNull String key, @NonNull Map<String, String> map) {
-    LruMap<String, String> lruMap = LRU_MAP2.get(key);
-    if (lruMap == null) {
-      lruMap = new LruMap<>(1023);
-      LRU_MAP2.put(key, lruMap);
-    }
-    lruMap.putAll(map);
+    LRU_MAP2.computeIfAbsent(key, k -> new LruMap<>(1023)).putAll(map);
   }
 
   default void hset(@NonNull String key, @NonNull String field, @NonNull String value) {
-    LruMap<String, String> lruMap = LRU_MAP2.get(key);
-    if (lruMap == null) {
-      lruMap = new LruMap<>(1023);
-      LRU_MAP2.put(key, lruMap);
-    }
-    lruMap.put(field, value);
+    LRU_MAP2.computeIfAbsent(key, k -> new LruMap<>(1023)).put(field, value);
   }
 
   default void set(@NonNull String key, @NonNull String value) {
@@ -98,7 +88,11 @@ public interface ZeroCache {
     LRU_MAP.put(key, value);
   }
 
-  default boolean getTransactionalEnabled() {
+  default boolean inTransactional() {
     return false;
+  }
+
+  default String currentTransactionName() {
+    return null;
   }
 }

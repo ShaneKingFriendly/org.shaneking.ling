@@ -9,5 +9,5 @@ import javax.persistence.Table;
 @Accessors(chain = true)
 @Table
 @ToString(callSuper = true)
-public class HelloWithoutTableNameEntity extends HelloDialectSqlEntity implements SqlliteSqlEntities {
+public class DialectSqlEntityPrepareWithoutTableName extends AbstractDialectSqlEntityPrepare implements SqlliteSqlEntities {
 }

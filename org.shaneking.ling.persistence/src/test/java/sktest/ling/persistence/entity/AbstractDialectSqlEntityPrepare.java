@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public abstract class HelloDialectSqlEntity extends AbstractDialectSqlEntity<Map<String, Condition>> {
+public abstract class AbstractDialectSqlEntityPrepare extends AbstractDialectSqlEntity<Map<String, Condition>> {
   @Column(length = 10)
   @Getter
   @Setter

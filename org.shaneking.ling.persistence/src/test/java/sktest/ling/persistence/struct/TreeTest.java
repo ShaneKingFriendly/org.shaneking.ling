@@ -10,20 +10,20 @@ class TreeTest {
   @Test
   void getNodeType() {
     assertAll(
-      () -> assertNull(new HelloTree().getNodeType()),
-      () -> assertEquals(Tree.NODE_TYPE__ROOT, new HelloTree().setNodeType(Tree.NODE_TYPE__ROOT).getNodeType()),
-      () -> assertEquals(Tree.NODE_TYPE__BRANCH, new HelloTree().setNodeType(Tree.NODE_TYPE__BRANCH).getNodeType()),
-      () -> assertEquals(Tree.NODE_TYPE__LEAF, new HelloTree().setNodeType(Tree.NODE_TYPE__LEAF).getNodeType())
+      () -> assertNull(new TreePrepare().getNodeType()),
+      () -> assertEquals(Tree.NODE_TYPE__ROOT, new TreePrepare().setNodeType(Tree.NODE_TYPE__ROOT).getNodeType()),
+      () -> assertEquals(Tree.NODE_TYPE__BRANCH, new TreePrepare().setNodeType(Tree.NODE_TYPE__BRANCH).getNodeType()),
+      () -> assertEquals(Tree.NODE_TYPE__LEAF, new TreePrepare().setNodeType(Tree.NODE_TYPE__LEAF).getNodeType())
     );
   }
 
   @Test
   void getNodePath() {
-    assertNull(new HelloTree().getNodePath());
+    assertNull(new TreePrepare().getNodePath());
   }
 
   @Test
   void getNodePid() {
-    assertNull(new HelloTree().getNodePid());
+    assertNull(new TreePrepare().getNodePid());
   }
 }

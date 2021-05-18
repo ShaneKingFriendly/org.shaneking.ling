@@ -12,7 +12,7 @@ import org.shaneking.ling.jackson.filter.CtxIgnoredFilter;
 @CtxIgnored("scenario3")
 @JsonFilter(CtxIgnoredFilter.FILTER_NAME)
 @ToString
-public class HelloCtxIgnoredFilter {
+public class CtxIgnoredFilterPrepare {
   @CtxIgnored("scenario1")
   @Getter
   @Setter

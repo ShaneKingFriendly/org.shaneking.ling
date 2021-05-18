@@ -8,11 +8,11 @@ class RefTest {
 
   @Test
   void getRefType() {
-    assertNull(new HelloRef().getRefType());
+    assertNull(new RefPrepare().getRefType());
   }
 
   @Test
   void getRefId() {
-    assertNull(new HelloRef().getRefId());
+    assertNull(new RefPrepare().getRefId());
   }
 }

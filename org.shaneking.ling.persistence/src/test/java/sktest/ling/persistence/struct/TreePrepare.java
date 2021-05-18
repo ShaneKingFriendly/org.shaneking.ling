@@ -8,7 +8,7 @@ import org.shaneking.ling.persistence.struct.Tree;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public class HelloTree implements Tree {
+public class TreePrepare implements Tree {
   @Getter
   @Setter
   private String id;

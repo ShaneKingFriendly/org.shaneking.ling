@@ -8,7 +8,7 @@ import org.shaneking.ling.persistence.struct.Dict;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public class HelloDict implements Dict {
+public class DictPrepare implements Dict {
   @Getter
   @Setter
   private String dictType;
