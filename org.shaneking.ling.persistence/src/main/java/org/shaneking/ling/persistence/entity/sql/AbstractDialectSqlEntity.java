@@ -25,19 +25,6 @@ public abstract class AbstractDialectSqlEntity<J> extends AbstractSqlEntity<J> i
   @Setter
   private String id;//this is tech column for db increase sequence, it is not open for biz user
 
-  /**
-   * when req rmv entity
-   * 1.uuid0.cul33
-   * 2.update table set dd = 'uuid0.cul33', last_modify_date_time = ..., last_modify_user_id = ... where ...
-   * 3.delete relTable where relId in (select id from table where dd = 'uuid0.cul33')
-   * 4.update relTable set relCol = '' where relId in (select id from table where dd = 'uuid0.cul33')
-   * 5.insert into table_d (cols) select cols from table where dd = 'uuid0.cul33'
-   * 6.delete table where dd = 'uuid0.cul33'
-   * <p>
-   * advantage
-   * 1. no real delete
-   * 2. no sql injection. all like `where dd = 'uuid0.cul33'`, not generate by entity
-   */
   @Column(length = 40, columnDefinition = "default 'N' COMMENT 'Deleted'")
   @ExcelColumn
   @Getter

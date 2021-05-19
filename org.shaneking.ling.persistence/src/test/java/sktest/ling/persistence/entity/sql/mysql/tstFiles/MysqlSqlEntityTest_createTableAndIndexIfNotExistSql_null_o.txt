@@ -18,13 +18,13 @@ create table if not exists `sktest1_schema`.`sktest1_table` (
 drop procedure if exists p_sktest1_table_idx_create;
 delimiter $$
 create procedure p_sktest1_table_idx_create() begin
-if not exists (select * from information_schema.statistics where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and index_name = 'u_idx_has_length_not_null_col')
+if not exists (select * from information_schema.statistics where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and index_name = 'u_idx_dd_has_length_not_null_col')
 then
-alter table `sktest1_schema`.`sktest1_table` add unique index `u_idx_has_length_not_null_col` (`has_length` asc, `not_null_col` asc);
+alter table `sktest1_schema`.`sktest1_table` add unique index `u_idx_dd_has_length_not_null_col` (`dd` asc, `has_length` asc, `not_null_col` asc);
 end if;
-if not exists (select * from information_schema.statistics where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and index_name = 'u_idx_unique_col')
+if not exists (select * from information_schema.statistics where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and index_name = 'u_idx_dd_unique_col')
 then
-alter table `sktest1_schema`.`sktest1_table` add unique index `u_idx_unique_col` (`unique_col` asc);
+alter table `sktest1_schema`.`sktest1_table` add unique index `u_idx_dd_unique_col` (`dd` asc, `unique_col` asc);
 end if;
 if not exists (select * from information_schema.statistics where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and index_name = 'dd')
 then

@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface ZeroCache {
-  String ERR_CODE__CACHE_HIT_ALL = "ROC_CACHES__CACHE_HIT_ALL";
-  String ERR_CODE__CACHE_HIT_MISS = "ROC_CACHES__CACHE_HIT_MISS";
-  String ERR_CODE__CACHE_HIT_PART = "ROC_CACHES__CACHE_HIT_PART";
+  String ERR_CODE__CACHE_HIT_ALL = "ZERO_CACHE__CACHE_HIT_ALL";
+  String ERR_CODE__CACHE_HIT_MISS = "ZERO_CACHE__CACHE_HIT_MISS";
+  String ERR_CODE__CACHE_HIT_PART = "ZERO_CACHE__CACHE_HIT_PART";
 
   LruMap<String, String> LRU_MAP = new LruMap<>(1023);
   LruMap<String, LruMap<String, String>> LRU_MAP2 = new LruMap<>(1023);

@@ -7,6 +7,7 @@ import org.shaneking.ling.persistence.Pagination;
 import org.shaneking.ling.zero.lang.Integer0;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.persistence.Tuple;
+import org.shaneking.ling.zero.util.LW;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
 
@@ -38,6 +39,9 @@ public interface SqlEntities extends Entities {
 
   default Map<String, String> genTableIdxMap() {
     Map<String, String> rtn = Map0.newHashMap();
+    if (this instanceof Deleted && ((Deleted) this).ddNeedCreateIdx()) {
+      rtn.put(Deleted.COLUMN__DD, Deleted.COLUMN__DD);
+    }
     List0.newArrayList(this.getJavaTable().indexes()).forEach(idx -> {
       rtn.put(idx.name(), idx.columnList());
     });
@@ -50,17 +54,28 @@ public interface SqlEntities extends Entities {
   }
 
   default Map<String, String> genTableIdxMapExt() {
-    return this instanceof Deleted ? Map0.newHashMap(Deleted.COLUMN__DD, Deleted.COLUMN__DD) : Map0.newHashMap();
+    return Map0.newHashMap();
   }
 
   default Map<String, List<String>> genTableUniIdxMap() {
     Map<String, List<String>> rtn = Map0.newHashMap();
-    List0.newArrayList(this.getJavaTable().uniqueConstraints()).stream().filter(uniqueConstraint -> uniqueConstraint.columnNames().length > 0).forEach(uniqueConstraint -> {
-      rtn.put(String.join(String0.UNDERLINE, uniqueConstraint.columnNames()), List0.newArrayList(uniqueConstraint.columnNames()));
-    });
-    this.getFieldNameList().stream().filter(fieldName -> this.getColumnMap().get(fieldName).unique()).forEach(fieldName -> {
-      rtn.put(this.getDbColumnMap().get(fieldName), List0.newArrayList(this.getDbColumnMap().get(fieldName)));
-    });
+    if (this instanceof Deleted && ((Deleted) this).ddNeedJoinUniIdx()) {
+      List0.newArrayList(this.getJavaTable().uniqueConstraints()).stream().filter(uniqueConstraint -> uniqueConstraint.columnNames().length > 0).forEach(uniqueConstraint -> {
+        List<String> list = LW.wrap(Deleted.COLUMN__DD).addAll(List0.newArrayList(uniqueConstraint.columnNames())).list();
+        rtn.put(String.join(String0.UNDERLINE, list), list);
+      });
+      this.getFieldNameList().stream().filter(fieldName -> this.getColumnMap().get(fieldName).unique()).forEach(fieldName -> {
+        List<String> list = LW.wrap(Deleted.COLUMN__DD).add(this.getDbColumnMap().get(fieldName)).list();
+        rtn.put(String.join(String0.UNDERLINE, list), list);
+      });
+    } else {
+      List0.newArrayList(this.getJavaTable().uniqueConstraints()).stream().filter(uniqueConstraint -> uniqueConstraint.columnNames().length > 0).forEach(uniqueConstraint -> {
+        rtn.put(String.join(String0.UNDERLINE, uniqueConstraint.columnNames()), List0.newArrayList(uniqueConstraint.columnNames()));
+      });
+      this.getFieldNameList().stream().filter(fieldName -> this.getColumnMap().get(fieldName).unique()).forEach(fieldName -> {
+        rtn.put(this.getDbColumnMap().get(fieldName), List0.newArrayList(this.getDbColumnMap().get(fieldName)));
+      });
+    }
     Map<String, List<String>> ext = genTableUniIdxMapExt();
     if (ext != null && ext.size() > 0) {
       rtn.putAll(ext);

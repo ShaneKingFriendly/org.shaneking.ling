@@ -7,13 +7,6 @@ import java.util.function.Supplier;
 
 public class List0 {
 
-  public static <E> ArrayList<E> concat(@NonNull Iterable<? extends E> iterable, E... elements) {
-    ArrayList<E> rtn = List0.newArrayList();
-    rtn.addAll(List0.newArrayList(iterable));
-    rtn.addAll(List0.newArrayList(elements));
-    return rtn;
-  }
-
   //like java.util.Collections.nCopies
   public static <E> ArrayList<E> nCopies(int n, Supplier<E> s) {
     ArrayList<E> rtnList = List0.newArrayList();

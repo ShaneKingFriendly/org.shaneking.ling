@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.zero.lang.String0;
 
 /**
- * https://github.com/ShaneKing/sk-js/blob/master/src/Resp.js
+ * https://github.com/ShaneKingFriendly/sk-js/blob/master/src/Resp.js
  */
 @Accessors(chain = true)
 @Slf4j
