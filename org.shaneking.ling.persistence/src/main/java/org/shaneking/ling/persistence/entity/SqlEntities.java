@@ -17,6 +17,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/*
+MySQL Named Length Limit(https://help.aliyun.com/document_detail/96709.html)
+Identifier Type           Maximum Length (characters)
+Database                  64 (NDB storage engine: 63)
+Table                     64 (NDB storage engine: 63)
+Column                    64
+Index                     64
+Constraint                64
+Stored Program            64
+View                      64
+Tablespace                64
+Server                    64
+Log File Group            64
+Alias                     256 (see exception following table)
+Compound Statement Label  16
+ */
 public interface SqlEntities extends Entities {
   @Transient
   String EMPTY_COMMENT_WITH_BLACK__PREFIX = " ''";
