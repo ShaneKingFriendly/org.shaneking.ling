@@ -21,7 +21,7 @@ public class List0 {
   }
 
   public static <E> ArrayList<E> newArrayList(E... elements) {
-    return new ArrayList<E>(Arrays.asList(elements));
+    return (elements == null || (elements.length == 1 && elements[0] == null)) ? new ArrayList<>() : new ArrayList<E>(Arrays.asList(elements));
   }
 
   public static <E> ArrayList<E> newArrayList(@NonNull Iterable<? extends E> iterable) {

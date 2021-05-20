@@ -13,13 +13,16 @@ class List0Test {
 
   @Test
   void newArrayList() {
+    String str = null;
     String[] strings = new String[]{String0.Y, String0.N};
     assertAll(
       () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(List0.newArrayList(String0.Y, String0.N))),
       () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(String0.Y, String0.N)),
       () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(String0.Y, String0.N)),
 
-      () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(strings))
+      () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(strings)),
+
+      () -> assertLinesMatch(List0.newArrayList(), List0.newArrayList(str))
     );
   }
 
