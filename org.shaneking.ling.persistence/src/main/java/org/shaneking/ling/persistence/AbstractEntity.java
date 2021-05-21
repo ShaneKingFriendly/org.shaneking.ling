@@ -1,7 +1,7 @@
 package org.shaneking.ling.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -28,61 +28,61 @@ import java.util.Map;
 public abstract class AbstractEntity<J> implements Entities {
   @Transient
   public static final String ERR_CODE__NOT_FOUND = "ABSTRACT_ENTITY__NOT_FOUND";
-  @ApiModelProperty(hidden = true)
   @Getter
   @JsonIgnore
+  @Schema(hidden = true)
   @Transient
   private final Map<String, Column> columnMap = Map0.newHashMap();
-  @ApiModelProperty(hidden = true)
   @Getter
   @JsonIgnore
+  @Schema(hidden = true)
   @Transient
   private final Map<String, String> dbColumnMap = Map0.newHashMap();
-  @ApiModelProperty(hidden = true)
   @Getter
   @JsonIgnore
+  @Schema(hidden = true)
   @Transient
   private final Map<String, Field> fieldMap = Map0.newHashMap();
-  @ApiModelProperty(hidden = true)
   @Getter
   @JsonIgnore
+  @Schema(hidden = true)
   @Transient
   private final List<String> fieldNameList = List0.newArrayList();
-  @ApiModelProperty(hidden = true)
   @Getter
   @JsonIgnore
+  @Schema(hidden = true)
   @Transient
   private final List<String> idFieldNameList = List0.newArrayList();
-  @ApiModelProperty(hidden = true)
   @Getter
   @JsonIgnore
+  @Schema(hidden = true)
   @Transient
   private final List<String> verFieldNameList = List0.newArrayList();
-  @ApiModelProperty(hidden = true)
   @Getter
   @JsonIgnore
+  @Schema(hidden = true)
   @Setter
   @Transient
   private String dbTableName;
-  @ApiModelProperty(hidden = true)
   @Getter
   @JsonIgnore
+  @Schema(hidden = true)
   @Setter
   @Transient
   private Table javaTable;
 
-  @ApiModelProperty(hidden = true)
   @Getter
+  @Schema(hidden = true)
   @Setter
   @Transient
   private List<String> groupByList;
-  @ApiModelProperty(hidden = true)
   @Getter
+  @Schema(hidden = true)
   @Setter
   @Transient
   private J havingConditions;
-  @ApiModelProperty(hidden = true)
   @Getter
+  @Schema(hidden = true)
   @Setter
   @Transient
   private List<String> orderByList;
@@ -90,8 +90,8 @@ public abstract class AbstractEntity<J> implements Entities {
   @Setter
   @Transient
   private Pagination pagination;
-  @ApiModelProperty(hidden = true)
   @Getter
+  @Schema(hidden = true)
   @Setter
   @Transient
   private List<String> selectList;
