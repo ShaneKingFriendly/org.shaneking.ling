@@ -3,6 +3,8 @@ package org.shaneking.ling.persistence;
 import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
 
+import java.util.List;
+
 public class Keyword {
   public static final String COMMENT4ANNOTATION = "COMMENT";
 
@@ -42,11 +44,20 @@ public class Keyword {
   public static final String TYPE_TEXT = "text";
   public static final String TYPE_VARCHAR = "varchar";
 
+  public static final String FN__CONCAT = "concat";
   public static final String FN__COUNT = "count";
   public static final String FN__GROUP_CONCAT = "group_concat";
 
   public static final String parenthesis(@NonNull String name, @NonNull String value) {
     return name + String0.OPEN_PARENTHESIS + value + String0.CLOSE_PARENTHESIS;
+  }
+
+  public static final String parenthesis(@NonNull String name, @NonNull String... values) {
+    return parenthesis(name, String.join(String0.COMMA, values));
+  }
+
+  public static final String parenthesis(@NonNull String name, @NonNull List<String> value) {
+    return parenthesis(name, String.join(String0.COMMA, value));
   }
 
   public static final String parenthesis(@NonNull String name, @NonNull Integer value) {
