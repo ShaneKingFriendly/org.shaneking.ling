@@ -94,7 +94,11 @@ public interface SqlEntities extends Entities {
     }
     Map<String, List<String>> ext = genTableUniIdxMapExt();
     if (ext != null && ext.size() > 0) {
-      rtn.putAll(ext);
+      if (this instanceof Deleted && ((Deleted) this).ddNeedJoinUniIdx()) {
+        ext.forEach((key, value) -> rtn.put(String.join(String0.UNDERLINE, LW.wrap(Deleted.COLUMN__DD).add(key).list()), LW.wrap(Deleted.COLUMN__DD).addAll(value).list()));
+      } else {
+        rtn.putAll(ext);
+      }
     }
     return rtn;
   }
