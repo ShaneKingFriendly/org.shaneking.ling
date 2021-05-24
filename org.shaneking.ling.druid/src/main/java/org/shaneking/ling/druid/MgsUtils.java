@@ -3,7 +3,6 @@ package org.shaneking.ling.druid;
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.sql.PagerUtils;
 import com.alibaba.druid.sql.SQLUtils;
-import com.alibaba.druid.sql.ast.SQLLimit;
 import com.alibaba.druid.sql.ast.SQLStatement;
 import com.alibaba.druid.sql.ast.statement.SQLCreateTableStatement;
 import com.alibaba.druid.sql.ast.statement.SQLDropTableStatement;
@@ -17,6 +16,8 @@ import com.alibaba.druid.sql.parser.SQLParserUtils;
 import com.alibaba.druid.sql.parser.SQLType;
 import com.alibaba.druid.sql.visitor.SchemaStatVisitor;
 import lombok.NonNull;
+import org.shaneking.ling.druid.sql.dialect.oracle.visitor.limit.MgsOracleSqlLimitVisitor;
+import org.shaneking.ling.druid.sql.visitor.limit.MgsSqlLimitVisitor;
 import org.shaneking.ling.druid.stat.MgsTableStatColumn;
 import org.shaneking.ling.druid.stat.MgsTableStatName;
 import org.shaneking.ling.zero.persistence.Tuple;
@@ -31,13 +32,12 @@ public class MgsUtils {
   }
 
   public static String adjustSqlLimit(@NonNull DbType dbType, @NonNull String sql, int limit) {
+    MgsSqlLimitVisitor sqlLimitVisitor = sqlLimitVisitor(dbType, limit);
     List<SQLStatement> sqlStatementList = SQLUtils.parseStatements(sql, dbType);
     for (SQLStatement sqlStatement : sqlStatementList) {
-      SQLLimit sqlLimit = SQLUtils.getLimit(sqlStatement, dbType);
-      sqlLimit.setRowCount(limit);
-//      TODO
+      sqlStatement.accept(sqlLimitVisitor);
     }
-    return PagerUtils.limit(sql, dbType, limit, Integer.MAX_VALUE, false);
+    return sqlStatementList.stream().map(SQLStatement::toString).collect(Collectors.joining());
   }
 
   public static int parseSqlLimit(@NonNull String dbType, @NonNull String sql) {
@@ -125,6 +125,28 @@ public class MgsUtils {
         rtn = new PGSchemaStatVisitor();
         break;
       case presto:
+      default:
+        break;
+    }
+    if (rtn == null) {
+      throw new IllegalArgumentException("unsupport type: " + dbType);
+    }
+    return rtn;
+  }
+
+  public static MgsSqlLimitVisitor sqlLimitVisitor(@NonNull DbType dbType, int limit) {
+    MgsSqlLimitVisitor rtn = null;
+    switch (dbType) {
+      case oracle:
+        rtn = new MgsOracleSqlLimitVisitor(limit);
+        break;
+      case clickhouse:
+      case hive:
+      case mysql:
+      case postgresql:
+      case presto:
+        rtn = new MgsSqlLimitVisitor(limit);
+        break;
       default:
         break;
     }
