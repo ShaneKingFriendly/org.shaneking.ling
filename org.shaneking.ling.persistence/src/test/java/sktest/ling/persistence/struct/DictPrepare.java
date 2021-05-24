@@ -11,14 +11,14 @@ import org.shaneking.ling.persistence.struct.Dict;
 public class DictPrepare implements Dict {
   @Getter
   @Setter
-  private String dictType;
+  private String type;
   @Getter
   @Setter
-  private String dictValue;
+  private String value;
   @Getter
   @Setter
-  private String dictDisplay;
+  private String display;
   @Getter
   @Setter
-  private String dictDescription;
+  private String description;
 }

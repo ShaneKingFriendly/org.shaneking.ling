@@ -8,21 +8,21 @@ class DictTest {
 
   @Test
   void getDictType() {
-    assertNull(new DictPrepare().getDictType());
+    assertNull(new DictPrepare().getType());
   }
 
   @Test
   void getDictValue() {
-    assertNull(new DictPrepare().getDictValue());
+    assertNull(new DictPrepare().getValue());
   }
 
   @Test
   void getDictDisplay() {
-    assertNull(new DictPrepare().getDictDisplay());
+    assertNull(new DictPrepare().getDisplay());
   }
 
   @Test
   void getDictDescription() {
-    assertNull(new DictPrepare().getDictDescription());
+    assertNull(new DictPrepare().getDescription());
   }
 }
