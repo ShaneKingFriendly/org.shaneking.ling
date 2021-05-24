@@ -8,7 +8,7 @@ import org.shaneking.ling.zero.util.Regex0;
 
 @Accessors(chain = true)
 @ToString
-public class TableStatName {
+public class MgsTableStatName {
   @Getter
   private TableStat.Name raw;
   @Getter
@@ -18,10 +18,10 @@ public class TableStatName {
   @Getter
   private String name;
 
-  public TableStatName() {
+  public MgsTableStatName() {
   }
 
-  public TableStatName(TableStat.Name raw) {
+  public MgsTableStatName(TableStat.Name raw) {
     this.raw = raw;
     String[] names = raw.toString().split(Regex0.DOT);
     if (names.length > 0) {

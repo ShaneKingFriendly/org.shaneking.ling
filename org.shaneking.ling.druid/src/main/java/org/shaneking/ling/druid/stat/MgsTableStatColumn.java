@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @ToString
-public class TableStatColumn {
+public class MgsTableStatColumn {
   @Getter
   private TableStat.Column raw;
   @Getter
@@ -17,10 +17,10 @@ public class TableStatColumn {
   @Getter
   private String fullName;
 
-  public TableStatColumn() {
+  public MgsTableStatColumn() {
   }
 
-  public TableStatColumn(TableStat.Column raw) {
+  public MgsTableStatColumn(TableStat.Column raw) {
     this.raw = raw;
     this.table = raw.getTable() == null ? null : raw.getTable().toLowerCase();
     this.name = raw.getName().toLowerCase();
