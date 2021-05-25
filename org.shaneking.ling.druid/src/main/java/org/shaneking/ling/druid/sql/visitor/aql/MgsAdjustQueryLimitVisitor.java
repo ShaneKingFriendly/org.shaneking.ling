@@ -1,4 +1,4 @@
-package org.shaneking.ling.druid.sql.visitor.limit;
+package org.shaneking.ling.druid.sql.visitor.aql;
 
 import com.alibaba.druid.sql.ast.SQLExpr;
 import com.alibaba.druid.sql.ast.SQLLimit;
@@ -11,12 +11,12 @@ import com.alibaba.druid.sql.visitor.SQLASTVisitorAdapter;
 import lombok.Getter;
 import lombok.Setter;
 
-public class MgsSqlLimitVisitor extends SQLASTVisitorAdapter {
+public class MgsAdjustQueryLimitVisitor extends SQLASTVisitorAdapter {
   @Getter
   @Setter
   private Integer rowCount;
 
-  public MgsSqlLimitVisitor(Integer rowCount) {
+  public MgsAdjustQueryLimitVisitor(Integer rowCount) {
     this.rowCount = rowCount;
   }
 

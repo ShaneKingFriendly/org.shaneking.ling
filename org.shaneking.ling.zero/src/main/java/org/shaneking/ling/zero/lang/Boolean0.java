@@ -20,6 +20,14 @@ public class Boolean0 {
     return expr ? expr : supplier.getAsBoolean();
   }
 
+  public static boolean nullToFalse(Boolean b) {
+    return b != null && b;
+  }
+
+  public static boolean nullToTrue(Boolean b) {
+    return b == null || b;
+  }
+
   public static String sf(boolean b) {
     return b ? String0.S : String0.F;
   }

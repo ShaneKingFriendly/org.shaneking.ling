@@ -1,11 +1,13 @@
 package org.shaneking.ling.rr;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.shaneking.ling.zero.lang.Boolean0;
 import org.shaneking.ling.zero.lang.String0;
 
 /**
@@ -29,6 +31,11 @@ public class Resp<D> {
   @Getter
   @Setter
   private String mesg;//Required if code is not 0
+
+  @Getter
+  @Schema(hidden = true)
+  @Setter
+  private Boolean ndrb;
 
   public static <D> Resp<D> build(String code, D data, String mesg) {
     return new Resp<D>().setCode(code).setData(data).setMesg(mesg);
@@ -58,8 +65,12 @@ public class Resp<D> {
     String code = exp.getClass().getName();
     String mesg = String0.null2EmptyTo(exp.getMessage(), exp.toString());
     if (exp instanceof RespException) {
+      if (exp instanceof NdrbRespException) {
+        ndrb = true;
+      }
       Resp resp = ((RespException) exp).getResp();
       if (resp != null) {
+        setNdrb(Boolean0.nullToFalse(getNdrb()) || Boolean0.nullToFalse(resp.getNdrb()));
         if (!CODE_UNKNOWN_EXCEPTION.equals(resp.getCode()) && !CODE_SUCCESSFULLY.equals(resp.getCode())) {
           code = resp.getCode();
         }

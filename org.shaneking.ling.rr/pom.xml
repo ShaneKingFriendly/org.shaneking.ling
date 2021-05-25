@@ -24,6 +24,10 @@
 
   <dependencies>
     <dependency>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-annotations</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.shaneking.ling</groupId>
       <artifactId>org.shaneking.ling.zero</artifactId>
       <version>${project.parent.version}</version>

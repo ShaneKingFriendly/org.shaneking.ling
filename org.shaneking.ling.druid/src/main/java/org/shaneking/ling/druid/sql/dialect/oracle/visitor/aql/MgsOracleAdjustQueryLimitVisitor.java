@@ -1,4 +1,4 @@
-package org.shaneking.ling.druid.sql.dialect.oracle.visitor.limit;
+package org.shaneking.ling.druid.sql.dialect.oracle.visitor.aql;
 
 import com.alibaba.druid.sql.ast.SQLExpr;
 import com.alibaba.druid.sql.ast.SQLObject;
@@ -7,15 +7,15 @@ import com.alibaba.druid.sql.ast.statement.SQLSelect;
 import com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
 import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
 import com.alibaba.druid.sql.ast.statement.SQLUnionQuery;
-import org.shaneking.ling.druid.sql.visitor.limit.MgsSqlLimitVisitor;
+import org.shaneking.ling.druid.sql.visitor.aql.MgsAdjustQueryLimitVisitor;
 import org.shaneking.ling.zero.util.List0;
 
 import java.util.List;
 
-public class MgsOracleSqlLimitVisitor extends MgsSqlLimitVisitor {
+public class MgsOracleAdjustQueryLimitVisitor extends MgsAdjustQueryLimitVisitor {
   public static final String ROWNUM_LOWERCASE = "rownum";
 
-  public MgsOracleSqlLimitVisitor(Integer rowCount) {
+  public MgsOracleAdjustQueryLimitVisitor(Integer rowCount) {
     super(rowCount);
   }
 
