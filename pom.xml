@@ -96,7 +96,6 @@
   </properties>
 
   <modules>
-    <module>org.shaneking.ling.druid</module>
     <module>org.shaneking.ling.jackson</module>
     <module>org.shaneking.ling.jsqlparser</module>
     <module>org.shaneking.ling.logback</module>
