@@ -7,12 +7,12 @@ import org.shaneking.ling.persistence.Pagination;
 import org.shaneking.ling.zero.lang.Integer0;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.persistence.Tuple;
+import org.shaneking.ling.zero.text.MF0;
 import org.shaneking.ling.zero.util.LW;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
 
 import javax.persistence.Transient;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -119,7 +119,7 @@ public interface SqlEntities extends Entities {
         sqlList.add(this.createColumnStatement(columnName, false));
       }
     }
-    sqlList.add(MessageFormat.format("  {0} (`{1}`)", Keyword.PRIMARY_KEY, String.join("`,`", this.getIdFieldNameList().stream().map(idFieldName -> this.getDbColumnMap().get(idFieldName)).collect(Collectors.toList()))));
+    sqlList.add(MF0.fmt("  {0} (`{1}`)", Keyword.PRIMARY_KEY, String.join("`,`", this.getIdFieldNameList().stream().map(idFieldName -> this.getDbColumnMap().get(idFieldName)).collect(Collectors.toList()))));
     sqlList.add(String0.CLOSE_PARENTHESIS + String0.SEMICOLON);
     return String.join(String0.BR_LINUX, sqlList);
   }
@@ -127,8 +127,8 @@ public interface SqlEntities extends Entities {
   default void limitStatement(@NonNull List<String> limitList, @NonNull List<Object> objectList) {
     Pagination pagination = this.getPagination() == null ? new Pagination() : this.getPagination();
     Integer limit = Integer0.gt2d(Integer0.null2Default(pagination.getSize(), Pagination.DEFAULT_SIZE), Pagination.MAX_SIZE);
-    limitList.add(MessageFormat.format("{0} {1}", Keyword.LIMIT, String.valueOf(limit)));//add String.valueOf to fix 1000+ to 1,000+
-    limitList.add(MessageFormat.format("{0} {1}", Keyword.OFFSET, String.valueOf(Integer0.lt2d((Integer0.null2Zero(pagination.getPage()) - 1) * limit, 0))));
+    limitList.add(MF0.fmt("{0} {1}", Keyword.LIMIT, String.valueOf(limit)));//add String.valueOf to fix 1000+ to 1,000+
+    limitList.add(MF0.fmt("{0} {1}", Keyword.OFFSET, String.valueOf(Integer0.lt2d((Integer0.null2Zero(pagination.getPage()) - 1) * limit, 0))));
   }
 
   ///

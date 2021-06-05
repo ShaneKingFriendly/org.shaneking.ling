@@ -3,12 +3,12 @@ package org.shaneking.ling.persistence.entity.sql.sqllite;
 import org.shaneking.ling.persistence.Keyword;
 import org.shaneking.ling.persistence.entity.SqlEntities;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.text.MF0;
 import org.shaneking.ling.zero.util.List0;
 
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import java.lang.reflect.Field;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -31,9 +31,9 @@ public interface SqlliteSqlEntities extends SqlEntities {
     String commentBefore = String0.nullToEmpty(comments[0]).trim();
     commentBefore = String0.isNullOrEmpty(commentBefore) ? commentBefore : (String0.BLANK + commentBefore);
     if (Keyword.TYPE_TEXT.equals(columnDbTypeString) || Keyword.TYPE_INT.equals(columnDbTypeString)) {
-      rtn = MessageFormat.format("  `{0}` {1}{2}{3},", this.getDbColumnMap().get(columnName), columnDbTypeString, partNotNull, commentBefore);
+      rtn = MF0.fmt("  `{0}` {1}{2}{3},", this.getDbColumnMap().get(columnName), columnDbTypeString, partNotNull, commentBefore);
     } else {
-      rtn = MessageFormat.format("  `{0}` {1}({2}){3}{4},", this.getDbColumnMap().get(columnName), columnDbTypeString, String.valueOf(this.getColumnMap().get(columnName).length()), partNotNull, commentBefore);
+      rtn = MF0.fmt("  `{0}` {1}({2}){3}{4},", this.getDbColumnMap().get(columnName), columnDbTypeString, String.valueOf(this.getColumnMap().get(columnName).length()), partNotNull, commentBefore);
     }
     return rtn;
   }
@@ -44,12 +44,12 @@ public interface SqlliteSqlEntities extends SqlEntities {
     Map<String, List<String>> uniIdxMap = genTableUniIdxMap();
     uniIdxMap.forEach((idxPartName, columnList) -> {
       String indexColumns = "`" + (columnList.size() > 1 ? String.join("`,`", columnList) : columnList.get(0)) + "`";
-      indexStatementList.add(MessageFormat.format("{0} {1} {2} on {3}({4});", Keyword.CREATE_UNIQUE_INDEX, Keyword.IF_NOT_EXISTS, UNIQUE_INDEX_NAME__PREFIX + idxPartName, this.getDbTableName(), indexColumns));
+      indexStatementList.add(MF0.fmt("{0} {1} {2} on {3}({4});", Keyword.CREATE_UNIQUE_INDEX, Keyword.IF_NOT_EXISTS, UNIQUE_INDEX_NAME__PREFIX + idxPartName, this.getDbTableName(), indexColumns));
     });
 
     Map<String, String> idxMap = genTableIdxMap();
     idxMap.forEach((idxName, columnString) -> {
-      indexStatementList.add(MessageFormat.format("{0} {1} {2} on {3}({4});", Keyword.CREATE_INDEX, Keyword.IF_NOT_EXISTS, idxName, this.getDbTableName(), columnString));
+      indexStatementList.add(MF0.fmt("{0} {1} {2} on {3}({4});", Keyword.CREATE_INDEX, Keyword.IF_NOT_EXISTS, idxName, this.getDbTableName(), columnString));
     });
 
     return String.join(String0.BR_LINUX, indexStatementList);
@@ -61,7 +61,7 @@ public interface SqlliteSqlEntities extends SqlEntities {
 
   default String createTableSql() {
     List<String> sqlList = List0.newArrayList();
-    sqlList.add(MessageFormat.format("{0} {1} `{2}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, this.getDbTableName()));
+    sqlList.add(MF0.fmt("{0} {1} `{2}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, this.getDbTableName()));
     return createTableSql(sqlList);
   }
 

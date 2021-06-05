@@ -134,8 +134,8 @@ public class String0 {
     return dbColumn2SetField(string, UNDERLINE);
   }
 
-  public static String dbColumn2SetField(@NonNull String string, String with) {
-    return String.join(EMPTY, List0.newArrayList(string.split(with)).stream().map(String0::upperFirst).collect(Collectors.toList()));
+  public static String dbColumn2SetField(String string, String with) {
+    return String0.isNullOrEmpty(string) ? string : String.join(EMPTY, List0.newArrayList(string.split(with)).stream().map(String0::upperFirst).collect(Collectors.toList()));
   }
 
   //firstName -&gt; first_name
@@ -143,8 +143,8 @@ public class String0 {
     return field2DbColumn(string, UNDERLINE);
   }
 
-  public static String field2DbColumn(@NonNull String string, String with) {
-    return String.join(EMPTY, List0.newArrayList(string.split(EMPTY)).stream().map(alphabet -> alphabet.equals(alphabet.toUpperCase()) ? with + alphabet.toLowerCase() : alphabet).collect(Collectors.toList()));
+  public static String field2DbColumn(String string, String with) {
+    return String0.isNullOrEmpty(string) ? string : String.join(EMPTY, List0.newArrayList(string.split(EMPTY)).stream().map(alphabet -> alphabet.equals(alphabet.toUpperCase()) ? with + alphabet.toLowerCase() : alphabet).collect(Collectors.toList()));
   }
 
   public static String format(@NonNull String pattern, @NonNull Object... args) {
@@ -172,12 +172,22 @@ public class String0 {
     return rtn;
   }
 
-  public static String lowerFirst(@NonNull String s) {
-    return s.substring(0, 1).toLowerCase() + s.substring(1);
+  public static String join(String d, String... ss) {
+    StringBuilder sb = new StringBuilder();
+    for (String s : ss) {
+      if (!String0.isNullOrEmpty(s)) {
+        sb.append(d).append(s);
+      }
+    }
+    return sb.length() > d.length() ? sb.substring(d.length()) : sb.toString();
   }
 
-  public static String maxLenStr(@NonNull String s, int max) {
-    return s.length() < max ? s : s.substring(0, max);
+  public static String lowerFirst(String s) {
+    return String0.isNullOrEmpty(s) ? s : (s.substring(0, 1).toLowerCase() + s.substring(1));
+  }
+
+  public static String maxLenStr(String s, int max) {
+    return String0.isNullOrEmpty(s) ? s : (s.length() < max ? s : s.substring(0, max));
   }
 
   public static String notNull2EmptyTo(String s, String d) {
@@ -226,12 +236,14 @@ public class String0 {
     return String.join(EMPTY, array);
   }
 
-  public static int sameTotal(@NonNull String s1, @NonNull String s2) {
+  public static int sameTotal(String s1, String s2) {
     int rtn = 0;
-    int min = Math.min(s1.length(), s2.length());
-    for (int i = 0; i < min; i++) {
-      if (s1.charAt(i) == s2.charAt(i)) {
-        rtn++;
+    if (!String0.isNullOrEmpty(s1) && !String0.isNullOrEmpty(s2)) {
+      int min = Math.min(s1.length(), s2.length());
+      for (int i = 0; i < min; i++) {
+        if (s1.charAt(i) == s2.charAt(i)) {
+          rtn++;
+        }
       }
     }
     return rtn;
@@ -241,8 +253,8 @@ public class String0 {
     return a.getClass().toString();
   }
 
-  public static String upperFirst(@NonNull String s) {
-    return s.substring(0, 1).toUpperCase() + s.substring(1);
+  public static String upperFirst(String s) {
+    return String0.isNullOrEmpty(s) ? s : (s.substring(0, 1).toUpperCase() + s.substring(1));
   }
 
   public static String valueOf(Object o) {

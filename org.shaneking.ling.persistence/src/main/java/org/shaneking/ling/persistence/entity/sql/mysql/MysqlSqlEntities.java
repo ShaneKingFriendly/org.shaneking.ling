@@ -3,12 +3,12 @@ package org.shaneking.ling.persistence.entity.sql.mysql;
 import org.shaneking.ling.persistence.Keyword;
 import org.shaneking.ling.persistence.entity.SqlEntities;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.text.MF0;
 import org.shaneking.ling.zero.util.List0;
 
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import java.lang.reflect.Field;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -30,9 +30,9 @@ public interface MysqlSqlEntities extends SqlEntities {
     String commentWithBlackPrefix = comments.length > 1 ? comments[1] : EMPTY_COMMENT_WITH_BLACK__PREFIX;
     String commentBefore = String0.nullToEmpty(comments[0]);
     if (Keyword.TYPE_LONGTEXT.equals(columnDbTypeString) || Keyword.TYPE_INT.equals(columnDbTypeString)) {
-      rtn = MessageFormat.format("  `{0}` {1}{2} {3}{4}{5},", this.getDbColumnMap().get(columnName), columnDbTypeString, partNotNull, commentBefore, Keyword.COMMENT, commentWithBlackPrefix);
+      rtn = MF0.fmt("  `{0}` {1}{2} {3}{4}{5},", this.getDbColumnMap().get(columnName), columnDbTypeString, partNotNull, commentBefore, Keyword.COMMENT, commentWithBlackPrefix);
     } else {
-      rtn = MessageFormat.format("  `{0}` {1}({2}){3} {4}{5}{6},", this.getDbColumnMap().get(columnName), columnDbTypeString, String.valueOf(this.getColumnMap().get(columnName).length()), partNotNull, commentBefore, Keyword.COMMENT, commentWithBlackPrefix);
+      rtn = MF0.fmt("  `{0}` {1}({2}){3} {4}{5}{6},", this.getDbColumnMap().get(columnName), columnDbTypeString, String.valueOf(this.getColumnMap().get(columnName).length()), partNotNull, commentBefore, Keyword.COMMENT, commentWithBlackPrefix);
     }
     return rtn;
   }
@@ -59,8 +59,8 @@ public interface MysqlSqlEntities extends SqlEntities {
 
   default String createTableSql() {
     List<String> sqlList = List0.newArrayList();
-    String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MessageFormat.format("`{0}`.", this.getJavaTable().schema()));
-    sqlList.add(MessageFormat.format("{0} {1} {2}`{3}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, idxSchemaPart, this.getDbTableName()));
+    String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MF0.fmt("`{0}`.", this.getJavaTable().schema()));
+    sqlList.add(MF0.fmt("{0} {1} {2}`{3}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, idxSchemaPart, this.getDbTableName()));
     return createTableSql(sqlList);
   }
 
@@ -81,15 +81,15 @@ public interface MysqlSqlEntities extends SqlEntities {
     List<String> indexStatementList = List0.newArrayList();
 
     Map<String, List<String>> uniIdxMap = genTableUniIdxMap();
-    String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MessageFormat.format("`{0}`.", this.getJavaTable().schema()));
+    String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MF0.fmt("`{0}`.", this.getJavaTable().schema()));
     uniIdxMap.forEach((idxPartName, columnList) -> {
       String indexColumns = "`" + (columnList.size() > 1 ? String.join("` asc, `", columnList) : columnList.get(0)) + "` asc";
-      indexStatementList.add(createTableIndexSql(ifNotExists, MessageFormat.format("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_UNIQUE_INDEX, UNIQUE_INDEX_NAME__PREFIX + idxPartName, indexColumns), UNIQUE_INDEX_NAME__PREFIX + idxPartName));
+      indexStatementList.add(createTableIndexSql(ifNotExists, MF0.fmt("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_UNIQUE_INDEX, UNIQUE_INDEX_NAME__PREFIX + idxPartName, indexColumns), UNIQUE_INDEX_NAME__PREFIX + idxPartName));
     });
 
     Map<String, String> idxMap = genTableIdxMap();
     idxMap.forEach((idxName, columnString) -> {
-      indexStatementList.add(createTableIndexSql(ifNotExists, MessageFormat.format("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_INDEX, idxName, columnString), idxName));
+      indexStatementList.add(createTableIndexSql(ifNotExists, MF0.fmt("{0} {1}`{2}` {3} `{4}` ({5});", Keyword.ALTER_TABLE, idxSchemaPart, this.getDbTableName(), Keyword.ADD_INDEX, idxName, columnString), idxName));
     });
 
     return String.join(String0.BR_LINUX, indexStatementList);

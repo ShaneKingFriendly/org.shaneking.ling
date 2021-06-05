@@ -4,12 +4,12 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.zero.lang.AC0;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.text.MF0;
 import org.shaneking.ling.zero.util.FixedList;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Callable;
@@ -38,7 +38,7 @@ public class Runtime0Callable implements Callable<List<String>> {
   @Override
   public List<String> call() throws Exception {
     List<String> rtnList = new FixedList<String>(maxRecordSize);
-    rtnList.add(MessageFormat.format("===B:errorStream={0},value4pause={1},pauseFlag={2}===", this.isErrorStream(), this.isValue4pause(), this.getPauseFlag()));
+    rtnList.add(MF0.fmt("===B:errorStream={0},value4pause={1},pauseFlag={2}===", this.isErrorStream(), this.isValue4pause(), this.getPauseFlag()));
 
     LineNumberReader lineNumberReader = null;
     InputStreamReader inputStreamReader = null;
@@ -79,7 +79,7 @@ public class Runtime0Callable implements Callable<List<String>> {
       AC0.close(lineNumberReader);
       AC0.close(inputStreamReader);
     }
-    rtnList.add(MessageFormat.format("===E:errorStream={0},value4pause={1},pauseFlag={2}===", this.isErrorStream(), this.isValue4pause(), this.getPauseFlag()));
+    rtnList.add(MF0.fmt("===E:errorStream={0},value4pause={1},pauseFlag={2}===", this.isErrorStream(), this.isValue4pause(), this.getPauseFlag()));
     return rtnList;
   }
 }

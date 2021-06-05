@@ -30,6 +30,7 @@ public class Keyword {
   public static final String NOT_NULL = "not null";
   public static final String NOT_NULL_WITH_BLACK_PREFIX = String0.BLANK + NOT_NULL;
   public static final String OFFSET = "offset";
+  public static final String OR = "or";
   public static final String ORDER_BY = "order by";
   public static final String PRIMARY_KEY = "primary key";
   public static final String SELECT = "select";
