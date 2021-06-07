@@ -6,22 +6,28 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.shaneking.ling.persistence.Condition;
 import org.shaneking.ling.persistence.Keyword;
 import org.shaneking.ling.persistence.Pagination;
+import org.shaneking.ling.persistence.entity.Deleted;
 import org.shaneking.ling.persistence.entity.Identified;
 import org.shaneking.ling.persistence.entity.Versioned;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
+import sktest.ling.persistence.entity.DialectSqlEntityPrepareDuplicateColumn;
 import sktest.ling.persistence.entity.DialectSqlEntityPrepareWithoutTableName;
+import sktest.ling.persistence.entity.dialectSqlEntityPrepareWithoutTableName2;
 import sktest.ling.persistence.entity.sql.mysql.MysqlSqlEntityTest;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class AbstractEntityTest extends SKUnit {
@@ -44,12 +50,18 @@ class AbstractEntityTest extends SKUnit {
   @Test
   void initTableInfo() {
     DialectSqlEntityPrepareWithoutTableName abstractEntity = new DialectSqlEntityPrepareWithoutTableName();
+    abstractEntity.initTableInfo();
     abstractEntity.nullSetter();
     assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=null, dd=null, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    dialectSqlEntityPrepareWithoutTableName2 dialectSqlEntityPrepareWithoutTableName2 = new dialectSqlEntityPrepareWithoutTableName2();
+    dialectSqlEntityPrepareWithoutTableName2.initTableInfo();
   }
 
   @Test
   void initColumnInfo() {
+    DialectSqlEntityPrepareDuplicateColumn dialectSqlEntityPrepareDuplicateColumn = new DialectSqlEntityPrepareDuplicateColumn();
+    dialectSqlEntityPrepareDuplicateColumn.initColumnInfo(dialectSqlEntityPrepareDuplicateColumn.getClass());
+    assertNotNull(dialectSqlEntityPrepareDuplicateColumn);
   }
 
   @Test
@@ -57,11 +69,7 @@ class AbstractEntityTest extends SKUnit {
   }
 
   @Test
-  void findWhereConditions() {
-  }
-
-  @Test
-  void fillOc() throws IOException {
+  void findWhereConditions() throws IOException {
     dialectSqlEntityPrepareMysql.forceWhereCondition("notNullCol").setOp(Keyword.BETWEEN).setCl(List0.newArrayList(String0.Y, String0.N));
     dialectSqlEntityPrepareMysql.forceWhereCondition("uniqueCol").setOp(Keyword.IN).setCl(List0.newArrayList(String0.Y, String0.N));
     dialectSqlEntityPrepareMysql.forceWhereCondition("reName").setOp(Keyword.LIKE).setCs(String0.Y);
@@ -70,11 +78,42 @@ class AbstractEntityTest extends SKUnit {
   }
 
   @Test
+  void fillOc() {
+    MysqlSqlEntityTest.DialectSqlEntityPrepareMysql fillOc = new MysqlSqlEntityTest.DialectSqlEntityPrepareMysql();
+    List<String> list = List0.newArrayList();
+    List<Object> objectList = List0.newArrayList();
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> fillOc.fillOc(null, null, null, null)),
+      () -> assertThrows(NullPointerException.class, () -> fillOc.fillOc(List0.newArrayList(), null, null, null)),
+      () -> assertDoesNotThrow(() -> fillOc.fillOc(list, objectList, new Condition().setOp(Keyword.IN).setSq("select id from tbl"), "notNullCol")),
+      () -> assertDoesNotThrow(() -> fillOc.fillOc(list, objectList, new Condition().setOp(Keyword.BETWEEN).setCl(List0.newArrayList()), "notNullCol")),
+      () -> assertDoesNotThrow(() -> fillOc.fillOc(list, objectList, new Condition().setOp(Keyword.IN).setCl(List0.newArrayList()), "notNullCol")),
+      () -> assertDoesNotThrow(() -> fillOc.fillOc(list, objectList, new Condition().setOp(Keyword.IN).setCl(List0.newArrayList("")), "uniqueCol")),
+      () -> assertNotNull(String0.DOT)
+    );
+  }
+
+  @Test
   void fullTableName() {
   }
 
   @Test
+  void deletedFullTableName() {
+    assertEquals("sktest1_schema.sktest1_table_d", dialectSqlEntityPrepareMysql.deletedFullTableName());
+  }
+
+  @Test
   void lstSelectFiled() {
+    MysqlSqlEntityTest.DialectSqlEntityPrepareMysql lstSelectFiled1 = new MysqlSqlEntityTest.DialectSqlEntityPrepareMysql();
+    MysqlSqlEntityTest.DialectSqlEntityPrepareMysql lstSelectFiled2 = new MysqlSqlEntityTest.DialectSqlEntityPrepareMysql();
+    lstSelectFiled2.srvSelectList(List0.newArrayList());
+    MysqlSqlEntityTest.DialectSqlEntityPrepareMysql lstSelectFiled3 = new MysqlSqlEntityTest.DialectSqlEntityPrepareMysql();
+    lstSelectFiled3.srvSelectList(List0.newArrayList(Identified.FIELD__ID));
+    assertAll(
+      () -> assertLinesMatch(List0.newArrayList(lstSelectFiled1.getFieldNameList()), lstSelectFiled1.lstSelectFiled()),
+      () -> assertLinesMatch(List0.newArrayList(lstSelectFiled2.getFieldNameList()), lstSelectFiled2.lstSelectFiled()),
+      () -> assertLinesMatch(List0.newArrayList(Identified.FIELD__ID), lstSelectFiled3.lstSelectFiled())
+    );
   }
 
   @Test
@@ -82,8 +121,9 @@ class AbstractEntityTest extends SKUnit {
     DialectSqlEntityPrepareWithoutTableName dialectSqlEntityPrepareWithoutTableName = new DialectSqlEntityPrepareWithoutTableName();
 
     Mockito.when(resultSet.getString(Identified.FIELD__ID)).thenReturn(id);
+    Mockito.when(resultSet.getString(Deleted.FIELD__DD)).thenReturn(null);
     Mockito.when(resultSet.getInt(Versioned.FIELD__VERSION)).thenReturn(1);
-    dialectSqlEntityPrepareWithoutTableName.setSelectList(List0.newArrayList(Identified.FIELD__ID, Versioned.FIELD__VERSION, String0.ALPHABET));
+    dialectSqlEntityPrepareWithoutTableName.setSelectList(List0.newArrayList(Identified.FIELD__ID, Deleted.FIELD__DD, Versioned.FIELD__VERSION, String0.ALPHABET));
     dialectSqlEntityPrepareWithoutTableName.mapRow(resultSet);
 
     assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, dd=N, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", dialectSqlEntityPrepareWithoutTableName.toString());
@@ -176,4 +216,13 @@ class AbstractEntityTest extends SKUnit {
   void whereStatement() {
   }
 
+  @Test
+  void fieldNameValues() {
+    MysqlSqlEntityTest.DialectSqlEntityPrepareMysql fieldNameValues = new MysqlSqlEntityTest.DialectSqlEntityPrepareMysql();
+
+    assertAll(
+      () -> assertLinesMatch(List0.newArrayList(Deleted.FIELD__DD), List0.newArrayList(fieldNameValues.fieldNameValues().keySet())),
+      () -> assertLinesMatch(List0.newArrayList(String0.N), fieldNameValues.fieldNameValues().values().stream().map(String::valueOf).collect(Collectors.toList()))
+    );
+  }
 }

@@ -73,7 +73,7 @@ public class OM3 {
    */
   @Deprecated
   public static ObjectMapper omWithCtx() {
-    return appendCtxIgnoredFilter(om());
+    return omWithCtx(om());
   }
 
   /*

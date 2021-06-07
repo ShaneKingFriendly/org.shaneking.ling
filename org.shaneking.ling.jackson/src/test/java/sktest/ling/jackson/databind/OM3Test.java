@@ -3,6 +3,8 @@ package sktest.ling.jackson.databind;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.ser.BeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +12,10 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jackson.databind.OM3;
+import org.shaneking.ling.jackson.filter.CtxIgnoredFilter;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.Object0;
+import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.lang.ZeroException;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
@@ -22,6 +26,38 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OM3Test extends SKUnit {
+
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> OM3.appendCtxIgnoredFilter(null)),
+      () -> assertNotNull(OM3.appendCtxIgnoredFilter(new ObjectMapper().setFilterProvider(new FilterProvider() {
+        @Override
+        public BeanPropertyFilter findFilter(Object o) {
+          return new CtxIgnoredFilter();
+        }
+      }))),
+      () -> assertNotNull(new OM3()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.createObjectNode(null)),
+      () -> assertThrows(NullPointerException.class, () -> OM3.om(null)),
+      () -> assertThrows(NullPointerException.class, () -> OM3.omWithCtx(null)),
+      () -> assertNull(OM3.readValue(null)),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(null, String0.EMPTY, OM3.om().getTypeFactory().constructType(String.class))),
+      () -> assertNull(OM3.readValue(OM3.om(), String0.EMPTY, OM3.om().getTypeFactory().constructType(String.class), true)),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(null, String0.EMPTY, String.class)),
+      () -> assertNull(OM3.readValue(OM3.om(), String0.EMPTY, String.class, true)),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(null, String0.EMPTY, new TypeReference<String>() {
+      })),
+      () -> assertNull(OM3.readValue(OM3.om(), String0.EMPTY, new TypeReference<String>() {
+      }, true)),
+      () -> assertThrows(NullPointerException.class, () -> OM3.treeToValue(null, OM3.om().createObjectNode(), String.class)),
+      () -> assertNull(OM3.treeToValue(OM3.om(), OM3.om().createObjectNode(), String.class, true)),
+      () -> assertThrows(NullPointerException.class, () -> OM3.valueToTree(null, null)),
+      () -> assertThrows(NullPointerException.class, () -> OM3.writeValueAsString(null, null)),
+      () -> assertThrows(NullPointerException.class, () -> OM3.writeValueAsString(null, true)),
+      () -> assertNotNull(String0.DOT)
+    );
+  }
 
   @Test
   void appendCtxIgnoredFilter() {
@@ -91,7 +127,11 @@ class OM3Test extends SKUnit {
   void treeToValue() {
     ObjectNode objectNode = OM3.om().createObjectNode();
     objectNode.put("str", "str");
-    assertEquals(new HelloReadValue().setStr("str").toString(), OM3.treeToValue(objectNode, HelloReadValue.class).toString());
+    assertAll(
+      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.treeToValue(objectNode, HelloReadValue.class).toString()),
+      () -> assertNull(OM3.treeToValue(OM3.om(), objectNode, List.class, true)),
+      () -> assertThrows(ZeroException.class, () -> OM3.treeToValue(OM3.om(), objectNode, List.class, false))
+    );
   }
 
   @Test
@@ -106,7 +146,10 @@ class OM3Test extends SKUnit {
       () -> assertEquals(OM3.OBJECT_ERROR_STRING, OM3.writeValueAsString(Map0.newHashMap())),
       () -> assertEquals("[]", OM3.writeValueAsString(List0.newArrayList())),
       () -> assertEquals("\"java.lang.Object\"", OM3.writeValueAsString(Object.class)),
-      () -> assertEquals("\"java.lang.String\"", OM3.writeValueAsString(String.class))
+      () -> assertEquals("\"java.lang.String\"", OM3.writeValueAsString(String.class)),
+//      () -> assertNull(OM3.writeValueAsString(OM3.om(), null, true)),
+//      () -> assertThrows(ZeroException.class, () -> OM3.writeValueAsString(OM3.om(), null, false)),
+      () -> assertNotNull(String0.DOT)
     );
   }
 

@@ -40,7 +40,7 @@ class RespTest extends SKUnit {
         try {
           throw new RespException(Resp.failed());
         } catch (RespException e) {
-          assertEquals("{\"code\":\"org.shaneking.ling.rr.RespException\",\"mesg\":\"-1\"}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"code\":\"org.shaneking.ling.rr.RespException\",\"mesg\":\"-1\",\"ndrb\":false}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       },
       () -> {
@@ -54,7 +54,7 @@ class RespTest extends SKUnit {
         try {
           throw new RespException(Resp.failed(String0.ALPHABET), new ZeroException());
         } catch (RespException e) {
-          assertEquals("{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"mesg\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"mesg\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"ndrb\":false}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       }
     );
