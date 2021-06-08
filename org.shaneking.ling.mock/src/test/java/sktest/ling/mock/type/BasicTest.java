@@ -8,6 +8,12 @@ import org.shaneking.ling.zero.util.List0;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BasicTest {
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new Basic())
+    );
+  }
 
   @Test
   void l() {

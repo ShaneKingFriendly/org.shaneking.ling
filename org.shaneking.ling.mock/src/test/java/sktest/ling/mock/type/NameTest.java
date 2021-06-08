@@ -7,6 +7,12 @@ import org.shaneking.ling.zero.lang.String0;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NameTest {
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new Name())
+    );
+  }
 
   @Test
   void name() {

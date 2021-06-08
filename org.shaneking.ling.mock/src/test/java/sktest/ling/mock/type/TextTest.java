@@ -12,6 +12,12 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TextTest {
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new Text())
+    );
+  }
 
   @Test
   void word() {

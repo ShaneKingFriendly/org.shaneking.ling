@@ -14,6 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 class AddressTest {
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new Address())
+    );
+  }
 
   @Test
   void region() {

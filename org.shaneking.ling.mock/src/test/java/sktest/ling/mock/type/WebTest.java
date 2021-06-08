@@ -9,6 +9,12 @@ import org.shaneking.ling.zero.util.Regex0;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WebTest {
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new Web())
+    );
+  }
 
   @Test
   void protocol() {

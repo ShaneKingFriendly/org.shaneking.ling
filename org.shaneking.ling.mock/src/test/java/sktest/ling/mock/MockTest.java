@@ -5,9 +5,15 @@ import org.shaneking.ling.mock.Mock;
 
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MockTest {
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new Mock())
+    );
+  }
 
   @Test
   void patStr() {
