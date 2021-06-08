@@ -31,6 +31,7 @@ class KeywordTest extends SKUnit {
     Integer i = null;
     String s = null;
     List<String> l = null;
+    String[] sa = null;
     assertAll(
       () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(null, 1)),
       () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(String0.EMPTY, i)),
@@ -39,7 +40,9 @@ class KeywordTest extends SKUnit {
       () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(String0.EMPTY, s)),
       () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(null, s)),
       () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(null, s, s)),
-      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(null, l))
+      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(String0.EMPTY, sa)),
+      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(null, l)),
+      () -> assertThrows(NullPointerException.class, () -> Keyword.parenthesis(String0.EMPTY, l))
     );
   }
 }

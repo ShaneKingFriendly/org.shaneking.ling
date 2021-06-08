@@ -14,6 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class InetAddress0Test {
 
   @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new InetAddress0())
+    );
+  }
+
+  @Test
   void createCacheEntry() {
     assertAll(
       () -> assertThrows(ZeroException.class, () -> InetAddress0.createCacheEntry(null, null))
@@ -21,21 +28,34 @@ class InetAddress0Test {
   }
 
   @Test
+  void customAddress() {
+    assertAll(
+      () -> assertNull(InetAddress0.customAddress(null))
+    );
+  }
+
+  @Test
   void existInLocalHosts() {
     assertAll(
       () -> assertFalse(InetAddress0.existInLocalHosts("shaneking.org")),
-      () -> assertFalse(InetAddress0.existInLocalHosts("inet.address.test"))
+      () -> assertFalse(InetAddress0.existInLocalHosts("inet.address.test")),
+      () -> assertTrue(InetAddress0.existInLocalHosts("localhost")),
+      () -> assertFalse(InetAddress0.existInLocalHosts("127.0.0.1"))
     );
   }
 
   @Test
   void loadLocalHosts() {
-    assertTrue(InetAddress0.loadLocalHosts());
+    assertAll(
+      () -> assertTrue(InetAddress0.loadLocalHosts()),
+      () -> assertFalse(InetAddress0.loadLocalHosts())
+    );
   }
 
   @Test
   void localHostExactAddress() {
     assertAll(
+      () -> assertNotNull(InetAddress0.localHostExactAddress()),
       () -> assertNotNull(InetAddress0.localHostExactAddress())
     );
   }
@@ -61,8 +81,12 @@ class InetAddress0Test {
   }
 
   @Test
-  void rmvVirtualHost() {
-    assertFalse(InetAddress0.rmvCustomHost("shaneking.org"));
+  void rmvCustomHost() {
+    assertAll(
+      () -> assertFalse(InetAddress0.rmvCustomHost("shaneking.org")),
+      () -> assertFalse(InetAddress0.rmvCustomHost("localhost")),
+      () -> assertFalse(InetAddress0.rmvCustomHost("127.0.0.1"))
+    );
   }
 
   @Test

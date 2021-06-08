@@ -9,8 +9,10 @@ import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Date0;
 import org.shaneking.ling.zero.util.UUID0;
-import sktest.ling.persistence.entity.AbstractDialectSqlEntityPrepare;
+import sktest.ling.persistence.entity.AbstractSqlEntityPrepare;
+import sktest.ling.persistence.entity.sql.AbstractDialectSqlEntityPrepare;
 
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.IOException;
@@ -50,5 +52,11 @@ public class MysqlSqlEntityTest extends SKUnit {
   @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
   @ToString(callSuper = true)
   public static class DialectSqlEntityPrepareMysql extends AbstractDialectSqlEntityPrepare implements MysqlSqlEntities {
+  }
+
+  @Accessors(chain = true)
+  @Table(schema = "sktest1_schema", name = "sktest1_table", indexes = {@Index(columnList = "not_null_col")})
+  @ToString(callSuper = true)
+  public static class SqlEntityPrepareMysql extends AbstractSqlEntityPrepare implements MysqlSqlEntities {
   }
 }

@@ -1,0 +1,30 @@
+create table if not exists `sktest1_schema`.`sktest1_table` (
+  `has_length` varchar(10) comment '',
+  `no_get_method` varchar(255) comment '',
+  `not_null_col` varchar(255) not null comment '',
+  `unique_col` varchar(255) comment '',
+  `re_name_col` varchar(255) comment '',
+  `long_text` longtext comment '',
+  primary key (``)
+);
+
+drop procedure if exists p_sktest1_table_idx_create;
+delimiter $$
+create procedure p_sktest1_table_idx_create() begin
+if not exists (select * from information_schema.statistics where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and index_name = 'u_idx_unique_col')
+then
+alter table `sktest1_schema`.`sktest1_table` add unique index `u_idx_unique_col` (`unique_col` asc);
+end if;
+if not exists (select * from information_schema.statistics where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and index_name = '')
+then
+alter table `sktest1_schema`.`sktest1_table` add index `` (not_null_col);
+end if;
+if not exists (select * from information_schema.statistics where table_schema = 'sktest1_schema' and table_name = 'sktest1_table' and index_name = 'not_null_col')
+then
+alter table `sktest1_schema`.`sktest1_table` add index `not_null_col` (not_null_col);
+end if;
+end;
+$$
+delimiter ;
+call p_sktest1_table_idx_create();
+drop procedure if exists p_sktest1_table_idx_create;

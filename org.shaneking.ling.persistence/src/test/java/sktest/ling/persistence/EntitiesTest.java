@@ -2,7 +2,7 @@ package sktest.ling.persistence;
 
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.persistence.Pagination;
-import sktest.ling.persistence.entity.DialectSqlEntityPrepareWithoutSetter;
+import sktest.ling.persistence.entity.sql.DialectSqlEntityPrepareWithoutSetter;
 
 import static org.junit.jupiter.api.Assertions.*;
 

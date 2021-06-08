@@ -8,7 +8,8 @@ import org.shaneking.ling.persistence.entity.sql.sqllite.SqlliteSqlEntities;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
-import sktest.ling.persistence.entity.AbstractDialectSqlEntityPrepare;
+import sktest.ling.persistence.entity.AbstractSqlEntityPrepare;
+import sktest.ling.persistence.entity.sql.AbstractDialectSqlEntityPrepare;
 
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -42,5 +43,11 @@ public class SqlliteSqlEntityTest extends SKUnit {
   @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
   @ToString(callSuper = true)
   public class DialectSqlEntityPrepareSqllite extends AbstractDialectSqlEntityPrepare implements SqlliteSqlEntities {
+  }
+
+  @Accessors(chain = true)
+  @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
+  @ToString(callSuper = true)
+  public class SqlEntityPrepareSqllite extends AbstractSqlEntityPrepare implements SqlliteSqlEntities {
   }
 }

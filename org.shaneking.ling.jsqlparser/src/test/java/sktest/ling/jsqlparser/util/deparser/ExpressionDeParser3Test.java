@@ -4,10 +4,16 @@ import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jsqlparser.util.deparser.ExpressionDeParser3;
 import org.shaneking.ling.test.SKUnit;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ExpressionDeParser3Test extends SKUnit {
+
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new ExpressionDeParser3())
+    );
+  }
 
   @Test
   void addSchemaAliasPrefix() {

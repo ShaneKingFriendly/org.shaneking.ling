@@ -1,4 +1,4 @@
-package sktest.ling.persistence.entity;
+package sktest.ling.persistence.entity.sql;
 
 import lombok.Getter;
 import lombok.ToString;

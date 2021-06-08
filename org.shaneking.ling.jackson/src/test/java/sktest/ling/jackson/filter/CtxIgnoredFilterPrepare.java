@@ -1,6 +1,7 @@
 package sktest.ling.jackson.filter;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,12 +13,11 @@ import org.shaneking.ling.jackson.filter.CtxIgnoredFilter;
 @CtxIgnored("scenario3")
 @JsonFilter(CtxIgnoredFilter.FILTER_NAME)
 @ToString
-public class CtxIgnoredFilterPrepare {
+public class CtxIgnoredFilterPrepare extends CtxIgnoredFilter {
   @CtxIgnored("scenario1")
   @Getter
   @Setter
   private String s1;
-  @CtxIgnored
   @Getter
   @Setter
   private Integer i1;
@@ -29,6 +29,11 @@ public class CtxIgnoredFilterPrepare {
   @Getter
   @Setter
   private HelloCtxIgnoredFilter2 o1;
+
+  @Override
+  public boolean include(BeanPropertyWriter writer) {
+    return super.include(writer);
+  }
 
   @Accessors(chain = true)
   @CtxIgnored("scenario3")

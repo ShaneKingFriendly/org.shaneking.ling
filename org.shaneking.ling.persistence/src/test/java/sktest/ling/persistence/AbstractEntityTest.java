@@ -15,9 +15,9 @@ import org.shaneking.ling.persistence.entity.Versioned;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
-import sktest.ling.persistence.entity.DialectSqlEntityPrepareDuplicateColumn;
-import sktest.ling.persistence.entity.DialectSqlEntityPrepareWithoutTableName;
-import sktest.ling.persistence.entity.dialectSqlEntityPrepareWithoutTableName2;
+import sktest.ling.persistence.entity.sql.DialectSqlEntityPrepareDuplicateColumn;
+import sktest.ling.persistence.entity.sql.DialectSqlEntityPrepareWithoutTableName;
+import sktest.ling.persistence.entity.sql.dialectSqlEntityPrepareWithoutTableName2;
 import sktest.ling.persistence.entity.sql.mysql.MysqlSqlEntityTest;
 
 import java.io.IOException;

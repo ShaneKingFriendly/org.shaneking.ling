@@ -6,8 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.shaneking.ling.persistence.Condition;
-import org.shaneking.ling.persistence.entity.sql.AbstractDialectSqlEntity;
+import org.shaneking.ling.persistence.entity.AbstractSqlEntity;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
 
 import javax.persistence.Column;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public abstract class AbstractDialectSqlEntityPrepare extends AbstractDialectSqlEntity<Map<String, Condition>> {
+public abstract class AbstractSqlEntityPrepare extends AbstractSqlEntity<Map<String, Condition>> {
   @Column(length = 10)
   @Getter
   @Setter
@@ -53,6 +54,14 @@ public abstract class AbstractDialectSqlEntityPrepare extends AbstractDialectSql
   @Lob
   @Setter
   private String longText;
+
+  public Map<String, String> genTableIdxMapExt() {
+    return Map0.newHashMap("not_null_col", "not_null_col");
+  }
+
+  public Map<String, List<String>> genTableUniIdxMapExt() {
+    return Map0.newHashMap("unique_col", List0.newArrayList("unique_col"));
+  }
 
   @Override
   public @NonNull List<Condition> findHavingConditions(@NonNull String fieldName) {

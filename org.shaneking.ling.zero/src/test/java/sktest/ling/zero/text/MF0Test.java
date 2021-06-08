@@ -3,10 +3,17 @@ package sktest.ling.zero.text;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.zero.text.MF0;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MF0Test {
+
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new MF0()),
+      () -> assertThrows(NullPointerException.class, () -> MF0.fmt(null, null))
+    );
+  }
 
   @Test
   void fmt() {

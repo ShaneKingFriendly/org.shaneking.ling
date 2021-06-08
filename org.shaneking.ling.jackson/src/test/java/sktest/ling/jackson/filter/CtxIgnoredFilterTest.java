@@ -7,10 +7,16 @@ import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.jackson.filter.CtxIgnoredFilter;
 import org.shaneking.ling.test.SKUnit;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CtxIgnoredFilterTest extends SKUnit {
+
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new CtxIgnoredFilterPrepare().include(new BeanPropertyWriterPrepare()))
+    );
+  }
 
   @Test
   void include() {
