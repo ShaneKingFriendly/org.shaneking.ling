@@ -3,9 +3,16 @@ package sktest.ling.zero.util;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.zero.util.Regex0;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class Regex0Test {
+
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new Regex0())
+    );
+  }
 
   @Test
   void test() {

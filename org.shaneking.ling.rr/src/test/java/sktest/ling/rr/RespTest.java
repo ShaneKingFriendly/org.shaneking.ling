@@ -2,6 +2,7 @@ package sktest.ling.rr;
 
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jackson.databind.OM3;
+import org.shaneking.ling.rr.NdrbRespException;
 import org.shaneking.ling.rr.Resp;
 import org.shaneking.ling.rr.RespException;
 import org.shaneking.ling.test.SKUnit;
@@ -55,6 +56,28 @@ class RespTest extends SKUnit {
           throw new RespException(Resp.failed(String0.ALPHABET), new ZeroException());
         } catch (RespException e) {
           assertEquals("{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"mesg\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"ndrb\":false}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+        }
+      },
+      () -> {
+        try {
+          throw new NdrbRespException(Resp.failed(String0.ALPHABET), new ZeroException());
+        } catch (RespException e) {
+          assertEquals("{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"mesg\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"ndrb\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+        }
+      },
+      () -> {
+        try {
+          NdrbRespException ndrbRespException = new NdrbRespException(Resp.failed(), new ZeroException());
+          throw ndrbRespException.setResp(null);
+        } catch (RespException e) {
+          assertEquals("{\"code\":\"org.shaneking.ling.rr.NdrbRespException\",\"mesg\":\"-1\",\"ndrb\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+        }
+      },
+      () -> {
+        try {
+          throw new NdrbRespException(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION), new ZeroException());
+        } catch (RespException e) {
+          assertEquals("{\"code\":\"org.shaneking.ling.rr.NdrbRespException\",\"mesg\":\"-1\",\"ndrb\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       }
     );

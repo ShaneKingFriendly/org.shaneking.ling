@@ -3,9 +3,16 @@ package sktest.ling.zero.util;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.zero.util.UUID0;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UUID0Test {
+
+  @Test
+  void aaa() {
+    assertAll(
+      () -> assertNotNull(new UUID0())
+    );
+  }
 
   @Test
   void cMl33() {
@@ -32,6 +39,23 @@ class UUID0Test {
 
   @Test
   void l19() {
-    assertEquals(19, UUID0.l19().length());
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> UUID0.l19(null)),
+      () -> assertEquals(19, UUID0.l19().length())
+    );
+  }
+
+  @Test
+  void to62String() {
+    assertAll(
+      () -> assertEquals("0", UUID0Ext1.to62String(0, 1)),
+      () -> assertEquals("0", UUID0Ext1.to62String(0, 62))
+    );
+  }
+
+  public static class UUID0Ext1 extends UUID0 {
+    public static String to62String(long i, int radix) {
+      return UUID0.to62String(i, radix);
+    }
   }
 }
