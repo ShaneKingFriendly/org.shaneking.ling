@@ -138,6 +138,10 @@ public class String0 {
     return String0.isNullOrEmpty(string) ? string : String.join(EMPTY, List0.newArrayList(string.split(with)).stream().map(String0::upperFirst).collect(Collectors.toList()));
   }
 
+  public static String emptyToNull(String s) {
+    return EMPTY.equals(s) ? null : s;
+  }
+
   //firstName -&gt; first_name
   public static String field2DbColumn(String string) {
     return field2DbColumn(string, UNDERLINE);
@@ -180,6 +184,10 @@ public class String0 {
       }
     }
     return sb.length() > d.length() ? sb.substring(d.length()) : sb.toString();
+  }
+
+  public static String lower(String s) {
+    return s == null ? null : s.toLowerCase();
   }
 
   public static String lowerFirst(String s) {
@@ -227,7 +235,7 @@ public class String0 {
   }
 
   public static String nullToEmpty(String s) {
-    return nullOrEmptyTo(s, EMPTY);
+    return nullTo(s, EMPTY);
   }
 
   public static String repeat(String string, int count) {
@@ -251,6 +259,10 @@ public class String0 {
 
   public static String type(@NonNull Object a) {
     return a.getClass().toString();
+  }
+
+  public static String upper(String s) {
+    return s == null ? null : s.toUpperCase();
   }
 
   public static String upperFirst(String s) {

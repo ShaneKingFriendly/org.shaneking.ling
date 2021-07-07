@@ -27,6 +27,12 @@ class String0Test {
   }
 
   @Test
+  void emptyToNull() {
+    assertNull(String0.emptyToNull(""));
+    assertNotNull(String0.emptyToNull("ab#cd#ef"));
+  }
+
+  @Test
   void field2DbColumn() {
     assertEquals("id", String0.field2DbColumn("id"));
     assertEquals("ab_cd_ef", String0.field2DbColumn("abCdEf"));
@@ -75,8 +81,21 @@ class String0Test {
   }
 
   @Test
+  void lower() {
+    assertAll(
+      () -> assertNull(String0.lower(null)),
+      () -> assertEquals(String0.EMPTY, String0.lower(String0.EMPTY)),
+      () -> assertEquals("lowerfirst", String0.lower("LowerFirst"))
+    );
+  }
+
+  @Test
   void lowerFirst() {
-    assertEquals("lowerFirst", String0.lowerFirst("LowerFirst"));
+    assertAll(
+      () -> assertNull(String0.lowerFirst(null)),
+      () -> assertEquals(String0.EMPTY, String0.lowerFirst(String0.EMPTY)),
+      () -> assertEquals("lowerFirst", String0.lowerFirst("LowerFirst"))
+    );
   }
 
   @Test
@@ -213,8 +232,21 @@ class String0Test {
   }
 
   @Test
+  void upper() {
+    assertAll(
+      () -> assertNull(String0.upper(null)),
+      () -> assertEquals(String0.EMPTY, String0.upper(String0.EMPTY)),
+      () -> assertEquals("UPPERFIRST", String0.upper("upperFirst"))
+    );
+  }
+
+  @Test
   void upperFirst() {
-    assertEquals("UpperFirst", String0.upperFirst("upperFirst"));
+    assertAll(
+      () -> assertNull(String0.upperFirst(null)),
+      () -> assertEquals(String0.EMPTY, String0.upperFirst(String0.EMPTY)),
+      () -> assertEquals("UpperFirst", String0.upperFirst("upperFirst"))
+    );
   }
 
   @Test
