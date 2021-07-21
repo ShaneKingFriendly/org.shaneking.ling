@@ -4,6 +4,7 @@ import org.shaneking.ling.zero.lang.String0;
 
 import javax.persistence.Transient;
 
+///business or third-party system primary key
 public interface Numbered {
   @Transient
   String ERR_CODE__NOT_FOUND_BY_NUMBER = "NUMBERED__NOT_FOUND_BY_NUMBER";

@@ -26,8 +26,6 @@ import java.util.Map;
 @Accessors(chain = true)
 @Slf4j
 public abstract class AbstractEntity<J> implements Entities {
-  @Transient
-  public static final String ERR_CODE__NOT_FOUND = "ABSTRACT_ENTITY__NOT_FOUND";
   @Getter
   @JsonIgnore
   @Schema(hidden = true)

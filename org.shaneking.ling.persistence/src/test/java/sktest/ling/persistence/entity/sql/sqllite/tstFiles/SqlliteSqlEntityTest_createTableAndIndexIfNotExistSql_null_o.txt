@@ -1,11 +1,11 @@
 create table if not exists `sktest1_table` (
-  `version` int not null default 0,
   `id` char(40) not null,
+  `version` int not null default 0,
   `dd` varchar(40) default 'N',
-  `no` varchar(40) default '',
   `invalid` varchar(1) default 'N',
   `last_modify_date_time` varchar(20) default '',
   `last_modify_user_id` varchar(40) default '',
+  `no` varchar(40) default '',
   `has_length` varchar(10),
   `no_get_method` varchar(255),
   `not_null_col` varchar(255) not null,
@@ -15,6 +15,5 @@ create table if not exists `sktest1_table` (
   primary key (`id`)
 );
 
-create unique index if not exists u_idx_dd_has_length_not_null_col on sktest1_table(`dd`,`has_length`,`not_null_col`);
-create unique index if not exists u_idx_dd_unique_col on sktest1_table(`dd`,`unique_col`);
-create index if not exists dd on sktest1_table(dd);
+create unique index if not exists u_idx_has_length_not_null_col on sktest1_table(`has_length`,`not_null_col`);
+create unique index if not exists u_idx_unique_col on sktest1_table(`unique_col`);

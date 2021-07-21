@@ -52,7 +52,7 @@ class AbstractEntityTest extends SKUnit {
     DialectSqlEntityPrepareWithoutTableName abstractEntity = new DialectSqlEntityPrepareWithoutTableName();
     abstractEntity.initTableInfo();
     abstractEntity.nullSetter();
-    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=null, dd=null, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
+    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=null, version=null, dd=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
     dialectSqlEntityPrepareWithoutTableName2 dialectSqlEntityPrepareWithoutTableName2 = new dialectSqlEntityPrepareWithoutTableName2();
     dialectSqlEntityPrepareWithoutTableName2.initTableInfo();
   }
@@ -126,7 +126,7 @@ class AbstractEntityTest extends SKUnit {
     dialectSqlEntityPrepareWithoutTableName.setSelectList(List0.newArrayList(Identified.FIELD__ID, Deleted.FIELD__DD, Versioned.FIELD__VERSION, String0.ALPHABET));
     dialectSqlEntityPrepareWithoutTableName.mapRow(resultSet);
 
-    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, dd=N, no=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, version=1), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", dialectSqlEntityPrepareWithoutTableName.toString());
+    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, version=1, dd=N, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", dialectSqlEntityPrepareWithoutTableName.toString());
   }
 
   @Test

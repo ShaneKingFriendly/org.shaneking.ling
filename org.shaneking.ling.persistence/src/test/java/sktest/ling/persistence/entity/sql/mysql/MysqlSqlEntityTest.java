@@ -45,7 +45,7 @@ public class MysqlSqlEntityTest extends SKUnit {
   @Test
   void testToString() {
 //    assertEquals("{\"id\":\"" + id + "\",\"invalid\":\"N\",\"lastModifyDateTime\":\"" + dateTime + "\",\"lastModifyUserId\":\"" + userId + "\",\"version\":0,\"hasLength\":\"hasLength\",\"notNullCol\":\"notNullCol\",\"uniqueCol\":\"uniqueCol\",\"withoutAnnotation\":\"withoutAnnotation\",\"reName\":\"reName\",\"longText\":\"longText\"}", OM3.writeValueAsString(mysqlIdAdtVerEntity));
-    assertEquals("MysqlSqlEntityTest.DialectSqlEntityPrepareMysql(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=" + id + ", dd=N, no=" + id + ", invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + ", version=0), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", dialectSqlEntityPrepareMysql.toString());
+    assertEquals("MysqlSqlEntityTest.DialectSqlEntityPrepareMysql(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=" + id + ", version=0, dd=N, invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + ", no=" + id + "), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", dialectSqlEntityPrepareMysql.toString());
   }
 
   @Accessors(chain = true)

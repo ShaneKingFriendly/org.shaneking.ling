@@ -5,12 +5,16 @@ import org.shaneking.ling.zero.lang.String0;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
 public interface Entities {
+  @Transient
+  String ERR_CODE__NOT_FOUND = "ENTITIES__NOT_FOUND";
+
   List<Condition> findHavingConditions(@NonNull String fieldName);
 
   List<Condition> findWhereConditions(@NonNull String fieldName);

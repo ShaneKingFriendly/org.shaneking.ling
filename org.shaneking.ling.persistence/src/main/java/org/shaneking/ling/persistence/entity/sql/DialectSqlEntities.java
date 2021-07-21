@@ -4,7 +4,7 @@ import org.shaneking.ling.persistence.entity.*;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Date0;
 
-public interface DialectSqlEntities extends Versioned, Identified, Deleted, Numbered, Audited, SqlEntities {
+public interface DialectSqlEntities extends Identified, Versioned, Deleted, Audited, Numbered, SqlEntities {
   default <T extends DialectSqlEntities> T initWithUserId(String userId) {
     initVersion();
     sinDd(String0.N);

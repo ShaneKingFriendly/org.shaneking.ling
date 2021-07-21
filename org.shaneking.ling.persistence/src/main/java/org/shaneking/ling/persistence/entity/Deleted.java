@@ -40,12 +40,4 @@ public interface Deleted {
   default <T extends Deleted> T sinDd(String dd) {
     return setDd(String0.nullOrEmptyTo(getDd(), dd));
   }
-
-  default boolean ddNeedJoinUniIdx() {
-    return true;
-  }
-
-  default boolean ddNeedCreateIdx() {
-    return true;
-  }
 }

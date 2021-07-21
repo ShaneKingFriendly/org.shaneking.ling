@@ -18,6 +18,7 @@ import javax.persistence.Version;
 @Accessors(chain = true)
 @ToString
 public abstract class AbstractDialectSqlEntity<J> extends AbstractSqlEntity<J> implements DialectSqlEntities {
+  ///self-system or platform primary key
   @Column(nullable = false, length = 40, updatable = false, columnDefinition = "COMMENT 'Identifies'")
   @ExcelColumn(style = {"title->background-color:red"})
   @Getter
@@ -25,17 +26,18 @@ public abstract class AbstractDialectSqlEntity<J> extends AbstractSqlEntity<J> i
   @Setter
   private String id;//this is tech column for db increase sequence, it is not open for biz user
 
+  @Column(nullable = false, columnDefinition = "default 0 COMMENT 'Version for optimistic locking'")
+  @ExcelColumn
+  @Getter
+  @Setter
+  @Version
+  private Integer version;
+
   @Column(length = 40, columnDefinition = "default 'N' COMMENT 'Deleted'")
   @ExcelColumn
   @Getter
   @Setter
   private String dd = String0.N;//this is tech column for db delete operation optimizing, it is always `N` for biz user
-
-  @Column(length = 40, columnDefinition = "default '' COMMENT 'Serial number'")
-  @ExcelColumn(style = {"title->color:red"})
-  @Getter
-  @Setter
-  private String no;
 
   @Column(length = 1, columnDefinition = "default 'N' COMMENT 'The invalid status of record {Y:invalid,N:valid(default)}'")
   @ExcelColumn
@@ -58,10 +60,17 @@ public abstract class AbstractDialectSqlEntity<J> extends AbstractSqlEntity<J> i
   @Setter
   private String lastModifyUserId;
 
-  @Column(nullable = false, columnDefinition = "default 0 COMMENT 'Version for optimistic locking'")
-  @ExcelColumn
+  ///business or third-party system primary key
+  @Column(length = 40, columnDefinition = "default '' COMMENT 'Serial number'")
+  @ExcelColumn(style = {"title->color:red"})
   @Getter
   @Setter
-  @Version
-  private Integer version;
+  private String no;
+
+  ///user primary key
+//  @Column(columnDefinition = "default '' COMMENT ''")
+//  @ExcelColumn
+//  @Getter
+//  @Setter
+//  private String name;
 }
