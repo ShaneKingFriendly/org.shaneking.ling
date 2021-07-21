@@ -68,6 +68,9 @@ public interface SqlEntities extends Entities {
     if (this instanceof DeletedIdx && ((DeletedIdx) this).ddNeedCreateIdx()) {
       rtn.put(Deleted.COLUMN__DD, Deleted.COLUMN__DD);
     }
+    if (this instanceof NumberedIdx) {
+      rtn.put(Numbered.COLUMN__NO, Numbered.COLUMN__NO);
+    }
     List0.newArrayList(this.getJavaTable().indexes()).forEach(idx -> {
       rtn.put(idx.name(), idx.columnList());
     });
