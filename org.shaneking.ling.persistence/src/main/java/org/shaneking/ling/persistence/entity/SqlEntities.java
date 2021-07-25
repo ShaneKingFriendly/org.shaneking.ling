@@ -108,6 +108,9 @@ public interface SqlEntities extends Entities {
     if (this instanceof TenantedNumberedUniIdx) {
       lst.add(List0.newArrayList(Tenanted.COLUMN__TENANT_ID, Numbered.COLUMN__NO));
     }
+    if (this instanceof TenantedToTenantedUniIdx) {
+      lst.add(List0.newArrayList(Tenanted.COLUMN__TENANT_ID, ToTenanted.COLUMN__TO_TENANT_ID));
+    }
     if (this instanceof TenantedUniIdx) {
       lst.add(List0.newArrayList(Tenanted.COLUMN__TENANT_ID));
     }
