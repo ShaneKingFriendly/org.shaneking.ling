@@ -6,4 +6,4 @@
 [![Maven](https://maven-badges.herokuapp.com/maven-central/org.shaneking.ling/org.shaneking.ling/badge.svg)](http://mvnrepository.com/artifact/org.shaneking.ling/org.shaneking.ling)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
-ShaneKing Java Base Library
+ShaneKing's Java Base Library
