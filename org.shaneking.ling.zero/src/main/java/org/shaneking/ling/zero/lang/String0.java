@@ -41,6 +41,7 @@ public class String0 {
   public static final String ESCAPE_R = String.valueOf(Char0.ESCAPE_R);
   public static final String ESCAPE_T = String.valueOf(Char0.ESCAPE_T);
   public static final String EXCLAMATION = String.valueOf(Char0.EXCLAMATION);
+  public static final String GRAVE_ACCENT = String.valueOf(Char0.GRAVE_ACCENT);
   public static final String HENCE = String.valueOf(Char0.HENCE);
   public static final String INFINITY = String.valueOf(Char0.INFINITY);
   public static final String INTEGRAL = String.valueOf(Char0.INTEGRAL);
@@ -274,26 +275,50 @@ public class String0 {
   }
 
   public static String wrapBlack(String s) {
-    return wrap(s, BLANK);
+    return wrapBlack(s, false);
   }
 
   public static String wrapBrace(String s) {
-    return wrap(s, OPEN_BRACE, CLOSE_BRACE);
+    return wrapBrace(s, false);
   }
 
   public static String wrapBracket(String s) {
-    return wrap(s, OPEN_BRACKET, CLOSE_BRACKET);
+    return wrapBracket(s, false);
   }
 
   public static String wrapParenthesis(String s) {
-    return wrap(s, OPEN_PARENTHESIS, CLOSE_PARENTHESIS);
+    return wrapParenthesis(s, false);
   }
 
   public static String wrap(String s, String around) {
-    return wrap(s, around, around);
+    return wrap(s, around, false);
   }
 
   public static String wrap(String s, String open, String close) {
-    return open + s + close;
+    return wrap(s, open, close, false);
+  }
+
+  public static String wrapBlack(String s, boolean ifNotNullOrEmpty) {
+    return wrap(s, BLANK, ifNotNullOrEmpty);
+  }
+
+  public static String wrapBrace(String s, boolean ifNotNullOrEmpty) {
+    return wrap(s, OPEN_BRACE, CLOSE_BRACE, ifNotNullOrEmpty);
+  }
+
+  public static String wrapBracket(String s, boolean ifNotNullOrEmpty) {
+    return wrap(s, OPEN_BRACKET, CLOSE_BRACKET, ifNotNullOrEmpty);
+  }
+
+  public static String wrapParenthesis(String s, boolean ifNotNullOrEmpty) {
+    return wrap(s, OPEN_PARENTHESIS, CLOSE_PARENTHESIS, ifNotNullOrEmpty);
+  }
+
+  public static String wrap(String s, String around, boolean ifNotNullOrEmpty) {
+    return wrap(s, around, around, ifNotNullOrEmpty);
+  }
+
+  public static String wrap(String s, String open, String close, boolean ifNotNullOrEmpty) {
+    return ifNotNullOrEmpty && String0.isNullOrEmpty(s) ? s : open + s + close;
   }
 }

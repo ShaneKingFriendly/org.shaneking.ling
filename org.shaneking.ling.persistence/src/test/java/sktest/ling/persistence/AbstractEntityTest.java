@@ -17,7 +17,7 @@ import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.List0;
 import sktest.ling.persistence.entity.sql.DialectSqlEntityPrepareDuplicateColumn;
 import sktest.ling.persistence.entity.sql.DialectSqlEntityPrepareWithoutTableName;
-import sktest.ling.persistence.entity.sql.dialectSqlEntityPrepareWithoutTableName2;
+import sktest.ling.persistence.entity.sql.dialectSqlEntityPrepareWithLowerClassName;
 import sktest.ling.persistence.entity.sql.mysql.MysqlSqlEntityTest;
 
 import java.io.IOException;
@@ -49,12 +49,12 @@ class AbstractEntityTest extends SKUnit {
 
   @Test
   void initTableInfo() {
-    DialectSqlEntityPrepareWithoutTableName abstractEntity = new DialectSqlEntityPrepareWithoutTableName();
-    abstractEntity.initTableInfo();
-    abstractEntity.nullSetter();
-    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=null, version=null, dd=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntity.toString());
-    dialectSqlEntityPrepareWithoutTableName2 dialectSqlEntityPrepareWithoutTableName2 = new dialectSqlEntityPrepareWithoutTableName2();
-    dialectSqlEntityPrepareWithoutTableName2.initTableInfo();
+    DialectSqlEntityPrepareWithoutTableName withoutTableName = new DialectSqlEntityPrepareWithoutTableName();
+    withoutTableName.initTableInfo();
+    withoutTableName.nullSetter();
+    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=null, version=null, dd=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", withoutTableName.toString());
+    dialectSqlEntityPrepareWithLowerClassName lowerClassName = new dialectSqlEntityPrepareWithLowerClassName();
+    lowerClassName.initTableInfo();
   }
 
   @Test

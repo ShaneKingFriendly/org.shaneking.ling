@@ -264,15 +264,21 @@ class String0Test {
   @Test
   void wrapBrace() {
     assertEquals(String0.OPEN_BRACE + String0.BLANK + String0.CLOSE_BRACE, String0.wrapBrace(String0.BLANK));
+    assertEquals(String0.OPEN_BRACE + "null" + String0.CLOSE_BRACE, String0.wrapBrace(null));
+    assertNull(String0.wrapBrace(null, true));
   }
 
   @Test
   void wrapBracket() {
     assertEquals(String0.OPEN_BRACKET + String0.BLANK + String0.CLOSE_BRACKET, String0.wrapBracket(String0.BLANK));
+    assertEquals(String0.OPEN_BRACKET + "null" + String0.CLOSE_BRACKET, String0.wrapBracket(null));
+    assertNull(String0.wrapBracket(null, true));
   }
 
   @Test
   void wrapParenthesis() {
     assertEquals(String0.OPEN_PARENTHESIS + String0.BLANK + String0.CLOSE_PARENTHESIS, String0.wrapParenthesis(String0.BLANK));
+    assertEquals(String0.OPEN_PARENTHESIS + "null" + String0.CLOSE_PARENTHESIS, String0.wrapParenthesis(null));
+    assertNull(String0.wrapParenthesis(null, true));
   }
 }

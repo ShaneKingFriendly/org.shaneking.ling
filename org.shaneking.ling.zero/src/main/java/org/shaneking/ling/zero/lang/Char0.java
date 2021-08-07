@@ -32,6 +32,7 @@ public class Char0 {
   public static final char ESCAPE_R = '\r';
   public static final char ESCAPE_T = '\t';
   public static final char EXCLAMATION = '!';
+  public static final char GRAVE_ACCENT = '`';
   public static final char HENCE = '∴';
   public static final char INFINITY = '∞';
   public static final char INTEGRAL = '∫';

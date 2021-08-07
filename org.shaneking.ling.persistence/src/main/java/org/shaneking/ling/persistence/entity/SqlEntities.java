@@ -90,6 +90,9 @@ public interface SqlEntities extends Entities {
     Map<String, List<String>> rtn = Map0.newHashMap();
 
     List<List<String>> lst = List0.newArrayList();
+    if (this instanceof ChannelizedNumberedUniIdx) {
+      lst.add(List0.newArrayList(Channelized.COLUMN__CHANNEL_ID, Numbered.COLUMN__NO));
+    }
     if (this instanceof ChannelizedUniIdx) {
       lst.add(List0.newArrayList(Channelized.COLUMN__CHANNEL_ID));
     }
