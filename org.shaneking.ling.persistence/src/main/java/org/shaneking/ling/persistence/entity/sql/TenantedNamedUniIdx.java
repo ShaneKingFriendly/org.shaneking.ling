@@ -1,4 +1,6 @@
 package org.shaneking.ling.persistence.entity.sql;
 
-public interface TenantedNamedUniIdx extends Tenanted, Named {
+import org.shaneking.ling.persistence.entity.UniIdxed;
+
+public interface TenantedNamedUniIdx extends Tenanted, Named, UniIdxed {
 }

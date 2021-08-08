@@ -1,4 +1,4 @@
 package org.shaneking.ling.persistence.entity;
 
-public interface NumberedUniIdx extends Numbered {
+public interface NumberedUniIdx extends Numbered, UniIdxed {
 }
