@@ -31,7 +31,7 @@ public abstract class AbstractDialectSqlEntity<J> extends AbstractSqlEntity<J> i
   @Getter
   @Setter
   @Version
-  private Integer version;
+  private Integer ver;
 
   @Column(length = 40, columnDefinition = "default 'N' COMMENT 'Deleted'")
   @ExcelColumn
@@ -43,22 +43,22 @@ public abstract class AbstractDialectSqlEntity<J> extends AbstractSqlEntity<J> i
   @ExcelColumn
   @Getter
   @Setter
-  private String invalid;
+  private String ivd;
 
   /**
-   * @see org.shaneking.ling.zero.util.Date0#DATE_TIME
+   * @see org.shaneking.ling.zero.util.Date0#DATE_TIME_SSS_ZONE
    */
-  @Column(length = 20, columnDefinition = "default '' COMMENT 'The last modification date time of record'")
+  @Column(length = 30, columnDefinition = "default '' COMMENT 'The last modification date times zoned of record'")
   @ExcelColumn
   @Getter
   @Setter
-  private String lastModifyDateTime;
+  private String lmDsz;
 
   @Column(length = 40, columnDefinition = "default '' COMMENT 'The last modified user of record'")
   @ExcelColumn
   @Getter
   @Setter
-  private String lastModifyUserId;
+  private String lmUid;
 
   ///business or third-party system primary key
   @Column(length = 40, columnDefinition = "default '' COMMENT 'Serial number'")

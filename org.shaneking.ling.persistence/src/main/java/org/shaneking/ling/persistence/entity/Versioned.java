@@ -6,15 +6,15 @@ import javax.persistence.Transient;
 
 public interface Versioned {
   @Transient
-  String COLUMN__VERSION = "version";
+  String COLUMN__VER = "ver";
   @Transient
-  String FIELD__VERSION = "version";
+  String FIELD__VER = "ver";
 
-  Integer getVersion();
+  Integer getVer();
 
-  <T extends Versioned> T setVersion(Integer version);
+  <T extends Versioned> T setVer(Integer ver);
 
-  default <T extends Versioned> T initVersion() {
-    return setVersion(Integer0.null2Zero(getVersion()));
+  default <T extends Versioned> T initVer() {
+    return setVer(Integer0.null2Zero(getVer()));
   }
 }

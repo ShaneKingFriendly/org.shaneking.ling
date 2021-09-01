@@ -9,32 +9,32 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Accessors(chain = true)
-public class LocalTime0 {
+public class LT0 {
   @Getter
   @Setter
   private LocalTime localTime;
 
-  private LocalTime0(LocalTime localTime) {
+  private LT0(LocalTime localTime) {
     this.localTime = localTime;
   }
 
-  public static LocalTime0 on() {
-    return LocalTime0.on(LocalTime.now());
+  public static LT0 on() {
+    return LT0.on(LocalTime.now());
   }
 
-  public static LocalTime0 on(LocalTime localTime) {
-    return new LocalTime0(localTime);
+  public static LT0 on(LocalTime localTime) {
+    return new LT0(localTime);
   }
 
   public String format(String pattern) {
     return this.getLocalTime().format(DateTimeFormatter.ofPattern(pattern));
   }
 
-  public LocalTime0 parse(String s) {
+  public LT0 parse(String s) {
     return parse(Date0.H_MI_S, s);
   }
 
-  public LocalTime0 parse(String pattern, String s) {
+  public LT0 parse(String pattern, String s) {
     return this.setLocalTime(LocalTime.parse(s, DateTimeFormatter.ofPattern(pattern)));
   }
 

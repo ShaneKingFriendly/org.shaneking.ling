@@ -30,23 +30,23 @@ public class Resp<D> {
 
   @Getter
   @Setter
-  private String mesg;//Required if code is not 0
+  private String msg;//Required if code is not 0
 
   @Getter
   @Schema(hidden = true)
   @Setter
-  private Boolean ndrb;
+  private Boolean rbk;//if true, need rollback
 
-  public static <D> Resp<D> build(String code, D data, String mesg) {
-    return new Resp<D>().setCode(code).setData(data).setMesg(mesg);
+  public static <D> Resp<D> build(String code, D data, String msg) {
+    return new Resp<D>().setCode(code).setData(data).setMsg(msg);
   }
 
-  public static <D> Resp<D> failed(String code, String mesg, D data) {
-    return build(code, data, mesg);
+  public static <D> Resp<D> failed(String code, String msg, D data) {
+    return build(code, data, msg);
   }
 
-  public static <D> Resp<D> failed(String code, String mesg) {
-    return failed(code, mesg, null);
+  public static <D> Resp<D> failed(String code, String msg) {
+    return failed(code, msg, null);
   }
 
   public static <D> Resp<D> failed(String code) {
@@ -63,23 +63,23 @@ public class Resp<D> {
 
   public Resp<D> parseExp(@NonNull Exception exp) {
     String code = exp.getClass().getName();
-    String mesg = String0.null2EmptyTo(exp.getMessage(), exp.toString());
+    String message = String0.null2EmptyTo(exp.getMessage(), exp.toString());
     if (exp instanceof RespException) {
       if (exp instanceof NdrbRespException) {
-        ndrb = true;
+        rbk = true;
       }
       Resp resp = ((RespException) exp).getResp();
       if (resp != null) {
-        setNdrb(Boolean0.nullToFalse(getNdrb()) || Boolean0.nullToFalse(resp.getNdrb()));
+        setRbk(Boolean0.nullToFalse(getRbk()) || Boolean0.nullToFalse(resp.getRbk()));
         if (!CODE_UNKNOWN_EXCEPTION.equals(resp.getCode()) && !CODE_SUCCESSFULLY.equals(resp.getCode())) {
           code = resp.getCode();
         }
-        mesg = String0.null2EmptyTo(resp.getMesg(), mesg);
+        message = String0.null2EmptyTo(resp.getMsg(), message);
       }
     }
     if (CODE_UNKNOWN_EXCEPTION.equals(this.getCode()) || CODE_SUCCESSFULLY.equals(this.getCode())) {
       this.setCode(code);
     }
-    return this.setMesg(String0.null2EmptyTo(this.getMesg(), mesg));
+    return this.setMsg(String0.null2EmptyTo(this.getMsg(), message));
   }
 }

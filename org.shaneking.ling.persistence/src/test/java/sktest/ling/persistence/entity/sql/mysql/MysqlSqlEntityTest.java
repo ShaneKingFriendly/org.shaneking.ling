@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.shaneking.ling.persistence.entity.sql.mysql.MysqlSqlEntities;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
-import org.shaneking.ling.zero.util.Date0;
+import org.shaneking.ling.zero.time.ZDT0;
 import org.shaneking.ling.zero.util.UUID0;
 import sktest.ling.persistence.entity.AbstractSqlEntityPrepare;
 import sktest.ling.persistence.entity.sql.AbstractDialectSqlEntityPrepare;
@@ -24,16 +24,16 @@ public class MysqlSqlEntityTest extends SKUnit {
 
   String id = UUID0.cUl33();
   String userId = UUID0.cUl33();
-  String dateTime = Date0.on().dateTime();
+  String dateTimeSssZone = ZDT0.on().dTSZ();
 
   DialectSqlEntityPrepareMysql dialectSqlEntityPrepareMysql = new DialectSqlEntityPrepareMysql();
 
   @BeforeEach
   void beforeEach() {
     dialectSqlEntityPrepareMysql.setHasLength("hasLength").setNoGetMethod("noGetMethod").setNotNullCol("notNullCol").setUniqueCol("uniqueCol").setWithoutAnnotation("withoutAnnotation").setReName("reName").setLongText("longText");
-//    mysqlIdAdtVerEntity.setVersion(1).setLastModifyDateTime(Date0.on().dateTime()).setLastModifyUserId(userId).setInvalid(String0.N).setId(id);
-    dialectSqlEntityPrepareMysql.initWithUserIdAndId(userId, id);
-    dialectSqlEntityPrepareMysql.setLastModifyDateTime(dateTime);
+//    mysqlIdAdtVerEntity.setVersion(1).setLastModifyDateTime(ZDT0.on().dateTimesZone()).setLastModifyUserId(userId).setInvalid(String0.N).setId(id);
+    dialectSqlEntityPrepareMysql.initWithUidAndId(userId, id);
+    dialectSqlEntityPrepareMysql.setLmDsz(dateTimeSssZone);
   }
 
   @Test
@@ -44,8 +44,8 @@ public class MysqlSqlEntityTest extends SKUnit {
 
   @Test
   void testToString() {
-//    assertEquals("{\"id\":\"" + id + "\",\"invalid\":\"N\",\"lastModifyDateTime\":\"" + dateTime + "\",\"lastModifyUserId\":\"" + userId + "\",\"version\":0,\"hasLength\":\"hasLength\",\"notNullCol\":\"notNullCol\",\"uniqueCol\":\"uniqueCol\",\"withoutAnnotation\":\"withoutAnnotation\",\"reName\":\"reName\",\"longText\":\"longText\"}", OM3.writeValueAsString(mysqlIdAdtVerEntity));
-    assertEquals("MysqlSqlEntityTest.DialectSqlEntityPrepareMysql(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=" + id + ", version=0, dd=N, invalid=N, lastModifyDateTime=" + dateTime + ", lastModifyUserId=" + userId + ", no=" + id + "), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", dialectSqlEntityPrepareMysql.toString());
+//    assertEquals("{\"id\":\"" + id + "\",\"ivd\":\"N\",\"lmDsz\":\"" + dateTime + "\",\"lmUid\":\"" + userId + "\",\"ver\":0,\"hasLength\":\"hasLength\",\"notNullCol\":\"notNullCol\",\"uniqueCol\":\"uniqueCol\",\"withoutAnnotation\":\"withoutAnnotation\",\"reName\":\"reName\",\"longText\":\"longText\"}", OM3.writeValueAsString(mysqlIdAdtVerEntity));
+    assertEquals("MysqlSqlEntityTest.DialectSqlEntityPrepareMysql(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=" + id + ", ver=0, dd=N, ivd=N, lmDsz=" + dateTimeSssZone + ", lmUid=" + userId + ", no=" + id + "), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", dialectSqlEntityPrepareMysql.toString());
   }
 
   @Accessors(chain = true)

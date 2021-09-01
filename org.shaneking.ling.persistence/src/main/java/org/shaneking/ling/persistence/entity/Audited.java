@@ -6,32 +6,32 @@ import javax.persistence.Transient;
 
 public interface Audited {
   @Transient
-  String COLUMN__INVALID = "invalid";
+  String COLUMN__IVD = "ivd";
   @Transient
-  String FIELD__INVALID = "invalid";
+  String FIELD__IVD = "ivd";
   @Transient
-  String COLUMN__LAST_MODIFY_DATE_TIME = "last_modify_date_time";
+  String COLUMN__LM_DSZ = "lm_dsz";
   @Transient
-  String FIELD__LAST_MODIFY_DATE_TIME = "lastModifyDateTime";
+  String FIELD__LM_DSZ = "lmDsz";
   @Transient
-  String COLUMN__LAST_MODIFY_USER_ID = "last_modify_user_id";
+  String COLUMN__LM_UID = "lm_uid";
   @Transient
-  String FIELD__LAST_MODIFY_USER_ID = "lastModifyUserId";
+  String FIELD__LM_UID = "lmUid";
 
-  String getInvalid();
+  String getIvd();
 
-  <T extends Audited> T setInvalid(String invalid);
+  <T extends Audited> T setIvd(String ivd);
 
-  String getLastModifyDateTime();
+  String getLmDsz();
 
-  <T extends Audited> T setLastModifyDateTime(String lastModifyDateTime);
+  <T extends Audited> T setLmDsz(String lmDsz);
 
-  String getLastModifyUserId();
+  String getLmUid();
 
-  <T extends Audited> T setLastModifyUserId(String lastModifyUserId);
+  <T extends Audited> T setLmUid(String lmUid);
 
   //set if nullOrEmptyTo
-  default <T extends Audited> T sinInvalid(String invalid) {
-    return setInvalid(String0.nullOrEmptyTo(getInvalid(), invalid));
+  default <T extends Audited> T sinIvd(String ivd) {
+    return setIvd(String0.nullOrEmptyTo(getIvd(), ivd));
   }
 }

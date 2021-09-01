@@ -2,22 +2,22 @@ package org.shaneking.ling.persistence.entity.sql;
 
 import org.shaneking.ling.persistence.entity.*;
 import org.shaneking.ling.zero.lang.String0;
-import org.shaneking.ling.zero.util.Date0;
+import org.shaneking.ling.zero.time.ZDT0;
 
 public interface DialectSqlEntities extends Identified, Versioned, Deleted, Audited, Numbered, SqlEntities {
-  default <T extends DialectSqlEntities> T initWithUserId(String userId) {
-    initVersion();
+  default <T extends DialectSqlEntities> T initWithUid(String userId) {
+    initVer();
     sinDd(String0.N);
-    return sinInvalid(String0.N).setLastModifyDateTime(Date0.on().dateTime()).setLastModifyUserId(userId);
+    return sinIvd(String0.N).setLmDsz(ZDT0.on().dTSZ()).setLmUid(userId);
   }
 
-  default <T extends DialectSqlEntities> T initWithUserIdAndId(String userId, String id) {
-    return initWithUserIdNoId(userId, id, id);
+  default <T extends DialectSqlEntities> T initWithUidAndId(String userId, String id) {
+    return initWithUidNoId(userId, id, id);
   }
 
-  default <T extends DialectSqlEntities> T initWithUserIdNoId(String userId, String no, String id) {
+  default <T extends DialectSqlEntities> T initWithUidNoId(String userId, String no, String id) {
     sinId(id);
     sinNo(no);
-    return initWithUserId(userId);
+    return initWithUid(userId);
   }
 }

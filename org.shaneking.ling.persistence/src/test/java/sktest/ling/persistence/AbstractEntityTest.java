@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AbstractEntityTest extends SKUnit {
   String id = "1610866165373_KbTy6GDVwpB5rAYJjJb";
   String userId = "1610866165373_eXabaDd3OiEyivRv1GI";
-  String dateTime = "2021-01-16 14:49:25";
+  String dateTimeSssZone = "2021-01-16 14:49:25.123+0800";
   MysqlSqlEntityTest.DialectSqlEntityPrepareMysql dialectSqlEntityPrepareMysql = new MysqlSqlEntityTest.DialectSqlEntityPrepareMysql();
   @Mock
   private ResultSet resultSet;
@@ -41,9 +41,9 @@ class AbstractEntityTest extends SKUnit {
   @BeforeEach
   void beforeEach() {
     dialectSqlEntityPrepareMysql.setHasLength("hasLength").setNoGetMethod("noGetMethod").setNotNullCol("notNullCol").setUniqueCol("uniqueCol").setWithoutAnnotation("withoutAnnotation").setReName("reName").setLongText("longText");
-//    mysqlIdAdtVerEntity.setVersion(1).setLastModifyDateTime(Date0.on().dateTime()).setLastModifyUserId(userId).setInvalid(String0.N).setId(id);
-    dialectSqlEntityPrepareMysql.initWithUserIdAndId(userId, id);
-    dialectSqlEntityPrepareMysql.setLastModifyDateTime(dateTime);
+//    mysqlIdAdtVerEntity.setVersion(1).setLastModifyDateTime(ZDT0.on().dateTimesZone()).setLastModifyUserId(userId).setInvalid(String0.N).setId(id);
+    dialectSqlEntityPrepareMysql.initWithUidAndId(userId, id);
+    dialectSqlEntityPrepareMysql.setLmDsz(dateTimeSssZone);
   }
 
 
@@ -52,7 +52,7 @@ class AbstractEntityTest extends SKUnit {
     DialectSqlEntityPrepareWithoutTableName withoutTableName = new DialectSqlEntityPrepareWithoutTableName();
     withoutTableName.initTableInfo();
     withoutTableName.nullSetter();
-    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=null, version=null, dd=null, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", withoutTableName.toString());
+    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=null, ver=null, dd=null, ivd=null, lmDsz=null, lmUid=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", withoutTableName.toString());
     dialectSqlEntityPrepareWithLowerClassName lowerClassName = new dialectSqlEntityPrepareWithLowerClassName();
     lowerClassName.initTableInfo();
   }
@@ -122,11 +122,11 @@ class AbstractEntityTest extends SKUnit {
 
     Mockito.when(resultSet.getString(Identified.FIELD__ID)).thenReturn(id);
     Mockito.when(resultSet.getString(Deleted.FIELD__DD)).thenReturn(null);
-    Mockito.when(resultSet.getInt(Versioned.FIELD__VERSION)).thenReturn(1);
-    dialectSqlEntityPrepareWithoutTableName.setSelectList(List0.newArrayList(Identified.FIELD__ID, Deleted.FIELD__DD, Versioned.FIELD__VERSION, String0.ALPHABET));
+    Mockito.when(resultSet.getInt(Versioned.FIELD__VER)).thenReturn(1);
+    dialectSqlEntityPrepareWithoutTableName.setSelectList(List0.newArrayList(Identified.FIELD__ID, Deleted.FIELD__DD, Versioned.FIELD__VER, String0.ALPHABET));
     dialectSqlEntityPrepareWithoutTableName.mapRow(resultSet);
 
-    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, version=1, dd=N, invalid=null, lastModifyDateTime=null, lastModifyUserId=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", dialectSqlEntityPrepareWithoutTableName.toString());
+    assertEquals("DialectSqlEntityPrepareWithoutTableName(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, ver=1, dd=N, ivd=null, lmDsz=null, lmUid=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", dialectSqlEntityPrepareWithoutTableName.toString());
   }
 
   @Test

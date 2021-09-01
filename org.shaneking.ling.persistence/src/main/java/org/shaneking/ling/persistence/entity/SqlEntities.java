@@ -162,8 +162,8 @@ public interface SqlEntities extends Entities {
     for (String idColumn : this.getIdFieldNameList()) {
       sqlList.add(this.createColumnStatement(idColumn, true));
     }
-    for (String versionColumn : this.getVerFieldNameList()) {
-      sqlList.add(this.createColumnStatement(versionColumn, true));
+    for (String verColumn : this.getVerFieldNameList()) {
+      sqlList.add(this.createColumnStatement(verColumn, true));
     }
     for (String columnName : this.getFieldNameList()) {
       if (!this.getIdFieldNameList().contains(columnName) && !this.getVerFieldNameList().contains(columnName)) {

@@ -9,21 +9,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Accessors(chain = true)
-public class LocalDate0 {
+public class LD0 {
   @Getter
   @Setter
   private LocalDate localDate;
 
-  private LocalDate0(LocalDate localDate) {
+  private LD0(LocalDate localDate) {
     this.localDate = localDate;
   }
 
-  public static LocalDate0 on() {
-    return LocalDate0.on(LocalDate.now());
+  public static LD0 on() {
+    return LD0.on(LocalDate.now());
   }
 
-  public static LocalDate0 on(LocalDate localDate) {
-    return new LocalDate0(localDate);
+  public static LD0 on(LocalDate localDate) {
+    return new LD0(localDate);
   }
 
   public String date() {
@@ -34,11 +34,11 @@ public class LocalDate0 {
     return this.getLocalDate().format(DateTimeFormatter.ofPattern(pattern));
   }
 
-  public LocalDate0 parse(String s) {
+  public LD0 parse(String s) {
     return parse(Date0.Y_M_D, s);
   }
 
-  public LocalDate0 parse(String pattern, String s) {
+  public LD0 parse(String pattern, String s) {
     return this.setLocalDate(LocalDate.parse(s, DateTimeFormatter.ofPattern(pattern)));
   }
 
