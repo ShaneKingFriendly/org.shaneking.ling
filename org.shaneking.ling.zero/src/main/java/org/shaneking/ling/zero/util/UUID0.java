@@ -2,6 +2,7 @@ package org.shaneking.ling.zero.util;
 
 import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.time.LDT0;
 
 import java.util.UUID;
 
@@ -33,7 +34,7 @@ public class UUID0 {
   }
 
   public static String dMl37(UUID uuid) {
-    return Date0.on().datetimes() + String0.MINUS + l19(uuid);
+    return LDT0.on().dts() + String0.MINUS + l19(uuid);
   }
 
   public static String dUl37() {
@@ -41,7 +42,7 @@ public class UUID0 {
   }
 
   public static String dUl37(UUID uuid) {
-    return Date0.on().datetimes() + String0.UNDERLINE + l19(uuid);
+    return LDT0.on().dts() + String0.UNDERLINE + l19(uuid);
   }
 
   public static String l19() {
