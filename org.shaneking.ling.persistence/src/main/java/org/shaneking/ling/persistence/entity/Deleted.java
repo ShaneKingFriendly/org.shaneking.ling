@@ -11,7 +11,7 @@ import javax.persistence.Transient;
  * <p>
  * when req rmv entity
  * 1.uuid0.cul33
- * 2.update table set dd = 'uuid0.cul33', last_modify_date_time = ..., last_modify_user_id = ... where ...
+ * 2.update table set dd = 'uuid0.cul33', lm_dsz = ..., lm_uid = ... where ...
  * 3.delete relTable where relId in (select id from table where dd = 'uuid0.cul33')
  * 4.update relTable set relCol = '' where relId in (select id from table where dd = 'uuid0.cul33')
  * 5.insert into table_d (cols) select cols from table where dd = 'uuid0.cul33'
@@ -19,7 +19,7 @@ import javax.persistence.Transient;
  * <p>
  * when req del entity
  * 1.uuid0.cul33
- * 2.update table set dd = 'uuid0.cul33', last_modify_date_time = ..., last_modify_user_id = ... where ...
+ * 2.update table set dd = 'uuid0.cul33', lm_dsz = ..., lm_uid = ... where ...
  * 3.delete relTable where relId in (select id from table where dd = 'uuid0.cul33')
  * 4.update relTable set relCol = '' where relId in (select id from table where dd = 'uuid0.cul33')
  */
