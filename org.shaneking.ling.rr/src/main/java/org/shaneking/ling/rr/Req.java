@@ -48,4 +48,15 @@ public class Req<C, E, O, R, P> {
   public static <C, E, O, R, P> Req<C, E, O, R, P> build(P pub, String enc) {
     return new Req<C, E, O, R, P>().setPub(pub).setEnc(enc);
   }
+
+  public C detach() {
+    C rtn = ctx;
+    ctx = null;
+    return rtn;
+  }
+
+  public Req<C, E, O, R, P> attach(C c) {
+    this.ctx = c;
+    return this;
+  }
 }

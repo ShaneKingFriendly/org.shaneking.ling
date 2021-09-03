@@ -82,4 +82,15 @@ public class Resp<D> {
     }
     return this.setMsg(String0.null2EmptyTo(this.getMsg(), message));
   }
+
+  public Boolean detach() {
+    Boolean rtn = rbk;
+    rbk = null;
+    return rtn;
+  }
+
+  public Resp<D> attach(Boolean rbk) {
+    this.rbk = rbk;
+    return this;
+  }
 }
