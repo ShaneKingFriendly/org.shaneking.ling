@@ -7,16 +7,16 @@ import javax.persistence.Transient;
  * <p>
  * scenario1: some resources do not want to be opened to other tenants
  */
-public interface OpenVisible extends Tenanted {
+public interface Shared {
   @Transient
-  String ERR_CODE__PERMISSION_DENIED = "OPEN_VISIBLE__PERMISSION_DENIED";
+  String ERR_CODE__NOT_SHARED = "SHARED__NOT_SHARED";
 
   @Transient
-  String COLUMN__OV = "ov";
+  String COLUMN__SHARE = "share";
   @Transient
-  String FIELD__OV = "ov";
+  String FIELD__SHARE = "share";
 
-  String getOv();
+  String getShare();
 
-  <T extends OpenVisible> T setOv(String ov);
+  <T extends Shared> T setShare(String share);
 }

@@ -16,8 +16,10 @@ class SKC1Test {
   @Test
   void test() {
     assertAll(
-      () -> assertEquals("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"rtn\":1}", SKC1.decrypt("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8dcfoFMyiXjBil7DH5l61v0Lo/SwEEK5xTVyuMTFudTeQdUUmAVUiuVk4vrOn8NgMZKPuUFmf6zENVMCmznwiKo")),
-      () -> assertEquals("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8cuDbGx3iltSrCg3pUiEt/onwQC1L9bcIgn36b6P7anotLu7HEVhz6w7ibxrGL9x678BH4Bmj76KKSYXNCogdvM", SKC1.encrypt("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\"},\"rtn\":1}")),
+      () -> assertEquals("E+MK32CVXixTTTOO1qj87l5vpYHfjEsIuIs8usDQV3wiHjrIB6mPFHPr+puaXS4a0ydTyJDDxTFg2x9CXbDzaj1cUts99qHO7e+dEpC3XZt3m4YTMk75u8JyQYFwGr1mvdnu0kxLYIe7nbSbsrcqyQ=="
+        , SKC1.encrypt("{\"ext\":{\"tenantNo\":\"tstTenantNo\",\"userNo\":\"tstUserNo\"},\"obj\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"rtn\":1}")),
+      () -> assertEquals("E+MK32CVXixTTTOO1qj87l5vpYHfjEsIuIs8usDQV3wiHjrIB6mPFHPr+puaXS4aHvKngJ3V2+eDw8AJ9LqXjVhe3bBWpT1wFyDvgQztlXebcNL87fKMOJ42CE9k234lEkfiETuanKawvgTwwJ1TcUo+5QWZ/rMQ1UwKbOfCIqg="
+        , SKC1.encrypt("{\"ext\":{\"tenantNo\":\"tstTenantNo\",\"userNo\":\"tstUserNo\"},\"obj\":{\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\"},\"rtn\":1}")),
 
       () -> assertEquals("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"whereConditions\":{\"tenantId\":{\"op\":\"=\",\"cs\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"}},\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"tenantId\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"},\"rtn\":1}", SKC1.decrypt("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8ekWhVfldssP4loE+0WhISX/hCnovJeStZRr7LhJxoHu+L4wdNQykpa/D3O/LQiGcVJvIHeAhMGNMBXvOO5LHIZTdIvZABx5C1FjwAgvhHreTKBMqbMuiI3u20F/VM5t/M9XFLbPfahzu3vnRKQt12bd5uGEzJO+bvCckGBcBq9Ztiz+efV4rI8hY437LEBtxg0fY5T0mkOWzfnUXTd0PuYE//w33/xDiz2+Uyc0HQKdr3Z7tJMS2CHu520m7K3Ksk=")),
       () -> assertEquals("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8ekWhVfldssP4loE+0WhISX/hCnovJeStZRr7LhJxoHu+L4wdNQykpa/D3O/LQiGcVJvIHeAhMGNMBXvOO5LHIZTdIvZABx5C1FjwAgvhHreTKBMqbMuiI3u20F/VM5t/M9XFLbPfahzu3vnRKQt12bd5uGEzJO+bvCckGBcBq9Ztiz+efV4rI8hY437LEBtxg0fY5T0mkOWzfnUXTd0PuYE//w33/xDiz2+Uyc0HQKdr3Z7tJMS2CHu520m7K3Ksk=", SKC1.encrypt("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"whereConditions\":{\"tenantId\":{\"op\":\"=\",\"cs\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"}},\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"tenantId\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"},\"rtn\":1}")),

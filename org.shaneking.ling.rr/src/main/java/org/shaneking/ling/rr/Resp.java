@@ -65,7 +65,7 @@ public class Resp<D> {
     String code = exp.getClass().getName();
     String message = String0.null2EmptyTo(exp.getMessage(), exp.toString());
     if (exp instanceof RespException) {
-      if (exp instanceof NdrbRespException) {
+      if (exp instanceof RbkRespException) {
         rbk = true;
       }
       Resp resp = ((RespException) exp).getResp();

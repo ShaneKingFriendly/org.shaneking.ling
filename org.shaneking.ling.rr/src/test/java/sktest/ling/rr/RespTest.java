@@ -2,7 +2,7 @@ package sktest.ling.rr;
 
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jackson.databind.OM3;
-import org.shaneking.ling.rr.NdrbRespException;
+import org.shaneking.ling.rr.RbkRespException;
 import org.shaneking.ling.rr.Resp;
 import org.shaneking.ling.rr.RespException;
 import org.shaneking.ling.test.SKUnit;
@@ -60,24 +60,24 @@ class RespTest extends SKUnit {
       },
       () -> {
         try {
-          throw new NdrbRespException(Resp.failed(String0.ALPHABET), new ZeroException());
+          throw new RbkRespException(Resp.failed(String0.ALPHABET), new ZeroException());
         } catch (RespException e) {
           assertEquals("{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"msg\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       },
       () -> {
         try {
-          NdrbRespException rbkRespException = new NdrbRespException(Resp.failed(), new ZeroException());
+          RbkRespException rbkRespException = new RbkRespException(Resp.failed(), new ZeroException());
           throw rbkRespException.setResp(null);
         } catch (RespException e) {
-          assertEquals("{\"code\":\"org.shaneking.ling.rr.NdrbRespException\",\"msg\":\"-1\",\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"code\":\"org.shaneking.ling.rr.RbkRespException\",\"msg\":\"-1\",\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       },
       () -> {
         try {
-          throw new NdrbRespException(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION), new ZeroException());
+          throw new RbkRespException(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION), new ZeroException());
         } catch (RespException e) {
-          assertEquals("{\"code\":\"org.shaneking.ling.rr.NdrbRespException\",\"msg\":\"-1\",\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"code\":\"org.shaneking.ling.rr.RbkRespException\",\"msg\":\"-1\",\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       }
     );

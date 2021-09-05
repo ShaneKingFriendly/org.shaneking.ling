@@ -55,7 +55,7 @@ public class InetAddress0 {
   }
 
   public static boolean existInLocalHosts(String hostName) {
-    return LOCAL_ADDRESS_LIST.parallelStream().filter(cacheEntry0 -> cacheEntry0.hostName.equalsIgnoreCase(hostName)).count() > 0;
+    return LOCAL_ADDRESS_LIST.stream().filter(cacheEntry0 -> cacheEntry0.hostName.equalsIgnoreCase(hostName)).count() > 0;
   }
 
   public static Map<String, Object> getAddressCacheMap() {

@@ -61,7 +61,7 @@ public abstract class AbstractDialectSqlEntityPrepare extends AbstractDialectSql
       ocMap = Map0.newHashMap();
       this.setHavingConditions(ocMap);
     }
-    return ocMap.keySet().parallelStream().filter(Objects::nonNull).filter(s -> s.equals(fieldName) || s.startsWith(fieldName + String0.UNDERLINE + String0.UNDERLINE)).map(s -> this.getHavingConditions().get(s)).collect(Collectors.toList());
+    return ocMap.keySet().stream().filter(Objects::nonNull).filter(s -> s.equals(fieldName) || s.startsWith(fieldName + String0.UNDERLINE + String0.UNDERLINE)).map(s -> this.getHavingConditions().get(s)).collect(Collectors.toList());
   }
 
   @Override
@@ -71,7 +71,7 @@ public abstract class AbstractDialectSqlEntityPrepare extends AbstractDialectSql
       ocMap = Map0.newHashMap();
       this.setWhereConditions(ocMap);
     }
-    return ocMap.keySet().parallelStream().filter(Objects::nonNull).filter(s -> s.equals(fieldName) || s.startsWith(fieldName + String0.UNDERLINE + String0.UNDERLINE)).map(s -> this.getWhereConditions().get(s)).collect(Collectors.toList());
+    return ocMap.keySet().stream().filter(Objects::nonNull).filter(s -> s.equals(fieldName) || s.startsWith(fieldName + String0.UNDERLINE + String0.UNDERLINE)).map(s -> this.getWhereConditions().get(s)).collect(Collectors.toList());
   }
 
   public Condition forceHavingCondition(@NonNull String field) {
