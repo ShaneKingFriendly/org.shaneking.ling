@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class OM3Test extends SKUnit {
 
   @Test
-  void aaa() {
+  void nullTest() {
     assertAll(
       () -> assertThrows(NullPointerException.class, () -> OM3.appendCtxIgnoredFilter(null)),
       () -> assertNotNull(OM3.appendCtxIgnoredFilter(new ObjectMapper().setFilterProvider(new FilterProvider() {
@@ -147,8 +147,9 @@ class OM3Test extends SKUnit {
       () -> assertEquals("[]", OM3.writeValueAsString(List0.newArrayList())),
       () -> assertEquals("\"java.lang.Object\"", OM3.writeValueAsString(Object.class)),
       () -> assertEquals("\"java.lang.String\"", OM3.writeValueAsString(String.class)),
-//      () -> assertNull(OM3.writeValueAsString(OM3.om(), null, true)),
-//      () -> assertThrows(ZeroException.class, () -> OM3.writeValueAsString(OM3.om(), null, false)),
+      () -> assertEquals("1", OM3.writeValueAsString(1)),
+      () -> assertThrows(ZeroException.class, () -> OM3.writeValueAsString(new HelloWriteValueAsString())),
+      () -> assertNull(OM3.writeValueAsString(OM3.om(), new HelloWriteValueAsString(), true)),
       () -> assertNotNull(String0.DOT)
     );
   }
@@ -159,6 +160,10 @@ class OM3Test extends SKUnit {
   public static class HelloReadValue {
     @Getter
     @Setter
+    private String str;
+  }
+
+  public static class HelloWriteValueAsString {
     private String str;
   }
 }
