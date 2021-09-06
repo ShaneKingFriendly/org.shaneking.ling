@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DistributedFileLockTest {
   @Test
-  void test() {
+  void scenario1() {
     String lockKey = "/tmp/org.shaneking.ling.zero/sktest.ling.zero.util.concurrent.locks.DistributedFileLockTest.lock";
     new File(lockKey).delete();
 
