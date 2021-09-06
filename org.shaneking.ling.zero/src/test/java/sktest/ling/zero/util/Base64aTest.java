@@ -1,7 +1,9 @@
 package sktest.ling.zero.util;
 
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.*;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Base64a;
 
@@ -20,23 +22,9 @@ class Base64aTest {
   }
 
   @ParameterizedTest
-  @EmptySource
+//  @EmptySource
   @MethodSource("methodSource")
-  @NullSource
-  @NullAndEmptySource
-//  @ValueSource(strings = {"从懵懂的Wordpress，至Java+Bootstrap自建，到现在的静态化Markdown。部分内容也由于格式等原因未能完全迁移"})///will exception
-  void encode(String s) {
-    if (!String0.isNullOrEmpty(s)) {
-      assertAll(
-        () -> assertNotEquals(new String(Base64.getEncoder().encode(s.getBytes())), Base64a.encode(s.getBytes()))
-      );
-    }
-  }
-
-  @ParameterizedTest
-  @EmptySource
-  @MethodSource("methodSource")
-  @NullSource
+//  @NullSource
   @NullAndEmptySource
   @ValueSource(strings = {"关注软件的维护性，可扩展性，致力于软件的高质量，快速开发"})
   void decode(String s) {
@@ -44,6 +32,20 @@ class Base64aTest {
       assertAll(
         () -> assertNotEquals(new String(Base64.getDecoder().decode(Base64.getEncoder().encode(s.getBytes())))
           , new String(Base64a.decode(Base64a.encode(s.getBytes()))))
+      );
+    }
+  }
+
+  @ParameterizedTest
+//  @EmptySource
+  @MethodSource("methodSource")
+//  @NullSource
+  @NullAndEmptySource
+//  @ValueSource(strings = {"从懵懂的Wordpress，至Java+Bootstrap自建，到现在的静态化Markdown。部分内容也由于格式等原因未能完全迁移"})///will exception
+  void encode(String s) {
+    if (!String0.isNullOrEmpty(s)) {
+      assertAll(
+        () -> assertNotEquals(new String(Base64.getEncoder().encode(s.getBytes())), Base64a.encode(s.getBytes()))
       );
     }
   }
