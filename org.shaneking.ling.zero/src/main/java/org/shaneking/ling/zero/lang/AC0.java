@@ -25,10 +25,6 @@ public class AC0 {
     return rtn;
   }
 
-  public static boolean close(AutoCloseable autoCloseable, int times) {
-    return close(autoCloseable, true, times);
-  }
-
   public static boolean close(AutoCloseable autoCloseable, boolean lastQuietly, int times) {
     boolean closed = false;
 //    while (!closed && times > 0) {
@@ -37,5 +33,9 @@ public class AC0 {
       times--;
     }
     return closed ? closed : close(autoCloseable, lastQuietly);
+  }
+
+  public static boolean close(AutoCloseable autoCloseable, int times) {
+    return close(autoCloseable, true, times);
   }
 }

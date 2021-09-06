@@ -14,11 +14,15 @@ public interface ZeroCache {
   String ERR_CODE__CACHE_HIT_MISS = "ZERO_CACHE__CACHE_HIT_MISS";
   String ERR_CODE__CACHE_HIT_PART = "ZERO_CACHE__CACHE_HIT_PART";
 
+  ThreadLocal<Map<String, List<String>>> DEL_MAP = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key list
+  ThreadLocal<Map<String, Map<String, List<String>>>> DEL_MAP2 = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key, field list
+
   LruMap<String, String> LRU_MAP = new LruMap<>(1023);
   LruMap<String, LruMap<String, String>> LRU_MAP2 = new LruMap<>(1023);
 
-  ThreadLocal<Map<String, List<String>>> DEL_MAP = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key list
-  ThreadLocal<Map<String, Map<String, List<String>>>> DEL_MAP2 = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key, field list
+  default String currentTransactionName() {
+    return null;
+  }
 
   default Boolean del(@NonNull String key) {
     return del(false, key);
@@ -80,19 +84,15 @@ public interface ZeroCache {
     LRU_MAP2.computeIfAbsent(key, k -> new LruMap<>(1023)).put(field, value);
   }
 
+  default boolean inTransactional() {
+    return false;
+  }
+
   default void set(@NonNull String key, @NonNull String value) {
     LRU_MAP.put(key, value);
   }
 
   default void set(@NonNull String key, int seconds, @NonNull String value) {
     LRU_MAP.put(key, value);
-  }
-
-  default boolean inTransactional() {
-    return false;
-  }
-
-  default String currentTransactionName() {
-    return null;
   }
 }

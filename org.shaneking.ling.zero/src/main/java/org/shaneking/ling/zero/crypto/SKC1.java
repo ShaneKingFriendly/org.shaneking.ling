@@ -20,10 +20,10 @@ import java.util.UUID;
  */
 @Slf4j
 public class SKC1 {
-  public static final String SK__CRYPTO__ALGORITHM_NAME = "SKC1";
-  public static final String ENCRYPTED_PREFIX = String0.wrapBracket(SK__CRYPTO__ALGORITHM_NAME);
+  public static final String ALGORITHM_NAME = "SKC1";
   //ILoveYou
   public static final String DEFAULT_SALT = "494c6f7665596f75";
+  public static final String ENCRYPTED_PREFIX = String0.wrapBracket(ALGORITHM_NAME);
 
   private static final LruMap<String, Cipher> SALT_DECRYPT_MAP = new LruMap<>(13);
   private static final LruMap<String, Cipher> SALT_ENCRYPT_MAP = new LruMap<>(13);
@@ -67,7 +67,7 @@ public class SKC1 {
   }
 
   public static String encrypt(String content, boolean quietly) {
-    return encrypt(content, DEFAULT_SALT);
+    return encrypt(content, DEFAULT_SALT, quietly);
   }
 
   public static String encrypt(String content, String salt) {

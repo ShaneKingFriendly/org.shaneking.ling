@@ -30,37 +30,6 @@ public class Base64a {
     49, 50, 51
   };
 
-  public static String encode(byte[] a) {
-    int totalLen = a.length;
-    int groupNum = a.length / 3;
-    int lastGroup = totalLen - groupNum * 3;
-    int index = 0;
-    StringBuffer result = new StringBuffer();
-    for (int i = 0; i < groupNum; i++) {
-      int first = a[index++] & 0xff;
-      int second = a[index++] & 0xff;
-      int third = a[index++] & 0xff;
-      result.append(intToBase64[first >> 2]);
-      result.append(intToBase64[(first << 4) & 0x3f | second >> 4]);
-      result.append(intToBase64[(second << 2) & 0x3f | third >> 6]);
-      result.append(intToBase64[third & 0x3f]);
-    }
-    if (lastGroup != 0) {
-      int first = a[index++] & 0xff;
-      result.append(intToBase64[first >> 2]);
-      if (lastGroup == 1) {
-        result.append(intToBase64[(first << 4) & 0x3f]);
-        result.append("==");
-      } else {
-        int second = a[index++] & 0xff;
-        result.append(intToBase64[(first << 4) & 0x3f | second >> 4]);
-        result.append(intToBase64[(second << 2) & 0x3f]);
-        result.append("=");
-      }
-    }
-    return result.toString();
-  }
-
   public static byte[] decode(String s) {
     int length = s.length();
     int groupNum = length / 4;
@@ -100,6 +69,37 @@ public class Base64a {
       }
     }
     return result;
+  }
+
+  public static String encode(byte[] a) {
+    int totalLen = a.length;
+    int groupNum = a.length / 3;
+    int lastGroup = totalLen - groupNum * 3;
+    int index = 0;
+    StringBuffer result = new StringBuffer();
+    for (int i = 0; i < groupNum; i++) {
+      int first = a[index++] & 0xff;
+      int second = a[index++] & 0xff;
+      int third = a[index++] & 0xff;
+      result.append(intToBase64[first >> 2]);
+      result.append(intToBase64[(first << 4) & 0x3f | second >> 4]);
+      result.append(intToBase64[(second << 2) & 0x3f | third >> 6]);
+      result.append(intToBase64[third & 0x3f]);
+    }
+    if (lastGroup != 0) {
+      int first = a[index++] & 0xff;
+      result.append(intToBase64[first >> 2]);
+      if (lastGroup == 1) {
+        result.append(intToBase64[(first << 4) & 0x3f]);
+        result.append("==");
+      } else {
+        int second = a[index++] & 0xff;
+        result.append(intToBase64[(first << 4) & 0x3f | second >> 4]);
+        result.append(intToBase64[(second << 2) & 0x3f]);
+        result.append("=");
+      }
+    }
+    return result.toString();
   }
 
   private static int base64Toint(char c) {

@@ -53,16 +53,16 @@ public class Date0 {
     return format(DATE_TIME);
   }
 
-  public String dateTimeZone() {
-    return format(DATE_TIME_ZONE);
-  }
-
   public String dateTimes() {
     return format(DATE_TIME_SSS);
   }
 
   public String dateTimesZone() {
     return format(DATE_TIME_SSS_ZONE);
+  }
+
+  public String dateTimeZone() {
+    return format(DATE_TIME_ZONE);
   }
 
   public String datetime() {
@@ -89,16 +89,16 @@ public class Date0 {
     return format(H_MI_S);
   }
 
-  public String timeZone() {
-    return format(TIME_ZONE);
-  }
-
   public String timeS() {
     return format(TIME_SSS);
   }
 
   public String timeSZone() {
     return format(TIME_SSS_ZONE);
+  }
+
+  public String timeZone() {
+    return format(TIME_ZONE);
   }
 
   public String times() {

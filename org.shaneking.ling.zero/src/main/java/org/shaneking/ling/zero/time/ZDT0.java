@@ -42,14 +42,6 @@ public class ZDT0 {
     return p(Date0.DATE_TIME, s);
   }
 
-  public String dTZ() {
-    return f(Date0.DATE_TIME_ZONE);
-  }
-
-  public ZDT0 dTZ(String s) {
-    return p(Date0.DATE_TIME_ZONE, s);
-  }
-
   public String dTS() {
     return f(Date0.DATE_TIME_SSS);
   }
@@ -64,6 +56,14 @@ public class ZDT0 {
 
   public ZDT0 dTSZ(String s) {
     return p(Date0.DATE_TIME_SSS_ZONE, s);
+  }
+
+  public String dTZ() {
+    return f(Date0.DATE_TIME_ZONE);
+  }
+
+  public ZDT0 dTZ(String s) {
+    return p(Date0.DATE_TIME_ZONE, s);
   }
 
   public String dt() {
@@ -98,14 +98,6 @@ public class ZDT0 {
     return p(Date0.H_MI_S, s);
   }
 
-  public String tZ() {
-    return f(Date0.TIME_ZONE);
-  }
-
-  public ZDT0 tZ(String s) {
-    return p(Date0.TIME_ZONE, s);
-  }
-
   public String tS() {
     return f(Date0.TIME_SSS);
   }
@@ -120,6 +112,14 @@ public class ZDT0 {
 
   public ZDT0 tSZ(String s) {
     return p(Date0.TIME_SSS_ZONE, s);
+  }
+
+  public String tZ() {
+    return f(Date0.TIME_ZONE);
+  }
+
+  public ZDT0 tZ(String s) {
+    return p(Date0.TIME_ZONE, s);
   }
 
   public String ts() {

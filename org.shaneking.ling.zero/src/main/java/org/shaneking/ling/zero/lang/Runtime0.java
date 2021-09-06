@@ -20,20 +20,16 @@ public class Runtime0 {
     return exec(command, DEFAULT_TIMEOUT_SECONDS);
   }
 
-  public static List<String> exec(String command, long timeout) {
-    return exec(command, timeout, false, null);
-  }
-
-  public static List<String> exec(String command, long timeout, int maxRecordSize) {
-    return exec(command, timeout, false, null, maxRecordSize);
-  }
-
   public static List<String> exec(String command, boolean value4pause, String pauseFlag) {
     return exec(command, DEFAULT_TIMEOUT_SECONDS, value4pause, pauseFlag);
   }
 
   public static List<String> exec(String command, boolean value4pause, String pauseFlag, int maxRecordSize) {
     return exec(command, DEFAULT_TIMEOUT_SECONDS, value4pause, pauseFlag, maxRecordSize);
+  }
+
+  public static List<String> exec(String command, long timeout) {
+    return exec(command, timeout, false, null);
   }
 
   public static List<String> exec(String command, long timeout, boolean value4pause, String pauseFlag) {
@@ -73,5 +69,9 @@ public class Runtime0 {
       }
     }
     return rtnList;
+  }
+
+  public static List<String> exec(String command, long timeout, int maxRecordSize) {
+    return exec(command, timeout, false, null, maxRecordSize);
   }
 }

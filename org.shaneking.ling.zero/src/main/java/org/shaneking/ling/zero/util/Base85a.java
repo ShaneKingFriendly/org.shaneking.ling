@@ -18,38 +18,15 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 public class Base85a {
   // Constants used in encoding and decoding
-  private static final long Power4 = 52200625; // 85^4
-  private static final long Power3 = 614125;  // 85^3
   private static final long Power2 = 7225;   // 85^2
+  private static final long Power3 = 614125;  // 85^3
+  private static final long Power4 = 52200625; // 85^4
   private static Encoder RFC1924ENCODER, Z85ENCODER, ASCII85ENCODER;
   private static Decoder RFC1924DECODER, Z85DECODER, ASCII85DECODER;
 
-  private static void buildDecodeMap(byte[] encodeMap, byte[] decodeMap) {
-    Arrays.fill(decodeMap, (byte) -1);
-    for (byte i = 0, len = (byte) encodeMap.length; i < len; i++) {
-      byte b = encodeMap[i];
-      decodeMap[b] = i;
-    }
-  }
-
-  public static Encoder getRfc1924Encoder() {
-    if (RFC1924ENCODER == null) RFC1924ENCODER = new Rfc1924Encoder();
-    return RFC1924ENCODER; // No worry if multiple encoder is created in multiple threads. Same for all.
-  }
-
-  public static Decoder getRfc1924Decoder() {
-    if (RFC1924DECODER == null) RFC1924DECODER = new Rfc1924Decoder();
-    return RFC1924DECODER;
-  }
-
-  public static Encoder getZ85Encoder() {
-    if (Z85ENCODER == null) Z85ENCODER = new Z85Encoder();
-    return Z85ENCODER;
-  }
-
-  public static Decoder getZ85Decoder() {
-    if (Z85DECODER == null) Z85DECODER = new Z85Decoder();
-    return Z85DECODER;
+  public static Decoder getAscii85Decoder() {
+    if (ASCII85DECODER == null) ASCII85DECODER = new Ascii85Decoder();
+    return ASCII85DECODER;
   }
 
   public static Encoder getAscii85Encoder() {
@@ -57,9 +34,32 @@ public class Base85a {
     return ASCII85ENCODER;
   }
 
-  public static Decoder getAscii85Decoder() {
-    if (ASCII85DECODER == null) ASCII85DECODER = new Ascii85Decoder();
-    return ASCII85DECODER;
+  public static Decoder getRfc1924Decoder() {
+    if (RFC1924DECODER == null) RFC1924DECODER = new Rfc1924Decoder();
+    return RFC1924DECODER;
+  }
+
+  public static Encoder getRfc1924Encoder() {
+    if (RFC1924ENCODER == null) RFC1924ENCODER = new Rfc1924Encoder();
+    return RFC1924ENCODER; // No worry if multiple encoder is created in multiple threads. Same for all.
+  }
+
+  public static Decoder getZ85Decoder() {
+    if (Z85DECODER == null) Z85DECODER = new Z85Decoder();
+    return Z85DECODER;
+  }
+
+  public static Encoder getZ85Encoder() {
+    if (Z85ENCODER == null) Z85ENCODER = new Z85Encoder();
+    return Z85ENCODER;
+  }
+
+  private static void buildDecodeMap(byte[] encodeMap, byte[] decodeMap) {
+    Arrays.fill(decodeMap, (byte) -1);
+    for (byte i = 0, len = (byte) encodeMap.length; i < len; i++) {
+      byte b = encodeMap[i];
+      decodeMap[b] = i;
+    }
   }
 
   /**
@@ -272,155 +272,7 @@ public class Base85a {
     }
   }
 
-  ///https://tools.ietf.org/html/rfc1924
-
-  /**
-   * This class encodes data in the Base85 encoding scheme using the character set described by IETF RFC 1924,
-   * but in the efficient algorithm of Ascii85 and Z85.
-   * This scheme does not use quotes, comma, or slash, and can usually be used in sql, json, csv etc. without escaping.
-   * <p>
-   * Encoder instances can be safely shared by multiple threads.
-   */
-  public static class Rfc1924Encoder extends Encoder {
-    private static final byte[] ENCODE_MAP = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~".getBytes(StandardCharsets.US_ASCII);
-
-    @Override
-    protected byte[] getEncodeMap() {
-      return ENCODE_MAP;
-    }
-  }
-
-  ///https://rfc.zeromq.org/spec:32/Z85/
-
-  /**
-   * This class encodes data in the Base85 encoding scheme Z85 as described by ZeroMQ.
-   * This scheme does not use quotes or comma, and can usually be used in sql, json, csv etc. without escaping.
-   * <p>
-   * Encoder instances can be safely shared by multiple threads.
-   */
-  public static class Z85Encoder extends Encoder {
-    private static final byte[] ENCODE_MAP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&<>()[]{}@%$#".getBytes(StandardCharsets.US_ASCII);
-
-    @Override
-    protected byte[] getEncodeMap() {
-      return ENCODE_MAP;
-    }
-  }
-
   ///https://en.wikipedia.org/wiki/Ascii85
-
-  /**
-   * This class encodes data in the Ascii85 encoding (Adobe variant without &lt;~ and ~&gt;).
-   * Supports "z" and "y" compression, which can be disabled individually.
-   * Line break is not supported.
-   * <p>
-   * Encoder instances can be safely shared by multiple threads.
-   */
-  public static class Ascii85Encoder extends Encoder {
-    private static final byte[] ENCODE_MAP = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstu".getBytes(StandardCharsets.US_ASCII);
-    private final ReadWriteLock lock = new ReentrantReadWriteLock(true);
-    private boolean useZ = true;
-    private boolean useY = true;
-
-    @Override
-    protected byte[] getEncodeMap() {
-      return ENCODE_MAP;
-    }
-
-    @Override
-    public int calcEncodedLength(byte[] data, int offset, int length) {
-      int result = super.calcEncodedLength(data, offset, length);
-      if (useZ || useY) {
-        final ByteBuffer buffer = ByteBuffer.wrap(data);
-        for (int i = offset, len = offset + length - 4; i <= len; i += 4)
-          if (useZ && data[i] == 0) {
-            if (buffer.getInt(i) == 0) result -= 4;
-          } else if (useY && data[i] == 0x20)
-            if (buffer.getInt(i) == 0x20202020) result -= 4;
-      }
-      return result;
-    }
-
-    /**
-     * Get zero compression status.
-     *
-     * @return true if enabled, false if disabled
-     */
-    public boolean getZeroCompression() {
-      lock.readLock().lock();
-      try {
-        return useZ;
-      } finally {
-        lock.readLock().unlock();
-      }
-    }
-
-    /**
-     * Set whether to enable encoding of four zeros into "z".
-     *
-     * @param compress true to enable, false to disable
-     */
-    public void setZeroCompression(boolean compress) {
-      lock.writeLock().lock();
-      try {
-        useZ = compress;
-      } finally {
-        lock.writeLock().unlock();
-      }
-    }
-
-    /**
-     * Get space compression status.
-     *
-     * @return true if enabled, false if disabled
-     */
-    public boolean getSpaceCompression() {
-      lock.readLock().lock();
-      try {
-        return useY;
-      } finally {
-        lock.readLock().unlock();
-      }
-    }
-
-    /**
-     * Set whether to enable encoding of four spaces into "y".*
-     *
-     * @param compress true to enable, false to disable
-     */
-    public void setSpaceCompression(boolean compress) {
-      lock.writeLock().lock();
-      try {
-        useY = compress;
-      } finally {
-        lock.writeLock().unlock();
-      }
-    }
-
-    @Override
-    protected int _encode(byte[] in, int ri, int rlen, byte[] out, int wi) {
-      lock.readLock().lock();
-      try {
-        return super._encode(in, ri, rlen, out, wi);
-      } finally {
-        lock.readLock().unlock();
-      }
-    }
-
-    @Override
-    protected int _writeData(long sum, byte[] map, byte[] out, int wi) {
-      if (useZ && sum == 0)
-        out[wi++] = 'z';
-
-      else if (useY && sum == 0x20202020)
-        out[wi++] = 'y';
-
-      else
-        return super._writeData(sum, map, out, wi);
-
-      return wi;
-    }
-  }
 
   /**
    * This is a skeleton class for decoding data in the Base85 encoding scheme.
@@ -677,6 +529,121 @@ public class Base85a {
     protected abstract String getName();
   }
 
+  ///https://en.wikipedia.org/wiki/Ascii85
+
+  /**
+   * This class encodes data in the Ascii85 encoding (Adobe variant without &lt;~ and ~&gt;).
+   * Supports "z" and "y" compression, which can be disabled individually.
+   * Line break is not supported.
+   * <p>
+   * Encoder instances can be safely shared by multiple threads.
+   */
+  public static class Ascii85Encoder extends Encoder {
+    private static final byte[] ENCODE_MAP = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstu".getBytes(StandardCharsets.US_ASCII);
+    private final ReadWriteLock lock = new ReentrantReadWriteLock(true);
+    private boolean useZ = true;
+    private boolean useY = true;
+
+    @Override
+    protected byte[] getEncodeMap() {
+      return ENCODE_MAP;
+    }
+
+    @Override
+    public int calcEncodedLength(byte[] data, int offset, int length) {
+      int result = super.calcEncodedLength(data, offset, length);
+      if (useZ || useY) {
+        final ByteBuffer buffer = ByteBuffer.wrap(data);
+        for (int i = offset, len = offset + length - 4; i <= len; i += 4)
+          if (useZ && data[i] == 0) {
+            if (buffer.getInt(i) == 0) result -= 4;
+          } else if (useY && data[i] == 0x20)
+            if (buffer.getInt(i) == 0x20202020) result -= 4;
+      }
+      return result;
+    }
+
+    /**
+     * Get zero compression status.
+     *
+     * @return true if enabled, false if disabled
+     */
+    public boolean getZeroCompression() {
+      lock.readLock().lock();
+      try {
+        return useZ;
+      } finally {
+        lock.readLock().unlock();
+      }
+    }
+
+    /**
+     * Set whether to enable encoding of four zeros into "z".
+     *
+     * @param compress true to enable, false to disable
+     */
+    public void setZeroCompression(boolean compress) {
+      lock.writeLock().lock();
+      try {
+        useZ = compress;
+      } finally {
+        lock.writeLock().unlock();
+      }
+    }
+
+    /**
+     * Get space compression status.
+     *
+     * @return true if enabled, false if disabled
+     */
+    public boolean getSpaceCompression() {
+      lock.readLock().lock();
+      try {
+        return useY;
+      } finally {
+        lock.readLock().unlock();
+      }
+    }
+
+    /**
+     * Set whether to enable encoding of four spaces into "y".*
+     *
+     * @param compress true to enable, false to disable
+     */
+    public void setSpaceCompression(boolean compress) {
+      lock.writeLock().lock();
+      try {
+        useY = compress;
+      } finally {
+        lock.writeLock().unlock();
+      }
+    }
+
+    @Override
+    protected int _encode(byte[] in, int ri, int rlen, byte[] out, int wi) {
+      lock.readLock().lock();
+      try {
+        return super._encode(in, ri, rlen, out, wi);
+      } finally {
+        lock.readLock().unlock();
+      }
+    }
+
+    @Override
+    protected int _writeData(long sum, byte[] map, byte[] out, int wi) {
+      if (useZ && sum == 0)
+        out[wi++] = 'z';
+
+      else if (useY && sum == 0x20202020)
+        out[wi++] = 'y';
+
+      else
+        return super._writeData(sum, map, out, wi);
+
+      return wi;
+    }
+  }
+
   ///https://tools.ietf.org/html/rfc1924
 
   /**
@@ -703,32 +670,7 @@ public class Base85a {
     }
   }
 
-  ///https://rfc.zeromq.org/spec:32/Z85/
-
-  /**
-   * This class decodes data in the Base85 encoding scheme Z85 as described by ZeroMQ.
-   * Malformed data may or may not throws IllegalArgumentException on decode; call test(byte[]) to check data if necessary.
-   * Decoder instances can be safely shared by multiple threads.
-   */
-  public static class Z85Decoder extends Decoder {
-    private static final byte[] DECODE_MAP = new byte[127];
-
-    static {
-      buildDecodeMap(Z85Encoder.ENCODE_MAP, DECODE_MAP);
-    }
-
-    @Override
-    protected String getName() {
-      return "Z85";
-    }
-
-    @Override
-    protected byte[] getDecodeMap() {
-      return DECODE_MAP;
-    }
-  }
-
-  ///https://en.wikipedia.org/wiki/Ascii85
+  ///https://tools.ietf.org/html/rfc1924
 
   /**
    * This class decodes Ascii85 encoded data (Adobe variant without &lt;~ and ~&gt;).
@@ -736,7 +678,7 @@ public class Base85a {
    * Malformed data may or may not throws IllegalArgumentException on decode; call test(byte[]) to check data if necessary.
    * Decoder instances can be safely shared by multiple threads.
    */
-  private static class Ascii85Decoder extends Decoder {
+  public static class Ascii85Decoder extends Decoder {
     private static final byte[] zeros = new byte[]{0, 0, 0, 0};
     private static final byte[] spaces = new byte[]{32, 32, 32, 32};
     private static final byte[] DECODE_MAP = new byte[127];
@@ -822,6 +764,64 @@ public class Base85a {
       int leftover = _decodeDangling(decodeMap, in, ri, buffer, re - ri);
       System.arraycopy(buf, 0, out, wi, leftover);
       return wi - wo + leftover;
+    }
+  }
+
+  ///https://rfc.zeromq.org/spec:32/Z85/
+
+  /**
+   * This class decodes data in the Base85 encoding scheme Z85 as described by ZeroMQ.
+   * Malformed data may or may not throws IllegalArgumentException on decode; call test(byte[]) to check data if necessary.
+   * Decoder instances can be safely shared by multiple threads.
+   */
+  public static class Z85Decoder extends Decoder {
+    private static final byte[] DECODE_MAP = new byte[127];
+
+    static {
+      buildDecodeMap(Z85Encoder.ENCODE_MAP, DECODE_MAP);
+    }
+
+    @Override
+    protected String getName() {
+      return "Z85";
+    }
+
+    @Override
+    protected byte[] getDecodeMap() {
+      return DECODE_MAP;
+    }
+  }
+
+  ///https://rfc.zeromq.org/spec:32/Z85/
+
+  /**
+   * This class encodes data in the Base85 encoding scheme using the character set described by IETF RFC 1924,
+   * but in the efficient algorithm of Ascii85 and Z85.
+   * This scheme does not use quotes, comma, or slash, and can usually be used in sql, json, csv etc. without escaping.
+   * <p>
+   * Encoder instances can be safely shared by multiple threads.
+   */
+  public static class Rfc1924Encoder extends Encoder {
+    private static final byte[] ENCODE_MAP = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~".getBytes(StandardCharsets.US_ASCII);
+
+    @Override
+    protected byte[] getEncodeMap() {
+      return ENCODE_MAP;
+    }
+  }
+
+  /**
+   * This class encodes data in the Base85 encoding scheme Z85 as described by ZeroMQ.
+   * This scheme does not use quotes or comma, and can usually be used in sql, json, csv etc. without escaping.
+   * <p>
+   * Encoder instances can be safely shared by multiple threads.
+   */
+  public static class Z85Encoder extends Encoder {
+    private static final byte[] ENCODE_MAP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&<>()[]{}@%$#".getBytes(StandardCharsets.US_ASCII);
+
+    @Override
+    protected byte[] getEncodeMap() {
+      return ENCODE_MAP;
     }
   }
 }
