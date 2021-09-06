@@ -2,7 +2,9 @@ package sktest.ling.zero.util;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.*;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Base85a;
 
@@ -17,16 +19,16 @@ class Base85aTest {
   }
 
   @Test
-  void aaa() {
+  void constructor() {
     assertAll(
       () -> assertNotNull(new Base85a())
     );
   }
 
   @ParameterizedTest
-  @EmptySource
+//  @EmptySource
   @MethodSource("methodSource")
-  @NullSource
+//  @NullSource
   @NullAndEmptySource
   @ValueSource(strings = {"!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstu", "測試中", "اختبارات", "A", "AB", "ABC", "ABCD", "ABCDE", "ABCDEF", "ABCDEFG", "ABCDEFH", "ABCDEFHI", "ABCDEFHIJ", "ABCDEFHIJK"})
   void base85a(String s) {

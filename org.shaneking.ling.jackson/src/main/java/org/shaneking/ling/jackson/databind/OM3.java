@@ -22,6 +22,7 @@ import java.util.Map;
 @Slf4j
 public class OM3 {
   public static final String OBJECT_ERROR_STRING = "{}";
+
   private static ObjectMapper OM = null;
 
   /*
@@ -95,12 +96,21 @@ public class OM3 {
     return OBJECT_ERROR_STRING.equals(writeValueAsString(t)) ? null : t;
   }
 
-  public static <T> T readValue(String content, JavaType javaType) {
-    return readValue(content, javaType, false);
+  public static <T> T readValue(@NonNull ObjectMapper objectMapper, String content, Class<T> valueType) {
+    return readValue(objectMapper, content, valueType, false);
   }
 
-  public static <T> T readValue(String content, JavaType javaType, boolean rtnNullIfException) {
-    return readValue(om(), content, javaType, rtnNullIfException);
+  public static <T> T readValue(@NonNull ObjectMapper objectMapper, String content, Class<T> valueType, boolean rtnNullIfException) {
+    try {
+      return readValue(objectMapper.readValue(content, valueType));
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+      if (rtnNullIfException) {
+        return null;
+      } else {
+        throw new ZeroException(e);
+      }
+    }
   }
 
   public static <T> T readValue(@NonNull ObjectMapper objectMapper, String content, JavaType javaType) {
@@ -120,39 +130,6 @@ public class OM3 {
     }
   }
 
-  public static <T> T readValue(String content, Class<T> valueType) {
-    return readValue(content, valueType, false);
-  }
-
-  public static <T> T readValue(String content, Class<T> valueType, boolean rtnNullIfException) {
-    return readValue(om(), content, valueType, rtnNullIfException);
-  }
-
-  public static <T> T readValue(@NonNull ObjectMapper objectMapper, String content, Class<T> valueType) {
-    return readValue(objectMapper, content, valueType, false);
-  }
-
-  public static <T> T readValue(@NonNull ObjectMapper objectMapper, String content, Class<T> valueType, boolean rtnNullIfException) {
-    try {
-      return readValue(objectMapper.readValue(content, valueType));
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      if (rtnNullIfException) {
-        return null;
-      } else {
-        throw new ZeroException(e);
-      }
-    }
-  }
-
-  public static <T> T readValue(String content, TypeReference<T> valueTypeRef) {
-    return readValue(content, valueTypeRef, false);
-  }
-
-  public static <T> T readValue(String content, TypeReference<T> valueTypeRef, boolean rtnNullIfException) {
-    return readValue(om(), content, valueTypeRef, rtnNullIfException);
-  }
-
   public static <T> T readValue(@NonNull ObjectMapper objectMapper, String content, TypeReference<T> valueTypeRef) {
     return readValue(objectMapper, content, valueTypeRef, false);
   }
@@ -170,8 +147,28 @@ public class OM3 {
     }
   }
 
-  public static <T> T treeToValue(TreeNode n, Class<T> valueType) {
-    return treeToValue(om(), n, valueType);
+  public static <T> T readValue(String content, Class<T> valueType) {
+    return readValue(content, valueType, false);
+  }
+
+  public static <T> T readValue(String content, Class<T> valueType, boolean rtnNullIfException) {
+    return readValue(om(), content, valueType, rtnNullIfException);
+  }
+
+  public static <T> T readValue(String content, JavaType javaType) {
+    return readValue(content, javaType, false);
+  }
+
+  public static <T> T readValue(String content, JavaType javaType, boolean rtnNullIfException) {
+    return readValue(om(), content, javaType, rtnNullIfException);
+  }
+
+  public static <T> T readValue(String content, TypeReference<T> valueTypeRef) {
+    return readValue(content, valueTypeRef, false);
+  }
+
+  public static <T> T readValue(String content, TypeReference<T> valueTypeRef, boolean rtnNullIfException) {
+    return readValue(om(), content, valueTypeRef, rtnNullIfException);
   }
 
   public static <T> T treeToValue(@NonNull ObjectMapper objectMapper, TreeNode n, Class<T> valueType) {
@@ -188,6 +185,10 @@ public class OM3 {
         throw new ZeroException(e);
       }
     }
+  }
+
+  public static <T> T treeToValue(TreeNode n, Class<T> valueType) {
+    return treeToValue(om(), n, valueType);
   }
 
   public static <T extends JsonNode> T valueToTree(Object fromValue) {

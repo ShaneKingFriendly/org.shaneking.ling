@@ -12,8 +12,8 @@ class Date0Test {
   @Test
   void parse() {
     assertAll(
-      () -> assertThrows(ParseException.class, () -> Date0.on().parse(Date0.on().ySmSd())),
-      () -> assertDoesNotThrow(() -> Date0.on().parse(Date0.on().date()))
+      () -> assertDoesNotThrow(() -> Date0.on().parse(Date0.on().date())),
+      () -> assertThrows(ParseException.class, () -> Date0.on().parse(Date0.on().ySmSd()))
     );
   }
 }

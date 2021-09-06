@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class Regex0Test {
 
   @Test
-  void aaa() {
+  void constructor() {
     assertAll(
       () -> assertNotNull(new Regex0())
     );

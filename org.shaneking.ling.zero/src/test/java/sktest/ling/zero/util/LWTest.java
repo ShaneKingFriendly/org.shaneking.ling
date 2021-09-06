@@ -17,8 +17,9 @@ class LWTest {
     List<String> list = null;
     assertAll(
       () -> assertLinesMatch(List0.newArrayList("1", "2", "3"), LW.wrap("1").add("2").addAll(List0.newArrayList("3")).list()),
-      () -> assertLinesMatch(List0.newArrayList("1"), LW.wrap(List0.newArrayList("1")).add(null).addAll(null).list()),
       () -> assertLinesMatch(List0.newArrayList(), LW.wrap(str).add(null).addAll(null).list()),
+
+      () -> assertLinesMatch(List0.newArrayList("1"), LW.wrap(List0.newArrayList("1")).add(null).addAll(null).list()),
       () -> assertLinesMatch(List0.newArrayList(), LW.wrap(list).add(null).addAll(null).list())
     );
   }

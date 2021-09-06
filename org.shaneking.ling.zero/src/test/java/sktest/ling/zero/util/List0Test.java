@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class List0Test {
 
   @Test
-  void aaa() {
+  void constructor() {
     assertAll(
       () -> assertNotNull(new List0())
     );
@@ -26,18 +26,17 @@ class List0Test {
     Iterable iterable = null;
     Iterator iterator = null;
     assertAll(
-      () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(List0.newArrayList(String0.Y, String0.N))),
       () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(String0.Y, String0.N)),
       () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(String0.Y, String0.N)),
-
       () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(strings)),
-
       () -> assertLinesMatch(List0.newArrayList(), List0.newArrayList(str)),
       () -> assertLinesMatch(List0.newArrayList(), List0.newArrayList(sa)),
-      () -> assertThrows(NullPointerException.class, () -> List0.newArrayList(iterable)),
-      () -> assertThrows(NullPointerException.class, () -> List0.newArrayList(iterator)),
+      () -> assertLinesMatch(List0.newArrayList(), List0.newArrayList(new String[]{null})),
 
-      () -> assertLinesMatch(List0.newArrayList(), List0.newArrayList(new String[]{null}))
+      () -> assertThrows(NullPointerException.class, () -> List0.newArrayList(iterable)),
+      () -> assertLinesMatch(List0.newArrayList(String0.Y, String0.N), List0.newArrayList(List0.newArrayList(String0.Y, String0.N))),
+
+      () -> assertThrows(NullPointerException.class, () -> List0.newArrayList(iterator))
     );
   }
 

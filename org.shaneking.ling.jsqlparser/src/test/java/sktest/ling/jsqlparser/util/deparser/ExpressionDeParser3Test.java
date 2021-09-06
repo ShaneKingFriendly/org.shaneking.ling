@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExpressionDeParser3Test extends SKUnit {
 
   @Test
-  void aaa() {
+  void constructor() {
     assertAll(
       () -> assertNotNull(new ExpressionDeParser3())
     );

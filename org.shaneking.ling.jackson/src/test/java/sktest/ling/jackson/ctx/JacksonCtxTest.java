@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class JacksonCtxTest {
 
   @Test
-  void aaa() {
+  void constructor() {
     assertAll(
       () -> assertNotNull(new JacksonCtx())
     );

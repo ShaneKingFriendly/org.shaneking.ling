@@ -17,8 +17,9 @@ class MWTest {
     Map<String, String> map = null;
     assertAll(
       () -> assertEquals(3, MW.wrap("1", "1").put("2", "2").putAll(Map0.newHashMap("3", "3")).map().size()),
-      () -> assertEquals(1, MW.wrap(Map0.newHashMap("1", "1")).put(null, null).putAll(null).map().size()),
       () -> assertEquals(0, MW.wrap(key, key).put(null, null).putAll(null).map().size()),
+
+      () -> assertEquals(1, MW.wrap(Map0.newHashMap("1", "1")).put(null, null).putAll(null).map().size()),
       () -> assertEquals(0, MW.wrap(map).put(null, null).putAll(null).map().size())
     );
   }

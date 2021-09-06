@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class KeywordTest extends SKUnit {
 
   @Test
-  void aaa() {
+  void constructor() {
     assertAll(
       () -> assertNotNull(new Keyword())
     );
