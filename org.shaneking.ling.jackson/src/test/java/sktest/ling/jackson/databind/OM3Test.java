@@ -96,30 +96,31 @@ class OM3Test extends SKUnit {
   @Test
   void readValue() {
     assertAll(
-      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.readValue("{\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class)).toString()),
-      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.readValue(OM3.om(), "{\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class)).toString()),
-      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.readValue("{\"str\":\"str\"}", HelloReadValue.class).toString()),
-      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.readValue(OM3.om(), "{\"str\":\"str\"}", HelloReadValue.class).toString()),
+      () -> assertNull(OM3.readValue(Map0.newHashMap())),
+      () -> assertEquals(new OM3PrepareReadValue().setStr("str").toString(), OM3.readValue("{\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(OM3PrepareReadValue.class)).toString()),
+      () -> assertEquals(new OM3PrepareReadValue().setStr("str").toString(), OM3.readValue(OM3.om(), "{\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(OM3PrepareReadValue.class)).toString()),
+      () -> assertEquals(new OM3PrepareReadValue().setStr("str").toString(), OM3.readValue("{\"str\":\"str\"}", OM3PrepareReadValue.class).toString()),
+      () -> assertEquals(new OM3PrepareReadValue().setStr("str").toString(), OM3.readValue(OM3.om(), "{\"str\":\"str\"}", OM3PrepareReadValue.class).toString()),
       () -> assertLinesMatch(List0.newArrayList("a", "1", "2"), OM3.readValue(OM3.p("a", "1", "2"), new TypeReference<Map<String, List<String>>>() {
       }).get("p")),
       () -> assertLinesMatch(List0.newArrayList("a", "1", "2"), OM3.readValue(OM3.om(), OM3.p("a", "1", "2"), new TypeReference<Map<String, List<String>>>() {
       }).get("p")),
 
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class)).toString()),
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class)).toString()),
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", HelloReadValue.class).toString()),
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", HelloReadValue.class).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(OM3PrepareReadValue.class)).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(OM3PrepareReadValue.class)).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3PrepareReadValue.class).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3PrepareReadValue.class).toString()),
       () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", new TypeReference<Map<String, List<String>>>() {
       }).get("p")),
-      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", HelloReadValue.class).toString()),
+      () -> assertThrows(ZeroException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3PrepareReadValue.class).toString()),
 
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class), true).toString()),
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(HelloReadValue.class), true).toString()),
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", HelloReadValue.class, true).toString()),
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", HelloReadValue.class, true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(OM3PrepareReadValue.class), true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3.om().getTypeFactory().constructType(OM3PrepareReadValue.class), true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3PrepareReadValue.class, true).toString()),
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue(OM3.om(), "[\"str\":\"str\"}", OM3PrepareReadValue.class, true).toString()),
       () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", new TypeReference<Map<String, List<String>>>() {
       }, true).get("p")),
-      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", HelloReadValue.class, true).toString())
+      () -> assertThrows(NullPointerException.class, () -> OM3.readValue("[\"str\":\"str\"}", OM3PrepareReadValue.class, true).toString())
     );
   }
 
@@ -128,7 +129,7 @@ class OM3Test extends SKUnit {
     ObjectNode objectNode = OM3.om().createObjectNode();
     objectNode.put("str", "str");
     assertAll(
-      () -> assertEquals(new HelloReadValue().setStr("str").toString(), OM3.treeToValue(objectNode, HelloReadValue.class).toString()),
+      () -> assertEquals(new OM3PrepareReadValue().setStr("str").toString(), OM3.treeToValue(objectNode, OM3PrepareReadValue.class).toString()),
       () -> assertNull(OM3.treeToValue(OM3.om(), objectNode, List.class, true)),
       () -> assertThrows(ZeroException.class, () -> OM3.treeToValue(OM3.om(), objectNode, List.class, false))
     );
@@ -136,7 +137,7 @@ class OM3Test extends SKUnit {
 
   @Test
   void valueToTree() {
-    assertEquals(OM3.writeValueAsString(new HelloReadValue().setStr("str")), OM3.writeValueAsString(OM3.valueToTree(new HelloReadValue().setStr("str"))));
+    assertEquals(OM3.writeValueAsString(new OM3PrepareReadValue().setStr("str")), OM3.writeValueAsString(OM3.valueToTree(new OM3PrepareReadValue().setStr("str"))));
   }
 
   @Test
@@ -148,8 +149,8 @@ class OM3Test extends SKUnit {
       () -> assertEquals("\"java.lang.Object\"", OM3.writeValueAsString(Object.class)),
       () -> assertEquals("\"java.lang.String\"", OM3.writeValueAsString(String.class)),
       () -> assertEquals("1", OM3.writeValueAsString(1)),
-      () -> assertThrows(ZeroException.class, () -> OM3.writeValueAsString(new HelloWriteValueAsString())),
-      () -> assertNull(OM3.writeValueAsString(OM3.om(), new HelloWriteValueAsString(), true)),
+      () -> assertThrows(ZeroException.class, () -> OM3.writeValueAsString(new OM3PrepareWriteValueAsString())),
+      () -> assertNull(OM3.writeValueAsString(OM3.om(), new OM3PrepareWriteValueAsString(), true)),
       () -> assertNotNull(String0.DOT)
     );
   }
@@ -157,13 +158,13 @@ class OM3Test extends SKUnit {
   //must static for jackson
   @Accessors(chain = true)
   @ToString
-  public static class HelloReadValue {
+  public static class OM3PrepareReadValue {
     @Getter
     @Setter
     private String str;
   }
 
-  public static class HelloWriteValueAsString {
+  public static class OM3PrepareWriteValueAsString {
     private String str;
   }
 }

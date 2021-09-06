@@ -32,7 +32,7 @@ class CtxIgnoredFilterTest extends SKUnit {
         assertEquals("{\"s1\":\"s11\",\"i1\":1,\"o1\":null}", OM3.writeValueAsString(ctxIgnoredFilterPrepare));
       },
       () -> {
-        CtxIgnoredFilterPrepare ctxIgnoredFilterPrepare = new CtxIgnoredFilterPrepare().setI1(1).setS1("s11").setS2("s12").setO1(new CtxIgnoredFilterPrepare.HelloCtxIgnoredFilter2().setI1(2).setS1("s21").setS2("s22"));
+        CtxIgnoredFilterPrepare ctxIgnoredFilterPrepare = new CtxIgnoredFilterPrepare().setI1(1).setS1("s11").setS2("s12").setO1(new CtxIgnoredFilterPrepare.CtxIgnoredFilterPrepare2().setI1(2).setS1("s21").setS2("s22"));
         JacksonCtx.scenario.set(null);
         assertEquals("{\"s1\":\"s11\",\"i1\":1,\"s2\":\"s12\",\"o1\":{\"s1\":\"s21\",\"i1\":2,\"s2\":\"s22\"}}", OM3.writeValueAsString(ctxIgnoredFilterPrepare));
         JacksonCtx.scenario.set("scenario2");

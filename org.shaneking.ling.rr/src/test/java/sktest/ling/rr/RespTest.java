@@ -16,7 +16,7 @@ class RespTest extends SKUnit {
 
   @Test
   void build() {
-    assertEquals("{\"code\":\"-1\",\"data\":{},\"msg\":\"msg\"}", OM3.writeValueAsString(Resp.build(Resp.CODE_UNKNOWN_EXCEPTION, ReqTest.HelloReq.build(), "msg")));
+    assertEquals("{\"code\":\"-1\",\"data\":{},\"msg\":\"msg\"}", OM3.writeValueAsString(Resp.build(Resp.CODE_UNKNOWN_EXCEPTION, ReqTest.ReqPrepare.build(), "msg")));
   }
 
   @Test
@@ -25,13 +25,13 @@ class RespTest extends SKUnit {
       () -> assertEquals("{\"code\":\"-1\"}", OM3.writeValueAsString(Resp.failed())),
       () -> assertEquals("{\"code\":\"-1\"}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION))),
       () -> assertEquals("{\"code\":\"-1\",\"msg\":\"msg\"}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION, "msg"))),
-      () -> assertEquals("{\"code\":\"-1\",\"data\":{},\"msg\":\"msg\"}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION, "msg", ReqTest.HelloReq.build())))
+      () -> assertEquals("{\"code\":\"-1\",\"data\":{},\"msg\":\"msg\"}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION, "msg", ReqTest.ReqPrepare.build())))
     );
   }
 
   @Test
   void success() {
-    assertEquals("{\"code\":\"0\",\"data\":{}}", OM3.writeValueAsString(Resp.success(ReqTest.HelloReq.build())));
+    assertEquals("{\"code\":\"0\",\"data\":{}}", OM3.writeValueAsString(Resp.success(ReqTest.ReqPrepare.build())));
   }
 
   @Test

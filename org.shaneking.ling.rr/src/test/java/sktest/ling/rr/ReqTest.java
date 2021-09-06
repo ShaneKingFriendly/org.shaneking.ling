@@ -20,37 +20,37 @@ class ReqTest extends SKUnit {
   void build() {
     String cul33 = UUID0.cUl33();
     assertAll(
-      () -> assertEquals("Req(ctx=null, enc=null, pri=null, pub=null)", HelloReq.build().toString()),
+      () -> assertEquals("Req(ctx=null, enc=null, pri=null, pub=null)", ReqPrepare.build().toString()),
 
-      () -> assertEquals("{}", OM3.writeValueAsString(HelloReq.build())),
+      () -> assertEquals("{}", OM3.writeValueAsString(ReqPrepare.build())),
 
-      () -> assertEquals("{\"pri\":{}}", OM3.writeValueAsString(HelloReq.build(PriTest.HelloPri.build()))),
-      () -> assertEquals("{\"pri\":{\"rtn\":\"rtn\"}}", OM3.writeValueAsString(HelloReq.build(PriTest.HelloPri.build("rtn")))),
-      () -> assertEquals("{\"pri\":{\"obj\":\"obj\",\"rtn\":\"rtn\"}}", OM3.writeValueAsString(HelloReq.build(PriTest.HelloPri.build("rtn", "obj")))),
-      () -> assertEquals("{\"pri\":{\"ext\":{\"userNo\":\"userNo\"},\"obj\":\"obj\",\"rtn\":\"rtn\"}}", OM3.writeValueAsString(HelloReq.build(PriTest.HelloPri.build("rtn", "obj", new PriTest.HelloPriExt().setUserNo("userNo"))))),
+      () -> assertEquals("{\"pri\":{}}", OM3.writeValueAsString(ReqPrepare.build(PriTest.PriPrepare.build()))),
+      () -> assertEquals("{\"pri\":{\"rtn\":\"rtn\"}}", OM3.writeValueAsString(ReqPrepare.build(PriTest.PriPrepare.build("rtn")))),
+      () -> assertEquals("{\"pri\":{\"obj\":\"obj\",\"rtn\":\"rtn\"}}", OM3.writeValueAsString(ReqPrepare.build(PriTest.PriPrepare.build("rtn", "obj")))),
+      () -> assertEquals("{\"pri\":{\"ext\":{\"userNo\":\"userNo\"},\"obj\":\"obj\",\"rtn\":\"rtn\"}}", OM3.writeValueAsString(ReqPrepare.build(PriTest.PriPrepare.build("rtn", "obj", new PriTest.PriExtPrepare().setUserNo("userNo"))))),
 
-      () -> assertEquals("{\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(HelloReq.build(new HelloReqPub().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33)))),
+      () -> assertEquals("{\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(ReqPrepare.build(new ReqPubPrepare().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33)))),
 
-      () -> assertEquals("{\"pri\":{},\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(HelloReq.build(new HelloReqPub().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), PriTest.HelloPri.build()))),
-      () -> assertEquals("{\"pri\":{\"rtn\":\"rtn\"},\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(HelloReq.build(new HelloReqPub().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), PriTest.HelloPri.build("rtn")))),
-      () -> assertEquals("{\"pri\":{\"obj\":\"obj\",\"rtn\":\"rtn\"},\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(HelloReq.build(new HelloReqPub().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), PriTest.HelloPri.build("rtn", "obj")))),
-      () -> assertEquals("{\"pri\":{\"ext\":{\"userNo\":\"userNo\"},\"obj\":\"obj\",\"rtn\":\"rtn\"},\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(HelloReq.build(new HelloReqPub().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), PriTest.HelloPri.build("rtn", "obj", new PriTest.HelloPriExt().setUserNo("userNo"))))),
+      () -> assertEquals("{\"pri\":{},\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(ReqPrepare.build(new ReqPubPrepare().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), PriTest.PriPrepare.build()))),
+      () -> assertEquals("{\"pri\":{\"rtn\":\"rtn\"},\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(ReqPrepare.build(new ReqPubPrepare().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), PriTest.PriPrepare.build("rtn")))),
+      () -> assertEquals("{\"pri\":{\"obj\":\"obj\",\"rtn\":\"rtn\"},\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(ReqPrepare.build(new ReqPubPrepare().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), PriTest.PriPrepare.build("rtn", "obj")))),
+      () -> assertEquals("{\"pri\":{\"ext\":{\"userNo\":\"userNo\"},\"obj\":\"obj\",\"rtn\":\"rtn\"},\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(ReqPrepare.build(new ReqPubPrepare().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), PriTest.PriPrepare.build("rtn", "obj", new PriTest.PriExtPrepare().setUserNo("userNo"))))),
 
-      () -> assertEquals("{\"enc\":\"enc\",\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(HelloReq.build(new HelloReqPub().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), "enc"))),
+      () -> assertEquals("{\"enc\":\"enc\",\"pub\":{\"channelName\":\"channelName\",\"encoded\":\"N\",\"tenantName\":\"tenantName\",\"tracingNo\":\"" + cul33 + "\"}}", OM3.writeValueAsString(ReqPrepare.build(new ReqPubPrepare().setChannelName("channelName").setEncoded(String0.N).setTenantName("tenantName").setTracingNo(cul33), "enc"))),
 
-      () -> assertEquals("{\"ctx\":{\"clientIp\":\"clientIp\",\"language\":\"zh_CN\"}}", OM3.writeValueAsString(HelloReq.build().setCtx(new HelloReqCtx().setClientIp("clientIp").setLanguage("zh_CN"))))
+      () -> assertEquals("{\"ctx\":{\"clientIp\":\"clientIp\",\"language\":\"zh_CN\"}}", OM3.writeValueAsString(ReqPrepare.build().setCtx(new ReqCtxPrepare().setClientIp("clientIp").setLanguage("zh_CN"))))
     );
   }
 
   @Accessors(chain = true)
   @ToString(callSuper = true)
-  public static class HelloReq<O, R> extends Req<HelloReqCtx, PriTest.HelloPriExt, O, R, HelloReqPub> {
+  public static class ReqPrepare<O, R> extends Req<ReqCtxPrepare, PriTest.PriExtPrepare, O, R, ReqPubPrepare> {
 
   }
 
   @Accessors(chain = true)
   @ToString
-  public static class HelloReqCtx {
+  public static class ReqCtxPrepare {
     @Getter
     @Setter
     private String clientIp;
@@ -62,7 +62,7 @@ class ReqTest extends SKUnit {
 
   @Accessors(chain = true)
   @ToString
-  public static class HelloReqPub {
+  public static class ReqPubPrepare {
     @Getter
     @Setter
     private String channelName;

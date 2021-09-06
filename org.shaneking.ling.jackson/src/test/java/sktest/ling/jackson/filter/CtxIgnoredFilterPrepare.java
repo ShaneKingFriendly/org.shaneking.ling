@@ -28,7 +28,7 @@ public class CtxIgnoredFilterPrepare extends CtxIgnoredFilter {
   @CtxIgnored
   @Getter
   @Setter
-  private HelloCtxIgnoredFilter2 o1;
+  private CtxIgnoredFilterPrepare2 o1;
 
   @Override
   public boolean include(BeanPropertyWriter writer) {
@@ -39,7 +39,7 @@ public class CtxIgnoredFilterPrepare extends CtxIgnoredFilter {
   @CtxIgnored("scenario3")
   @JsonFilter(CtxIgnoredFilter.FILTER_NAME)
   @ToString
-  public static class HelloCtxIgnoredFilter2 {
+  public static class CtxIgnoredFilterPrepare2 {
     @CtxIgnored("scenario1")
     @Getter
     @Setter
