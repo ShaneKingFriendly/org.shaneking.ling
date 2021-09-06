@@ -20,8 +20,8 @@ class LT0Test {
   @Test
   void parse() {
     assertAll(
-      () -> assertThrows(DateTimeParseException.class, () -> LT0.on().parse(Date0.on().times())),
-      () -> assertDoesNotThrow(() -> LT0.on().parse(Date0.on().time()))
+      () -> assertDoesNotThrow(() -> LT0.on().parse(Date0.on().time())),
+      () -> assertThrows(DateTimeParseException.class, () -> LT0.on().parse(Date0.on().times()))
     );
   }
 

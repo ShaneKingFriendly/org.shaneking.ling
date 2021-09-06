@@ -32,10 +32,14 @@ class Runtime0Test {
     );
     assertAll(
       () -> assertLinesMatch(pwd1List, Runtime0.exec("pwd")),
-      () -> assertLinesMatch(pwd1List, Runtime0.exec("pwd", Runtime0.DEFAULT_TIMEOUT_SECONDS, FixedList.DEFAULT_SIZE)),
+
       () -> assertLinesMatch(pwd2List, Runtime0.exec("pwd", true, Runtime0.PAUSE_FLAG_SHELL)),
+
       () -> assertLinesMatch(pwd2List, Runtime0.exec("pwd", true, Runtime0.PAUSE_FLAG_SHELL, FixedList.DEFAULT_SIZE)),
-      () -> assertLinesMatch(List0.newArrayList("java.util.concurrent.TimeoutException"), Runtime0.exec("sleep 5", 3))
+
+      () -> assertLinesMatch(List0.newArrayList("java.util.concurrent.TimeoutException"), Runtime0.exec("sleep 5", 3)),
+
+      () -> assertLinesMatch(pwd1List, Runtime0.exec("pwd", Runtime0.DEFAULT_TIMEOUT_SECONDS, FixedList.DEFAULT_SIZE))
     );
   }
 }

@@ -18,6 +18,11 @@ class File0Test {
     assertAll(
       () -> assertEquals(File0.content(Paths.get(System.getProperty("user.dir"), "pom.xml")), File0.content(Paths.get(System.getProperty("user.dir"), "pom.xml"))),
       () -> assertNull(File0.content(Paths.get(System.getProperty("user.dir"), "abc.xml"))),
+
+      () -> assertEquals(File0.content(Paths.get(System.getProperty("user.dir"), "pom.xml"), String0.BR_LINUX), File0.content(Paths.get(System.getProperty("user.dir"), "pom.xml"), String0.BR_LINUX)),
+
+      () -> assertEquals(File0.content(Paths.get(System.getProperty("user.dir"), "pom.xml"), String0.BR_LINUX, StandardCharsets.UTF_8), File0.content(Paths.get(System.getProperty("user.dir"), "pom.xml"), String0.BR_LINUX, StandardCharsets.UTF_8)),
+
       () -> assertThrows(ZeroException.class, () -> File0.content(Paths.get(System.getProperty("user.dir"), "abc.xml"), String0.BR_LINUX, StandardCharsets.UTF_8, false))
     );
   }
@@ -38,10 +43,13 @@ class File0Test {
       () -> assertEquals("File0Test", File0Test.class.getSimpleName()),
       () -> assertEquals("sktest.ling.zero.io.File0Test", File0Test.class.getTypeName()),
       () -> assertEquals("class sktest.ling.zero.io.File0Test", File0Test.class.toGenericString()),
-      () -> assertEquals("class sktest.ling.zero.io.File0Test", File0Test.class.toString()),
-
+      () -> assertEquals("class sktest.ling.zero.io.File0Test", File0Test.class.toString())
+    );
+    assertAll(
       () -> assertEquals(String.join(File.separator, userDir, "target", "classes", "sktest"), File0.join(new File("target"), "classes", "sktest").getAbsolutePath()),
+
       () -> assertEquals(String.join(File.separator, userDir, "target", "classes", "sktest"), File0.join(File.separator, "target", "classes", "sktest").getAbsolutePath()),
+
       () -> assertEquals(String.join(File.separator, userDir, "target", "classes", "sktest"), File0.join(File.separator, new File("target"), "classes", "sktest").getAbsolutePath())
     );
   }

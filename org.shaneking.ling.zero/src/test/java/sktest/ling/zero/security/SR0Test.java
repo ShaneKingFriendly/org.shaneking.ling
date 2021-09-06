@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SR0Test {
   @Test
-  void aaa() {
+  void constructor() {
     assertNotNull(new SR0());
   }
 

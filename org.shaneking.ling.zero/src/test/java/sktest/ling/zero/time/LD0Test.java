@@ -23,8 +23,8 @@ class LD0Test {
   @Test
   void parse() {
     assertAll(
-      () -> assertThrows(DateTimeParseException.class, () -> LD0.on().parse(LD0.on().ySmSd())),
-      () -> assertDoesNotThrow(() -> LD0.on().parse(Date0.on().date()))
+      () -> assertDoesNotThrow(() -> LD0.on().parse(Date0.on().date())),
+      () -> assertThrows(DateTimeParseException.class, () -> LD0.on().parse(LD0.on().ySmSd()))
     );
   }
 

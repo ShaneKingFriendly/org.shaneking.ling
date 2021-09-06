@@ -12,22 +12,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class ZDT0Test {
 
   @Test
-  void date() {
+  void d() {
     assertEquals(Date0.on().date(), ZDT0.on().d());
   }
 
   @Test
-  void dateTime() {
+  void dT() {
     assertEquals(Date0.on().dateTime(), ZDT0.on().dT());
   }
 
   @Test
-  void dateTimeZone() {
+  void dTZ() {
     assertEquals(Date0.on().dateTimeZone(), ZDT0.on().dTZ());
   }
 
   @Test
-  void dateTimes() {
+  void dTS() {
     /*
 Expected :2021-01-15 21:17:13.568
 Actual   :2021-01-15 21:17:13.569
@@ -36,7 +36,7 @@ Actual   :2021-01-15 21:17:13.569
   }
 
   @Test
-  void dateTimesZone() {
+  void dTSZ() {
     /*
 Expected :2021-01-15 21:17:13.568+0800
 Actual   :2021-01-15 21:17:13.569+0800
@@ -45,12 +45,12 @@ Actual   :2021-01-15 21:17:13.569+0800
   }
 
   @Test
-  void datetime() {
+  void dt() {
     assertEquals(Date0.on().datetime(), ZDT0.on().dt());
   }
 
   @Test
-  void datetimes() {
+  void dts() {
     /*
 Expected :20210115211713568
 Actual   :20210115211713569
@@ -59,30 +59,30 @@ Actual   :20210115211713569
   }
 
   @Test
-  void format() {
+  void f() {
     assertEquals(Date0.on().format(Date0.Y_M_D), ZDT0.on().f(Date0.Y_M_D));
   }
 
   @Test
-  void parse() {
+  void p() {
     assertAll(
-      () -> assertThrows(DateTimeParseException.class, () -> ZDT0.on().ySmSd(Date0.on().ymd())),
-      () -> assertDoesNotThrow(() -> ZDT0.on().dTZ(Date0.on().dateTimeZone()))
+      () -> assertDoesNotThrow(() -> ZDT0.on().dTZ(Date0.on().dateTimeZone())),
+      () -> assertThrows(DateTimeParseException.class, () -> ZDT0.on().ySmSd(Date0.on().ymd()))
     );
   }
 
   @Test
-  void time() {
+  void t() {
     assertEquals(Date0.on().time(), ZDT0.on().t());
   }
 
   @Test
-  void timeZone() {
+  void tZ() {
     assertEquals(Date0.on().timeZone(), ZDT0.on().tZ());
   }
 
   @Test
-  void timeS() {
+  void tS() {
     /*
 Expected :21:17:13.794
 Actual   :21:17:13.796
@@ -91,7 +91,7 @@ Actual   :21:17:13.796
   }
 
   @Test
-  void timeSZone() {
+  void tSZ() {
     /*
 Expected :21:17:13.794+0800
 Actual   :21:17:13.796+0800
@@ -100,7 +100,7 @@ Actual   :21:17:13.796+0800
   }
 
   @Test
-  void times() {
+  void ts() {
     /*
 Expected :212051705
 Actual   :212051706

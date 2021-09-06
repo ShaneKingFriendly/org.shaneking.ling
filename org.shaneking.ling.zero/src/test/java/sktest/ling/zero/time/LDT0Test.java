@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class LDT0Test {
 
   @Test
-  void date() {
+  void d() {
     assertEquals(Date0.on().date(), LDT0.on().d());
   }
 
   @Test
-  void dateTime() {
+  void dT() {
     assertEquals(Date0.on().dateTime(), LDT0.on().dT());
   }
 
   @Test
-  void dateTimes() {
+  void dTS() {
     /*
 Expected :2021-01-15 21:17:13.568
 Actual   :2021-01-15 21:17:13.569
@@ -31,12 +31,12 @@ Actual   :2021-01-15 21:17:13.569
   }
 
   @Test
-  void datetime() {
+  void dt() {
     assertEquals(Date0.on().datetime(), LDT0.on().dt());
   }
 
   @Test
-  void datetimes() {
+  void dts() {
     /*
 Expected :20210115211713568
 Actual   :20210115211713569
@@ -45,25 +45,25 @@ Actual   :20210115211713569
   }
 
   @Test
-  void format() {
+  void f() {
     assertEquals(Date0.on().format(Date0.Y_M_D), LDT0.on().f(Date0.Y_M_D));
   }
 
   @Test
-  void parse() {
+  void p() {
     assertAll(
-      () -> assertThrows(DateTimeParseException.class, () -> LDT0.on().p(Date0.on().ySmSd())),
-      () -> assertDoesNotThrow(() -> LDT0.on().p(Date0.on().dateTime()))
+      () -> assertDoesNotThrow(() -> LDT0.on().p(Date0.on().dateTime())),
+      () -> assertThrows(DateTimeParseException.class, () -> LDT0.on().p(Date0.on().ySmSd()))
     );
   }
 
   @Test
-  void time() {
+  void t() {
     assertEquals(Date0.on().time(), LDT0.on().t());
   }
 
   @Test
-  void timeS() {
+  void tS() {
     /*
 Expected :21:17:13.794
 Actual   :21:17:13.796
@@ -72,7 +72,7 @@ Actual   :21:17:13.796
   }
 
   @Test
-  void times() {
+  void ts() {
     /*
 Expected :212051705
 Actual   :212051706

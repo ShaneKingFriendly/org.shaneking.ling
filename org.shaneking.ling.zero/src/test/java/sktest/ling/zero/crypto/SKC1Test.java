@@ -14,25 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class SKC1Test {
 
   @Test
-  void test() {
-    assertAll(
-      () -> assertEquals("E+MK32CVXixTTTOO1qj87l5vpYHfjEsIuIs8usDQV3wiHjrIB6mPFHPr+puaXS4a0ydTyJDDxTFg2x9CXbDzaj1cUts99qHO7e+dEpC3XZt3m4YTMk75u8JyQYFwGr1mvdnu0kxLYIe7nbSbsrcqyQ=="
-        , SKC1.encrypt("{\"ext\":{\"tenantNo\":\"tstTenantNo\",\"userNo\":\"tstUserNo\"},\"obj\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"rtn\":1}")),
-      () -> assertEquals("E+MK32CVXixTTTOO1qj87l5vpYHfjEsIuIs8usDQV3wiHjrIB6mPFHPr+puaXS4aHvKngJ3V2+eDw8AJ9LqXjVhe3bBWpT1wFyDvgQztlXebcNL87fKMOJ42CE9k234lEkfiETuanKawvgTwwJ1TcUo+5QWZ/rMQ1UwKbOfCIqg="
-        , SKC1.encrypt("{\"ext\":{\"tenantNo\":\"tstTenantNo\",\"userNo\":\"tstUserNo\"},\"obj\":{\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\"},\"rtn\":1}")),
-
-      () -> assertEquals("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"whereConditions\":{\"tenantId\":{\"op\":\"=\",\"cs\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"}},\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"tenantId\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"},\"rtn\":1}", SKC1.decrypt("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8ekWhVfldssP4loE+0WhISX/hCnovJeStZRr7LhJxoHu+L4wdNQykpa/D3O/LQiGcVJvIHeAhMGNMBXvOO5LHIZTdIvZABx5C1FjwAgvhHreTKBMqbMuiI3u20F/VM5t/M9XFLbPfahzu3vnRKQt12bd5uGEzJO+bvCckGBcBq9Ztiz+efV4rI8hY437LEBtxg0fY5T0mkOWzfnUXTd0PuYE//w33/xDiz2+Uyc0HQKdr3Z7tJMS2CHu520m7K3Ksk=")),
-      () -> assertEquals("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8ekWhVfldssP4loE+0WhISX/hCnovJeStZRr7LhJxoHu+L4wdNQykpa/D3O/LQiGcVJvIHeAhMGNMBXvOO5LHIZTdIvZABx5C1FjwAgvhHreTKBMqbMuiI3u20F/VM5t/M9XFLbPfahzu3vnRKQt12bd5uGEzJO+bvCckGBcBq9Ztiz+efV4rI8hY437LEBtxg0fY5T0mkOWzfnUXTd0PuYE//w33/xDiz2+Uyc0HQKdr3Z7tJMS2CHu520m7K3Ksk=", SKC1.encrypt("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"whereConditions\":{\"tenantId\":{\"op\":\"=\",\"cs\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"}},\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"tenantId\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"},\"rtn\":1}")),
-
-      () -> assertEquals("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"whereConditions\":{\"tenantId\":{\"op\":\"in\",\"cl\":[\"1612262610215_LoHqeZBGrVYm3MlYmpH\"]}},\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"tenantId\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"},\"rtn\":1}", SKC1.decrypt("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8ekWhVfldssP4loE+0WhISX/hCnovJeStZRr7LhJxoHu3S/wGV1z6fth3CIzqGSrd2/xjWsCG6nz7Sk5SAedf1WBCM0czD4/70a+mnmJaCrQYB4lln2mzTlQ6nDQfD5LThbFK4ANl2Z/boyY1nz/F4IewuKjMLYvuA4NAsLCdiEI9gDn26G8NGCyHoh8vLV8C2GEP2MvjOlSH2Q9K/BuFtkWJVpMoMS7L/Q3KDrhrFZqxLed6PH6cE+ydZ7nvQOi94=")),
-
-      () -> assertEquals("{\"ext\":{\"userNo\":\"tstUserNo\"},\"obj\":{\"whereConditions\":{\"tenantId\":{\"op\":\"in\",\"cl\":[\"1612262610215_LoHqeZBGrVYm3MlYmpH\"],\"cs\":\"1612262610215_LoHqeZBGrVYm3MlYmpH\"},\"id\":{\"op\":\"in\",\"cl\":[\"1612353237501_DcNd45KtJXPmSpz2xRB\"]}},\"id\":\"1612353237501_DcNd45KtJXPmSpz2xRB\",\"dd\":\"1620826094575_p9rE3cs7b4p9Ncj4OQ6\"},\"rtn\":1}", SKC1.decrypt("UpYigwpx9zJXGQraTGg7LinYngjNd4HQlutN8zK/i8ekWhVfldssP4loE+0WhISX/hCnovJeStZRr7LhJxoHu3S/wGV1z6fth3CIzqGSrd2/xjWsCG6nz7Sk5SAedf1WBCM0czD4/70a+mnmJaCrQaXIZgSz6iUYra4GPXiKtP2edDorYkREtKxr/wHe5IEdNPhD2Rb0A6tzEcYx4a1EmGQqm/L9YQNk3XwB6098qlsBtQxUfKK7FbqkIdCNHdzXvg3mgL/nYLQYbwGnJeyqvR2hiJvrvqnCRV2XJR8/H94VP/Lnh3M8ZyNTTl0hRRAG38JoHc/1fnBVfxoBcmjFJe/ssCQDiZJPNGa7cf28MKHbrcz/W0xMLuuxzYP4yAvrAelRcNYAPslCmwyv0kPWIUj4Ldvds8B9x9/M5Pna+0Y=")),
-
-      () -> assertEquals("jG8tbMgp2LAApEHN75TgHrecDvH8zXRLdva0ahz0WeH37qRx/PupZuz1iA2q5R47", SKC1.encrypt("1620826094575_p9rE3cs7b4p9Ncj4OQ6"))
-    );
-  }
-
-  @Test
   void decrypt() {
     try {
       System.out.println("有梦才有精彩！");//有梦才有精彩！
@@ -43,16 +24,20 @@ class SKC1Test {
     }
 
     assertAll(
-      () -> assertEquals("有梦才有精彩！", SKC1.decrypt("Ziaj84fYKpNiZ1wD1O7vPNrb1dYVC2H65UlR8wlIvCw=")),//D:U,S:U
       () -> assertEquals(new String("有梦才有精彩！".getBytes(StandardCharsets.UTF_8), "GBK"), SKC1.decrypt("bzo0CkFz86geJhgbyunPGrzq2Bc07XbhBpjLd8QTPAePVWxLMAHYeU0q5KuD1SP/")),//D:U,S:G
-      () -> assertNotEquals(new String("有梦才有精彩！".getBytes(StandardCharsets.UTF_8), "GBK"), SKC1.decrypt("Ziaj84fYKpNiZ1wD1O7vPI0qsFSFHwqOuDqcwzRPt34=", SKC1.DEFAULT_SALT, Charset.forName("GBK"), false)),//D:G,S:G
-      () -> assertEquals("有梦才有精彩！", SKC1.decrypt("fu3MmngB1XWzzxxph9AQtQ==", SKC1.DEFAULT_SALT, Charset.forName("GBK"), false)),//D:G,S:U
-
+      () -> assertEquals("cC53mabDUr4WU5NjQZLTw==", SKC1.decrypt("cC53mabDUr4WU5NjQZLTw==")),
+      () -> assertEquals(String0.EMPTY, SKC1.decrypt("Sj7lBZn+sxDVTAps58IiqA==")),
       () -> assertEquals("ILoveYou", SKC1.decrypt("TcC53mabDUr4WU5NjQZLTw==")),
-      () -> assertEquals("ILoveYou", SKC1.decrypt("TcC53mabDUr4WU5NjQZLTw==", "494c6f7665596f75")),
+      () -> assertEquals("有梦才有精彩！", SKC1.decrypt("Ziaj84fYKpNiZ1wD1O7vPNrb1dYVC2H65UlR8wlIvCw=")),//D:U,S:U
 
       () -> assertThrows(ZeroException.class, () -> SKC1.decrypt("cC53mabDUr4WU5NjQZLTw==", false)),
-      () -> assertDoesNotThrow(() -> SKC1.decrypt("cC53mabDUr4WU5NjQZLTw=="))
+
+      () -> assertEquals("ILoveYou", SKC1.decrypt("TcC53mabDUr4WU5NjQZLTw==", "494c6f7665596f75")),
+
+      () -> assertEquals("ILoveYou", SKC1.decrypt("TcC53mabDUr4WU5NjQZLTw==", "494c6f7665596f75", true)),
+
+      () -> assertEquals("有梦才有精彩！", SKC1.decrypt("fu3MmngB1XWzzxxph9AQtQ==", SKC1.DEFAULT_SALT, Charset.forName("GBK"), false)),//D:G,S:U
+      () -> assertNotEquals(new String("有梦才有精彩！".getBytes(StandardCharsets.UTF_8), "GBK"), SKC1.decrypt("Ziaj84fYKpNiZ1wD1O7vPI0qsFSFHwqOuDqcwzRPt34=", SKC1.DEFAULT_SALT, Charset.forName("GBK"), false))//D:G,S:G
     );
   }
 
@@ -60,26 +45,29 @@ class SKC1Test {
   void encrypt() {
     assertAll(
       () -> assertEquals("Ziaj84fYKpNiZ1wD1O7vPNrb1dYVC2H65UlR8wlIvCw=", SKC1.encrypt("有梦才有精彩！")),//S:U,E:U
-      () -> assertEquals("bzo0CkFz86geJhgbyunPGrzq2Bc07XbhBpjLd8QTPAePVWxLMAHYeU0q5KuD1SP/", SKC1.encrypt(new String("有梦才有精彩！".getBytes(StandardCharsets.UTF_8), "GBK"))),//S:G,E:U
-      () -> assertEquals("Ziaj84fYKpNiZ1wD1O7vPI0qsFSFHwqOuDqcwzRPt34=", SKC1.encrypt(new String("有梦才有精彩！".getBytes(StandardCharsets.UTF_8), "GBK"), SKC1.DEFAULT_SALT, Charset.forName("GBK"), false)),//S:G,E:G
-      () -> assertEquals("fu3MmngB1XWzzxxph9AQtQ==", SKC1.encrypt("有梦才有精彩！", SKC1.DEFAULT_SALT, Charset.forName("GBK"), false)),//S:U,E:G
-
       () -> assertEquals("TcC53mabDUr4WU5NjQZLTw==", SKC1.encrypt("ILoveYou")),
-      () -> assertEquals("TcC53mabDUr4WU5NjQZLTw==", SKC1.encrypt("ILoveYou", "494c6f7665596f75")),
-
-      () -> assertThrows(ZeroException.class, () -> SKC1.encrypt("ILoveYou", "94c6f7665596f75", false)),
-      () -> assertDoesNotThrow(() -> SKC1.encrypt("ILoveYou", "94c6f7665596f75")),
+      () -> assertEquals("Sj7lBZn+sxDVTAps58IiqA==", SKC1.encrypt(String0.EMPTY)),
+      () -> assertEquals("bzo0CkFz86geJhgbyunPGrzq2Bc07XbhBpjLd8QTPAePVWxLMAHYeU0q5KuD1SP/", SKC1.encrypt(new String("有梦才有精彩！".getBytes(StandardCharsets.UTF_8), "GBK"))),//S:G,E:U
 
       () -> assertThrows(NullPointerException.class, () -> SKC1.encrypt(null, false)),
-      () -> assertDoesNotThrow(() -> SKC1.encrypt(String0.EMPTY))
+
+      () -> assertEquals("TcC53mabDUr4WU5NjQZLTw==", SKC1.encrypt("ILoveYou", "494c6f7665596f75")),
+      () -> assertEquals("ILoveYou", SKC1.encrypt("ILoveYou", "94c6f7665596f75")),
+
+      () -> assertThrows(ZeroException.class, () -> SKC1.encrypt("ILoveYou", "94c6f7665596f75", false)),
+      () -> assertEquals("ILoveYou", SKC1.encrypt("ILoveYou", "94c6f7665596f75", true)),
+
+      () -> assertEquals("fu3MmngB1XWzzxxph9AQtQ==", SKC1.encrypt("有梦才有精彩！", SKC1.DEFAULT_SALT, Charset.forName("GBK"), false)),//S:U,E:G
+      () -> assertEquals("Ziaj84fYKpNiZ1wD1O7vPI0qsFSFHwqOuDqcwzRPt34=", SKC1.encrypt(new String("有梦才有精彩！".getBytes(StandardCharsets.UTF_8), "GBK"), SKC1.DEFAULT_SALT, Charset.forName("GBK"), false))//S:G,E:G
     );
   }
 
   @Test
-  void genKey() {
+  void salt() {
     assertAll(
+      () -> assertEquals(16, SKC1.salt().length()),
+
       () -> assertEquals("494c6f7665596f75", SKC1.salt("ILoveYou")),
-      () -> assertNotNull(SKC1.salt()),
       () -> assertThrows(IllegalArgumentException.class, () -> SKC1.salt("LengthNotEight"))
     );
 

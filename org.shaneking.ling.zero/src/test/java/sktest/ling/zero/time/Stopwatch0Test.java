@@ -13,12 +13,14 @@ class Stopwatch0Test {
   @Test
   void createStarted() {
     assertTrue(Stopwatch0.createStarted().isRunning());
+
     assertTrue(Stopwatch0.createStarted(System::nanoTime).isRunning());
   }
 
   @Test
   void createUnstarted() {
     assertFalse(Stopwatch0.createUnstarted().isRunning());
+
     assertFalse(Stopwatch0.createUnstarted(System::nanoTime).isRunning());
   }
 

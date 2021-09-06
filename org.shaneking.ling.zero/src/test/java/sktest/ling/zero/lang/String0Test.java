@@ -17,12 +17,14 @@ class String0Test {
   @Test
   void dbColumn2Field() {
     assertEquals("abCdEf", String0.dbColumn2Field("ab_cd_ef"));
+
     assertEquals("abCdEf", String0.dbColumn2Field("ab#cd#ef", String0.POUND));
   }
 
   @Test
   void dbColumn2SetField() {
     assertEquals("AbCdEf", String0.dbColumn2SetField("ab_cd_ef"));
+
     assertEquals("AbCdEf", String0.dbColumn2SetField("ab#cd#ef", String0.POUND));
   }
 
@@ -36,6 +38,7 @@ class String0Test {
   void field2DbColumn() {
     assertEquals("id", String0.field2DbColumn("id"));
     assertEquals("ab_cd_ef", String0.field2DbColumn("abCdEf"));
+
     assertEquals("ab#cd#ef", String0.field2DbColumn("abCdEf", String0.POUND));
   }
 
@@ -47,87 +50,91 @@ class String0Test {
   @Test
   void isNull2Empty() {
     assertTrue(String0.isNull2Empty(null));
-    assertTrue(String0.isNull2Empty(String0.EMPTY));
     assertTrue(String0.isNull2Empty(Object0.NULL));
-    assertFalse(String0.isNull2Empty(String0.NULL));
     assertFalse(String0.isNull2Empty(String0.BLANK));
+    assertTrue(String0.isNull2Empty(String0.EMPTY));
     assertFalse(String0.isNull2Empty(String0.F));
+    assertFalse(String0.isNull2Empty(String0.NULL));
   }
 
   @Test
   void isNullOrEmpty() {
     assertTrue(String0.isNullOrEmpty(null));
-    assertTrue(String0.isNullOrEmpty(String0.EMPTY));
     assertFalse(String0.isNullOrEmpty(Object0.NULL));
-    assertFalse(String0.isNullOrEmpty(String0.NULL));
     assertFalse(String0.isNullOrEmpty(String0.BLANK));
+    assertTrue(String0.isNullOrEmpty(String0.EMPTY));
     assertFalse(String0.isNullOrEmpty(String0.F));
+    assertFalse(String0.isNullOrEmpty(String0.NULL));
   }
 
   @Test
   void isNumeric() {
     assertAll(
       () -> assertFalse(String0.isNumeric(null)),
-      () -> assertFalse(String0.isNumeric(String0.EMPTY)),
-      () -> assertFalse(String0.isNumeric(String0.BLANK)),
       () -> assertFalse(String0.isNumeric(Object0.NULL)),
-      () -> assertFalse(String0.isNumeric(String0.NULL)),
       () -> assertTrue(String0.isNumeric(String0.ARY_BIN)),
-      () -> assertTrue(String0.isNumeric(String0.ARY_OCT)),
       () -> assertTrue(String0.isNumeric(String0.ARY_DEC)),
+      () -> assertFalse(String0.isNumeric(String0.ARY_HEX)),
+      () -> assertTrue(String0.isNumeric(String0.ARY_OCT)),
+      () -> assertFalse(String0.isNumeric(String0.BLANK)),
       () -> assertTrue(String0.isNumeric(String0.DIGITAL)),
-      () -> assertFalse(String0.isNumeric(String0.ARY_HEX))
+      () -> assertFalse(String0.isNumeric(String0.EMPTY)),
+      () -> assertFalse(String0.isNumeric(String0.NULL))
     );
   }
 
   @Test
   void lower() {
     assertAll(
+      () -> assertEquals("lowerfirst", String0.lower("LowerFirst")),
       () -> assertNull(String0.lower(null)),
-      () -> assertEquals(String0.EMPTY, String0.lower(String0.EMPTY)),
-      () -> assertEquals("lowerfirst", String0.lower("LowerFirst"))
+      () -> assertEquals(String0.EMPTY, String0.lower(String0.EMPTY))
     );
   }
 
   @Test
   void lowerFirst() {
     assertAll(
+      () -> assertEquals("lowerFirst", String0.lowerFirst("LowerFirst")),
       () -> assertNull(String0.lowerFirst(null)),
-      () -> assertEquals(String0.EMPTY, String0.lowerFirst(String0.EMPTY)),
-      () -> assertEquals("lowerFirst", String0.lowerFirst("LowerFirst"))
+      () -> assertEquals(String0.EMPTY, String0.lowerFirst(String0.EMPTY))
     );
   }
 
   @Test
   void notNull2EmptyTo() {
-    assertEquals(String0.Y, String0.notNull2EmptyTo(String0.N, String0.Y));
-    assertEquals(String0.Y, String0.notNull2EmptyTo(String0.N, () -> String0.Y));
     assertEquals(Object0.NULL, String0.notNull2EmptyTo(Object0.NULL, String0.Y));
+    assertEquals(String0.Y, String0.notNull2EmptyTo(String0.N, String0.Y));
+
     assertEquals(Object0.NULL, String0.notNull2EmptyTo(Object0.NULL, () -> String0.Y));
+    assertEquals(String0.Y, String0.notNull2EmptyTo(String0.N, () -> String0.Y));
   }
 
   @Test
   void notNullOrEmptyTo() {
-    assertEquals(String0.Y, String0.notNullOrEmptyTo(String0.N, String0.Y));
-    assertEquals(String0.Y, String0.notNullOrEmptyTo(String0.N, () -> String0.Y));
     assertEquals(String0.EMPTY, String0.notNullOrEmptyTo(String0.EMPTY, String0.Y));
+    assertEquals(String0.Y, String0.notNullOrEmptyTo(String0.N, String0.Y));
+
     assertEquals(String0.EMPTY, String0.notNullOrEmptyTo(String0.EMPTY, () -> String0.Y));
+    assertEquals(String0.Y, String0.notNullOrEmptyTo(String0.N, () -> String0.Y));
   }
 
   @Test
   void null2EmptyTo() {
     assertEquals(String0.Y, String0.null2EmptyTo(Object0.NULL, String0.Y));
-    assertEquals(String0.Y, String0.null2EmptyTo(Object0.NULL, () -> String0.Y));
     assertEquals(String0.N, String0.null2EmptyTo(String0.N, String0.Y));
+
+    assertEquals(String0.Y, String0.null2EmptyTo(Object0.NULL, () -> String0.Y));
     assertEquals(String0.N, String0.null2EmptyTo(String0.N, () -> String0.Y));
   }
 
   @Test
   void nullOrEmptyTo() {
-    assertEquals(Object0.NULL, String0.nullOrEmptyTo(Object0.NULL, String0.Y));
-    assertEquals(Object0.NULL, String0.nullOrEmptyTo(Object0.NULL, () -> String0.Y));
     assertEquals(String0.Y, String0.nullOrEmptyTo(String0.EMPTY, String0.Y));
+    assertEquals(Object0.NULL, String0.nullOrEmptyTo(Object0.NULL, String0.Y));
+
     assertEquals(String0.Y, String0.nullOrEmptyTo(String0.EMPTY, () -> String0.Y));
+    assertEquals(Object0.NULL, String0.nullOrEmptyTo(Object0.NULL, () -> String0.Y));
   }
 
   @Test
@@ -234,18 +241,18 @@ class String0Test {
   @Test
   void upper() {
     assertAll(
+      () -> assertEquals("UPPERFIRST", String0.upper("upperFirst")),
       () -> assertNull(String0.upper(null)),
-      () -> assertEquals(String0.EMPTY, String0.upper(String0.EMPTY)),
-      () -> assertEquals("UPPERFIRST", String0.upper("upperFirst"))
+      () -> assertEquals(String0.EMPTY, String0.upper(String0.EMPTY))
     );
   }
 
   @Test
   void upperFirst() {
     assertAll(
+      () -> assertEquals("UpperFirst", String0.upperFirst("upperFirst")),
       () -> assertNull(String0.upperFirst(null)),
-      () -> assertEquals(String0.EMPTY, String0.upperFirst(String0.EMPTY)),
-      () -> assertEquals("UpperFirst", String0.upperFirst("upperFirst"))
+      () -> assertEquals(String0.EMPTY, String0.upperFirst(String0.EMPTY))
     );
   }
 
@@ -263,22 +270,25 @@ class String0Test {
 
   @Test
   void wrapBrace() {
-    assertEquals(String0.OPEN_BRACE + String0.BLANK + String0.CLOSE_BRACE, String0.wrapBrace(String0.BLANK));
     assertEquals(String0.OPEN_BRACE + "null" + String0.CLOSE_BRACE, String0.wrapBrace(null));
+    assertEquals(String0.OPEN_BRACE + String0.BLANK + String0.CLOSE_BRACE, String0.wrapBrace(String0.BLANK));
+
     assertNull(String0.wrapBrace(null, true));
   }
 
   @Test
   void wrapBracket() {
-    assertEquals(String0.OPEN_BRACKET + String0.BLANK + String0.CLOSE_BRACKET, String0.wrapBracket(String0.BLANK));
     assertEquals(String0.OPEN_BRACKET + "null" + String0.CLOSE_BRACKET, String0.wrapBracket(null));
+    assertEquals(String0.OPEN_BRACKET + String0.BLANK + String0.CLOSE_BRACKET, String0.wrapBracket(String0.BLANK));
+
     assertNull(String0.wrapBracket(null, true));
   }
 
   @Test
   void wrapParenthesis() {
-    assertEquals(String0.OPEN_PARENTHESIS + String0.BLANK + String0.CLOSE_PARENTHESIS, String0.wrapParenthesis(String0.BLANK));
     assertEquals(String0.OPEN_PARENTHESIS + "null" + String0.CLOSE_PARENTHESIS, String0.wrapParenthesis(null));
+    assertEquals(String0.OPEN_PARENTHESIS + String0.BLANK + String0.CLOSE_PARENTHESIS, String0.wrapParenthesis(String0.BLANK));
+
     assertNull(String0.wrapParenthesis(null, true));
   }
 }

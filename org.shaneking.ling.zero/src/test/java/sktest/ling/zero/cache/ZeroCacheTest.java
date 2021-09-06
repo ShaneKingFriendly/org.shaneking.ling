@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ZeroCacheTest {
 
   @Test
-  void test() {
+  void scenario1() {
     ZeroCache cache = new ZeroCachePrepare();
     cache.hmset("K1", Map0.newHashMap(List0.newArrayList("k11", "k12", "k13"), List0.newArrayList("v11", "v12", "v13")));
     cache.hset("K1", "k14", "v14");
@@ -43,35 +43,97 @@ class ZeroCacheTest {
       () -> cache.set("K13", 1, "V13"),
       () -> cache.set("K12", 1, "V12")
     );
+  }
 
+  @Test
+  void currentTransactionName() {
     assertAll(
-      () -> assertThrows(NullPointerException.class, () -> cache.del(null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.get(null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hdel(null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hdel(null, UUID0.cUl33())),
-      () -> assertThrows(NullPointerException.class, () -> cache.hdel(UUID0.cUl33(), null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hdel(null, null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hget(null, UUID0.cUl33())),
-      () -> assertThrows(NullPointerException.class, () -> cache.hget(UUID0.cUl33(), null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hget(null, null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hmget(null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hmget(null, UUID0.cUl33())),
-      () -> assertThrows(NullPointerException.class, () -> cache.hmget(UUID0.cUl33(), null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hmget(null, null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hmset(null, Map0.newHashMap())),
-      () -> assertThrows(NullPointerException.class, () -> cache.hmset(UUID0.cUl33(), null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hmset(null, null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hset(null, null, UUID0.cUl33())),
-      () -> assertThrows(NullPointerException.class, () -> cache.hset(null, UUID0.cUl33(), null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hset(UUID0.cUl33(), null, null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hset(null, UUID0.cUl33(), UUID0.cUl33())),
-      () -> assertThrows(NullPointerException.class, () -> cache.hset(UUID0.cUl33(), UUID0.cUl33(), null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.hset(UUID0.cUl33(), null, UUID0.cUl33())),
-      () -> assertThrows(NullPointerException.class, () -> cache.hset(null, null, null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.set(null, UUID0.cUl33())),
-      () -> assertThrows(NullPointerException.class, () -> cache.set(UUID0.cUl33(), null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.set(null, null)),
-      () -> assertThrows(NullPointerException.class, () -> cache.del(null))
+      () -> assertNull(new ZeroCachePrepare().currentTransactionName())
     );
+  }
+
+  @Test
+  void del() {
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().del(null))
+    );
+  }
+
+  @Test
+  void get() {
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().get(null))
+    );
+  }
+
+  @Test
+  void hdel() {
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hdel(null)),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hdel(null, null)),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hdel(null, UUID0.cUl33())),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hdel(UUID0.cUl33(), null))
+    );
+  }
+
+  @Test
+  void hget() {
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hget(null, null)),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hget(null, UUID0.cUl33())),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hget(UUID0.cUl33(), null))
+    );
+  }
+
+  @Test
+  void inTransactional() {
+    assertAll(
+      () -> assertFalse(new ZeroCachePrepare().inTransactional())
+    );
+  }
+
+  @Test
+  void hmget() {
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hmget(null)),
+
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hmget(null, null)),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hmget(null, UUID0.cUl33())),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hmget(UUID0.cUl33(), null))
+    );
+  }
+
+  @Test
+  void hmset() {
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hmset(null, Map0.newHashMap())),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hmset(null, null)),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hmset(UUID0.cUl33(), null))
+    );
+  }
+
+  @Test
+  void hset() {
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hset(null, null, null)),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hset(null, null, UUID0.cUl33())),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hset(null, UUID0.cUl33(), null)),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hset(null, UUID0.cUl33(), UUID0.cUl33())),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hset(UUID0.cUl33(), null, null)),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hset(UUID0.cUl33(), null, UUID0.cUl33())),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().hset(UUID0.cUl33(), UUID0.cUl33(), null))
+    );
+  }
+
+  @Test
+  void set() {
+    assertAll(
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().set(null, null)),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().set(null, UUID0.cUl33())),
+      () -> assertThrows(NullPointerException.class, () -> new ZeroCachePrepare().set(UUID0.cUl33(), null))
+    );
+  }
+
+  public static class ZeroCachePrepare implements ZeroCache {
   }
 }

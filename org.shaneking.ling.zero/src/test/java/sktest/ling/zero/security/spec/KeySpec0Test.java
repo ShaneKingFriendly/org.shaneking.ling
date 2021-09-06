@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class KeySpec0Test {
   @Test
-  void aaa() {
+  void constructor() {
     assertNotNull(new KeySpec0());
   }
 }

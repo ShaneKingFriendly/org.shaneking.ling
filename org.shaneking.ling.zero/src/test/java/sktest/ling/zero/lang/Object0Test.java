@@ -12,16 +12,24 @@ import static org.junit.jupiter.api.Assertions.*;
 class Object0Test {
 
   @Test
-  void gs() {
+  void scenario1() {
     Object0Prepare3 object0Prepare3 = new Object0Prepare3();
     assertEquals(String0.T, String.valueOf(Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.str")));
     assertTrue(Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.str", String0.F) instanceof Object0Prepare3);
     assertEquals(String0.F, String.valueOf(Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.str")));
+  }
 
-    assertEquals(Object0.EXCEPTION, Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.abc"));
-    assertThrows(ZeroException.class, () -> Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.abc", false));
-    assertEquals(Object0.EXCEPTION, Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.abc", String0.F, true));
-    assertThrows(ZeroException.class, () -> Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.abc", String0.F, false));
+  @Test
+  void gs() {
+    Object0Prepare3 object0Prepare3 = new Object0Prepare3();
+    assertAll(
+      () -> assertEquals(Object0.EXCEPTION, Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.abc")),
+
+      () -> assertThrows(ZeroException.class, () -> Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.abc", false)),
+
+      () -> assertThrows(ZeroException.class, () -> Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.abc", String0.F, false)),
+      () -> assertEquals(Object0.EXCEPTION, Object0.gs(object0Prepare3, "object0Prepare2.object0Prepare.abc", String0.F, true))
+    );
   }
 
   //must be public classes
