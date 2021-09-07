@@ -18,10 +18,6 @@ import java.io.File;
 @Accessors(chain = true)
 public class SKUnit {
   public static final File MAVEN_TEST_ROOT_FOLDER = new File("src/test/java");
-
-  @Getter
-  @Setter
-  private Stopwatch0 stopwatch;
   @Getter
   @Setter
   private String tstFiles = "tstFiles";
@@ -30,13 +26,17 @@ public class SKUnit {
   private String tstI = String0.I.toLowerCase();
   @Getter
   @Setter
-  private TestInfo tstInfo;
-  @Getter
-  @Setter
   private String tstO = String0.O.toLowerCase();
   @Getter
   @Setter
   private String tstSeq = null;
+
+  @Getter
+  @Setter
+  private Stopwatch0 stopwatch;
+  @Getter
+  @Setter
+  private TestInfo tstInfo;
 
   @AfterEach
   public void tstAfter() {

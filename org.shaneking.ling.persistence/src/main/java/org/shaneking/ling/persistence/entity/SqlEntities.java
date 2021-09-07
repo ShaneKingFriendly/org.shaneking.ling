@@ -42,13 +42,6 @@ public interface SqlEntities extends Entities {
   @Transient
   String UNIQUE_INDEX_NAME__PREFIX = "u_" + INDEX_NAME__PREFIX;
 
-  default void limitStatement(@NonNull List<String> limitList, @NonNull List<Object> objectList) {
-    Pagination pagination = this.getPagination() == null ? new Pagination() : this.getPagination();
-    Integer limit = Integer0.gt2d(Integer0.null2Default(pagination.getSize(), Pagination.DEFAULT_SIZE), Pagination.MAX_SIZE);
-    limitList.add(MF0.fmt("{0} {1}", Keyword.LIMIT, String.valueOf(limit)));//add String.valueOf to fix 1000+ to 1,000+
-    limitList.add(MF0.fmt("{0} {1}", Keyword.OFFSET, String.valueOf(Integer0.lt2d((Integer0.null2Zero(pagination.getPage()) - 1) * limit, 0))));
-  }
-
 
   ///
   String createColumnStatement(String columnName, boolean idOrVersion);
@@ -57,11 +50,30 @@ public interface SqlEntities extends Entities {
 
   String createIndexIfNotExistSql();
 
-  String createTableSql();
+  String createTableAndIndexIfNotExistSql();
 
   String createTableIfNotExistSql();
 
-  String createTableAndIndexIfNotExistSql();
+  String createTableSql();
+
+  default String createTableSql(List<String> sqlList) {
+    for (String idColumn : this.getIdFieldNameList()) {
+      sqlList.add(this.createColumnStatement(idColumn, true));
+    }
+    for (String verColumn : this.getVerFieldNameList()) {
+      sqlList.add(this.createColumnStatement(verColumn, true));
+    }
+    for (String columnName : this.getFieldNameList()) {
+      if (!this.getIdFieldNameList().contains(columnName) && !this.getVerFieldNameList().contains(columnName)) {
+        sqlList.add(this.createColumnStatement(columnName, false));
+      }
+    }
+    sqlList.add(MF0.fmt("  {0} (`{1}`)", Keyword.PRIMARY_KEY, String.join("`,`", this.getIdFieldNameList().stream().map(idFieldName -> this.getDbColumnMap().get(idFieldName)).collect(Collectors.toList()))));
+    sqlList.add(String0.CLOSE_PARENTHESIS + String0.SEMICOLON);
+    return String.join(String0.BR_LINUX, sqlList);
+  }
+
+  Tuple.Pair<String, List<Object>> deleteSql();
 
   default Map<String, String> genTableIdxMap() {
     Map<String, String> rtn = Map0.newHashMap();
@@ -158,28 +170,16 @@ public interface SqlEntities extends Entities {
     return Map0.newHashMap();
   }
 
-  default String createTableSql(List<String> sqlList) {
-    for (String idColumn : this.getIdFieldNameList()) {
-      sqlList.add(this.createColumnStatement(idColumn, true));
-    }
-    for (String verColumn : this.getVerFieldNameList()) {
-      sqlList.add(this.createColumnStatement(verColumn, true));
-    }
-    for (String columnName : this.getFieldNameList()) {
-      if (!this.getIdFieldNameList().contains(columnName) && !this.getVerFieldNameList().contains(columnName)) {
-        sqlList.add(this.createColumnStatement(columnName, false));
-      }
-    }
-    sqlList.add(MF0.fmt("  {0} (`{1}`)", Keyword.PRIMARY_KEY, String.join("`,`", this.getIdFieldNameList().stream().map(idFieldName -> this.getDbColumnMap().get(idFieldName)).collect(Collectors.toList()))));
-    sqlList.add(String0.CLOSE_PARENTHESIS + String0.SEMICOLON);
-    return String.join(String0.BR_LINUX, sqlList);
+  Tuple.Pair<String, List<Object>> insertSql();
+
+  default void limitStatement(@NonNull List<String> limitList, @NonNull List<Object> objectList) {
+    Pagination pagination = this.getPagination() == null ? new Pagination() : this.getPagination();
+    Integer limit = Integer0.gt2d(Integer0.null2Default(pagination.getSize(), Pagination.DEFAULT_SIZE), Pagination.MAX_SIZE);
+    limitList.add(MF0.fmt("{0} {1}", Keyword.LIMIT, String.valueOf(limit)));//add String.valueOf to fix 1000+ to 1,000+
+    limitList.add(MF0.fmt("{0} {1}", Keyword.OFFSET, String.valueOf(Integer0.lt2d((Integer0.null2Zero(pagination.getPage()) - 1) * limit, 0))));
   }
 
   ///
-  Tuple.Pair<String, List<Object>> deleteSql();
-
-  Tuple.Pair<String, List<Object>> insertSql();
-
   Tuple.Pair<String, List<Object>> selectCountSql();
 
   Tuple.Pair<String, List<Object>> selectIdsSql();

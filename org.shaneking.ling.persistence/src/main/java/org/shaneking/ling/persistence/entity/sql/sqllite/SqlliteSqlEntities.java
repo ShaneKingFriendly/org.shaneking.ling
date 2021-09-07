@@ -27,7 +27,7 @@ public interface SqlliteSqlEntities extends SqlEntities {
     } else {
       columnDbTypeString = Keyword.TYPE_VARCHAR;
     }
-    String[] comments = String0.nullToEmpty(this.getColumnMap().get(columnName).columnDefinition()).split(Keyword.COMMENT4ANNOTATION);
+    String[] comments = String0.nullToEmpty(this.getColumnMap().get(columnName).columnDefinition()).split(Keyword.COMMENT.toUpperCase());
     String commentBefore = String0.nullToEmpty(comments[0]).trim();
     commentBefore = String0.isNullOrEmpty(commentBefore) ? commentBefore : (String0.BLANK + commentBefore);
     if (Keyword.TYPE_TEXT.equals(columnDbTypeString) || Keyword.TYPE_INT.equals(columnDbTypeString)) {
@@ -36,6 +36,10 @@ public interface SqlliteSqlEntities extends SqlEntities {
       rtn = MF0.fmt("  `{0}` {1}({2}){3}{4},", this.getDbColumnMap().get(columnName), columnDbTypeString, String.valueOf(this.getColumnMap().get(columnName).length()), partNotNull, commentBefore);
     }
     return rtn;
+  }
+
+  default String createIndexIfNotExistSql() {
+    return createIndexSql();
   }
 
   default String createIndexSql() {
@@ -55,23 +59,19 @@ public interface SqlliteSqlEntities extends SqlEntities {
     return String.join(String0.BR_LINUX, indexStatementList);
   }
 
-  default String createIndexIfNotExistSql() {
-    return createIndexSql();
-  }
-
   default String createTableSql() {
     List<String> sqlList = List0.newArrayList();
     sqlList.add(MF0.fmt("{0} {1} `{2}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, this.getDbTableName()));
     return createTableSql(sqlList);
   }
 
-  default String createTableIfNotExistSql() {
-    return createTableSql();
-  }
-
   default String createTableAndIndexIfNotExistSql() {
     String idxSqls = createIndexIfNotExistSql();
     idxSqls = String0.isNull2Empty(idxSqls) ? String0.EMPTY : (idxSqls + String0.BR_LINUX);
     return createTableIfNotExistSql() + String0.BR_LINUX + String0.BR_LINUX + idxSqls;
+  }
+
+  default String createTableIfNotExistSql() {
+    return createTableSql();
   }
 }

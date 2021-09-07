@@ -9,9 +9,6 @@ import javax.persistence.Transient;
  */
 public interface Shared {
   @Transient
-  String ERR_CODE__NOT_SHARED = "SHARED__NOT_SHARED";
-
-  @Transient
   String COLUMN__SHARE = "share";
   @Transient
   String FIELD__SHARE = "share";

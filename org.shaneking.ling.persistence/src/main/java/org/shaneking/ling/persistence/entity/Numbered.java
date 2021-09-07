@@ -7,10 +7,9 @@ import javax.persistence.Transient;
 ///business or third-party system primary key
 public interface Numbered {
   @Transient
-  String ERR_CODE__NOT_FOUND_BY_NUMBER = "NUMBERED__NOT_FOUND_BY_NUMBER";
-
-  @Transient
   String COLUMN__NO = "no";
+  @Transient
+  String ERR_CODE__NOT_FOUND_BY_NUMBER = "NUMBERED__NOT_FOUND_BY_NUMBER";
   @Transient
   String FIELD__NO = "no";
 

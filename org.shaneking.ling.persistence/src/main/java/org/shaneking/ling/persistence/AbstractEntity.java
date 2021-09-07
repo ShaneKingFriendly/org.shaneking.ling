@@ -119,50 +119,34 @@ public abstract class AbstractEntity<J> implements Entities {
   @Transient
   private J whereConditions;
 
-  //init
   public AbstractEntity() {
     initTableInfo();
     initColumnInfo(this.getClass());
   }
 
-  public void initTableInfo() {
-    if (this.getJavaTable() == null) {
-      this.setJavaTable(this.getClass().getAnnotation(Table.class));
-    }
-    if (String0.isNull2Empty(this.getJavaTable().name())) {
-      String classTableName = String0.field2DbColumn(List0.reverse(List0.newArrayList(this.getClass().getName().split(Regex0.DOT))).get(0));
-      this.setDbTableName("t" + (classTableName.startsWith(String0.UNDERLINE) ? classTableName : String0.UNDERLINE + classTableName));
-    } else {
-      this.setDbTableName(this.getJavaTable().name());
-    }
+  //maybe no primary index, no union index, just have `dd` non-union index
+  public String deletedFullTableName() {
+    return fullTableName() + "_d";
   }
 
-  public void initColumnInfo(Class<? extends Object> entityClass) {
-    if (AbstractEntity.class.isAssignableFrom(entityClass.getSuperclass())) {
-      initColumnInfo(entityClass.getSuperclass());
-    }
-    for (Field field : entityClass.getDeclaredFields()) {
-      if (field.getAnnotation(Transient.class) == null) {
-        Column column = field.getAnnotation(Column.class);
-        if (column != null) {
-          this.getColumnMap().put(field.getName(), column);
-          this.getFieldMap().put(field.getName(), field);
-          this.getDbColumnMap().put(field.getName(), String0.isNull2Empty(column.name()) ? String0.field2DbColumn(field.getName()) : column.name());
-          if (!this.getFieldNameList().contains(field.getName())) {
-            this.getFieldNameList().add(field.getName());
-          }
-        }
-        if (field.getAnnotation(Id.class) != null && !this.getIdFieldNameList().contains(field.getName())) {
-          this.getIdFieldNameList().add(field.getName());
-        }
-        if (field.getAnnotation(Version.class) != null && !this.getVerFieldNameList().contains(field.getName())) {
-          this.getVerFieldNameList().add(field.getName());
-        }
+  public Map<String, Object> fieldNameValues() {
+    Map<String, Object> rtn = Map0.newHashMap();
+    Object o;
+    for (String fieldName : this.getFieldNameList()) {
+      try {
+        o = this.getClass().getMethod("get" + String0.upperFirst(fieldName)).invoke(this);
+      } catch (Exception e) {
+        o = null;
+        ///ignore exception : config error, can't stop business, developer can be see and fixed by log
+        log.warn(OM3.lp(o, fieldName), e);
+      }
+      if (o != null) {
+        rtn.put(fieldName, o);
       }
     }
+    return rtn;
   }
 
-  //prepares
   public void fillOc(@NonNull List<String> list, @NonNull List<Object> objectList, Condition cond, String leftExpr) {
     if (String0.isNullOrEmpty(cond.getSq())) {
       if (Keyword.BETWEEN.equalsIgnoreCase(cond.getOp())) {
@@ -193,9 +177,41 @@ public abstract class AbstractEntity<J> implements Entities {
     return String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), this.getJavaTable().schema() + String0.DOT) + this.getDbTableName();
   }
 
-  //maybe no primary index, no union index, just have `dd` non-union index
-  public String deletedFullTableName() {
-    return fullTableName() + "_d";
+  public void initColumnInfo(Class<? extends Object> entityClass) {
+    if (AbstractEntity.class.isAssignableFrom(entityClass.getSuperclass())) {
+      initColumnInfo(entityClass.getSuperclass());
+    }
+    for (Field field : entityClass.getDeclaredFields()) {
+      if (field.getAnnotation(Transient.class) == null) {
+        Column column = field.getAnnotation(Column.class);
+        if (column != null) {
+          this.getColumnMap().put(field.getName(), column);
+          this.getFieldMap().put(field.getName(), field);
+          this.getDbColumnMap().put(field.getName(), String0.isNull2Empty(column.name()) ? String0.field2DbColumn(field.getName()) : column.name());
+          if (!this.getFieldNameList().contains(field.getName())) {
+            this.getFieldNameList().add(field.getName());
+          }
+        }
+        if (field.getAnnotation(Id.class) != null && !this.getIdFieldNameList().contains(field.getName())) {
+          this.getIdFieldNameList().add(field.getName());
+        }
+        if (field.getAnnotation(Version.class) != null && !this.getVerFieldNameList().contains(field.getName())) {
+          this.getVerFieldNameList().add(field.getName());
+        }
+      }
+    }
+  }
+
+  public void initTableInfo() {
+    if (this.getJavaTable() == null) {
+      this.setJavaTable(this.getClass().getAnnotation(Table.class));
+    }
+    if (String0.isNull2Empty(this.getJavaTable().name())) {
+      String classTableName = String0.field2DbColumn(List0.reverse(List0.newArrayList(this.getClass().getName().split(Regex0.DOT))).get(0));
+      this.setDbTableName("t" + (classTableName.startsWith(String0.UNDERLINE) ? classTableName : String0.UNDERLINE + classTableName));
+    } else {
+      this.setDbTableName(this.getJavaTable().name());
+    }
   }
 
   public List<String> lstSelectFiled() {
@@ -221,24 +237,6 @@ public abstract class AbstractEntity<J> implements Entities {
         log.warn(OM3.lp(o, columnFieldTypeString), e);
       }
     }
-  }
-
-  public Map<String, Object> fieldNameValues() {
-    Map<String, Object> rtn = Map0.newHashMap();
-    Object o;
-    for (String fieldName : this.getFieldNameList()) {
-      try {
-        o = this.getClass().getMethod("get" + String0.upperFirst(fieldName)).invoke(this);
-      } catch (Exception e) {
-        o = null;
-        ///ignore exception : config error, can't stop business, developer can be see and fixed by log
-        log.warn(OM3.lp(o, fieldName), e);
-      }
-      if (o != null) {
-        rtn.put(fieldName, o);
-      }
-    }
-    return rtn;
   }
 
   public void srvSelectList(List<String> selectList) {

@@ -21,30 +21,30 @@ class AC0Test {
     assertAll(
       () -> assertTrue(AC0.close(null)),
       () -> assertTrue(AC0.close(Files.newBufferedReader(thisFile.toPath()))),
-      () -> assertFalse(AC0.close(new AC0Prepare(2))),
+      () -> assertFalse(AC0.close(new AC0Prepare1(2))),
 
       () -> assertTrue(AC0.close(null, false)),
       () -> assertTrue(AC0.close(null, true)),
       () -> assertTrue(AC0.close(Files.newBufferedReader(thisFile.toPath()), false)),
       () -> assertTrue(AC0.close(Files.newBufferedReader(thisFile.toPath()), true)),
-      () -> assertThrows(ZeroException.class, () -> AC0.close(new AC0Prepare(2), false)),
+      () -> assertThrows(ZeroException.class, () -> AC0.close(new AC0Prepare1(2), false)),
 
       () -> assertTrue(AC0.close(null, true, 3)),
       () -> assertTrue(AC0.close(null, false, 3)),
       () -> assertTrue(AC0.close(Files.newBufferedReader(thisFile.toPath()), false, 3)),
       () -> assertTrue(AC0.close(Files.newBufferedReader(thisFile.toPath()), true, 3)),
-      () -> assertThrows(ZeroException.class, () -> AC0.close(new AC0Prepare(5), false, 3)),
+      () -> assertThrows(ZeroException.class, () -> AC0.close(new AC0Prepare1(5), false, 3)),
 
       () -> assertTrue(AC0.close(null, 3)),
       () -> assertTrue(AC0.close(Files.newBufferedReader(thisFile.toPath()), 3)),
-      () -> assertFalse(AC0.close(new AC0Prepare(5), 3))
+      () -> assertFalse(AC0.close(new AC0Prepare1(5), 3))
     );
   }
 
-  class AC0Prepare implements Closeable {
+  class AC0Prepare1 implements Closeable {
     private int closeTimesWillSuccessfully = 1;
 
-    public AC0Prepare(int closeTimesWillSuccessfully) {
+    public AC0Prepare1(int closeTimesWillSuccessfully) {
       this.closeTimesWillSuccessfully = closeTimesWillSuccessfully;
     }
 

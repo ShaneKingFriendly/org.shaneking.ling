@@ -12,9 +12,9 @@ public interface Versioned {
 
   Integer getVer();
 
-  <T extends Versioned> T setVer(Integer ver);
-
   default <T extends Versioned> T initVer() {
     return setVer(Integer0.null2Zero(getVer()));
   }
+
+  <T extends Versioned> T setVer(Integer ver);
 }

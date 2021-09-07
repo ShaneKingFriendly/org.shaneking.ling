@@ -36,10 +36,6 @@ public class Condition {
   @Setter
   private String sq;//sub query
 
-  public Condition appendVal(@NonNull String val) {
-    return appendVal(List0.newArrayList(val));
-  }
-
   public Condition appendVal(@NonNull List<String> valList) {
     this.setOp(Keyword.IN);
     List<String> clValList = this.getCl();
@@ -55,8 +51,8 @@ public class Condition {
     return this;
   }
 
-  public Condition resetVal(@NonNull String val) {
-    return this.setOp(String0.EQUAL).setCs(val);
+  public Condition appendVal(@NonNull String val) {
+    return appendVal(List0.newArrayList(val));
   }
 
   public Condition resetVal(@NonNull List<String> valList) {
@@ -72,5 +68,9 @@ public class Condition {
       clValList.retainAll(valList);
     }
     return this;
+  }
+
+  public Condition resetVal(@NonNull String val) {
+    return this.setOp(String0.EQUAL).setCs(val);
   }
 }

@@ -8,25 +8,25 @@ public interface Audited {
   @Transient
   String COLUMN__IVD = "ivd";
   @Transient
-  String FIELD__IVD = "ivd";
-  @Transient
   String COLUMN__LM_DSZ = "lm_dsz";
   @Transient
-  String FIELD__LM_DSZ = "lmDsz";
-  @Transient
   String COLUMN__LM_UID = "lm_uid";
+  @Transient
+  String FIELD__IVD = "ivd";
+  @Transient
+  String FIELD__LM_DSZ = "lmDsz";
   @Transient
   String FIELD__LM_UID = "lmUid";
 
   String getIvd();
 
-  <T extends Audited> T setIvd(String ivd);
-
   String getLmDsz();
 
-  <T extends Audited> T setLmDsz(String lmDsz);
-
   String getLmUid();
+
+  <T extends Audited> T setIvd(String ivd);
+
+  <T extends Audited> T setLmDsz(String lmDsz);
 
   <T extends Audited> T setLmUid(String lmUid);
 

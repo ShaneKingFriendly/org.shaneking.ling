@@ -1,4 +1,4 @@
-package sktest.ling.persistence.entity;
+package sktest.ling.persistence.entity.sql;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -6,9 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.shaneking.ling.persistence.Condition;
-import org.shaneking.ling.persistence.entity.AbstractSqlEntity;
+import org.shaneking.ling.persistence.entity.sql.AbstractDialectSqlEntity;
 import org.shaneking.ling.zero.lang.String0;
-import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
 
 import javax.persistence.Column;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public abstract class AbstractSqlEntityPrepare extends AbstractSqlEntity<Map<String, Condition>> {
+public abstract class AbstractDialectSqlEntityPrepare1 extends AbstractDialectSqlEntity<Map<String, Condition>> {
   @Column(length = 10)
   @Getter
   @Setter
@@ -55,14 +54,6 @@ public abstract class AbstractSqlEntityPrepare extends AbstractSqlEntity<Map<Str
   @Setter
   private String longText;
 
-  public Map<String, String> genTableIdxMapExt() {
-    return Map0.newHashMap("not_null_col", "not_null_col");
-  }
-
-  public Map<String, List<String>> genTableUniIdxMapExt() {
-    return Map0.newHashMap("unique_col", List0.newArrayList("unique_col"));
-  }
-
   @Override
   public @NonNull List<Condition> findHavingConditions(@NonNull String fieldName) {
     Map<String, Condition> ocMap = this.getHavingConditions();
@@ -83,15 +74,6 @@ public abstract class AbstractSqlEntityPrepare extends AbstractSqlEntity<Map<Str
     return ocMap.keySet().stream().filter(Objects::nonNull).filter(s -> s.equals(fieldName) || s.startsWith(fieldName + String0.UNDERLINE + String0.UNDERLINE)).map(s -> this.getWhereConditions().get(s)).collect(Collectors.toList());
   }
 
-  public Condition forceHavingCondition(@NonNull String field) {
-    Map<String, Condition> conditionMap = this.getHavingConditions();
-    if (conditionMap == null) {
-      conditionMap = Map0.newHashMap();
-      this.setHavingConditions(conditionMap);
-    }
-    return forceCondition(conditionMap, field);
-  }
-
   public Condition forceCondition(@NonNull Map<String, Condition> conditionMap, @NonNull String field) {
     Condition condition = conditionMap.get(field);
     if (condition == null) {
@@ -99,6 +81,15 @@ public abstract class AbstractSqlEntityPrepare extends AbstractSqlEntity<Map<Str
       conditionMap.put(field, condition);
     }
     return condition;
+  }
+
+  public Condition forceHavingCondition(@NonNull String field) {
+    Map<String, Condition> conditionMap = this.getHavingConditions();
+    if (conditionMap == null) {
+      conditionMap = Map0.newHashMap();
+      this.setHavingConditions(conditionMap);
+    }
+    return forceCondition(conditionMap, field);
   }
 
   public Condition forceWhereCondition(@NonNull String field) {

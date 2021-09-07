@@ -25,18 +25,18 @@ class CtxIgnoredFilterTest extends SKUnit {
     OM3.om().setFilterProvider(simpleFilterProvider);
     assertAll(
       () -> {
-        CtxIgnoredFilterPrepare ctxIgnoredFilterPrepare = new CtxIgnoredFilterPrepare().setI1(1).setS1("s11").setS2("s12");
+        CtxIgnoredFilterPrepare1 ctxIgnoredFilterPrepare1 = new CtxIgnoredFilterPrepare1().setI1(1).setS1("s11").setS2("s12");
         JacksonCtx.scenario.set(null);
-        assertEquals("{\"s1\":\"s11\",\"i1\":1,\"s2\":\"s12\"}", OM3.writeValueAsString(ctxIgnoredFilterPrepare));
+        assertEquals("{\"s1\":\"s11\",\"i1\":1,\"s2\":\"s12\"}", OM3.writeValueAsString(ctxIgnoredFilterPrepare1));
         JacksonCtx.scenario.set("scenario2");
-        assertEquals("{\"s1\":\"s11\",\"i1\":1}", OM3.writeValueAsString(ctxIgnoredFilterPrepare));
+        assertEquals("{\"s1\":\"s11\",\"i1\":1}", OM3.writeValueAsString(ctxIgnoredFilterPrepare1));
       },
       () -> {
-        CtxIgnoredFilterPrepare ctxIgnoredFilterPrepare = new CtxIgnoredFilterPrepare().setI1(1).setS1("s11").setS2("s12").setO1(new CtxIgnoredFilterPrepare.CtxIgnoredFilterPrepare2().setI1(2).setS1("s21").setS2("s22"));
+        CtxIgnoredFilterPrepare1 ctxIgnoredFilterPrepare1 = new CtxIgnoredFilterPrepare1().setI1(1).setS1("s11").setS2("s12").setO11(new CtxIgnoredFilterPrepare1.CtxIgnoredFilterPrepare11().setI1(2).setS1("s21").setS2("s22"));
         JacksonCtx.scenario.set(null);
-        assertEquals("{\"s1\":\"s11\",\"i1\":1,\"s2\":\"s12\",\"o1\":{\"s1\":\"s21\",\"i1\":2,\"s2\":\"s22\"}}", OM3.writeValueAsString(ctxIgnoredFilterPrepare));
+        assertEquals("{\"s1\":\"s11\",\"i1\":1,\"s2\":\"s12\",\"o11\":{\"s1\":\"s21\",\"i1\":2,\"s2\":\"s22\"}}", OM3.writeValueAsString(ctxIgnoredFilterPrepare1));
         JacksonCtx.scenario.set("scenario2");
-        assertEquals("{\"s1\":\"s11\",\"i1\":1,\"o1\":{\"s1\":\"s21\",\"i1\":2}}", OM3.writeValueAsString(ctxIgnoredFilterPrepare));
+        assertEquals("{\"s1\":\"s11\",\"i1\":1,\"o11\":{\"s1\":\"s21\",\"i1\":2}}", OM3.writeValueAsString(ctxIgnoredFilterPrepare1));
       }
     );
   }
@@ -44,7 +44,7 @@ class CtxIgnoredFilterTest extends SKUnit {
   @Test
   void include() {
     assertAll(
-      () -> assertNotNull(new CtxIgnoredFilterPrepare().include(new BeanPropertyWriterPrepare()))
+      () -> assertNotNull(new CtxIgnoredFilterPrepare1().include(new BeanPropertyWriterPrepare1()))
     );
   }
 
@@ -52,7 +52,7 @@ class CtxIgnoredFilterTest extends SKUnit {
   @CtxIgnored("scenario3")
   @JsonFilter(CtxIgnoredFilter.FILTER_NAME)
   @ToString
-  public static class CtxIgnoredFilterPrepare extends CtxIgnoredFilter {
+  public static class CtxIgnoredFilterPrepare1 extends CtxIgnoredFilter {
     @CtxIgnored("scenario1")
     @Getter
     @Setter
@@ -67,7 +67,7 @@ class CtxIgnoredFilterTest extends SKUnit {
     @CtxIgnored
     @Getter
     @Setter
-    private CtxIgnoredFilterPrepare2 o1;
+    private CtxIgnoredFilterPrepare11 o11;
 
     @Override
     public boolean include(BeanPropertyWriter writer) {
@@ -78,7 +78,7 @@ class CtxIgnoredFilterTest extends SKUnit {
     @CtxIgnored("scenario3")
     @JsonFilter(CtxIgnoredFilter.FILTER_NAME)
     @ToString
-    public static class CtxIgnoredFilterPrepare2 {
+    public static class CtxIgnoredFilterPrepare11 {
       @CtxIgnored("scenario1")
       @Getter
       @Setter
@@ -95,6 +95,6 @@ class CtxIgnoredFilterTest extends SKUnit {
     }
   }
 
-  public static class BeanPropertyWriterPrepare extends BeanPropertyWriter {
+  public static class BeanPropertyWriterPrepare1 extends BeanPropertyWriter {
   }
 }

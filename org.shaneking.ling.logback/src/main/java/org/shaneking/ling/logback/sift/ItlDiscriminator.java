@@ -9,15 +9,6 @@ import java.util.Map;
 public class ItlDiscriminator extends MDCBasedDiscriminator {
   public static final InheritableThreadLocal<Map<String, String>> ITL = new InheritableThreadLocal<>();
 
-  public static Map<String, String> itl() {
-    Map<String, String> rtn = ITL.get();
-    if (rtn == null) {
-      rtn = Map0.newHashMap();
-      ITL.set(rtn);
-    }
-    return rtn;
-  }
-
   @Override
   public String getDiscriminatingValue(ILoggingEvent event) {
     String rtn;
@@ -26,6 +17,15 @@ public class ItlDiscriminator extends MDCBasedDiscriminator {
       rtn = itlMap.get(getKey());
     } else {
       rtn = super.getDiscriminatingValue(event);
+    }
+    return rtn;
+  }
+
+  public static Map<String, String> itl() {
+    Map<String, String> rtn = ITL.get();
+    if (rtn == null) {
+      rtn = Map0.newHashMap();
+      ITL.set(rtn);
     }
     return rtn;
   }

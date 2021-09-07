@@ -1,11 +1,11 @@
 package org.shaneking.ling.persistence.struct;
 
 public interface Dict {
-  String getType();
-
-  String getValue();
+  String getDescription();
 
   String getDisplay();
 
-  String getDescription();
+  String getType();
+
+  String getValue();
 }

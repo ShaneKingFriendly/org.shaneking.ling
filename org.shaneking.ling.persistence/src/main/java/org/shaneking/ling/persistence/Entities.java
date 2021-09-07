@@ -17,9 +17,15 @@ public interface Entities {
   @Transient
   String ERR_CODE__NOT_FOUND = "ENTITIES__NOT_FOUND";
 
+  String deletedFullTableName();
+
+  Map<String, Object> fieldNameValues();
+
   List<Condition> findHavingConditions(@NonNull String fieldName);
 
   List<Condition> findWhereConditions(@NonNull String fieldName);
+
+  String fullTableName();
 
   Map<String, Column> getColumnMap();
 
@@ -37,19 +43,22 @@ public interface Entities {
 
   Pagination getPagination();
 
-  <T extends Entities> T setPagination(Pagination pagination);
-
   List<String> getSelectList();
 
   List<String> getVerFieldNameList();
 
-  String fullTableName();
+  default Entities nullSetter() {
+    for (String fieldName : this.getFieldNameList()) {
+      try {
+        this.getClass().getMethod("set" + String0.upperFirst(fieldName), this.getFieldMap().get(fieldName).getType()).invoke(this, new Object[]{null});
+      } catch (Exception e) {
+        ///ignore exception : most scenario use in test case
+      }
+    }
+    return this;
+  }
 
-  String deletedFullTableName();
-
-  void mapRow(ResultSet rs);
-
-  Map<String, Object> fieldNameValues();
+  <T extends Entities> T setPagination(Pagination pagination);
 
   /// set return void
   // /Users/ShaneKing/sk.sync/space/web/com/github/ShaneKingFriendly/org.shaneking.ling/org.shaneking.ling.persistence/src/main/java/org/shaneking/ling/persistence/AbstractEntity.java:81:3
@@ -62,14 +71,5 @@ public interface Entities {
     return rtn;
   }
 
-  default Entities nullSetter() {
-    for (String fieldName : this.getFieldNameList()) {
-      try {
-        this.getClass().getMethod("set" + String0.upperFirst(fieldName), this.getFieldMap().get(fieldName).getType()).invoke(this, new Object[]{null});
-      } catch (Exception e) {
-        ///ignore exception : most scenario use in test case
-      }
-    }
-    return this;
-  }
+  void mapRow(ResultSet rs);
 }

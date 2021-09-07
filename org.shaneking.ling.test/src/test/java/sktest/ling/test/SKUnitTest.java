@@ -29,13 +29,13 @@ public class SKUnitTest extends SKUnit {
   }
 
   @Test
-  void testOContent() {
-    assertEquals(tstOContent(), tstOContent());
+  public void testIFiles() {
+    assertEquals(new File("src/test/java/sktest/ling/test/tstFiles/SKUnitTest_testIFiles_null_i.txt"), tstIFiles());
   }
 
   @Test
-  public void testIFiles() {
-    assertEquals(new File("src/test/java/sktest/ling/test/tstFiles/SKUnitTest_testIFiles_null_i.txt"), tstIFiles());
+  void testOContent() {
+    assertEquals(tstOContent(), tstOContent());
   }
 
   @Test

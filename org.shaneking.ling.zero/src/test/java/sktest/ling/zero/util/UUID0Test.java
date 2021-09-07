@@ -48,12 +48,12 @@ class UUID0Test {
   @Test
   void to62String() {
     assertAll(
-      () -> assertEquals("0", UUID0Prepare.to62String(0, 1)),
-      () -> assertEquals("0", UUID0Prepare.to62String(0, 62))
+      () -> assertEquals("0", UUID0Prepare1.to62String(0, 1)),
+      () -> assertEquals("0", UUID0Prepare1.to62String(0, 62))
     );
   }
 
-  public static class UUID0Prepare extends UUID0 {
+  public static class UUID0Prepare1 extends UUID0 {
     public static String to62String(long i, int radix) {
       return UUID0.to62String(i, radix);
     }

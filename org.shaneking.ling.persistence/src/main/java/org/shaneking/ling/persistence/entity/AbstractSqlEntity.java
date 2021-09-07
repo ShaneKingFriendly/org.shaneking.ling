@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @Accessors(chain = true)
 @Slf4j
 public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements SqlEntities {
-  //crud
   public Tuple.Pair<String, List<Object>> deleteSql() {
     List<Object> rtnObjectList = List0.newArrayList();
 
@@ -32,6 +31,32 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
       sqlList.add(String.join(String0.wrapBlack(Keyword.AND), whereList));
     }
     return Tuple.of(String.join(String0.BLANK, sqlList), rtnObjectList);
+  }
+
+  public void fromStatement(@NonNull List<String> fromList, @NonNull List<Object> objectList) {
+    fromList.add(this.fullTableName());
+  }
+
+  public void groupByStatement(@NonNull List<String> groupByList, @NonNull List<Object> objectList) {
+    if (this.getGroupByList() != null) {
+      groupByList.addAll(this.getGroupByList());
+    }
+  }
+
+  public void havingStatement(@NonNull List<String> havingList, @NonNull List<Object> objectList) {
+    if (this.getHavingConditions() != null) {
+      this.havingStatement(havingList, objectList, this.getFieldNameList());
+    }
+  }
+
+  public void havingStatement(@NonNull List<String> havingList, @NonNull List<Object> objectList, @NonNull List<String> fieldNameList) {
+    for (String fieldName : fieldNameList) {
+      if (this.getColumnMap().get(fieldName) != null) {
+        for (Condition cond : this.findHavingConditions(fieldName)) {
+          this.fillOc(havingList, objectList, cond, String0.null2EmptyTo(cond.getLe(), this.getDbColumnMap().get(fieldName)));
+        }
+      }
+    }
   }
 
   public Tuple.Pair<String, List<Object>> insertSql() {
@@ -64,6 +89,12 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
         insertList.add(this.getDbColumnMap().get(fieldName));
         objectList.add(o);
       }
+    }
+  }
+
+  public void orderByStatement(@NonNull List<String> orderByList, @NonNull List<Object> objectList) {
+    if (this.getOrderByList() != null) {
+      orderByList.addAll(this.getOrderByList());
     }
   }
 
@@ -196,39 +227,6 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
           objectList.add((Integer) o + 1);
         }
       }
-    }
-  }
-
-  //other statements
-  public void fromStatement(@NonNull List<String> fromList, @NonNull List<Object> objectList) {
-    fromList.add(this.fullTableName());
-  }
-
-  public void groupByStatement(@NonNull List<String> groupByList, @NonNull List<Object> objectList) {
-    if (this.getGroupByList() != null) {
-      groupByList.addAll(this.getGroupByList());
-    }
-  }
-
-  public void havingStatement(@NonNull List<String> havingList, @NonNull List<Object> objectList) {
-    if (this.getHavingConditions() != null) {
-      this.havingStatement(havingList, objectList, this.getFieldNameList());
-    }
-  }
-
-  public void havingStatement(@NonNull List<String> havingList, @NonNull List<Object> objectList, @NonNull List<String> fieldNameList) {
-    for (String fieldName : fieldNameList) {
-      if (this.getColumnMap().get(fieldName) != null) {
-        for (Condition cond : this.findHavingConditions(fieldName)) {
-          this.fillOc(havingList, objectList, cond, String0.null2EmptyTo(cond.getLe(), this.getDbColumnMap().get(fieldName)));
-        }
-      }
-    }
-  }
-
-  public void orderByStatement(@NonNull List<String> orderByList, @NonNull List<Object> objectList) {
-    if (this.getOrderByList() != null) {
-      orderByList.addAll(this.getOrderByList());
     }
   }
 

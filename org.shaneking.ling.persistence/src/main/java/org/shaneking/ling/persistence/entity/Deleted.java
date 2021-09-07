@@ -25,9 +25,6 @@ import javax.persistence.Transient;
  */
 public interface Deleted {
   @Transient
-  String ERR_CODE__DATA_CAN_NO_LONGER_BE_USED = "DELETED__DATA_CAN_NO_LONGER_BE_USED";
-
-  @Transient
   String COLUMN__DD = "dd";
   @Transient
   String FIELD__DD = "dd";

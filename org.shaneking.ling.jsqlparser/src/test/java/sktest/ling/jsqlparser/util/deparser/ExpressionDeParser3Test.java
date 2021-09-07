@@ -19,10 +19,10 @@ class ExpressionDeParser3Test extends SKUnit {
   void addSchemaAliasPrefix() {
     assertAll(
       () -> assertEquals("sa.some_col", ExpressionDeParser3.addSchemaAliasPrefix("some_col", "sa")),
-      () -> assertEquals("sa.some_col", ExpressionDeParser3.addSchemaAliasPrefix("some_tbl.some_col", "sa")),
       () -> assertEquals("some_func()", ExpressionDeParser3.addSchemaAliasPrefix("some_func()", "sa")),
       () -> assertEquals("some_schema.some_func()", ExpressionDeParser3.addSchemaAliasPrefix("some_schema.some_func()", "sa")),
-      () -> assertEquals("some_schema.some_func(sa.some_col, 'p1', 'p2')", ExpressionDeParser3.addSchemaAliasPrefix("some_schema.some_func(some_col, 'p1', 'p2')", "sa"))
+      () -> assertEquals("some_schema.some_func(sa.some_col, 'p1', 'p2')", ExpressionDeParser3.addSchemaAliasPrefix("some_schema.some_func(some_col, 'p1', 'p2')", "sa")),
+      () -> assertEquals("sa.some_col", ExpressionDeParser3.addSchemaAliasPrefix("some_tbl.some_col", "sa"))
     );
   }
 }

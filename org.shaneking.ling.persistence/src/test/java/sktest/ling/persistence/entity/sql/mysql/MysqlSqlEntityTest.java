@@ -9,10 +9,8 @@ import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.time.ZDT0;
 import org.shaneking.ling.zero.util.UUID0;
-import sktest.ling.persistence.entity.AbstractSqlEntityPrepare;
-import sktest.ling.persistence.entity.sql.AbstractDialectSqlEntityPrepare;
+import sktest.ling.persistence.entity.sql.AbstractDialectSqlEntityPrepare1;
 
-import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.IOException;
@@ -26,37 +24,31 @@ public class MysqlSqlEntityTest extends SKUnit {
   String userId = UUID0.cUl33();
   String dateTimeSssZone = ZDT0.on().dTSZ();
 
-  DialectSqlEntityPrepareMysql dialectSqlEntityPrepareMysql = new DialectSqlEntityPrepareMysql();
+  MysqlSqlEntityPrepare1 mysqlSqlEntityPrepare1 = new MysqlSqlEntityPrepare1();
 
   @BeforeEach
   void beforeEach() {
-    dialectSqlEntityPrepareMysql.setHasLength("hasLength").setNoGetMethod("noGetMethod").setNotNullCol("notNullCol").setUniqueCol("uniqueCol").setWithoutAnnotation("withoutAnnotation").setReName("reName").setLongText("longText");
+    mysqlSqlEntityPrepare1.setHasLength("hasLength").setNoGetMethod("noGetMethod").setNotNullCol("notNullCol").setUniqueCol("uniqueCol").setWithoutAnnotation("withoutAnnotation").setReName("reName").setLongText("longText");
 //    mysqlIdAdtVerEntity.setVersion(1).setLastModifyDateTime(ZDT0.on().dateTimesZone()).setLastModifyUserId(userId).setInvalid(String0.N).setId(id);
-    dialectSqlEntityPrepareMysql.initWithUidAndId(userId, id);
-    dialectSqlEntityPrepareMysql.setLmDsz(dateTimeSssZone);
+    mysqlSqlEntityPrepare1.initWithUidAndId(userId, id);
+    mysqlSqlEntityPrepare1.setLmDsz(dateTimeSssZone);
   }
 
   @Test
   void createTableAndIndexIfNotExistSql() throws IOException {
-    Files.write(tstOFiles().toPath(), dialectSqlEntityPrepareMysql.createTableAndIndexIfNotExistSql().getBytes());
-    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), dialectSqlEntityPrepareMysql.createTableAndIndexIfNotExistSql().trim());
+    Files.write(tstOFiles().toPath(), mysqlSqlEntityPrepare1.createTableAndIndexIfNotExistSql().getBytes());
+    assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), mysqlSqlEntityPrepare1.createTableAndIndexIfNotExistSql().trim());
   }
 
   @Test
   void testToString() {
 //    assertEquals("{\"id\":\"" + id + "\",\"ivd\":\"N\",\"lmDsz\":\"" + dateTime + "\",\"lmUid\":\"" + userId + "\",\"ver\":0,\"hasLength\":\"hasLength\",\"notNullCol\":\"notNullCol\",\"uniqueCol\":\"uniqueCol\",\"withoutAnnotation\":\"withoutAnnotation\",\"reName\":\"reName\",\"longText\":\"longText\"}", OM3.writeValueAsString(mysqlIdAdtVerEntity));
-    assertEquals("MysqlSqlEntityTest.DialectSqlEntityPrepareMysql(super=AbstractDialectSqlEntityPrepare(super=AbstractDialectSqlEntity(id=" + id + ", ver=0, dd=N, ivd=N, lmDsz=" + dateTimeSssZone + ", lmUid=" + userId + ", no=" + id + "), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", dialectSqlEntityPrepareMysql.toString());
+    assertEquals("MysqlSqlEntityTest.MysqlSqlEntityPrepare1(super=AbstractDialectSqlEntityPrepare1(super=AbstractDialectSqlEntity(id=" + id + ", ver=0, dd=N, ivd=N, lmDsz=" + dateTimeSssZone + ", lmUid=" + userId + ", no=" + id + "), hasLength=hasLength, noGetMethod=noGetMethod, notNullCol=notNullCol, uniqueCol=uniqueCol, withoutAnnotation=withoutAnnotation, reName=reName, longText=longText))", mysqlSqlEntityPrepare1.toString());
   }
 
   @Accessors(chain = true)
   @Table(schema = "sktest1_schema", name = "sktest1_table", uniqueConstraints = {@UniqueConstraint(columnNames = {"has_length", "not_null_col"})})
   @ToString(callSuper = true)
-  public static class DialectSqlEntityPrepareMysql extends AbstractDialectSqlEntityPrepare implements MysqlSqlEntities {
-  }
-
-  @Accessors(chain = true)
-  @Table(schema = "sktest1_schema", name = "sktest1_table", indexes = {@Index(columnList = "not_null_col")})
-  @ToString(callSuper = true)
-  public static class SqlEntityPrepareMysql extends AbstractSqlEntityPrepare implements MysqlSqlEntities {
+  public static class MysqlSqlEntityPrepare1 extends AbstractDialectSqlEntityPrepare1 implements MysqlSqlEntities {
   }
 }
