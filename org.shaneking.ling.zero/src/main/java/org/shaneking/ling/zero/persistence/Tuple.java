@@ -19,6 +19,7 @@ public class Tuple<First, Rest> implements Iterable<Object> {
   public static final String BEGIN = String0.OPEN_BRACKET;
   public static final String END = String0.CLOSE_BRACKET;
   public static final String SEP = String0.COMMA;
+
   First first;
   Rest rest;
 
@@ -27,60 +28,16 @@ public class Tuple<First, Rest> implements Iterable<Object> {
     this.rest = rest;
   }
 
+  public static Null of() {
+    return new Null();
+  }
+
   public static TupleJoiner joinWith(String sep) {
     return new TupleJoiner(BEGIN, sep, END);
   }
 
   public static TupleJoiner joinWith(String begin, String sep, String end) {
     return new TupleJoiner(begin, sep, end);
-  }
-
-  public static Null of() {
-    return new Null();
-  }
-
-  public static <T1> Single<T1> of(T1 t1) {
-    return new Single<>(t1);
-  }
-
-  public static <T1, T2> Pair<T1, T2> of(T1 t1, T2 t2) {
-    return new Pair<>(t1, t2);
-  }
-
-  public static <T1, T2, T3> Triple<T1, T2, T3> of(T1 t1, T2 t2, T3 t3) {
-    return new Triple<>(t1, t2, t3);
-  }
-
-  public static <T1, T2, T3, T4> Quadruple<T1, T2, T3, T4> of(T1 t1, T2 t2, T3 t3, T4 t4) {
-    return new Quadruple<>(t1, t2, t3, t4);
-  }
-
-  public static <T1, T2, T3, T4, T5> Quintuple<T1, T2, T3, T4, T5> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5) {
-    return new Quintuple<>(t1, t2, t3, t4, t5);
-  }
-
-  public static <T1, T2, T3, T4, T5, T6> Sextuple<T1, T2, T3, T4, T5, T6> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6) {
-    return new Sextuple<>(t1, t2, t3, t4, t5, t6);
-  }
-
-  public static <T1, T2, T3, T4, T5, T6, T7> Septuple<T1, T2, T3, T4, T5, T6, T7> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7) {
-    return new Septuple<>(t1, t2, t3, t4, t5, t6, t7);
-  }
-
-  public static <T1, T2, T3, T4, T5, T6, T7, T8> Octuple<T1, T2, T3, T4, T5, T6, T7, T8> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8) {
-    return new Octuple<>(t1, t2, t3, t4, t5, t6, t7, t8);
-  }
-
-  public static <T1, T2, T3, T4, T5, T6, T7, T8, T9> Nonuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9) {
-    return new Nonuple<>(t1, t2, t3, t4, t5, t6, t7, t8, t9);
-  }
-
-  public static <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Decuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10) {
-    return new Decuple<>(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
-  }
-
-  public static <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> DecuplePlus<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, Object... rest) {
-    return new DecuplePlus<>(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, rest);
   }
 
   public static <T1, Rest> T1 getFirst(Tuple<T1, Rest> tuple) {
@@ -128,13 +85,8 @@ public class Tuple<First, Rest> implements Iterable<Object> {
     return (T) Iterable0.get(tuple, n);
   }
 
-  public <T> Tuple<T, Tuple<First, Rest>> prepend(T t) {
-    return new Tuple<>(t, this);
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    return this == obj || (null != obj) && (Tuple.class.isAssignableFrom(obj.getClass())) && Iterable0.elementsEqual(this, (Tuple<?, ?>) obj);
+  public static <T1> Single<T1> of(T1 t1) {
+    return new Single<>(t1);
   }
 
   @NonNull
@@ -143,9 +95,58 @@ public class Tuple<First, Rest> implements Iterable<Object> {
     return List0.newArrayList(first, rest).iterator();
   }
 
+  public static <T1, T2> Pair<T1, T2> of(T1 t1, T2 t2) {
+    return new Pair<>(t1, t2);
+  }
+
+  public static <T1, T2, T3> Triple<T1, T2, T3> of(T1 t1, T2 t2, T3 t3) {
+    return new Triple<>(t1, t2, t3);
+  }
+
+  public static <T1, T2, T3, T4> Quadruple<T1, T2, T3, T4> of(T1 t1, T2 t2, T3 t3, T4 t4) {
+    return new Quadruple<>(t1, t2, t3, t4);
+  }
+
+  public static <T1, T2, T3, T4, T5> Quintuple<T1, T2, T3, T4, T5> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5) {
+    return new Quintuple<>(t1, t2, t3, t4, t5);
+  }
+
+  public static <T1, T2, T3, T4, T5, T6> Sextuple<T1, T2, T3, T4, T5, T6> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6) {
+    return new Sextuple<>(t1, t2, t3, t4, t5, t6);
+  }
+
+  public static <T1, T2, T3, T4, T5, T6, T7> Septuple<T1, T2, T3, T4, T5, T6, T7> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7) {
+    return new Septuple<>(t1, t2, t3, t4, t5, t6, t7);
+  }
+
+  public static <T1, T2, T3, T4, T5, T6, T7, T8> Octuple<T1, T2, T3, T4, T5, T6, T7, T8> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8) {
+    return new Octuple<>(t1, t2, t3, t4, t5, t6, t7, t8);
+  }
+
+  public static <T1, T2, T3, T4, T5, T6, T7, T8, T9> Nonuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9) {
+    return new Nonuple<>(t1, t2, t3, t4, t5, t6, t7, t8, t9);
+  }
+
+  public static <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Decuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10) {
+    return new Decuple<>(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
+  }
+
+  public static <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> DecuplePlus<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> of(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, Object... rest) {
+    return new DecuplePlus<>(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, rest);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return this == obj || (null != obj) && (Tuple.class.isAssignableFrom(obj.getClass())) && Iterable0.elementsEqual(this, (Tuple<?, ?>) obj);
+  }
+
   @Override
   public int hashCode() {
     return Objects.hashCode(Iterator0.toArray(iterator(), Object.class));
+  }
+
+  public <T> Tuple<T, Tuple<First, Rest>> prepend(T t) {
+    return new Tuple<>(t, this);
   }
 
   @Override

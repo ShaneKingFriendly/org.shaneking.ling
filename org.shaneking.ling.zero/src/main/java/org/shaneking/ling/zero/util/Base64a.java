@@ -30,6 +30,14 @@ public class Base64a {
     49, 50, 51
   };
 
+  private static int base64Toint(char c) {
+    int index = base64ToInt[c];
+    if (index < 0) {
+      throw new IllegalArgumentException("Illegal character " + c);
+    }
+    return index;
+  }
+
   public static byte[] decode(String s) {
     int length = s.length();
     int groupNum = length / 4;
@@ -100,13 +108,5 @@ public class Base64a {
       }
     }
     return result.toString();
-  }
-
-  private static int base64Toint(char c) {
-    int index = base64ToInt[c];
-    if (index < 0) {
-      throw new IllegalArgumentException("Illegal character " + c);
-    }
-    return index;
   }
 }

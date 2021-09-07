@@ -11,9 +11,9 @@ class Char0Test {
   void isAlphabet() {
     assertAll(
       () -> assertFalse(Char0.isAlphabet('1')),
-      () -> assertTrue(Char0.isAlphabet('a')),
+      () -> assertFalse(Char0.isAlphabet('!')),
       () -> assertTrue(Char0.isAlphabet('Q')),
-      () -> assertFalse(Char0.isAlphabet('!'))
+      () -> assertTrue(Char0.isAlphabet('a'))
     );
   }
 
@@ -22,10 +22,10 @@ class Char0Test {
     assertAll(
       () -> assertTrue(Char0.isAlphabetOrDigital('0')),
       () -> assertTrue(Char0.isAlphabetOrDigital('1')),
-      () -> assertTrue(Char0.isAlphabetOrDigital('a')),
-      () -> assertTrue(Char0.isAlphabetOrDigital('Q')),
       () -> assertFalse(Char0.isAlphabetOrDigital('!')),
-      () -> assertFalse(Char0.isAlphabetOrDigital('@'))
+      () -> assertFalse(Char0.isAlphabetOrDigital('@')),
+      () -> assertTrue(Char0.isAlphabetOrDigital('Q')),
+      () -> assertTrue(Char0.isAlphabetOrDigital('a'))
     );
   }
 
@@ -34,8 +34,8 @@ class Char0Test {
     assertAll(
       () -> assertTrue(Char0.isDigital('0')),
       () -> assertTrue(Char0.isDigital('1')),
-      () -> assertFalse(Char0.isDigital('a')),
-      () -> assertFalse(Char0.isDigital('!'))
+      () -> assertFalse(Char0.isDigital('!')),
+      () -> assertFalse(Char0.isDigital('a'))
     );
   }
 }

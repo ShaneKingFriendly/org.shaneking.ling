@@ -17,14 +17,22 @@ import java.util.Objects;
 @Slf4j
 public class DistributedFileLock implements DistributedLockable {
   @Getter
-  private String lockKey;//fullPath,filePath
-  @Getter
   @Setter
   private int releases = 3;
+  @Getter
+  private String lockKey;//fullPath,filePath
 
-  private RandomAccessFile randomAccessFile;
   private FileChannel fileChannel;
   private FileLock fileLock;
+  private RandomAccessFile randomAccessFile;
+
+  @Override
+  public void close() throws Exception {
+    AC0.close(fileLock, Integer0.lt2d(releases, 3));
+    AC0.close(fileChannel, Integer0.lt2d(releases, 3));
+    AC0.close(randomAccessFile, Integer0.lt2d(releases, 3));
+    this.lockKey = null;
+  }
 
   @Override
   public DistributedFileLock lock(String lockKey, int tryTimes, int intervalSeconds) {
@@ -69,13 +77,5 @@ public class DistributedFileLock implements DistributedLockable {
     } catch (Exception e) {
       log.error(this.lockKey, e);
     }
-  }
-
-  @Override
-  public void close() throws Exception {
-    AC0.close(fileLock, Integer0.lt2d(releases, 3));
-    AC0.close(fileChannel, Integer0.lt2d(releases, 3));
-    AC0.close(randomAccessFile, Integer0.lt2d(releases, 3));
-    this.lockKey = null;
   }
 }

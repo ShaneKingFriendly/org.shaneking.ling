@@ -33,10 +33,10 @@ class Boolean0Test {
   void sf() {
     assertAll(
       () -> assertEquals(String0.F, Boolean0.sf(false)),
+      () -> assertEquals(String0.S, Boolean0.sf(true)),
       () -> assertFalse(Boolean0.sf(null)),
       () -> assertFalse(Boolean0.sf(String0.F)),
-      () -> assertTrue(Boolean0.sf(String0.S)),
-      () -> assertEquals(String0.S, Boolean0.sf(true))
+      () -> assertTrue(Boolean0.sf(String0.S))
     );
   }
 
@@ -44,10 +44,10 @@ class Boolean0Test {
   void tf() {
     assertAll(
       () -> assertEquals(String0.F, Boolean0.tf(false)),
+      () -> assertEquals(String0.T, Boolean0.tf(true)),
       () -> assertFalse(Boolean0.tf(null)),
       () -> assertFalse(Boolean0.tf(String0.F)),
-      () -> assertTrue(Boolean0.tf(String0.T)),
-      () -> assertEquals(String0.T, Boolean0.tf(true))
+      () -> assertTrue(Boolean0.tf(String0.T))
     );
   }
 
@@ -55,10 +55,10 @@ class Boolean0Test {
   void yn() {
     assertAll(
       () -> assertEquals(String0.N, Boolean0.yn(false)),
+      () -> assertEquals(String0.Y, Boolean0.yn(true)),
       () -> assertFalse(Boolean0.yn(null)),
       () -> assertFalse(Boolean0.yn(String0.N)),
-      () -> assertTrue(Boolean0.yn(String0.Y)),
-      () -> assertEquals(String0.Y, Boolean0.yn(true))
+      () -> assertTrue(Boolean0.yn(String0.Y))
     );
   }
 }

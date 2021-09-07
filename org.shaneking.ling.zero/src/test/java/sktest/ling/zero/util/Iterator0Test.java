@@ -25,16 +25,16 @@ class Iterator0Test {
   @Test
   void elementsEqual() {
     assertAll(
+      () -> assertThrows(NullPointerException.class, () -> Iterator0.elementsEqual(null, null)),
       () -> assertFalse(Iterator0.elementsEqual(List0.nCopies(3, () -> 5).iterator(), List0.nCopies(3, () -> 8).iterator())),
       () -> assertFalse(Iterator0.elementsEqual(List0.nCopies(8, () -> 5).iterator(), List0.nCopies(3, () -> 5).iterator())),
-      () -> assertThrows(NullPointerException.class, () -> Iterator0.elementsEqual(List0.newArrayList().iterator(), null)),
-      () -> assertThrows(NullPointerException.class, () -> Iterator0.elementsEqual(null, null))
+      () -> assertThrows(NullPointerException.class, () -> Iterator0.elementsEqual(List0.newArrayList().iterator(), null))
     );
   }
 
   @Test
   void get() {
-    assertThrows(IndexOutOfBoundsException.class, () -> Iterator0.get(List0.nCopies(3, () -> 5).iterator(), 8));
     assertThrows(NullPointerException.class, () -> Iterator0.get(null, 0));
+    assertThrows(IndexOutOfBoundsException.class, () -> Iterator0.get(List0.nCopies(3, () -> 5).iterator(), 8));
   }
 }

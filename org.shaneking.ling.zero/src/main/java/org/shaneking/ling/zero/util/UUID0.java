@@ -29,6 +29,11 @@ public class UUID0 {
     return System.currentTimeMillis() + String0.UNDERLINE + l19(uuid);
   }
 
+  private static String digits(long val, int digits) {
+    long hi = 1L << (digits * 4);
+    return to62String(hi | (val & (hi - 1)), MAX_RADIX).substring(1);
+  }
+
   public static String dMl37() {
     return dMl37(UUID.randomUUID());
   }
@@ -83,10 +88,5 @@ public class UUID0 {
       buf[--charPos] = '-';
     }
     return new String(buf, charPos, (size - charPos));
-  }
-
-  private static String digits(long val, int digits) {
-    long hi = 1L << (digits * 4);
-    return to62String(hi | (val & (hi - 1)), MAX_RADIX).substring(1);
   }
 }

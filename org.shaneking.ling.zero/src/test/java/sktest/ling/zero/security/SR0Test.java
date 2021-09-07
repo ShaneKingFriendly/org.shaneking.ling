@@ -13,12 +13,12 @@ class SR0Test {
   }
 
   @Test
-  void nextInt() {
-    assertTrue(SR0.nextInt(9) < 9);
+  void absInt() {
+    assertTrue(SR0.absInt(9) < 9);
   }
 
   @Test
-  void absInt() {
-    assertTrue(SR0.absInt(9) < 9);
+  void nextInt() {
+    assertTrue(SR0.nextInt(9) < 9);
   }
 }

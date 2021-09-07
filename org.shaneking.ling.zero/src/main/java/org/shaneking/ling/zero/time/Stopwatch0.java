@@ -24,22 +24,6 @@ public class Stopwatch0 {
     this.ticker = ticker;
   }
 
-  public static Stopwatch0 createStarted() {
-    return new Stopwatch0().start();
-  }
-
-  public static Stopwatch0 createStarted(LongSupplier ticker) {
-    return new Stopwatch0(ticker).start();
-  }
-
-  public static Stopwatch0 createUnstarted() {
-    return new Stopwatch0();
-  }
-
-  public static Stopwatch0 createUnstarted(LongSupplier ticker) {
-    return new Stopwatch0(ticker);
-  }
-
   private static String abbreviate(TimeUnit unit) {
     switch (unit) {
       case NANOSECONDS:
@@ -83,12 +67,32 @@ public class Stopwatch0 {
     return NANOSECONDS;
   }
 
+  public static Stopwatch0 createStarted() {
+    return new Stopwatch0().start();
+  }
+
+  public static Stopwatch0 createStarted(LongSupplier ticker) {
+    return new Stopwatch0(ticker).start();
+  }
+
+  public static Stopwatch0 createUnstarted() {
+    return new Stopwatch0();
+  }
+
+  public static Stopwatch0 createUnstarted(LongSupplier ticker) {
+    return new Stopwatch0(ticker);
+  }
+
   public Duration elapsed() {
     return Duration.ofNanos(elapsedNanos());
   }
 
   public long elapsed(@NonNull TimeUnit desiredUnit) {
     return desiredUnit.convert(elapsedNanos(), NANOSECONDS);
+  }
+
+  private long elapsedNanos() {
+    return isRunning ? ticker.getAsLong() - startTick + elapsedNanos : elapsedNanos;
   }
 
   public boolean isRunning() {
@@ -124,9 +128,5 @@ public class Stopwatch0 {
     double value = (double) nanos / NANOSECONDS.convert(1, unit);
 
     return String.format(Locale.ROOT, "%.4g", value) + " " + abbreviate(unit);
-  }
-
-  private long elapsedNanos() {
-    return isRunning ? ticker.getAsLong() - startTick + elapsedNanos : elapsedNanos;
   }
 }

@@ -13,10 +13,6 @@ public class Hex0 {
     return encodeHex(data, toLowerCase ? DIGITS_LOWER : DIGITS_UPPER);
   }
 
-  public static String encodeHexString(final byte[] data) {
-    return new String(encodeHex(data));
-  }
-
   protected static char[] encodeHex(final byte[] data, final char[] toDigits) {
     final int l = data.length;
     final char[] out = new char[l << 1];
@@ -30,5 +26,9 @@ public class Hex0 {
       out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
       out[j++] = toDigits[0x0F & data[i]];
     }
+  }
+
+  public static String encodeHexString(final byte[] data) {
+    return new String(encodeHex(data));
   }
 }

@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 public class InetAddress0 {
   public static final long YEAR = 1000L * 60 * 60 * 24 * 365;
   public static final long EXPIRATION = YEAR * 100;
+
   public static final List<CacheEntry0> LOCAL_ADDRESS_LIST = List0.newArrayList();
 
   public static Object createCacheEntry(String hostName, String[] hostAddresses) {

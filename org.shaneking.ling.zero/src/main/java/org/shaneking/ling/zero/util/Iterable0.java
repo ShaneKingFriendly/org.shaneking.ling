@@ -7,6 +7,10 @@ import java.util.Collection;
 import java.util.List;
 
 public class Iterable0 {
+  private static <E> Collection<E> castOrCopyToCollection(@NonNull Iterable<E> iterable) {
+    return (iterable instanceof Collection) ? (Collection<E>) iterable : List0.newArrayList(iterable.iterator());
+  }
+
   public static boolean elementsEqual(@NonNull Iterable<?> iterable1, @NonNull Iterable<?> iterable2) {
     if (iterable1 instanceof Collection && iterable2 instanceof Collection) {
       Collection<?> collection1 = (Collection<?>) iterable1;
@@ -28,9 +32,5 @@ public class Iterable0 {
 
   static <T> T[] toArray(Iterable<? extends T> iterable, T[] array) {
     return castOrCopyToCollection(iterable).toArray(array);
-  }
-
-  private static <E> Collection<E> castOrCopyToCollection(@NonNull Iterable<E> iterable) {
-    return (iterable instanceof Collection) ? (Collection<E>) iterable : List0.newArrayList(iterable.iterator());
   }
 }

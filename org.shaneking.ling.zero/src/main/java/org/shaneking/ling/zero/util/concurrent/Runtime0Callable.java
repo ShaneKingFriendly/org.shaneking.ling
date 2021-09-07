@@ -19,12 +19,12 @@ public class Runtime0Callable implements Callable<List<String>> {
   @Getter
   private final boolean errorStream;
   @Getter
-  private final InputStream inputStream;
+  private final boolean value4pause;///if meet pause, return true or false?
   private final int maxRecordSize;
   @Getter
   private final String pauseFlag;
   @Getter
-  private final boolean value4pause;///if meet pause, return true or false?
+  private final InputStream inputStream;
 
   public Runtime0Callable(InputStream inputStream, boolean errorStream, boolean value4pause, String pauseFlag, int maxRecordSize) {
     super();
