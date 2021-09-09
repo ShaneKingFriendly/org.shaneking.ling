@@ -42,13 +42,11 @@ public interface SqlEntities extends Entities {
   @Transient
   String UNIQUE_INDEX_NAME__PREFIX = "u_" + INDEX_NAME__PREFIX;
 
-
-  ///
   String createColumnStatement(String columnName, boolean idOrVersion);
 
-  String createIndexSql();
-
   String createIndexIfNotExistSql();
+
+  String createIndexSql();
 
   String createTableAndIndexIfNotExistSql();
 

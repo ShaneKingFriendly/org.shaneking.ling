@@ -21,8 +21,18 @@
       <totalSizeCap>5GB</totalSizeCap>
     </rollingPolicy>
   </appender>
-  <root level="debug"><!-- >debug -->
+  <appender name="CONSOLE_ASYNC" class="ch.qos.logback.classic.AsyncAppender"><!-- http://logback.qos.ch/manual/appenders.html#AsyncAppender -->
+    <discardingThreshold>0</discardingThreshold>
+    <queueSize>256</queueSize>
     <appender-ref ref="CONSOLE"/>
+  </appender>
+  <appender name="FILE_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+    <discardingThreshold>0</discardingThreshold>
+    <queueSize>256</queueSize>
     <appender-ref ref="FILE"/>
+  </appender>
+  <root level="DEBUG">
+    <appender-ref ref="CONSOLE_ASYNC"/>
+    <appender-ref ref="FILE_ASYNC"/>
   </root>
 </configuration>

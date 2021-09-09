@@ -14,18 +14,14 @@ public interface ZeroCache {
   String ERR_CODE__CACHE_HIT_MISS = "ZERO_CACHE__CACHE_HIT_MISS";
   String ERR_CODE__CACHE_HIT_PART = "ZERO_CACHE__CACHE_HIT_PART";
 
-  ThreadLocal<Map<String, List<String>>> DEL_MAP = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key list
-  ThreadLocal<Map<String, Map<String, List<String>>>> DEL_MAP2 = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key, field list
-
   LruMap<String, String> LRU_MAP = new LruMap<>(1023);
   LruMap<String, LruMap<String, String>> LRU_MAP2 = new LruMap<>(1023);
 
+  ThreadLocal<Map<String, List<String>>> DEL_MAP = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key list
+  ThreadLocal<Map<String, Map<String, List<String>>>> DEL_MAP2 = ThreadLocal.withInitial(Map0::newHashMap);//by transaction, by key, field list
+
   default String currentTransactionName() {
     return null;
-  }
-
-  default Boolean del(@NonNull String key) {
-    return del(false, key);
   }
 
   default Boolean del(boolean withoutTransactional, @NonNull String key) {
@@ -33,12 +29,12 @@ public interface ZeroCache {
     return true;
   }
 
-  default String get(@NonNull String key) {
-    return LRU_MAP.get(key);
+  default Boolean del(@NonNull String key) {
+    return del(false, key);
   }
 
-  default Long hdel(@NonNull String key, @NonNull String... fields) {
-    return hdel(false, key, fields);
+  default String get(@NonNull String key) {
+    return LRU_MAP.get(key);
   }
 
   default Long hdel(boolean withoutTransactional, @NonNull String key, @NonNull String... fields) {
@@ -50,6 +46,10 @@ public interface ZeroCache {
       }
     }
     return rtn;
+  }
+
+  default Long hdel(@NonNull String key, @NonNull String... fields) {
+    return hdel(false, key, fields);
   }
 
   default String hget(@NonNull String key, @NonNull String field) {
@@ -88,11 +88,11 @@ public interface ZeroCache {
     return false;
   }
 
-  default void set(@NonNull String key, @NonNull String value) {
+  default void set(@NonNull String key, int seconds, @NonNull String value) {
     LRU_MAP.put(key, value);
   }
 
-  default void set(@NonNull String key, int seconds, @NonNull String value) {
+  default void set(@NonNull String key, @NonNull String value) {
     LRU_MAP.put(key, value);
   }
 }

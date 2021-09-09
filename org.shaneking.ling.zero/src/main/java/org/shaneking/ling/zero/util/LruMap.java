@@ -14,13 +14,13 @@ public class LruMap<K, V> extends LinkedHashMap<K, V> {
     this(16, maxSize);
   }
 
-  public LruMap(int tableSize, int maxSize) {
-    this(tableSize, 0.75f, true, maxSize);
-  }
-
   public LruMap(int initialCapacity, float loadFactor, boolean accessOrder, int maxSize) {
     super(initialCapacity, loadFactor, accessOrder);
     this.maxSize = maxSize;
+  }
+
+  public LruMap(int tableSize, int maxSize) {
+    this(tableSize, 0.75f, true, maxSize);
   }
 
   public V get(K key, @NonNull Callable<V> callable) {

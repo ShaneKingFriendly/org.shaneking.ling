@@ -61,6 +61,17 @@ public class Resp<D> {
     return build(Resp.CODE_SUCCESSFULLY, data, null);
   }
 
+  public Resp<D> attach(Boolean rbk) {
+    this.rbk = rbk;
+    return this;
+  }
+
+  public Boolean detach() {
+    Boolean rtn = rbk;
+    rbk = null;
+    return rtn;
+  }
+
   public Resp<D> parseExp(@NonNull Exception exp) {
     String code = exp.getClass().getName();
     String message = String0.null2EmptyTo(exp.getMessage(), exp.toString());
@@ -81,16 +92,5 @@ public class Resp<D> {
       this.setCode(code);
     }
     return this.setMsg(String0.null2EmptyTo(this.getMsg(), message));
-  }
-
-  public Boolean detach() {
-    Boolean rtn = rbk;
-    rbk = null;
-    return rtn;
-  }
-
-  public Resp<D> attach(Boolean rbk) {
-    this.rbk = rbk;
-    return this;
   }
 }

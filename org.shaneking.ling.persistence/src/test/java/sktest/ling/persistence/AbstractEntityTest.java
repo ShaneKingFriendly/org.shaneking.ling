@@ -35,9 +35,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class AbstractEntityTest extends SKUnit {
+  String dtz = "2021-01-16 14:49:25.123+0800";
   String id = "1610866165373_KbTy6GDVwpB5rAYJjJb";
   String userId = "1610866165373_eXabaDd3OiEyivRv1GI";
-  String dtz = "2021-01-16 14:49:25.123+0800";
   AbstractEntityPrepare1 abstractEntityPrepare1 = new AbstractEntityPrepare1();
   @Mock
   private ResultSet resultSet;
@@ -101,18 +101,11 @@ class AbstractEntityTest extends SKUnit {
   }
 
   @Test
-  void fullTableName() {
-  }
-
-  @Test
-  void initColumnInfo() {
-    AbstractEntityPrepare2 abstractEntityPrepare2 = new AbstractEntityPrepare2();
-    abstractEntityPrepare2.initColumnInfo(abstractEntityPrepare2.getClass());
-    assertNotNull(abstractEntityPrepare2);
-  }
-
-  @Test
   void fromStatement() {
+  }
+
+  @Test
+  void fullTableName() {
   }
 
   @Test
@@ -128,6 +121,13 @@ class AbstractEntityTest extends SKUnit {
     abstractEntityPrepare1.forceHavingCondition("reName").setOp(Keyword.LIKE).setCs(String0.Y);
     Files.write(tstOFiles().toPath(), abstractEntityPrepare1.selectSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), abstractEntityPrepare1.selectSql().toString());
+  }
+
+  @Test
+  void initColumnInfo() {
+    AbstractEntityPrepare2 abstractEntityPrepare2 = new AbstractEntityPrepare2();
+    abstractEntityPrepare2.initColumnInfo(abstractEntityPrepare2.getClass());
+    assertNotNull(abstractEntityPrepare2);
   }
 
   @Test
@@ -151,19 +151,6 @@ class AbstractEntityTest extends SKUnit {
   }
 
   @Test
-  void mapRow() throws SQLException {
-    AbstractEntityPrepare4 abstractEntityPrepare4 = new AbstractEntityPrepare4();
-
-    Mockito.when(resultSet.getString(Identified.FIELD__ID)).thenReturn(id);
-    Mockito.when(resultSet.getString(Deleted.FIELD__DD)).thenReturn(null);
-    Mockito.when(resultSet.getInt(Versioned.FIELD__VER)).thenReturn(1);
-    abstractEntityPrepare4.setSelectList(List0.newArrayList(Identified.FIELD__ID, Deleted.FIELD__DD, Versioned.FIELD__VER, String0.ALPHABET));
-    abstractEntityPrepare4.mapRow(resultSet);
-
-    assertEquals("AbstractEntityTest.AbstractEntityPrepare4(super=AbstractDialectSqlEntityPrepare1(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, ver=1, dd=N, ivd=null, lmDsz=null, lmUid=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntityPrepare4.toString());
-  }
-
-  @Test
   void lstSelectFiled() {
     AbstractEntityPrepare1 lstSelectFiled1 = new AbstractEntityPrepare1();
     AbstractEntityPrepare1 lstSelectFiled2 = new AbstractEntityPrepare1();
@@ -175,6 +162,19 @@ class AbstractEntityTest extends SKUnit {
       () -> assertLinesMatch(List0.newArrayList(lstSelectFiled2.getFieldNameList()), lstSelectFiled2.lstSelectFiled()),
       () -> assertLinesMatch(List0.newArrayList(Identified.FIELD__ID), lstSelectFiled3.lstSelectFiled())
     );
+  }
+
+  @Test
+  void mapRow() throws SQLException {
+    AbstractEntityPrepare4 abstractEntityPrepare4 = new AbstractEntityPrepare4();
+
+    Mockito.when(resultSet.getString(Identified.FIELD__ID)).thenReturn(id);
+    Mockito.when(resultSet.getString(Deleted.FIELD__DD)).thenReturn(null);
+    Mockito.when(resultSet.getInt(Versioned.FIELD__VER)).thenReturn(1);
+    abstractEntityPrepare4.setSelectList(List0.newArrayList(Identified.FIELD__ID, Deleted.FIELD__DD, Versioned.FIELD__VER, String0.ALPHABET));
+    abstractEntityPrepare4.mapRow(resultSet);
+
+    assertEquals("AbstractEntityTest.AbstractEntityPrepare4(super=AbstractDialectSqlEntityPrepare1(super=AbstractDialectSqlEntity(id=1610866165373_KbTy6GDVwpB5rAYJjJb, ver=1, dd=N, ivd=null, lmDsz=null, lmUid=null, no=null), hasLength=null, noGetMethod=null, notNullCol=null, uniqueCol=null, withoutAnnotation=null, reName=null, longText=null))", abstractEntityPrepare4.toString());
   }
 
   @Test

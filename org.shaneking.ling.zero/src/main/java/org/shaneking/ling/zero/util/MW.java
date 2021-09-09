@@ -5,6 +5,10 @@ import java.util.Map;
 public class MW<K, V> {
   private final Map<K, V> map = Map0.newHashMap();
 
+  public Map<K, V> map() {
+    return map;
+  }
+
   public MW<K, V> put(K k, V v) {
     if (k != null) {
       map.put(k, v);
@@ -17,10 +21,6 @@ public class MW<K, V> {
       map.putAll(m);
     }
     return this;
-  }
-
-  public Map<K, V> map() {
-    return map;
   }
 
   public static <K, V> MW<K, V> wrap(K k, V v) {

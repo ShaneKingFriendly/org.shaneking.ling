@@ -30,21 +30,6 @@ public abstract class AbstractEntity<J> implements Entities {
   @JsonIgnore
   @Schema(hidden = true)
   @Transient
-  private final Map<String, Column> columnMap = Map0.newHashMap();
-  @Getter
-  @JsonIgnore
-  @Schema(hidden = true)
-  @Transient
-  private final Map<String, String> dbColumnMap = Map0.newHashMap();
-  @Getter
-  @JsonIgnore
-  @Schema(hidden = true)
-  @Transient
-  private final Map<String, Field> fieldMap = Map0.newHashMap();
-  @Getter
-  @JsonIgnore
-  @Schema(hidden = true)
-  @Transient
   private final List<String> fieldNameList = List0.newArrayList();
   @Getter
   @JsonIgnore
@@ -59,16 +44,24 @@ public abstract class AbstractEntity<J> implements Entities {
   @Getter
   @JsonIgnore
   @Schema(hidden = true)
-  @Setter
   @Transient
-  private String dbTableName;
+  private final Map<String, Column> columnMap = Map0.newHashMap();
+  @Getter
+  @JsonIgnore
+  @Schema(hidden = true)
+  @Transient
+  private final Map<String, String> dbColumnMap = Map0.newHashMap();
+  @Getter
+  @JsonIgnore
+  @Schema(hidden = true)
+  @Transient
+  private final Map<String, Field> fieldMap = Map0.newHashMap();
   @Getter
   @JsonIgnore
   @Schema(hidden = true)
   @Setter
   @Transient
-  private Table javaTable;
-
+  private String dbTableName;
   @Getter
   @Schema(hidden = true)
   @Setter
@@ -78,21 +71,17 @@ public abstract class AbstractEntity<J> implements Entities {
   @Schema(hidden = true)
   @Setter
   @Transient
-  private J havingConditions;
-  @Getter
-  @Schema(hidden = true)
-  @Setter
-  @Transient
   private List<String> orderByList;
-  @Getter
-  @Setter
-  @Transient
-  private Pagination pagination;
   @Getter
   @Schema(hidden = true)
   @Setter
   @Transient
   private List<String> selectList;
+  @Getter
+  @Schema(hidden = true)
+  @Setter
+  @Transient
+  private J havingConditions;
   /**
    * I don't want Map<String, Condition> to limit everyone, J maybe Map/fastjson/gson/jackson...
    * <blockquote><pre>
@@ -118,6 +107,16 @@ public abstract class AbstractEntity<J> implements Entities {
   @Setter
   @Transient
   private J whereConditions;
+  @Getter
+  @Setter
+  @Transient
+  private Pagination pagination;
+  @Getter
+  @JsonIgnore
+  @Schema(hidden = true)
+  @Setter
+  @Transient
+  private Table javaTable;
 
   public AbstractEntity() {
     initTableInfo();

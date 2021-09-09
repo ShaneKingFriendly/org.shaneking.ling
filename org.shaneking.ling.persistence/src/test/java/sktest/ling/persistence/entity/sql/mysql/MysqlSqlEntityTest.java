@@ -20,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MysqlSqlEntityTest extends SKUnit {
 
+  String dateTimeSssZone = ZDT0.on().dTSZ();
   String id = UUID0.cUl33();
   String userId = UUID0.cUl33();
-  String dateTimeSssZone = ZDT0.on().dTSZ();
 
   MysqlSqlEntityPrepare1 mysqlSqlEntityPrepare1 = new MysqlSqlEntityPrepare1();
 

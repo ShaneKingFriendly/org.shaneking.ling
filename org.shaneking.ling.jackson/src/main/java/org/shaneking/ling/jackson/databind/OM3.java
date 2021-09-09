@@ -92,10 +92,6 @@ public class OM3 {
     return writeValueAsString(rtnMap);
   }
 
-  public static <T> T readValue(T t) {
-    return OBJECT_ERROR_STRING.equals(writeValueAsString(t)) ? null : t;
-  }
-
   public static <T> T readValue(@NonNull ObjectMapper objectMapper, String content, Class<T> valueType) {
     return readValue(objectMapper, content, valueType, false);
   }
@@ -169,6 +165,10 @@ public class OM3 {
 
   public static <T> T readValue(String content, TypeReference<T> valueTypeRef, boolean rtnNullIfException) {
     return readValue(om(), content, valueTypeRef, rtnNullIfException);
+  }
+
+  public static <T> T readValue(T t) {
+    return OBJECT_ERROR_STRING.equals(writeValueAsString(t)) ? null : t;
   }
 
   public static <T> T treeToValue(@NonNull ObjectMapper objectMapper, TreeNode n, Class<T> valueType) {

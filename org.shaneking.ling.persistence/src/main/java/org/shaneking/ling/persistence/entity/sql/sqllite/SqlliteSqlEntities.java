@@ -59,12 +59,6 @@ public interface SqlliteSqlEntities extends SqlEntities {
     return String.join(String0.BR_LINUX, indexStatementList);
   }
 
-  default String createTableSql() {
-    List<String> sqlList = List0.newArrayList();
-    sqlList.add(MF0.fmt("{0} {1} `{2}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, this.getDbTableName()));
-    return createTableSql(sqlList);
-  }
-
   default String createTableAndIndexIfNotExistSql() {
     String idxSqls = createIndexIfNotExistSql();
     idxSqls = String0.isNull2Empty(idxSqls) ? String0.EMPTY : (idxSqls + String0.BR_LINUX);
@@ -73,5 +67,11 @@ public interface SqlliteSqlEntities extends SqlEntities {
 
   default String createTableIfNotExistSql() {
     return createTableSql();
+  }
+
+  default String createTableSql() {
+    List<String> sqlList = List0.newArrayList();
+    sqlList.add(MF0.fmt("{0} {1} `{2}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, this.getDbTableName()));
+    return createTableSql(sqlList);
   }
 }

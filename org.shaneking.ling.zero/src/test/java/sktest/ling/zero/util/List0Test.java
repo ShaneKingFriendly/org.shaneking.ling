@@ -41,15 +41,15 @@ class List0Test {
   }
 
   @Test
-  void reverse() {
-    assertLinesMatch(List0.newArrayList(String0.N, String0.Y), List0.reverse(List0.newArrayList(String0.Y, String0.N)));
-  }
-
-  @Test
   void retainAll() {
     List<String> a = List0.newArrayList(String0.Y, String0.N, String0.T);
     List<String> b = List0.newArrayList(String0.Y, String0.N, String0.F);
     a.retainAll(b);
     assertLinesMatch(List0.newArrayList(String0.Y, String0.N), a);
+  }
+
+  @Test
+  void reverse() {
+    assertLinesMatch(List0.newArrayList(String0.N, String0.Y), List0.reverse(List0.newArrayList(String0.Y, String0.N)));
   }
 }

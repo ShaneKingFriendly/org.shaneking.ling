@@ -59,6 +59,10 @@ public class Condition {
     return this.setOp(Keyword.IN).setCl(valList);
   }
 
+  public Condition resetVal(@NonNull String val) {
+    return this.setOp(String0.EQUAL).setCs(val);
+  }
+
   public Condition retainVal(@NonNull List<String> valList) {
     this.setOp(Keyword.IN);
     List<String> clValList = this.getCl();
@@ -68,9 +72,5 @@ public class Condition {
       clValList.retainAll(valList);
     }
     return this;
-  }
-
-  public Condition resetVal(@NonNull String val) {
-    return this.setOp(String0.EQUAL).setCs(val);
   }
 }

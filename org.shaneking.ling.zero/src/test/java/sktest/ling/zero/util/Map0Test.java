@@ -12,17 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class Map0Test {
 
   @Test
-  void newHashMap() {
+  void computeIfAbsent() {
     assertAll(
-      () -> assertLinesMatch(List0.newArrayList(Map0.<String, String>newConcurrentHashMap().keySet()), List0.newArrayList(Map0.<String, String>newConcurrentHashMap().values())),
-      () -> assertLinesMatch(List0.newArrayList(Map0.<String, String>newHashMap().keySet()), List0.newArrayList(Map0.<String, String>newHashMap().values()))
-    );
-    assertAll(
-      () -> assertLinesMatch(List0.newArrayList(Map0.newHashMap("a", "a").keySet()), List0.newArrayList(Map0.newHashMap("a", "a").values())),
-
-      () -> assertLinesMatch(List0.newArrayList(Map0.newHashMap(List0.newArrayList("a", "b"), List0.newArrayList("a", "b")).keySet())
-        , List0.newArrayList(Map0.newHashMap(List0.newArrayList("a", "b"), List0.newArrayList("a", "b")).values())),
-      () -> assertEquals(3, Map0.newHashMap(List0.newArrayList("a", "b", "c"), List0.newArrayList("a", "b")).size())
+      () -> assertEquals("v", Map0.newHashMap().computeIfAbsent("k", k -> "v")),
+      () -> assertEquals("v2", Map0.newHashMap("k", "v2").computeIfAbsent("k", k -> "v"))
     );
   }
 
@@ -34,10 +27,17 @@ class Map0Test {
   }
 
   @Test
-  void computeIfAbsent() {
+  void newHashMap() {
     assertAll(
-      () -> assertEquals("v", Map0.newHashMap().computeIfAbsent("k", k -> "v")),
-      () -> assertEquals("v2", Map0.newHashMap("k", "v2").computeIfAbsent("k", k -> "v"))
+      () -> assertLinesMatch(List0.newArrayList(Map0.<String, String>newConcurrentHashMap().keySet()), List0.newArrayList(Map0.<String, String>newConcurrentHashMap().values())),
+      () -> assertLinesMatch(List0.newArrayList(Map0.<String, String>newHashMap().keySet()), List0.newArrayList(Map0.<String, String>newHashMap().values()))
+    );
+    assertAll(
+      () -> assertLinesMatch(List0.newArrayList(Map0.newHashMap("a", "a").keySet()), List0.newArrayList(Map0.newHashMap("a", "a").values())),
+
+      () -> assertLinesMatch(List0.newArrayList(Map0.newHashMap(List0.newArrayList("a", "b"), List0.newArrayList("a", "b")).keySet())
+        , List0.newArrayList(Map0.newHashMap(List0.newArrayList("a", "b"), List0.newArrayList("a", "b")).values())),
+      () -> assertEquals(3, Map0.newHashMap(List0.newArrayList("a", "b", "c"), List0.newArrayList("a", "b")).size())
     );
   }
 }

@@ -30,8 +30,8 @@ public class File0 {
   public static final String TYPE_CSS = "css";
   public static final String TYPE_CSV = "csv";
   public static final String TYPE_DEB = "deb";
-  public static final String TYPE_DMG = "dmg";
   public static final String TYPE_DLL = "dll";
+  public static final String TYPE_DMG = "dmg";
   public static final String TYPE_DOC = "doc";
   public static final String TYPE_DOCX = "docx";
   public static final String TYPE_EXE = "exe";
@@ -114,12 +114,12 @@ public class File0 {
     return join(File.separator, parent, strings);
   }
 
-  public static File join(String delimiter, String... strings) {
-    return new File(String.join(delimiter, strings));
-  }
-
   public static File join(String delimiter, File parent, String... strings) {
     return new File(parent, String.join(delimiter, strings));
+  }
+
+  public static File join(String delimiter, String... strings) {
+    return new File(String.join(delimiter, strings));
   }
 
   public static String suffix(String fileTypeName) {

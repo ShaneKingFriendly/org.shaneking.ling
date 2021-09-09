@@ -118,32 +118,6 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     return Tuple.of(String.join(String0.BLANK, Tuple.getFirst(pair)), Tuple.getSecond(pair));
   }
 
-  public Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<String> selectList, @NonNull List<Object> selectObjectList) {
-    return selectSql(selectList, selectObjectList, false);
-  }
-
-  public Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<String> selectList, @NonNull List<Object> selectObjectList, boolean withoutLimit) {
-    List<Object> rtnObjectList = List0.newArrayList();
-    rtnObjectList.addAll(selectObjectList);
-
-    List<String> fromList = List0.newArrayList();
-    fromStatement(fromList, rtnObjectList);
-
-    List<String> whereList = List0.newArrayList();
-    whereStatement(whereList, rtnObjectList);
-
-    List<String> groupByList = List0.newArrayList();
-    groupByStatement(groupByList, rtnObjectList);
-
-    List<String> havingList = List0.newArrayList();
-    havingStatement(havingList, rtnObjectList);
-
-    List<String> orderByList = List0.newArrayList();
-    orderByStatement(orderByList, rtnObjectList);
-
-    return selectSql(rtnObjectList, selectList, fromList, whereList, groupByList, havingList, orderByList, withoutLimit);
-  }
-
   public Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<Object> objectList, @NonNull List<String> selectList, @NonNull List<String> fromList
     , List<String> whereList, List<String> groupByList, List<String> havingList, List<String> orderByList, boolean withoutLimit) {
     List<Object> rtnObjectList = List0.newArrayList();
@@ -179,6 +153,32 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
       }
     }
     return Tuple.of(sqlList, rtnObjectList);
+  }
+
+  public Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<String> selectList, @NonNull List<Object> selectObjectList) {
+    return selectSql(selectList, selectObjectList, false);
+  }
+
+  public Tuple.Pair<List<String>, List<Object>> selectSql(@NonNull List<String> selectList, @NonNull List<Object> selectObjectList, boolean withoutLimit) {
+    List<Object> rtnObjectList = List0.newArrayList();
+    rtnObjectList.addAll(selectObjectList);
+
+    List<String> fromList = List0.newArrayList();
+    fromStatement(fromList, rtnObjectList);
+
+    List<String> whereList = List0.newArrayList();
+    whereStatement(whereList, rtnObjectList);
+
+    List<String> groupByList = List0.newArrayList();
+    groupByStatement(groupByList, rtnObjectList);
+
+    List<String> havingList = List0.newArrayList();
+    havingStatement(havingList, rtnObjectList);
+
+    List<String> orderByList = List0.newArrayList();
+    orderByStatement(orderByList, rtnObjectList);
+
+    return selectSql(rtnObjectList, selectList, fromList, whereList, groupByList, havingList, orderByList, withoutLimit);
   }
 
   public void selectStatement(@NonNull List<String> selectList, @NonNull List<Object> objectList) {
@@ -230,6 +230,14 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
     }
   }
 
+  public void whereConditionsStatement(@NonNull List<String> whereList, @NonNull List<Object> objectList, @NonNull List<String> fieldNameList) {
+    for (String fieldName : fieldNameList) {
+      for (Condition cond : this.findWhereConditions(fieldName)) {
+        this.fillOc(whereList, objectList, cond, String0.null2EmptyTo(cond.getLe(), this.getDbColumnMap().get(fieldName)));
+      }
+    }
+  }
+
   public void whereEntityStatement(@NonNull List<String> whereList, @NonNull List<Object> objectList, @NonNull List<String> fieldNameList) {
     Object o;
     for (String fieldName : fieldNameList) {
@@ -245,14 +253,6 @@ public abstract class AbstractSqlEntity<J> extends AbstractEntity<J> implements 
           whereList.add(this.getDbColumnMap().get(fieldName) + String0.EQUAL + String0.QUESTION);
           objectList.add(o);
         }
-      }
-    }
-  }
-
-  public void whereConditionsStatement(@NonNull List<String> whereList, @NonNull List<Object> objectList, @NonNull List<String> fieldNameList) {
-    for (String fieldName : fieldNameList) {
-      for (Condition cond : this.findWhereConditions(fieldName)) {
-        this.fillOc(whereList, objectList, cond, String0.null2EmptyTo(cond.getLe(), this.getDbColumnMap().get(fieldName)));
       }
     }
   }

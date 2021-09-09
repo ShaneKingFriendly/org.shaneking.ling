@@ -17,16 +17,16 @@ class EntitiesTest {
   EntitiesPrepare1 entitiesPrepare1 = new EntitiesPrepare1();
 
   @Test
-  void sroPagination() {
+  void nullSetter() {
     assertAll(
-      () -> assertNull(entitiesPrepare1.sroPagination(new Pagination()))
+      () -> assertNotNull(entitiesPrepare1.nullSetter())
     );
   }
 
   @Test
-  void nullSetter() {
+  void sroPagination() {
     assertAll(
-      () -> assertNotNull(entitiesPrepare1.nullSetter())
+      () -> assertNull(entitiesPrepare1.sroPagination(new Pagination()))
     );
   }
 

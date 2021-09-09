@@ -40,22 +40,22 @@ class Base85aTest {
   }
 
   @Test
-  void getAscii85Encoder() {
-    assertNotNull(Base85a.getAscii85Encoder());
-  }
-
-  @Test
   void getAscii85Decoder() {
     assertNotNull(Base85a.getAscii85Decoder());
   }
 
   @Test
-  void getRfc1924Encoder() {
-    assertNotNull(Base85a.getRfc1924Encoder());
+  void getAscii85Encoder() {
+    assertNotNull(Base85a.getAscii85Encoder());
   }
 
   @Test
   void getRfc1924Decoder() {
     assertNotNull(Base85a.getRfc1924Decoder());
+  }
+
+  @Test
+  void getRfc1924Encoder() {
+    assertNotNull(Base85a.getRfc1924Encoder());
   }
 }

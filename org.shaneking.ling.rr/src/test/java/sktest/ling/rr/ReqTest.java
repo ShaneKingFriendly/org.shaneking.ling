@@ -55,6 +55,12 @@ class ReqTest extends SKUnit {
   }
 
   @Accessors(chain = true)
+  @ToString(callSuper = true)
+  public static class ReqPrepare1<O, R> extends Req<ReqCtxPrepare1, PriTest.PriExtPrepare1, O, R, ReqPubPrepare1> {
+
+  }
+
+  @Accessors(chain = true)
   @ToString
   public static class ReqPubPrepare1 {
     @Getter
@@ -70,11 +76,5 @@ class ReqTest extends SKUnit {
     @Setter
     private String tracingNo;
     //some other open properties
-  }
-
-  @Accessors(chain = true)
-  @ToString(callSuper = true)
-  public static class ReqPrepare1<O, R> extends Req<ReqCtxPrepare1, PriTest.PriExtPrepare1, O, R, ReqPubPrepare1> {
-
   }
 }

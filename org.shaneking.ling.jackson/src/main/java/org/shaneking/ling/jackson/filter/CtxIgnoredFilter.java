@@ -16,11 +16,6 @@ ThreadLocal is not perfect in spring mvc env.
 public class CtxIgnoredFilter extends SimpleBeanPropertyFilter implements Serializable {
   public static final String FILTER_NAME = "org.shaneking.ling.jackson.filter.CtxIgnoredFilter";//CtxIgnoredFilter.class.getName();
 
-  private boolean filter(PropertyWriter writer) {
-    CtxIgnored ctxIgnored = writer.getAnnotation(CtxIgnored.class);
-    return ctxIgnored == null || ctxIgnored.value().length == 0 || !Arrays.asList(ctxIgnored.value()).contains(JacksonCtx.scenario.get());
-  }
-
   @Override
   protected boolean include(BeanPropertyWriter writer) {
     return filter(writer);
@@ -29,5 +24,10 @@ public class CtxIgnoredFilter extends SimpleBeanPropertyFilter implements Serial
   @Override
   protected boolean include(PropertyWriter writer) {
     return filter(writer);
+  }
+
+  private boolean filter(PropertyWriter writer) {
+    CtxIgnored ctxIgnored = writer.getAnnotation(CtxIgnored.class);
+    return ctxIgnored == null || ctxIgnored.value().length == 0 || !Arrays.asList(ctxIgnored.value()).contains(JacksonCtx.scenario.get());
   }
 }

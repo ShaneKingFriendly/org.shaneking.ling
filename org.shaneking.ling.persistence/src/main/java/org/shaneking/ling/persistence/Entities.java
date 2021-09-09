@@ -47,6 +47,8 @@ public interface Entities {
 
   List<String> getVerFieldNameList();
 
+  void mapRow(ResultSet rs);
+
   default Entities nullSetter() {
     for (String fieldName : this.getFieldNameList()) {
       try {
@@ -60,16 +62,14 @@ public interface Entities {
 
   <T extends Entities> T setPagination(Pagination pagination);
 
-  /// set return void
-  // /Users/ShaneKing/sk.sync/space/web/com/github/ShaneKingFriendly/org.shaneking.ling/org.shaneking.ling.persistence/src/main/java/org/shaneking/ling/persistence/AbstractEntity.java:81:3
-  // java: 名称冲突: org.shaneking.ling.persistence.AbstractEntity中的setSelectList(java.util.List<java.lang.String>)和org.shaneking.ling.persistence.Entities中的<T>setSelectList(java.util.List<java.lang.String>)具有相同疑符, 但两者均不覆盖对方
-  void srvSelectList(List<String> selectList);
-
   default Pagination sroPagination(Pagination pagination) {
     Pagination rtn = getPagination();
     setPagination(pagination);
     return rtn;
   }
 
-  void mapRow(ResultSet rs);
+  /// set return void
+  // /Users/ShaneKing/sk.sync/space/web/com/github/ShaneKingFriendly/org.shaneking.ling/org.shaneking.ling.persistence/src/main/java/org/shaneking/ling/persistence/AbstractEntity.java:81:3
+  // java: 名称冲突: org.shaneking.ling.persistence.AbstractEntity中的setSelectList(java.util.List<java.lang.String>)和org.shaneking.ling.persistence.Entities中的<T>setSelectList(java.util.List<java.lang.String>)具有相同疑符, 但两者均不覆盖对方
+  void srvSelectList(List<String> selectList);
 }

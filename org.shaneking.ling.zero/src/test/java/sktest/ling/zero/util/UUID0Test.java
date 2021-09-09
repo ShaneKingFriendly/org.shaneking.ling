@@ -8,15 +8,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class UUID0Test {
 
   @Test
+  void cMl33() {
+    assertEquals(33, UUID0.cMl33().length());
+  }
+
+  @Test
   void constructor() {
     assertAll(
       () -> assertNotNull(new UUID0())
     );
-  }
-
-  @Test
-  void cMl33() {
-    assertEquals(33, UUID0.cMl33().length());
   }
 
   @Test

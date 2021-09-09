@@ -53,6 +53,10 @@ public interface MysqlSqlEntities extends SqlEntities {
     return idxSqls;
   }
 
+  default String createIndexSql() {
+    return createIndexSql(false);
+  }
+
   default String createIndexSql(boolean ifNotExists) {
     List<String> indexStatementList = List0.newArrayList();
 
@@ -69,17 +73,6 @@ public interface MysqlSqlEntities extends SqlEntities {
     });
 
     return String.join(String0.BR_LINUX, indexStatementList);
-  }
-
-  default String createIndexSql() {
-    return createIndexSql(false);
-  }
-
-  default String createTableSql() {
-    List<String> sqlList = List0.newArrayList();
-    String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MF0.fmt("`{0}`.", this.getJavaTable().schema()));
-    sqlList.add(MF0.fmt("{0} {1} {2}`{3}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, idxSchemaPart, this.getDbTableName()));
-    return createTableSql(sqlList);
   }
 
   default String createTableAndIndexIfNotExistSql() {
@@ -104,5 +97,12 @@ public interface MysqlSqlEntities extends SqlEntities {
     } else {
       return idxSql;
     }
+  }
+
+  default String createTableSql() {
+    List<String> sqlList = List0.newArrayList();
+    String idxSchemaPart = String0.notNull2EmptyTo(String0.nullToEmpty(this.getJavaTable().schema()), MF0.fmt("`{0}`.", this.getJavaTable().schema()));
+    sqlList.add(MF0.fmt("{0} {1} {2}`{3}` (", Keyword.CREATE_TABLE, Keyword.IF_NOT_EXISTS, idxSchemaPart, this.getDbTableName()));
+    return createTableSql(sqlList);
   }
 }
