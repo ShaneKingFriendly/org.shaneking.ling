@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.shaneking.ling</groupId>
     <artifactId>org.shaneking.ling</artifactId>
-    <version>0.254.10.Friendly-SNAPSHOT</version>
+    <version>0.254.10.Friendly</version>
   </parent>
 
   <artifactId>org.shaneking.ling.jsqlparser</artifactId>
-  <version>0.254.10.Friendly-SNAPSHOT</version>
+  <version>0.254.10.Friendly</version>
   <packaging>jar</packaging>
 
   <name>org.shaneking.ling.jsqlparser</name>
