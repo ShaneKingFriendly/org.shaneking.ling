@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.shaneking.ling</groupId>
     <artifactId>org.shaneking.ling</artifactId>
-    <version>0.254.20.Friendly-SNAPSHOT</version>
+    <version>0.255.10.Friendly-SNAPSHOT</version>
   </parent>
 
   <artifactId>org.shaneking.ling.zero</artifactId>
-  <version>0.254.20.Friendly-SNAPSHOT</version>
+  <version>0.255.10.Friendly-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>org.shaneking.ling.zero</name>

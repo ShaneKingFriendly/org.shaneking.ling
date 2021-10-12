@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.shaneking.ling.persistence.Condition;
 import org.shaneking.ling.persistence.Keyword;
-import org.shaneking.ling.persistence.Pagination;
 import org.shaneking.ling.persistence.entity.Deleted;
 import org.shaneking.ling.persistence.entity.Identified;
 import org.shaneking.ling.persistence.entity.Versioned;
@@ -20,6 +19,7 @@ import org.shaneking.ling.persistence.entity.sql.mysql.MysqlSqlEntities;
 import org.shaneking.ling.persistence.entity.sql.sqllite.SqlliteSqlEntities;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.persistence.Pagination;
 import org.shaneking.ling.zero.util.List0;
 import sktest.ling.persistence.entity.sql.AbstractDialectSqlEntityPrepare1;
 
@@ -180,7 +180,7 @@ class AbstractEntityTest extends SKUnit {
   @Test
   void orderByStatement() throws IOException {
     abstractEntityPrepare1.setOrderByList(List0.newArrayList("notNullCol", "uniqueCol", "reName"));
-    abstractEntityPrepare1.setPagination(new Pagination().setCount(100L).setPage(1).setSize(30));
+    abstractEntityPrepare1.setPagination(new Pagination().setCount(100L).setIdx(1).setSize(30));
     Files.write(tstOFiles().toPath(), abstractEntityPrepare1.selectSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), abstractEntityPrepare1.selectSql().toString());
   }

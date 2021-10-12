@@ -3,10 +3,10 @@ package sktest.ling.persistence.entity.sql.sqllite;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.junit.jupiter.api.Test;
-import org.shaneking.ling.persistence.Pagination;
 import org.shaneking.ling.persistence.entity.sql.sqllite.SqlliteSqlEntities;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.persistence.Pagination;
 import org.shaneking.ling.zero.util.List0;
 import sktest.ling.persistence.entity.sql.AbstractDialectSqlEntityPrepare1;
 

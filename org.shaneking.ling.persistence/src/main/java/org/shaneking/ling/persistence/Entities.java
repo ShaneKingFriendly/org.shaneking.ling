@@ -2,6 +2,7 @@ package org.shaneking.ling.persistence;
 
 import lombok.NonNull;
 import org.shaneking.ling.zero.lang.String0;
+import org.shaneking.ling.zero.persistence.Pagination;
 
 import javax.persistence.Column;
 import javax.persistence.Table;

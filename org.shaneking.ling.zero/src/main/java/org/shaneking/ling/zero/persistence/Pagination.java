@@ -1,4 +1,4 @@
-package org.shaneking.ling.persistence;
+package org.shaneking.ling.zero.persistence;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ public class Pagination {
   private Long count;
   @Getter
   @Setter
-  private Integer page;
+  private Integer idx;
   @Getter
   @Setter
   private Integer size;
