@@ -6,18 +6,16 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+//Secretly
 @Accessors(chain = true)
 @ToString
 public class ReqMsg<I> {
   @Getter
   @Setter
-  private String tno;//TenantNo
-  @Getter
-  @Setter
   private String rno;//RequestNo. Unique
   @Getter
   @Setter
-  private String sno;//SeriesNo
+  private String tno;//TracingNo
   @Getter
   @Setter
   private Integer asy;//seconds
@@ -33,4 +31,8 @@ public class ReqMsg<I> {
   @Getter
   @Setter
   private ReqMsgBdy<I> bdy;
+
+  public static <I> ReqMsg<I> build() {
+    return new ReqMsg<I>();
+  }
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+//Secretly
 @Accessors(chain = true)
 @ToString
 public class RespMsg<O> {
@@ -24,4 +25,8 @@ public class RespMsg<O> {
   @Getter
   @Setter
   private RespMsgBody<O> body;
+
+  public static <O> RespMsg<O> build() {
+    return new RespMsg<O>();
+  }
 }

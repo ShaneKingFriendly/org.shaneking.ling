@@ -14,6 +14,9 @@ public class Req<I, C> {
   private String cno;//ChannelNo
   @Getter
   @Setter
+  private String tkn;//Token, for one request on secert key senario.
+  @Getter
+  @Setter
   private String mvc;//Message Verification Code
   @Getter
   @Setter
@@ -26,4 +29,8 @@ public class Req<I, C> {
   @Schema(hidden = true)
   @Setter
   private C ctx;
+
+  public static <I, C> Req<I, C> build() {
+    return new Req<I, C>();
+  }
 }
