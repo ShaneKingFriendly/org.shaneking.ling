@@ -1,5 +1,6 @@
 package org.shaneking.ling.rr.open;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jdk.nashorn.internal.ir.ObjectNode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,12 +19,14 @@ public class RespMsgBody<O> {
   @Setter
   private String info;//information
   @Getter
+  @Schema(hidden = true)
   @Setter
   private Pagination page;
   @Getter
   @Setter
   private O data;//main object content
   @Getter
+  @Schema(hidden = true)
   @Setter
   private ObjectNode jsn;
 

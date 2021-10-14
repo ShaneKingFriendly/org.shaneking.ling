@@ -1,5 +1,6 @@
 package org.shaneking.ling.rr.open;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jdk.nashorn.internal.ir.ObjectNode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class RespMsg<O> {
   @Setter
   private String dsz;//DateTimeSssZone
   @Getter
+  @Schema(hidden = true)
   @Setter
   private ObjectNode jsn;
   @Getter

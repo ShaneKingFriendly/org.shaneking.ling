@@ -1,5 +1,6 @@
 package org.shaneking.ling.rr.open;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jdk.nashorn.internal.ir.ObjectNode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,12 +18,14 @@ public class ReqMsgBdy<I> {
   @Setter
   private String uno;//UserNo
   @Getter
+  @Schema(hidden = true)
   @Setter
   private Tbl tbl;//Table for UI
   @Getter
   @Setter
   private I obj;//main object content
   @Getter
+  @Schema(hidden = true)
   @Setter
   private ObjectNode jsn;
 
