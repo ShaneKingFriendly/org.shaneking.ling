@@ -30,7 +30,7 @@ public class SqlliteSqlEntityTest extends SKUnit {
   @Test
   void limitStatement() {
     SqlliteSqlEntityPrepare1 sqlliteSqlEntityPrepare1 = new SqlliteSqlEntityPrepare1();
-    sqlliteSqlEntityPrepare1.setPagination(new Pagination().setSize(Pagination.MAX_SIZE));
+    sqlliteSqlEntityPrepare1.setPagination(new Pagination().setRows(Pagination.MAX_SIZE));
 
     List<String> limit = List0.newArrayList();
     sqlliteSqlEntityPrepare1.limitStatement(limit, List0.newArrayList());

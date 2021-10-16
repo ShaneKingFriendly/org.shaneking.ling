@@ -180,7 +180,7 @@ class AbstractEntityTest extends SKUnit {
   @Test
   void orderByStatement() throws IOException {
     abstractEntityPrepare1.setOrderByList(List0.newArrayList("notNullCol", "uniqueCol", "reName"));
-    abstractEntityPrepare1.setPagination(new Pagination().setCount(100L).setIdx(1).setSize(30));
+    abstractEntityPrepare1.setPagination(new Pagination().setCount(100L).setIdx(1).setRows(30));
     Files.write(tstOFiles().toPath(), abstractEntityPrepare1.selectSql().toString().getBytes());
     assertEquals(String.join(String0.BR_LINUX, Files.readAllLines(tstOFiles().toPath())), abstractEntityPrepare1.selectSql().toString());
   }

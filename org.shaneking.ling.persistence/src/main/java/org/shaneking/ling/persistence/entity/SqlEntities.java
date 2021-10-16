@@ -172,7 +172,7 @@ public interface SqlEntities extends Entities {
 
   default void limitStatement(@NonNull List<String> limitList, @NonNull List<Object> objectList) {
     Pagination pagination = this.getPagination() == null ? new Pagination() : this.getPagination();
-    Integer limit = Integer0.gt2d(Integer0.null2Default(pagination.getSize(), Pagination.DEFAULT_SIZE), Pagination.MAX_SIZE);
+    Integer limit = Integer0.gt2d(Integer0.null2Default(pagination.getRows(), Pagination.DEFAULT_SIZE), Pagination.MAX_SIZE);
     limitList.add(MF0.fmt("{0} {1}", Keyword.LIMIT, String.valueOf(limit)));//add String.valueOf to fix 1000+ to 1,000+
     limitList.add(MF0.fmt("{0} {1}", Keyword.OFFSET, String.valueOf(Integer0.lt2d((Integer0.null2Zero(pagination.getIdx()) - 1) * limit, 0))));
   }
