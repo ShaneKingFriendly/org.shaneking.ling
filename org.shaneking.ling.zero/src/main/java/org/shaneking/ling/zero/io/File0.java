@@ -101,7 +101,7 @@ public class File0 {
     try {
       return String.join(delimiter, Files.readAllLines(path, charset));
     } catch (IOException e) {
-      log.error("{path:{},delimiter:{},charset:{},quietly:{},e:{}}", path, delimiter, charset, quietly, e);
+      log.error(String.format("{path:%s,delimiter:%s,charset:%s,quietly:%s}", path, delimiter, charset, quietly), e);
       if (quietly) {
         return null;
       } else {

@@ -2,6 +2,7 @@ package org.shaneking.ling.logback.sift;
 
 import ch.qos.logback.classic.sift.MDCBasedDiscriminator;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Map0;
 
 import java.util.Map;
@@ -11,11 +12,8 @@ public class ItlDiscriminator extends MDCBasedDiscriminator {
 
   @Override
   public String getDiscriminatingValue(ILoggingEvent event) {
-    String rtn;
-    Map<String, String> itlMap = itl();
-    if (itlMap.get(getKey()) != null) {
-      rtn = itlMap.get(getKey());
-    } else {
+    String rtn = itl().get(getKey());
+    if (String0.isNullOrEmpty(rtn)) {
       rtn = super.getDiscriminatingValue(event);
     }
     return rtn;

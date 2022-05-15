@@ -146,11 +146,51 @@ public class String0 {
 
   public static String format(@NonNull String pattern, @NonNull Object... args) {
     String rePattern = pattern;
-    Matcher m = Pattern.compile("\\{(\\d)\\}").matcher(rePattern);
+    Matcher m = Pattern.compile("\\{(\\d+)\\}").matcher(rePattern);
     while (m.find()) {
       rePattern = rePattern.replace(m.group(), String.valueOf(args[Integer.parseInt(m.group(1))]));
     }
     return rePattern;
+  }
+
+  public static String fmt(@NonNull String pattern, @NonNull Object... args) {
+    return fmtWith(pattern, "{}", args);
+  }
+
+  public static String fmtWith(@NonNull String pattern, @NonNull String placeHolder, @NonNull Object... args) {
+    final int patternLength = pattern.length();
+    final int placeHolderLength = placeHolder.length();
+    final StringBuilder sb = new StringBuilder(patternLength + 50);//init length for performance
+    int processedIdx = 0;
+    int placeHolderIdx;
+    for (int argIndex = 0; argIndex < args.length; argIndex++) {
+      placeHolderIdx = pattern.indexOf(placeHolder, processedIdx);
+      if (placeHolderIdx == -1) {
+        if (processedIdx == 0) {
+          return pattern;
+        }
+        sb.append(pattern, processedIdx, patternLength);
+        return sb.toString();
+      }
+      if (placeHolderIdx > 0 && pattern.charAt(placeHolderIdx - 1) == Char0.BACKSLASH) {// \\{}
+        if (placeHolderIdx > 1 && pattern.charAt(placeHolderIdx - 2) == Char0.BACKSLASH) {// \\\\{}
+          sb.append(pattern, processedIdx, placeHolderIdx - 1);
+          sb.append(args[argIndex]);
+          processedIdx = placeHolderIdx + placeHolderLength;
+        } else {
+          argIndex--;
+          sb.append(pattern, processedIdx, placeHolderIdx - 1);
+          sb.append(placeHolder.charAt(0));
+          processedIdx = placeHolderIdx + 1;
+        }
+      } else {
+        sb.append(pattern, processedIdx, placeHolderIdx);
+        sb.append(args[argIndex]);
+        processedIdx = placeHolderIdx + placeHolderLength;
+      }
+    }
+    sb.append(pattern, processedIdx, patternLength);
+    return sb.toString();
   }
 
   public static boolean isNull2Empty(String s) {

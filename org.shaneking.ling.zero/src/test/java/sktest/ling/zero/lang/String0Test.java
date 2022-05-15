@@ -45,6 +45,14 @@ class String0Test {
   @Test
   void format() {
     assertEquals("I Love You", String0.format("I{0}Love{1}You", String0.BLANK, String0.BLANK));
+    assertEquals("[0][1][2][3][4][5][6][7][8][9][10][11][12][13]"
+      , String0.format("[{0}][{1}][{2}][{3}][{4}][{5}][{6}][{7}][{8}][{9}][{10}][{11}][{12}][{13}]"
+        , "0","1","2","3","4","5","6","7","8","9","10","11","12","13"));
+  }
+
+  @Test
+  void fmt() {
+    assertEquals("I Love You", String0.fmt("I{}Love{}You", String0.BLANK, String0.BLANK));
   }
 
   @Test
