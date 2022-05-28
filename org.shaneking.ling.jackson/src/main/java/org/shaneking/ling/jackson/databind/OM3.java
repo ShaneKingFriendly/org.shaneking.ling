@@ -13,9 +13,11 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.shaneking.ling.jackson.filter.CtxIgnoredFilter;
+import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.lang.ZeroException;
 import org.shaneking.ling.zero.util.List0;
 import org.shaneking.ling.zero.util.Map0;
+import org.shaneking.ling.zero.util.Regex0;
 
 import java.util.Map;
 
@@ -90,6 +92,48 @@ public class OM3 {
     Map<String, Object> rtnMap = Map0.newHashMap();
     rtnMap.put("p", List0.newArrayList(objects));
     return writeValueAsString(rtnMap);
+  }
+
+  public static JsonNode path(@NonNull JsonNode jsonNode, String path) {
+    JsonNode rtnNode = jsonNode;
+    for (String p : path.split(Regex0.DOT)) {
+      if (p.endsWith(String0.CLOSE_BRACKET)) {
+        String[] a = p.split(Regex0.OPEN_BRACKET);
+        rtnNode = rtnNode.path(a[0]);
+        rtnNode = rtnNode.path(Integer.parseInt(a[1].substring(0, a[1].length() - 1)));
+      } else {
+        rtnNode = rtnNode.path(p);
+      }
+    }
+    return rtnNode;
+  }
+
+  public static JsonNode path(@NonNull ObjectMapper objectMapper, String jsonString, String path, boolean rtnNullIfException) {
+    try {
+      return path(objectMapper.readTree(jsonString), path);
+    } catch (Exception e) {
+      if (rtnNullIfException) {
+        return null;
+      } else {
+        throw new ZeroException(e);
+      }
+    }
+  }
+
+  public static JsonNode path(String jsonString, String path) {
+    return path(jsonString, path, false);
+  }
+
+  public static JsonNode path(String jsonString, String path, boolean rtnNullIfException) {
+    return path(om(), jsonString, path, rtnNullIfException);
+  }
+
+  public static <T> T path(String jsonString, String path, Class<T> valueType) {
+    return path(jsonString, path, valueType, false);
+  }
+
+  public static <T> T path(String jsonString, String path, Class<T> valueType, boolean rtnNullIfException) {
+    return treeToValue(path(om(), jsonString, path, rtnNullIfException), valueType, rtnNullIfException);
   }
 
   public static <T> T readValue(@NonNull ObjectMapper objectMapper, String content, Class<T> valueType) {
@@ -172,7 +216,7 @@ public class OM3 {
   }
 
   public static <T> T treeToValue(@NonNull ObjectMapper objectMapper, TreeNode n, Class<T> valueType) {
-    return treeToValue(om(), n, valueType, false);
+    return treeToValue(objectMapper, n, valueType, false);
   }
 
   public static <T> T treeToValue(@NonNull ObjectMapper objectMapper, TreeNode n, Class<T> valueType, boolean rtnNullIfException) {
@@ -189,6 +233,10 @@ public class OM3 {
 
   public static <T> T treeToValue(TreeNode n, Class<T> valueType) {
     return treeToValue(om(), n, valueType);
+  }
+
+  public static <T> T treeToValue(TreeNode n, Class<T> valueType, boolean rtnNullIfException) {
+    return treeToValue(om(), n, valueType, rtnNullIfException);
   }
 
   public static <T extends JsonNode> T valueToTree(Object fromValue) {

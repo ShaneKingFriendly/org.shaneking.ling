@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.shaneking.ling.zero.lang.String0;
 import org.shaneking.ling.zero.util.Base64a;
+import sktest.ling.zero.ZeroTest;
 
 import java.util.Base64;
 import java.util.stream.Stream;
@@ -18,7 +19,7 @@ class Base64aTest {
 
   //this need static
   static Stream<String> methodSource() {
-    return Stream.of("ShaneKing", "有梦才有精彩！", "爱存不存", "About", "这是 ShaneKing 的个人博客，始建于2011.10.10，算是个技术类博客吧（毕竟博主是个敲代码的）");
+    return Stream.of("ShaneKing", ZeroTest.SLOGAN, "爱存不存", "About", "这是 ShaneKing 的个人博客，始建于2011.10.10，算是个技术类博客吧（毕竟博主是个敲代码的）");
   }
 
   @ParameterizedTest

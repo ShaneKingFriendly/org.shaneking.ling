@@ -1,5 +1,6 @@
 package sktest.ling.jackson.databind;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -87,6 +88,28 @@ class OM3Test extends SKUnit {
   void p() {
     assertAll(
       () -> assertEquals("{\"p\":[\"a\",\"1\",2]}", OM3.p("a", "1", 2))
+    );
+  }
+
+  //{"l1s1":{"l1s1l2s1":"l1s1l2s1Value"}}
+  //{"a":[{"m":"1","x":1},{"m":"2","x":2}],"b":{"c":1}}
+  @Test
+  void pathRaw() throws JsonProcessingException {
+    assertEquals(String0.EMPTY, OM3.om().readTree("{\"l1s1\":{\"l1s1l2s1\":\"l1s1l2s1Value\"}}").path("l1s1.l1s1l2s1").toString());
+    assertEquals("{\"l1s1l2s1\":\"l1s1l2s1Value\"}", OM3.om().readTree("{\"l1s1\":{\"l1s1l2s1\":\"l1s1l2s1Value\"}}").path("l1s1").toString());
+    assertEquals(String0.EMPTY, OM3.om().readTree("{\"a\":[{\"m\":\"1\",\"x\":1},{\"m\":\"2\",\"x\":2}],\"b\":{\"c\":1}}").path("a[1].m").toString());
+  }
+
+  @Test
+  void path() throws JsonProcessingException {
+    assertAll(
+      () -> assertEquals("l1s1l2s1Value", OM3.path("{\"l1s1\":{\"l1s1l2s1\":\"l1s1l2s1Value\"}}", "l1s1.l1s1l2s1").asText()),
+      () -> assertEquals("{\"l1s1l2s1\":\"l1s1l2s1Value\"}", OM3.path("{\"l1s1\":{\"l1s1l2s1\":\"l1s1l2s1Value\"}}", "l1s1").toString()),
+
+      () -> assertEquals("2", OM3.path("{\"a\":[{\"m\":\"1\",\"x\":1},{\"m\":\"2\",\"x\":2}],\"b\":{\"c\":1}}", "a[1].m").asText()),
+      () -> assertEquals("\"2\"", OM3.path("{\"a\":[{\"m\":\"1\",\"x\":1},{\"m\":\"2\",\"x\":2}],\"b\":{\"c\":1}}", "a[1].m").toString()),
+
+      () -> assertEquals("2", OM3.path("{\"a\":[{\"m\":\"1\",\"x\":1},{\"m\":\"2\",\"x\":2}],\"b\":{\"c\":1}}", "a[1].m", String.class))
     );
   }
 
