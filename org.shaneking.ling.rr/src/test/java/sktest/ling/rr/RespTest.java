@@ -16,16 +16,16 @@ class RespTest extends SKUnit {
 
   @Test
   void build() {
-    assertEquals("{\"code\":\"-1\",\"data\":{},\"msg\":\"msg\"}", OM3.writeValueAsString(Resp.build(Resp.CODE_UNKNOWN_EXCEPTION, ReqTest.ReqPrepare1.build(), "msg")));
+    assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\",\"info\":\"msg\",\"data\":{}}}}", OM3.writeValueAsString(Resp.build(Resp.CODE_UNKNOWN_EXCEPTION, ReqTest.ReqPrepare1.build(), "msg")));
   }
 
   @Test
   void failed() {
     assertAll(
-      () -> assertEquals("{\"code\":\"-1\"}", OM3.writeValueAsString(Resp.failed())),
-      () -> assertEquals("{\"code\":\"-1\"}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION))),
-      () -> assertEquals("{\"code\":\"-1\",\"msg\":\"msg\"}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION, "msg"))),
-      () -> assertEquals("{\"code\":\"-1\",\"data\":{},\"msg\":\"msg\"}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION, "msg", ReqTest.ReqPrepare1.build())))
+      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\"}}}", OM3.writeValueAsString(Resp.failed())),
+      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\"}}}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION))),
+      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\",\"info\":\"msg\"}}}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION, "msg"))),
+      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\",\"info\":\"msg\",\"data\":{}}}}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION, "msg", ReqTest.ReqPrepare1.build())))
     );
   }
 
@@ -36,28 +36,28 @@ class RespTest extends SKUnit {
         try {
           throw new RespException(Resp.failed());
         } catch (RespException e) {
-          assertEquals("{\"code\":\"org.shaneking.ling.rr.RespException\",\"msg\":\"-1\",\"rbk\":false}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"msg\":{\"body\":{\"code\":\"org.shaneking.ling.rr.RespException\",\"info\":\"-1\"}},\"rbk\":false}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       },
       () -> {
         try {
           throw new ZeroException();
         } catch (ZeroException e) {
-          assertEquals("{\"code\":\"org.shaneking.ling.zero.lang.ZeroException\",\"msg\":\"org.shaneking.ling.zero.lang.ZeroException\"}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"msg\":{\"body\":{\"code\":\"org.shaneking.ling.zero.lang.ZeroException\",\"info\":\"org.shaneking.ling.zero.lang.ZeroException\"}}}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       },
       () -> {
         try {
           throw new RespException(Resp.failed(String0.ALPHABET), new ZeroException());
         } catch (RespException e) {
-          assertEquals("{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"msg\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"rbk\":false}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"msg\":{\"body\":{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"info\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"}},\"rbk\":false}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       },
       () -> {
         try {
           throw new RbkRespException(Resp.failed(String0.ALPHABET), new ZeroException());
         } catch (RespException e) {
-          assertEquals("{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"msg\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"msg\":{\"body\":{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"info\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"}},\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       },
       () -> {
@@ -65,14 +65,14 @@ class RespTest extends SKUnit {
           RbkRespException rbkRespException = new RbkRespException(Resp.failed(), new ZeroException());
           throw rbkRespException.setResp(null);
         } catch (RespException e) {
-          assertEquals("{\"code\":\"org.shaneking.ling.rr.RbkRespException\",\"msg\":\"-1\",\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"msg\":{\"body\":{\"code\":\"org.shaneking.ling.rr.RbkRespException\",\"info\":\"-1\"}},\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       },
       () -> {
         try {
           throw new RbkRespException(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION), new ZeroException());
         } catch (RespException e) {
-          assertEquals("{\"code\":\"org.shaneking.ling.rr.RbkRespException\",\"msg\":\"-1\",\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
+          assertEquals("{\"msg\":{\"body\":{\"code\":\"org.shaneking.ling.rr.RbkRespException\",\"info\":\"-1\"}},\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       }
     );
@@ -80,6 +80,6 @@ class RespTest extends SKUnit {
 
   @Test
   void success() {
-    assertEquals("{\"code\":\"0\",\"data\":{}}", OM3.writeValueAsString(Resp.success(ReqTest.ReqPrepare1.build())));
+    assertEquals("{\"msg\":{\"body\":{\"code\":\"0\",\"data\":{}}}}", OM3.writeValueAsString(Resp.success(ReqTest.ReqPrepare1.build())));
   }
 }

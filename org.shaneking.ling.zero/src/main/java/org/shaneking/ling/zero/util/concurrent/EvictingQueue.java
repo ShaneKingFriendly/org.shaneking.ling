@@ -82,6 +82,8 @@ difference: if queue is empty
 
   @Override
   public void put(T t) {
-    offer(t);
+    if (!offer(t)) {
+      log.warn(String.valueOf(t));
+    }
   }
 }

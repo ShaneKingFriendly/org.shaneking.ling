@@ -1,4 +1,4 @@
-package org.shaneking.ling.rr.open;
+package org.shaneking.ling.rr;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jdk.nashorn.internal.ir.ObjectNode;
@@ -28,7 +28,7 @@ public class RespMsgBody<O> {
   @Getter
   @Schema(hidden = true)
   @Setter
-  private ObjectNode jsn;
+  private ObjectNode json;
 
   public static <O> RespMsgBody<O> build() {
     return new RespMsgBody<O>();

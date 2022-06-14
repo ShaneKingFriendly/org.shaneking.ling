@@ -1,4 +1,4 @@
-package org.shaneking.ling.rr.open;
+package org.shaneking.ling.rr;
 
 import lombok.Getter;
 import lombok.Setter;

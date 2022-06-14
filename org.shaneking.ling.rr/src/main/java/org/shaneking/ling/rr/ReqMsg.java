@@ -1,4 +1,4 @@
-package org.shaneking.ling.rr.open;
+package org.shaneking.ling.rr;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jdk.nashorn.internal.ir.ObjectNode;
@@ -26,6 +26,9 @@ public class ReqMsg<I> {
   @Getter
   @Setter
   private String dsz;//DateTimeSssZone
+  @Getter
+  @Setter
+  private String uno;//UserNo, proxy bdy.uno to do.
   @Getter
   @Schema(hidden = true)
   @Setter

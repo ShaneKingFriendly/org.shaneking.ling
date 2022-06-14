@@ -1,4 +1,4 @@
-package org.shaneking.ling.rr.open;
+package org.shaneking.ling.rr;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jdk.nashorn.internal.ir.ObjectNode;
@@ -13,10 +13,10 @@ import lombok.experimental.Accessors;
 public class ReqMsgBdy<I> {
   @Getter
   @Setter
-  private String tno;//TenantNo
+  private String tno;//TenantNo, if null use cno for system call self
   @Getter
   @Setter
-  private String uno;//UserNo
+  private String uno;//UserNo, if null use cno for system call system
   @Getter
   @Schema(hidden = true)
   @Setter

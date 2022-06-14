@@ -22,6 +22,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 public class InetAddress0 {
@@ -83,17 +84,19 @@ public class InetAddress0 {
     boolean rtn = false;
     if (LOCAL_ADDRESS_LIST.isEmpty()) {
       try {
-        Files.lines(new File(System.getProperty("os.name").startsWith("Windows") ? "c:/windows/System32/drivers/etc/hosts" : "/etc/hosts").toPath()).forEachOrdered(line -> {
-          if (!String0.isNullOrEmpty(line) && !line.startsWith(String0.POUND)) {
-            String[] parts = line.split(Regex0.BLACKS);
-            if (parts.length > 1) {
-              for (int i = 1; i < parts.length; i++) {
-                LOCAL_ADDRESS_LIST.add(new CacheEntry0(parts[i], parts[0]));
+        try (Stream<String> stream = Files.lines(new File(System.getProperty("os.name").startsWith("Windows") ? "c:/windows/System32/drivers/etc/hosts" : "/etc/hosts").toPath())) {
+          stream.forEachOrdered(line -> {
+            if (!String0.isNullOrEmpty(line) && !line.startsWith(String0.POUND)) {
+              String[] parts = line.split(Regex0.BLACKS);
+              if (parts.length > 1) {
+                for (int i = 1; i < parts.length; i++) {
+                  LOCAL_ADDRESS_LIST.add(new CacheEntry0(parts[i], parts[0]));
+                }
               }
             }
-          }
-        });
-        rtn = true;
+          });
+          rtn = true;
+        }
       } catch (Exception e) {
         ///ignore exception : load local hosts error maybe not important
         log.error(String0.nullOrEmptyTo(e.getMessage(), e.toString()), e);

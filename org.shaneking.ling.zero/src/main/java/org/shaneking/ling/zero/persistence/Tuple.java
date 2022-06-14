@@ -137,7 +137,7 @@ public class Tuple<First, Rest> implements Iterable<Object> {
 
   @Override
   public boolean equals(Object obj) {
-    return this == obj || (null != obj) && (Tuple.class.isAssignableFrom(obj.getClass())) && Iterable0.elementsEqual(this, (Tuple<?, ?>) obj);
+    return obj != null && (this == obj || ((Tuple.class.isAssignableFrom(obj.getClass())) && Iterable0.elementsEqual(this, (Tuple<?, ?>) obj)));
   }
 
   @Override

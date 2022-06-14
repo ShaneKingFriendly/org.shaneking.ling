@@ -1,4 +1,4 @@
-package org.shaneking.ling.rr.open;
+package org.shaneking.ling.rr;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jdk.nashorn.internal.ir.ObjectNode;
@@ -30,5 +30,12 @@ public class RespMsg<O> {
 
   public static <O> RespMsg<O> build() {
     return new RespMsg<O>();
+  }
+
+  public RespMsgBody<O> gnnBody() {
+    if (this.getBody() == null) {
+      this.setBody(RespMsgBody.build());
+    }
+    return this.getBody();
   }
 }
