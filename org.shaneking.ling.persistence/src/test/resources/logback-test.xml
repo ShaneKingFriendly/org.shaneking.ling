@@ -24,11 +24,15 @@
   </appender>
   <!-- http://logback.qos.ch/manual/appenders.html#AsyncAppender -->
   <appender name="CONSOLE_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+    <!--show line number-->
+    <includeCallerData>true</includeCallerData>
     <discardingThreshold>0</discardingThreshold>
     <queueSize>256</queueSize>
     <appender-ref ref="CONSOLE"/>
   </appender>
   <appender name="FILE_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+    <!--show line number-->
+    <includeCallerData>true</includeCallerData>
     <discardingThreshold>0</discardingThreshold>
     <queueSize>256</queueSize>
     <appender-ref ref="FILE"/>
