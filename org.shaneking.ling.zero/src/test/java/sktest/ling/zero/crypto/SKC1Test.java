@@ -15,6 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class SKC1Test {
 
   @Test
+  void lean() {
+    assertAll(
+      () -> assertEquals("eK+8yFXe3jCJRSztyKOzO5hce76MW3MBYeZ4i9dLhljU6RNZeWrqBHzmlkeIHTN7IgYAKyHBH3ArWp9yKVyjpR0uYzO2Pqe/ng80c40IsRF7/JEt7AmGvPvbuTgl8HL9HQaJdC6nfWDPAkhjNCaw6tUzpqcPyVXJHOmep56lDJu/DgcsF9R5DKABVSz3wg3/", SKC1.encrypt("{\"cno\":\"tstChannelNo\",\"msg\":{\"rno\":\"$UUID0_cUl33_1$\",\"uno\":\"tstUserNo\",\"bdy\":{\"tno\":\"tstTenantNo\",\"obj\":\"1612353237501_DcNd45KtJXPmSpz2xRB\"}}}")),
+
+      () -> assertEquals("eK+8yFXe3jCJRSztyKOzO5hce76MW3MBYeZ4i9dLhljU6RNZeWrqBHzmlkeIHTN7IgYAKyHBH3ArWp9yKVyjpR0uYzO2Pqe/ng80c40IsRF7/JEt7AmGvPvbuTgl8HL9HQaJdC6nfWDPAkhjNCaw6tUzpqcPyVXJHOmep56lDJu/DgcsF9R5DKABVSz3wg3/", SKC1.encrypt("{\"cno\":\"tstChannelNo\",\"msg\":{\"rno\":\"$UUID0_cUl33_1$\",\"uno\":\"tstUserNo\",\"bdy\":{\"tno\":\"tstTenantNo\",\"obj\":\"1612353237501_DcNd45KtJXPmSpz2xRB\"}}}"))
+    );
+  }
+
+  @Test
   void uggu() {
     try {
       System.out.println(ZeroTest.SLOGAN);//有梦才有精彩！

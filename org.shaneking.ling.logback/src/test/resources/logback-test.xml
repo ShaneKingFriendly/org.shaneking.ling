@@ -1,7 +1,8 @@
 <configuration>
   <property name="sklog.path" value="./logs"/>
   <property name="sklog.prefix" value="org.shaneking.ling.logback"/>
-  <property name="sklog.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %X{skLogMdcTracing} %-5level %thread %logger:%line- %msg%n"/>
+  <property name="sklog.pattern"
+            value="%d{yyyy-MM-dd HH:mm:ss.SSS} %X{skLogMdcTracing} %-5level %thread %logger:%line- %msg%n"/>
   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>${sklog.pattern}</pattern>
@@ -19,11 +20,12 @@
           <pattern>${sklog.pattern}</pattern>
           <charset>UTF-8</charset>
         </encoder>
-<!--        <file>${sklog.path}/${sklog.prefix}-${skLogItlFile}.%X{skLogMdcTracing}.log</file>--><!--org.shaneking.ling.logback-nonItl.%X{skLogMdcTracing}.log-->
-<!--        <file>${sklog.path}/${sklog.prefix}-${skLogItlFile}.${skLogMdcTracing}.log</file>--><!--org.shaneking.ling.logback-nonItl.skLogMdcTracing_IS_UNDEFINED.log-->
+        <!--        <file>${sklog.path}/${sklog.prefix}-${skLogItlFile}.%X{skLogMdcTracing}.log</file>--><!--org.shaneking.ling.logback-nonItl.%X{skLogMdcTracing}.log-->
+        <!--        <file>${sklog.path}/${sklog.prefix}-${skLogItlFile}.${skLogMdcTracing}.log</file>--><!--org.shaneking.ling.logback-nonItl.skLogMdcTracing_IS_UNDEFINED.log-->
         <file>${sklog.path}/${sklog.prefix}-${skLogItlFile}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-          <fileNamePattern>${sklog.path}/${sklog.prefix}-${skLogItlFile}.%d{yyyy-MM-dd}.%i.log</fileNamePattern><!-- Rolling Policy: By Date By Size -->
+          <!-- Rolling Policy: By Date By Size -->
+          <fileNamePattern>${sklog.path}/${sklog.prefix}-${skLogItlFile}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
           <maxFileSize>100MB</maxFileSize>
           <maxHistory>32</maxHistory><!-- Day -->
           <totalSizeCap>5GB</totalSizeCap>
@@ -31,7 +33,8 @@
       </appender>
     </sift>
   </appender>
-  <appender name="CONSOLE_ASYNC" class="ch.qos.logback.classic.AsyncAppender"><!-- http://logback.qos.ch/manual/appenders.html#AsyncAppender -->
+  <!-- http://logback.qos.ch/manual/appenders.html#AsyncAppender -->
+  <appender name="CONSOLE_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
     <discardingThreshold>0</discardingThreshold>
     <queueSize>256</queueSize>
     <appender-ref ref="CONSOLE"/>

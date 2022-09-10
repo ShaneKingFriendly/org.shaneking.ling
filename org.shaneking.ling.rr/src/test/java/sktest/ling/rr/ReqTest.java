@@ -1,12 +1,10 @@
 package sktest.ling.rr;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.rr.Req;
+import org.shaneking.ling.rr.ReqMsg;
+import org.shaneking.ling.rr.ReqMsgBdy;
 import org.shaneking.ling.test.SKUnit;
 import org.shaneking.ling.zero.util.UUID0;
 
@@ -19,29 +17,14 @@ class ReqTest extends SKUnit {
   void build() {
     String cul33 = UUID0.cUl33();
     assertAll(
-      () -> assertEquals("Req(cno=null, tkn=null, mvc=null, enc=null, msg=null, ctx=null)", ReqPrepare1.build().toString()),
+      () -> assertEquals("Req(cno=null, tkn=null, mvc=null, enc=null, msg=null, ctx=null)", Req.build().toString()),
 
-      () -> assertEquals("{}", OM3.writeValueAsString(ReqPrepare1.build())),
+      () -> assertEquals("{}", OM3.writeValueAsString(Req.build())),
+      () -> assertEquals("{\"msg\":{\"rno\":\"" + cul33 + "\",\"tno\":\"" + cul33 + "\"}}", OM3.writeValueAsString(Req.build().setMsg(ReqMsg.build().setRno(cul33).setTno(cul33)))),
+      () -> assertEquals("{\"msg\":{\"rno\":\"" + cul33 + "\",\"tno\":\"" + cul33 + "\",\"bdy\":{}}}", OM3.writeValueAsString(Req.build().setMsg(ReqMsg.build().setRno(cul33).setTno(cul33)).srtMsgBdy(ReqMsgBdy.build()))),
+      () -> assertEquals("{\"enc\":\"enc\"}", OM3.writeValueAsString(Req.build().setEnc("enc"))),
 
-      () -> assertEquals("{\"ctx\":{\"clientIp\":\"clientIp\",\"language\":\"zh_CN\"}}", OM3.writeValueAsString(ReqPrepare1.build().setCtx(new ReqCtxPrepare1().setClientIp("clientIp").setLanguage("zh_CN"))))
+      () -> assertEquals("{\"ctx\":{\"language\":\"zh_CN\",\"rtuMap\":{},\"trtList\":[],\"tutList\":[]}}", OM3.writeValueAsString(Req.build().setCtx(new Req().gnnCtx().setLanguage("zh_CN"))))
     );
-  }
-
-  @Accessors(chain = true)
-  @ToString
-  public static class ReqCtxPrepare1 {
-    @Getter
-    @Setter
-    private String clientIp;
-    @Getter
-    @Setter
-    private String language;//default zh-CN, ref: http://www.rfc-editor.org/rfc/bcp/bcp47.txt
-    //maybe some UserEntity here
-  }
-
-  @Accessors(chain = true)
-  @ToString(callSuper = true)
-  public static class ReqPrepare1<I> extends Req<I, ReqCtxPrepare1> {
-
   }
 }

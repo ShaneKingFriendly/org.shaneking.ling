@@ -44,6 +44,8 @@ public interface Entities {
 
   Pagination getPagination();
 
+  <T extends Entities> T setPagination(Pagination pagination);
+
   List<String> getSelectList();
 
   List<String> getVerFieldNameList();
@@ -60,8 +62,6 @@ public interface Entities {
     }
     return this;
   }
-
-  <T extends Entities> T setPagination(Pagination pagination);
 
   default Pagination sroPagination(Pagination pagination) {
     Pagination rtn = getPagination();

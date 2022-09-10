@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.shaneking.ling</groupId>
     <artifactId>org.shaneking.ling</artifactId>
-    <version>0.255.10.Friendly-SNAPSHOT</version>
+    <version>0.255.11.Friendly-SNAPSHOT</version>
   </parent>
 
   <artifactId>org.shaneking.ling.rr</artifactId>
-  <version>0.255.10.Friendly-SNAPSHOT</version>
+  <version>0.255.11.Friendly-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>org.shaneking.ling.rr</name>
@@ -29,7 +29,7 @@
     </dependency>
     <dependency>
       <groupId>org.shaneking.ling</groupId>
-      <artifactId>org.shaneking.ling.zero</artifactId>
+      <artifactId>org.shaneking.ling.persistence</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
     <!-- test -->
@@ -41,12 +41,6 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.shaneking.ling</groupId>
-      <artifactId>org.shaneking.ling.jackson</artifactId>
-      <version>${project.parent.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

@@ -16,7 +16,7 @@ class SnowflakeIdTest {
   void nextId() throws InterruptedException {
     SnowflakeId snowflakeId = new SnowflakeId(0, 0);
     log.info("start  :" + snowflakeId.START);
-    log.info("today  :" + Date.UTC(2022-1900, Calendar.MAY, 8, 0, 0, 0));
+    log.info("today  :" + Date.UTC(2022 - 1900, Calendar.MAY, 8, 0, 0, 0));
     log.info("current:" + System.currentTimeMillis());
     log.info("max    :" + Long.MAX_VALUE);
     for (int i = 0; i < 10; i++) {

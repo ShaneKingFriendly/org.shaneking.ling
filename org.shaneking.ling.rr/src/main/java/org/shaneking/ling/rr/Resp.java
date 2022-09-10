@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.zero.lang.Boolean0;
 import org.shaneking.ling.zero.lang.String0;
 
@@ -39,7 +40,11 @@ public class Resp<O, I> {
   }
 
   public static <O, I> Resp<O, I> build(I req, String code, O data, String info) {
-    return new Resp<O, I>().setReq(req).setMsg(RespMsg.<O>build().setBody(RespMsgBody.build(code, data, info)));
+    Resp<O, I> rtn = new Resp<O, I>().setReq(req).setMsg(RespMsg.<O>build().setBody(RespMsgBody.build(code, data, info)));
+    if (req instanceof Req) {
+      rtn.gnnMsg().setRno(((Req<?>) req).gnnMsg().gnnRno()).setAno(((Req<?>) req).gnnMsg().gnnAno());
+    }
+    return rtn;
   }
 
   public static <O, I> Resp<O, I> failed(I req, String code, String info, O data) {
@@ -80,25 +85,29 @@ public class Resp<O, I> {
       Resp resp = ((RespException) exp).getResp();
       if (resp != null) {
         setRbk(Boolean0.nullToFalse(getRbk()) || Boolean0.nullToFalse(resp.getRbk()));
-        if (!CODE_UNKNOWN_EXCEPTION.equals(resp.gnaCode()) && !CODE_SUCCESSFULLY.equals(resp.gnaCode())) {
-          code = String0.null2EmptyTo(resp.gnaCode(), code);
+        if (!CODE_UNKNOWN_EXCEPTION.equals(resp.gnaMsgBodyCode()) && !CODE_SUCCESSFULLY.equals(resp.gnaMsgBodyCode())) {
+          code = String0.null2EmptyTo(resp.gnaMsgBodyCode(), code);
         }
-        info = String0.null2EmptyTo(resp.gnaInfo(), info);
+        info = String0.null2EmptyTo(resp.gnaMsgBodyInfo(), info);
       }
     }
-    if (CODE_UNKNOWN_EXCEPTION.equals(this.gnaCode()) || CODE_SUCCESSFULLY.equals(this.gnaCode())) {
+    if (CODE_UNKNOWN_EXCEPTION.equals(this.gnaMsgBodyCode()) || CODE_SUCCESSFULLY.equals(this.gnaMsgBodyCode())) {
       this.gnnMsg().gnnBody().setCode(code);
     }
-    this.gnnMsg().gnnBody().setInfo(String0.null2EmptyTo(this.gnaInfo(), info));
+    this.gnnMsg().gnnBody().setInfo(String0.null2EmptyTo(this.gnaMsgBodyInfo(), info));
     return this;
   }
 
-  public String gnaCode() {
+  public String gnaMsgBodyCode() {
     return this.gnnMsg().gnnBody().getCode();
   }
 
-  public String gnaInfo() {
+  public String gnaMsgBodyInfo() {
     return this.gnnMsg().gnnBody().getInfo();
+  }
+
+  public O gnaMsgBodyData() {
+    return this.gnnMsg().gnnBody().getData();
   }
 
   public RespMsg<O> gnnMsg() {
@@ -108,13 +117,30 @@ public class Resp<O, I> {
     return this.getMsg();
   }
 
-  public Resp<O, I> srt(RespMsgBody<O> respMsgBody) {
+  public Resp<O, I> srtMsgBody(RespMsgBody<O> respMsgBody) {
     this.gnnMsg().setBody(respMsgBody);
     return this;
   }
 
-  public Resp<O, I> srt(O o) {
+  public Resp<O, I> srtMsgBodyData(O o) {
     this.gnnMsg().gnnBody().setData(o);
     return this;
+  }
+
+  public Resp<O, I> srtMsgBodyCode(String code) {
+    this.gnnMsg().gnnBody().setCode(code);
+    return this;
+  }
+
+  public Resp<O, I> srtMsgBodyInfo(String info) {
+    this.gnnMsg().gnnBody().setInfo(info);
+    return this;
+  }
+
+  public String jsonStr() {
+    I req = this.getReq();
+    String rtn = OM3.writeValueAsString(this.setReq(null));
+    this.setReq(req);
+    return rtn;
   }
 }

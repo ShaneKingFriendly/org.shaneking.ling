@@ -3,6 +3,7 @@ package sktest.ling.rr;
 import org.junit.jupiter.api.Test;
 import org.shaneking.ling.jackson.databind.OM3;
 import org.shaneking.ling.rr.RbkRespException;
+import org.shaneking.ling.rr.Req;
 import org.shaneking.ling.rr.Resp;
 import org.shaneking.ling.rr.RespException;
 import org.shaneking.ling.test.SKUnit;
@@ -16,16 +17,16 @@ class RespTest extends SKUnit {
 
   @Test
   void build() {
-    assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\",\"info\":\"msg\",\"data\":{}}}}", OM3.writeValueAsString(Resp.build(Resp.CODE_UNKNOWN_EXCEPTION, ReqTest.ReqPrepare1.build(), "msg")));
+    assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\",\"info\":\"msg\",\"data\":{}}}}", OM3.writeValueAsString(Resp.build(null, Resp.CODE_UNKNOWN_EXCEPTION, Req.build(), "msg")));
   }
 
   @Test
   void failed() {
     assertAll(
       () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\"}}}", OM3.writeValueAsString(Resp.failed())),
-      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\"}}}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION))),
-      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\",\"info\":\"msg\"}}}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION, "msg"))),
-      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\",\"info\":\"msg\",\"data\":{}}}}", OM3.writeValueAsString(Resp.failed(Resp.CODE_UNKNOWN_EXCEPTION, "msg", ReqTest.ReqPrepare1.build())))
+      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\"}}}", OM3.writeValueAsString(Resp.failed(null, Resp.CODE_UNKNOWN_EXCEPTION))),
+      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\",\"info\":\"msg\"}}}", OM3.writeValueAsString(Resp.failed(null, Resp.CODE_UNKNOWN_EXCEPTION, "msg"))),
+      () -> assertEquals("{\"msg\":{\"body\":{\"code\":\"-1\",\"info\":\"msg\",\"data\":{}}}}", OM3.writeValueAsString(Resp.failed(null, Resp.CODE_UNKNOWN_EXCEPTION, "msg", Req.build())))
     );
   }
 
@@ -48,14 +49,14 @@ class RespTest extends SKUnit {
       },
       () -> {
         try {
-          throw new RespException(Resp.failed(String0.ALPHABET), new ZeroException());
+          throw new RespException(Resp.failed(null, String0.ALPHABET), new ZeroException());
         } catch (RespException e) {
           assertEquals("{\"msg\":{\"body\":{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"info\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"}},\"rbk\":false}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
       },
       () -> {
         try {
-          throw new RbkRespException(Resp.failed(String0.ALPHABET), new ZeroException());
+          throw new RbkRespException(Resp.failed(null, String0.ALPHABET), new ZeroException());
         } catch (RespException e) {
           assertEquals("{\"msg\":{\"body\":{\"code\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",\"info\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\"}},\"rbk\":true}", OM3.writeValueAsString(Resp.failed().parseExp(e)));
         }
@@ -80,6 +81,6 @@ class RespTest extends SKUnit {
 
   @Test
   void success() {
-    assertEquals("{\"msg\":{\"body\":{\"code\":\"0\",\"data\":{}}}}", OM3.writeValueAsString(Resp.success(ReqTest.ReqPrepare1.build())));
+    assertEquals("{\"msg\":{\"body\":{\"code\":\"0\",\"data\":{}}}}", OM3.writeValueAsString(Resp.success(Req.build())));
   }
 }

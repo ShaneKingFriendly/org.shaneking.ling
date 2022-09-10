@@ -313,7 +313,8 @@ public class Base85a {
      * @return number of byte of decoded data
      */
     public int calcDecodedLength(final byte[] data, final int offset, final int length) {
-      if (length % 5 == 1) throw new IllegalArgumentException(length + " is not a valid Base85/" + getName() + " data length.");
+      if (length % 5 == 1)
+        throw new IllegalArgumentException(length + " is not a valid Base85/" + getName() + " data length.");
       return (int) (length * 0.8);
     }
 
@@ -740,6 +741,7 @@ public class Base85a {
   }
 
   ///https://tools.ietf.org/html/rfc1924
+
   /**
    * This class decodes data in the Base85 encoding using the character set described by IETF RFC 1924,
    * in the efficient algorithm of Ascii85 and Z85.
@@ -783,6 +785,7 @@ public class Base85a {
   }
 
   ///https://rfc.zeromq.org/spec:32/Z85/
+
   /**
    * This class decodes data in the Base85 encoding scheme Z85 as described by ZeroMQ.
    * Malformed data may or may not throws IllegalArgumentException on decode; call test(byte[]) to check data if necessary.
@@ -807,6 +810,7 @@ public class Base85a {
   }
 
   ///https://rfc.zeromq.org/spec:32/Z85/
+
   /**
    * This class encodes data in the Base85 encoding scheme Z85 as described by ZeroMQ.
    * This scheme does not use quotes or comma, and can usually be used in sql, json, csv etc. without escaping.

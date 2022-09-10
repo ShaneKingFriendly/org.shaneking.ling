@@ -20,13 +20,13 @@ public interface Audited {
 
   String getIvd();
 
-  String getLmDsz();
-
-  String getLmUid();
-
   <T extends Audited> T setIvd(String ivd);
 
+  String getLmDsz();
+
   <T extends Audited> T setLmDsz(String lmDsz);
+
+  String getLmUid();
 
   <T extends Audited> T setLmUid(String lmUid);
 

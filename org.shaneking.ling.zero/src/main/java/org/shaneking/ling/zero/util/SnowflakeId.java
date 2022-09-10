@@ -2,7 +2,7 @@ package org.shaneking.ling.zero.util;
 
 //https://zhuanlan.zhihu.com/p/85837641
 public class SnowflakeId {
-//  public final long START = 1420041600000L;//2015-01-01
+  //  public final long START = 1420041600000L;//2015-01-01
   public final long START = 1651968000000L;//2022-05-08
   public final long workerIdBits = 5L;
   public final long datacenterIdBits = 5L;

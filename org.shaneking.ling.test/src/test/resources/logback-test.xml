@@ -15,13 +15,15 @@
     </encoder>
     <file>${sklog.path}/${sklog.prefix}.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-      <fileNamePattern>${sklog.path}/${sklog.prefix}.%d{yyyy-MM-dd}.%i.log</fileNamePattern><!-- Rolling Policy: By Date By Size -->
+      <!-- Rolling Policy: By Date By Size -->
+      <fileNamePattern>${sklog.path}/${sklog.prefix}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
       <maxFileSize>100MB</maxFileSize>
       <maxHistory>32</maxHistory><!-- Day -->
       <totalSizeCap>5GB</totalSizeCap>
     </rollingPolicy>
   </appender>
-  <appender name="CONSOLE_ASYNC" class="ch.qos.logback.classic.AsyncAppender"><!-- http://logback.qos.ch/manual/appenders.html#AsyncAppender -->
+  <!-- http://logback.qos.ch/manual/appenders.html#AsyncAppender -->
+  <appender name="CONSOLE_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
     <discardingThreshold>0</discardingThreshold>
     <queueSize>256</queueSize>
     <appender-ref ref="CONSOLE"/>

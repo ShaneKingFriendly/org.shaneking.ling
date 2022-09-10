@@ -82,9 +82,9 @@ public abstract class AbstractDialectSqlEntity<J> extends AbstractSqlEntity<J> i
   public String nameInMessage(String name) {
     return String0.wrap(name
         + String0.wrap(this.getNo()
-        + String0.wrap(this.getId()
-      , String0.OPEN_BRACKET, String0.CLOSE_BRACKET)
-      , String0.OPEN_PARENTHESIS, String0.CLOSE_PARENTHESIS)
+          + String0.wrap(this.getId()
+          , String0.OPEN_BRACKET, String0.CLOSE_BRACKET)
+        , String0.OPEN_PARENTHESIS, String0.CLOSE_PARENTHESIS)
       , String0.GRAVE_ACCENT);
   }
 

@@ -32,4 +32,11 @@ public class ReqMsgBdy<I> {
   public static <I> ReqMsgBdy<I> build() {
     return new ReqMsgBdy<I>();
   }
+
+  public Tbl gnnTbl() {
+    if (this.getTbl() == null) {
+      this.setTbl(new Tbl());
+    }
+    return this.getTbl();
+  }
 }
