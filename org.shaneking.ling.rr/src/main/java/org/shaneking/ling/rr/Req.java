@@ -16,7 +16,9 @@ public class Req<I> {
   @Transient
   public static final String ERR_CODE__REQUIRED_CHANNEL_NUMBER = "REQ__REQUIRED_CHANNEL_NUMBER";
   @Transient
-  public static final String ERR_CODE__REQUIRED_REQ_MSG_NODE = "REQ__REQUIRED_REQ_MSG_NODE";
+  public static final String ERR_CODE__BAD_WITH_MESSAGE = "REQ__BAD_WITH_MESSAGE";
+  @Transient
+  public static final String ERR_CODE__BAD_WITH_TAMPERED = "REQ__BAD_WITH_TAMPERED";
   @Getter
   @Setter
   private String cno;//ChannelNo

@@ -15,8 +15,6 @@ import java.util.Map;
 public interface Entities {
   @Transient
   String ERR_CODE__INVALID = "ENTITIES__INVALID";
-  @Transient
-  String ERR_CODE__NOT_FOUND = "ENTITIES__NOT_FOUND";
 
   String deletedFullTableName();
 

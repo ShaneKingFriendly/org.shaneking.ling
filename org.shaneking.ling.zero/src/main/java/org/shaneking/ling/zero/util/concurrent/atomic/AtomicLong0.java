@@ -5,6 +5,8 @@ import lombok.NonNull;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class AtomicLong0 {
+  public static final String ERR_CODE__BUSY_NOW = "ATOMIC_LONG0__BUSY_NOW";
+
   public static boolean tryDecreaseFailed(AtomicLong al) {
     return tryDecreaseFailed(al, 0);
   }
