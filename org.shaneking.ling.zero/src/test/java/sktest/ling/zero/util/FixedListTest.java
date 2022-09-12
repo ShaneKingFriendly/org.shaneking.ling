@@ -21,6 +21,7 @@ class FixedListTest {
     assertEquals("[6, 9, 8]", fixedList.toString());
   }
 
+
   @Test
   void addAll() {
     FixedList<Integer> fixedList = new FixedList<>();

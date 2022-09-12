@@ -299,4 +299,16 @@ class String0Test {
 
     assertNull(String0.wrapParenthesis(null, true));
   }
+
+  @Test
+  void similarity() {
+    assertAll(
+      () -> assertEquals(0.18181818181818182, String0.similarity("哟~ 都好都好", "嗨！祝你一整天都有好心情！")),
+      () -> assertEquals(0.18181818181818182, String0.similarity("嗨！祝你一整天都有好心情！", "哟~ 都好都好")),
+      () -> assertEquals(0.8333333333333334, String0.similarity("我是中国人", "我是中国的人")),
+      () -> assertEquals(0.8333333333333334, String0.similarity("我是中国的人", "我是中国人")),
+
+      () -> assertEquals(0.0, String0.similarity("“h”是啥意思？", "上海，今天阴，当前温度23°，空气质量优，东北风。明天大雨，最低温度23°，最高温度25°，空气质量优。"))
+    );
+  }
 }
