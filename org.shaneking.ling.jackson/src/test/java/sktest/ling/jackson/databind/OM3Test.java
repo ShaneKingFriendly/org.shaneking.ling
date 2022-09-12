@@ -190,9 +190,9 @@ class OM3Test extends SKUnit {
     assertAll(
       () -> assertEquals("1", OM3.writeValueAsString(1)),
       () -> assertEquals("\"1\"", OM3.writeValueAsString("1")),
-      () -> assertEquals(OM3.OBJECT_ERROR_STRING, OM3.writeValueAsString(Map0.newHashMap())),
+      () -> assertEquals(OM3.OBJECT_EMPTY_STRING, OM3.writeValueAsString(Map0.newHashMap())),
       () -> assertEquals(Object0.NULL, OM3.writeValueAsString(null)),
-      () -> assertThrows(ZeroException.class, () -> OM3.writeValueAsString(new OM3Prepare2())),
+      () -> assertDoesNotThrow(() -> OM3.writeValueAsString(new OM3Prepare2())),
       () -> assertEquals("[]", OM3.writeValueAsString(List0.newArrayList())),
       () -> assertEquals("\"java.lang.Object\"", OM3.writeValueAsString(Object.class)),
       () -> assertEquals("\"java.lang.String\"", OM3.writeValueAsString(String.class)),
@@ -201,7 +201,7 @@ class OM3Test extends SKUnit {
       () -> assertThrows(NullPointerException.class, () -> OM3.writeValueAsString(null, null)),
       () -> assertThrows(NullPointerException.class, () -> OM3.writeValueAsString(null, true)),
 
-      () -> assertNull(OM3.writeValueAsString(OM3.om(), new OM3Prepare2(), true))
+      () -> assertEquals(OM3.OBJECT_EMPTY_STRING, OM3.writeValueAsString(OM3.om(), new OM3Prepare2(), true))
     );
   }
 

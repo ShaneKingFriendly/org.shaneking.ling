@@ -3,10 +3,7 @@ package org.shaneking.ling.jackson.databind;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
@@ -23,7 +20,7 @@ import java.util.Map;
 
 @Slf4j
 public class OM3 {
-  public static final String OBJECT_ERROR_STRING = "{}";
+  public static final String OBJECT_EMPTY_STRING = "{}";
 
   private static ObjectMapper OM = null;
 
@@ -61,6 +58,7 @@ public class OM3 {
     if (OM == null) {
       OM = new ObjectMapper();
       OM.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+      OM.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
       OM.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
     return OM;
@@ -212,7 +210,7 @@ public class OM3 {
   }
 
   public static <T> T readValue(T t) {
-    return OBJECT_ERROR_STRING.equals(writeValueAsString(t)) ? null : t;
+    return OBJECT_EMPTY_STRING.equals(writeValueAsString(t)) ? null : t;
   }
 
   public static <T> T treeToValue(@NonNull ObjectMapper objectMapper, TreeNode n, Class<T> valueType) {
