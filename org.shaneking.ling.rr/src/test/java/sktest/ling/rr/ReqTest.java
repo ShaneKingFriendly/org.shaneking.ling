@@ -17,11 +17,11 @@ class ReqTest extends SKUnit {
   void build() {
     String cul33 = UUID0.cUl33();
     assertAll(
-      () -> assertEquals("Req(cno=null, tkn=null, mvc=null, enc=null, msg=null, ctx=null)", Req.build().toString()),
+      () -> assertEquals("Req(super=OpenReq(cno=null, tkn=null, mvc=null, enc=null, msg=null), ctx=null)", Req.build().toString()),
 
       () -> assertEquals("{}", OM3.writeValueAsString(Req.build())),
       () -> assertEquals("{\"msg\":{\"rno\":\"" + cul33 + "\",\"tno\":\"" + cul33 + "\"}}", OM3.writeValueAsString(Req.build().setMsg(ReqMsg.build().setRno(cul33).setTno(cul33)))),
-      () -> assertEquals("{\"msg\":{\"rno\":\"" + cul33 + "\",\"tno\":\"" + cul33 + "\",\"bdy\":{}}}", OM3.writeValueAsString(Req.build().setMsg(ReqMsg.build().setRno(cul33).setTno(cul33)).srtMsgBdy(ReqMsgBdy.build()))),
+      () -> assertEquals("{\"msg\":{\"rno\":\"" + cul33 + "\",\"tno\":\"" + cul33 + "\"}}", OM3.writeValueAsString(Req.build().srtMsgBdy(ReqMsgBdy.build()).setMsg(ReqMsg.build().setRno(cul33).setTno(cul33)))),
       () -> assertEquals("{\"enc\":\"enc\"}", OM3.writeValueAsString(Req.build().setEnc("enc"))),
 
       () -> assertEquals("{\"ctx\":{\"language\":\"zh_CN\",\"rtuMap\":{},\"trtList\":[],\"tutList\":[]}}", OM3.writeValueAsString(Req.build().setCtx(new Req().gnnCtx().setLanguage("zh_CN"))))

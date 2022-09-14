@@ -11,29 +11,14 @@ import org.shaneking.ling.zero.lang.String0;
 import javax.persistence.Transient;
 
 @Accessors(chain = true)
-@ToString
-public class Req<I> {
+@ToString(callSuper = true)
+public class Req<I> extends OpenReq<I> {
   @Transient
   public static final String ERR_CODE__REQUIRED_CHANNEL_NUMBER = "REQ__REQUIRED_CHANNEL_NUMBER";
   @Transient
   public static final String ERR_CODE__BAD_WITH_MESSAGE = "REQ__BAD_WITH_MESSAGE";
   @Transient
   public static final String ERR_CODE__BAD_WITH_TAMPERED = "REQ__BAD_WITH_TAMPERED";
-  @Getter
-  @Setter
-  private String cno;//ChannelNo
-  @Getter
-  @Setter
-  private String tkn;//Token, for one request on secret key scenario.
-  @Getter
-  @Setter
-  private String mvc;//Message Verification Code
-  @Getter
-  @Setter
-  private String enc;//ciphertext of msg
-  @Getter
-  @Setter
-  private ReqMsg<I> msg;
 
   @Getter
   @Schema(hidden = true)

@@ -11,20 +11,11 @@ import org.shaneking.ling.zero.lang.Boolean0;
 import org.shaneking.ling.zero.lang.String0;
 
 @Accessors(chain = true)
-@ToString
-public class Resp<O, I> {
+@ToString(callSuper = true)
+public class Resp<O, I> extends OpenResp<O> {
   public static final String CODE_UNKNOWN_EXCEPTION = "-1";
   public static final String CODE_SUCCESSFULLY = "0";
   public static final String CODE_PARTIAL_SUCCESS = "1";
-  @Getter
-  @Setter
-  private String mvc;//Message Verification Code
-  @Getter
-  @Setter
-  private String enc;//ciphertext of msg
-  @Getter
-  @Setter
-  private RespMsg<O> msg;
 
   @Getter
   @Schema(hidden = true)
@@ -40,7 +31,8 @@ public class Resp<O, I> {
   }
 
   public static <O, I> Resp<O, I> build(I req, String code, O data, String info) {
-    Resp<O, I> rtn = new Resp<O, I>().setReq(req).setMsg(RespMsg.<O>build().setBody(RespMsgBody.build(code, data, info)));
+    Resp<O, I> rtn = new Resp<O, I>().setReq(req);
+    rtn.setMsg(RespMsg.<O>build().setBody(RespMsgBody.build(code, data, info)));
     if (req instanceof Req) {
       rtn.gnnMsg().setRno(((Req<?>) req).gnnMsg().gnnRno()).setAno(((Req<?>) req).gnnMsg().gnnAno());
     }
